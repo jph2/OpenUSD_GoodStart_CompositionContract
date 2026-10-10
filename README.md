@@ -137,6 +137,10 @@ The default working state locks all persistent layers and selects Session Layer.
 
 OpenUSD-GoodStart remains a knowledge reference and potential consumer. TutorialBuilder remains a teaching consumer. The private `OpenUSD_GoodStart_Pipeline_nodes` repository is a candidate backbone for a future composition pipeline, subject to interface and suitability review. This project must remain understandable and eventually inspectable without that private dependency.
 
+## AI assistance disclosure
+
+This project was developed with the assistance of AI tools, including OpenAI Codex, for research support, drafting and refining documentation, and developing code and examples. Human contributors remain responsible for project decisions, review and verification. AI-assisted content may contain errors or omissions; claims and examples should be evaluated against the cited sources and composition contracts. Only explicitly recorded checks should be treated as verified results.
+
 ## Participation
 
 Propose changes with a purpose, requirements, the relevant CC rules, an example and criteria for evaluating the result. Compare alternatives against those criteria and record evidence, uncertainty and counterexamples. Feedback from people exploring different OpenUSD workflows will help refine both the contracts and their evaluations. See [contribution guidance](CONTRIBUTING.md).

@@ -1,5 +1,9 @@
 # Resume state
 
+## AI assistance disclosure
+
+Added a README disclosure at Jan's request acknowledging AI tools, including OpenAI Codex, in research support, documentation, code and examples. It retains human responsibility and distinguishes recorded checks from unverified content. Documentation only; no tests, commit or push in this increment.
+
 ## Publication checkpoint
 
 Jan requested commit and push of the accumulated 0.1.1 work: contracts, roadmap, diagrams, direct SceneROOT entrypoints, launcher/generator updates and retained migration evidence. The raw direct_root_kit.log remains local; the research-paper edit belongs to its separate repository and is outside this commit. No tests were run for publication. See Git history for the resulting commit; push outcome is reported in the task.
