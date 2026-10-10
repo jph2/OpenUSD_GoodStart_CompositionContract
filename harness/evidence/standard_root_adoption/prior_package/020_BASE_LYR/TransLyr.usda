@@ -1,0 +1,76 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "cc:context" = "unconditional"
+        string "cc:owner" = "scene:LayeredScene@1"
+        string "cc:profile" = "CC-EXAMPLE-01/0.2"
+        string "cc:role" = "TransLyr"
+    }
+)
+
+over "World"
+{
+    over "Cube01"
+    {
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (-220, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    over "Cube02"
+    {
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    over "Cone01"
+    {
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (220, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    over "Pair01"
+    {
+        double3 xformOp:rotateXYZ = (0, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 260, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    }
+
+    over "Environment"
+    {
+        over "Ground"
+        {
+            double3 xformOp:rotateXYZ = (0, 0, 0)
+            double3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, -0.2)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+    }
+
+    over "Lights"
+    {
+        over "Key"
+        {
+            double3 xformOp:rotateXYZ = (-35, 0, -30)
+            double3 xformOp:scale = (1, 1, 1)
+            double3 xformOp:translate = (0, 0, 0)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+        }
+    }
+
+    over "Cameras"
+    {
+        over "Overview"
+        {
+            matrix4d xformOp:transform = ( (0.8221921916437784, 0.5692099788303082, 2.7755575615628907e-17, 0), (-0.28858208880637554, 0.4168407949425424, 0.8619536702699386, -0), (0.49063263040705835, -0.7086915772546399, 0.506987051420627, 0), (899.9999999999999, -1199.9999999999998, 999.9999999999998, 1) )
+            uniform token[] xformOpOrder = ["xformOp:transform"]
+        }
+    }
+}
+

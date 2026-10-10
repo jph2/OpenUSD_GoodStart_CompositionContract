@@ -1,0 +1,39 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "cc:context" = "unconditional"
+        string "cc:defaultAuthoring" = "session"
+        bool "cc:lockPersistentLayers" = 1
+        string "cc:owner" = "assembly:DisplayPair@1"
+        string "cc:profile" = "CC-EXAMPLE-01/0.2"
+        string "cc:role" = "Root"
+        dictionary omni_layer = {
+            dictionary locked = {
+                bool "../../MatLib/Palette_v001.usda" = 1
+                bool "../../USD_Wrappers/Cone/Cone.usda" = 1
+                bool "../../USD_Wrappers/Cone/layers/GeoLyr.usda" = 1
+                bool "../../USD_Wrappers/Cone/layers/MatLyr.usda" = 1
+                bool "../../USD_Wrappers/Cone/layers/TransLyr.usda" = 1
+                bool "../../USD_Wrappers/Cone/layers/VariLyr.usda" = 1
+                bool "../../USD_Wrappers/Cube/Cube.usda" = 1
+                bool "../../USD_Wrappers/Cube/layers/GeoLyr.usda" = 1
+                bool "../../USD_Wrappers/Cube/layers/MatLyr.usda" = 1
+                bool "../../USD_Wrappers/Cube/layers/TransLyr.usda" = 1
+                bool "../../USD_Wrappers/Cube/layers/VariLyr.usda" = 1
+                bool "./layers/GeoLyr.usda" = 1
+                bool "./layers/TransLyr.usda" = 1
+                bool "./layers/VariLyr.usda" = 1
+            }
+        }
+    }
+    defaultPrim = "DisplayPair"
+    metersPerUnit = 0.009999999776482582
+    subLayers = [
+        @./layers/VariLyr.usda@,
+        @./layers/TransLyr.usda@,
+        @./layers/GeoLyr.usda@
+    ]
+    timeCodesPerSecond = 60
+    upAxis = "Z"
+)
+

@@ -1,0 +1,81 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "cc:context" = "Palette branches"
+        string "cc:owner" = "assembly:DisplayPair@1"
+        string "cc:profile" = "CC-EXAMPLE-01/0.2"
+        string "cc:role" = "VariLyr"
+    }
+)
+
+over "DisplayPair" (
+    variants = {
+        string Palette = "Warm"
+    }
+    prepend variantSets = "Palette"
+)
+{
+    variantSet "Palette" = {
+        "Cool" {
+            over "CubePart"
+            {
+                over "Adjustment"
+                {
+                    over "Asset" (
+                        variants = {
+                            string Finish = "Blue"
+                        }
+                    )
+                    {
+                    }
+                }
+            }
+
+            over "ConePart"
+            {
+                over "Adjustment"
+                {
+                    over "Asset" (
+                        variants = {
+                            string Finish = "Blue"
+                        }
+                    )
+                    {
+                    }
+                }
+            }
+
+        }
+        "Warm" {
+            over "CubePart"
+            {
+                over "Adjustment"
+                {
+                    over "Asset" (
+                        variants = {
+                            string Finish = "Red"
+                        }
+                    )
+                    {
+                    }
+                }
+            }
+
+            over "ConePart"
+            {
+                over "Adjustment"
+                {
+                    over "Asset" (
+                        variants = {
+                            string Finish = "Yellow"
+                        }
+                    )
+                    {
+                    }
+                }
+            }
+
+        }
+    }
+}
+

@@ -1,0 +1,415 @@
+{
+  "contract_sha256": "9c9c9d46986211f4e129a41339d241cbd6bf712ad69609bdb9f712b9e0398997",
+  "generator": "tools/build_example.py",
+  "generator_sha256": "f081de981eb905732b0974d96c30bb0c2b66b3555cfeff289a04f4d935abefa3",
+  "human_acceptance": "pending",
+  "load": "LoadAll",
+  "observations": {
+    "World_Manual.usda": {
+      "composition_errors": [],
+      "cubes": {
+        "Cube01": {
+          "resolved_material": "/World/Cube01/Adjustment/Asset/Looks/Red",
+          "resolved_scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "selections": {
+            "Finish": "Red",
+            "Size": "Normal"
+          }
+        },
+        "Cube02": {
+          "resolved_material": "/World/Cube02/Adjustment/Asset/Looks/Blue",
+          "resolved_scale": [
+            1.0,
+            1.0,
+            2.0
+          ],
+          "selections": {
+            "Finish": "Blue",
+            "Size": "Tall"
+          }
+        }
+      },
+      "default_prim": "/World",
+      "kit_startup_execution": "not exercised by this USD read-back",
+      "saved_authoring_policy": "session",
+      "saved_lock_count": 28
+    },
+    "World_MaskedSelection.usda": {
+      "composition_errors": [],
+      "cubes": {
+        "Cube01": {
+          "resolved_material": "/World/Cube01/Adjustment/Asset/Looks/Blue",
+          "resolved_scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "selections": {
+            "Finish": "Blue",
+            "Size": "Normal"
+          }
+        },
+        "Cube02": {
+          "resolved_material": "/World/Cube02/Adjustment/Asset/Looks/Blue",
+          "resolved_scale": [
+            1.0,
+            1.0,
+            2.0
+          ],
+          "selections": {
+            "Finish": "Blue",
+            "Size": "Tall"
+          }
+        }
+      },
+      "default_prim": "/World",
+      "kit_startup_execution": "not exercised by this USD read-back",
+      "saved_authoring_policy": "session",
+      "saved_lock_count": 30
+    },
+    "World_MaskedSize.usda": {
+      "composition_errors": [],
+      "cubes": {
+        "Cube01": {
+          "resolved_material": "/World/Cube01/Adjustment/Asset/Looks/Red",
+          "resolved_scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "selections": {
+            "Finish": "Red",
+            "Size": "Normal"
+          }
+        },
+        "Cube02": {
+          "resolved_material": "/World/Cube02/Adjustment/Asset/Looks/Blue",
+          "resolved_scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "selections": {
+            "Finish": "Blue",
+            "Size": "Tall"
+          }
+        }
+      },
+      "default_prim": "/World",
+      "kit_startup_execution": "not exercised by this USD read-back",
+      "saved_authoring_policy": "session",
+      "saved_lock_count": 30
+    },
+    "World_Scenarios.usda": {
+      "composition_errors": [],
+      "cubes": {
+        "Cube01": {
+          "resolved_material": "/World/Cube01/Adjustment/Asset/Looks/Red",
+          "resolved_scale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "selections": {
+            "Finish": "Red",
+            "Size": "Normal"
+          }
+        },
+        "Cube02": {
+          "resolved_material": "/World/Cube02/Adjustment/Asset/Looks/Blue",
+          "resolved_scale": [
+            1.0,
+            1.0,
+            2.0
+          ],
+          "selections": {
+            "Finish": "Blue",
+            "Size": "Tall"
+          }
+        }
+      },
+      "default_prim": "/World",
+      "kit_startup_execution": "not exercised by this USD read-back",
+      "saved_authoring_policy": "session",
+      "saved_lock_count": 28
+    }
+  },
+  "package_files_at_recording": [
+    {
+      "bytes": 207,
+      "path": "000_SOURCE/README.md",
+      "sha256": "888c59278b45af4e50a2878f0138679c4681bca72ecc7f1ed13c085a4000ab91"
+    },
+    {
+      "bytes": 1529,
+      "path": "010_ASS_USD/Assemblies/DisplayPair/DisplayPair.usda",
+      "sha256": "4620a62d9aeb9314f310e668a6dffa24edba7c80fe6ed84714b85b7f1398266e"
+    },
+    {
+      "bytes": 762,
+      "path": "010_ASS_USD/Assemblies/DisplayPair/layers/GeoLyr.usda",
+      "sha256": "f440f83260a968c098a741e7afcc12cd4622348e91084cf3f5d6b88d7bebf736"
+    },
+    {
+      "bytes": 790,
+      "path": "010_ASS_USD/Assemblies/DisplayPair/layers/TransLyr.usda",
+      "sha256": "9ccfb7532983cfa2733146f357a61d2d29ae11548ba403d1dd1e7e348cb8c2b2"
+    },
+    {
+      "bytes": 1811,
+      "path": "010_ASS_USD/Assemblies/DisplayPair/layers/VariLyr.usda",
+      "sha256": "91af8b5ff6f0737b996053eeb0fe44bf29985c4f1cb3b2b2727ccf77b0eb3a0e"
+    },
+    {
+      "bytes": 604,
+      "path": "010_ASS_USD/Envs/Ground/Ground.usda",
+      "sha256": "23340c3876e23dcbea9525fe384506679f36637f4f91d1ec60af304c489171b8"
+    },
+    {
+      "bytes": 602,
+      "path": "010_ASS_USD/Envs/Ground/layers/GeoLyr.usda",
+      "sha256": "7ba62d0f4dece905738947d68596f4855b88d5d5e7ed65b7c2dc84207598a3c7"
+    },
+    {
+      "bytes": 1890,
+      "path": "010_ASS_USD/MatLib/Palette_v001.usda",
+      "sha256": "b788e949023494272d812a920224552ea29e3408619de8062753309150f26319"
+    },
+    {
+      "bytes": 168,
+      "path": "010_ASS_USD/tex/README.md",
+      "sha256": "3ea4707dcef0d76fb3565fadb765e1649a4d9a3661765eb907553c7cd8da49a3"
+    },
+    {
+      "bytes": 318,
+      "path": "010_ASS_USD/USD_Startpoint/README.md",
+      "sha256": "796508208409012cfa2fda78b12f67c8420e4b6cb88df1697fc0a7421ae3e6e5"
+    },
+    {
+      "bytes": 904,
+      "path": "010_ASS_USD/USD_Wrappers/Cone/Cone.usda",
+      "sha256": "829075b152ce6d36cada1aa2afe4c3f7021f8dfc8cbeb08a121e617a29ffe567"
+    },
+    {
+      "bytes": 451,
+      "path": "010_ASS_USD/USD_Wrappers/Cone/layers/GeoLyr.usda",
+      "sha256": "e1612d7ed7d3d4314d335104d5e3f1e112975bbd1a909b706b2e16971eb08805"
+    },
+    {
+      "bytes": 712,
+      "path": "010_ASS_USD/USD_Wrappers/Cone/layers/MatLyr.usda",
+      "sha256": "04d85ab0308a3e2ad0dc8f01b78e676ee9cb8c2bdf13d78bb85d519455eb53e2"
+    },
+    {
+      "bytes": 505,
+      "path": "010_ASS_USD/USD_Wrappers/Cone/layers/TransLyr.usda",
+      "sha256": "b4516962eb0d50f6621c83e2f57530d4eeabb398d3adc9d9d8a350644a75007e"
+    },
+    {
+      "bytes": 1530,
+      "path": "010_ASS_USD/USD_Wrappers/Cone/layers/VariLyr.usda",
+      "sha256": "faecb4175e0d66441b15a3d6b38c842abd581f45fe69b0cf5f86aeae9d741a75"
+    },
+    {
+      "bytes": 904,
+      "path": "010_ASS_USD/USD_Wrappers/Cube/Cube.usda",
+      "sha256": "022fea95c1c1d1a559632e8d2923e2a7fba35269e917f9dcaec332b7c9e12244"
+    },
+    {
+      "bytes": 389,
+      "path": "010_ASS_USD/USD_Wrappers/Cube/layers/GeoLyr.usda",
+      "sha256": "c28ed14a31b56b8ae502556856d8e43dc7d523037eb56bbf029a464b944b100c"
+    },
+    {
+      "bytes": 712,
+      "path": "010_ASS_USD/USD_Wrappers/Cube/layers/MatLyr.usda",
+      "sha256": "56474ca0b8abdc77cd06e32e3f2b41a3299b76ba2537fbeb1dec0176cce97278"
+    },
+    {
+      "bytes": 505,
+      "path": "010_ASS_USD/USD_Wrappers/Cube/layers/TransLyr.usda",
+      "sha256": "2532363ed7f7c7af41cdc38a86e51da1f822b2ab59fd8a741c4afd9570fd3ddc"
+    },
+    {
+      "bytes": 1527,
+      "path": "010_ASS_USD/USD_Wrappers/Cube/layers/VariLyr.usda",
+      "sha256": "7843bc9a2d92ec7545303eb1372309de0cda9c8688b0306b00e9c8534305dd52"
+    },
+    {
+      "bytes": 495,
+      "path": "020_BASE_LYR/CamLyr.usda",
+      "sha256": "368b3d09a014930ef14845087863cdb0e1c3e559d51a6aa0a0a1aaa6c770669b"
+    },
+    {
+      "bytes": 418,
+      "path": "020_BASE_LYR/EnvLyr.usda",
+      "sha256": "ef5171563d9c9ba00585c0c61a60ed129ed4839d75ce3f97618439a584765ae3"
+    },
+    {
+      "bytes": 1234,
+      "path": "020_BASE_LYR/GeoLyr.usda",
+      "sha256": "9e38e7c9a1dfae0289bb84702f2baf2a9c516a3b08b23122d4707c158a389c67"
+    },
+    {
+      "bytes": 499,
+      "path": "020_BASE_LYR/LightLyr.usda",
+      "sha256": "3dcc037829b6770250c4281b9d0eafacee75be3785e310bcdf8df5030ee3bf83"
+    },
+    {
+      "bytes": 638,
+      "path": "020_BASE_LYR/MatLyr.usda",
+      "sha256": "b4d243c7b7fee5b2fe9298b4cf1b4ed867e041676af0137747cd7d41ff61dc96"
+    },
+    {
+      "bytes": 442,
+      "path": "020_BASE_LYR/RenderLyr.usda",
+      "sha256": "9ce26439b2702d01f29aac9a655561ad0cc037ef06c766314824e0ab541d1aef"
+    },
+    {
+      "bytes": 5723,
+      "path": "020_BASE_LYR/Scenarios/VariLyr.usda",
+      "sha256": "8f2e6dc35a7e449d6b9515b1c35ee0321bf00d590c308cd987a3899005c63367"
+    },
+    {
+      "bytes": 2415,
+      "path": "020_BASE_LYR/TransLyr.usda",
+      "sha256": "3b908f4c29594946b2c8d6cd4157a815b26de33e429c08d2610ed69251d9f623"
+    },
+    {
+      "bytes": 1323,
+      "path": "020_BASE_LYR/VariLyr.usda",
+      "sha256": "d0050f8e7dba4dc14ff40dcebeb781632dc1ea397efa2807e34528e5a717b141"
+    },
+    {
+      "bytes": 197,
+      "path": "030_SIM_LYR/README.md",
+      "sha256": "7b81834e8a767de06b19be526539cd984c18298a6568ca7b08ea6893082937a6"
+    },
+    {
+      "bytes": 216,
+      "path": "035_RUNTIME_LYR/README.md",
+      "sha256": "0e947796300ac1b1c2b39692002ecedbd6b4bac6f64ed983dff3265610a72683"
+    },
+    {
+      "bytes": 365,
+      "path": "040_DATA_LYRs/Data/ContextLyr.usda",
+      "sha256": "1e210875f5356e9ba43e43f081ddf8392e75b9d40cc6541f52bd05aed05b96f3"
+    },
+    {
+      "bytes": 610,
+      "path": "040_DATA_LYRs/Data/IdentityLyr.usda",
+      "sha256": "d59127d8b94c0cb0c3ed585323bafe568f849925ce4f12f033fdb4102be9ed70"
+    },
+    {
+      "bytes": 321,
+      "path": "040_DATA_LYRs/DataLyr.usda",
+      "sha256": "97b35d5e866c42abb3bd6e004f1d46a8949d53ba2ae695a8af29a12874675b23"
+    },
+    {
+      "bytes": 216,
+      "path": "040_DATA_LYRs/README.md",
+      "sha256": "b231cc08345ca0093b710cf75517f5a782abb3e10fe073e8413c1616eccc18c3"
+    },
+    {
+      "bytes": 504,
+      "path": "050_REVIEW/MaskedSelection/ReviewLyr.usda",
+      "sha256": "710babe13e17f21bf455d2480bdf8d612dd025912c8af209eb147d450b48eba7"
+    },
+    {
+      "bytes": 448,
+      "path": "050_REVIEW/MaskedSize/ReviewLyr.usda",
+      "sha256": "7f6234cb4a7e48486e2c7d71d2e72d8ee0dbe28c8f8e52321fe1a85909144579"
+    },
+    {
+      "bytes": 242,
+      "path": "050_REVIEW/README.md",
+      "sha256": "92a6191a318d92f6f9bc0e2275db8130f9a156e0d943adecaa93a22d808cc8e8"
+    },
+    {
+      "bytes": 1681,
+      "path": "_contracts/expected.json",
+      "sha256": "75b3fd304300e6fa69605196bab39e041c2e4d0a97798a8428b806739dca7649"
+    },
+    {
+      "bytes": 4774,
+      "path": "_contracts/ownership.json",
+      "sha256": "43071923b64f2e0e7dedbb2c0745ed7be9c75f7899c5d6a16e3d016eb7c6f4f2"
+    },
+    {
+      "bytes": 8733,
+      "path": "_contracts/profile.json",
+      "sha256": "2558c265d0f6764f7bf052a3b30109f1859cbdfbeeaf3428934f5bdbf051fe91"
+    },
+    {
+      "bytes": 399,
+      "path": "_contracts/README.md",
+      "sha256": "81d4f166da0205b41b8cdac870d618171ea302be43583e0b4cdbf1ab5d64e082"
+    },
+    {
+      "bytes": 305,
+      "path": "_pipeline_reports/README.md",
+      "sha256": "919b0f8a537a100cf57c5ba6351d103fb806acc00a39124a081422df089b2723"
+    },
+    {
+      "bytes": 5067,
+      "path": "_workflows/kit/session_defaults.py",
+      "sha256": "13a68e105eebf42f3403cb4134aec9dcc4f5aafb0e393e928772463d9e984abb"
+    },
+    {
+      "bytes": 327,
+      "path": "_workflows/README.md",
+      "sha256": "e15fb874e18ab55dee0f5986cd82e885d360f5cd0d8359e56856e0e00f8ac8be"
+    },
+    {
+      "bytes": 9362,
+      "path": "COMPOSITION_MEMORY_CHART.svg",
+      "sha256": "791bfec0e6a7425c7627a022d60cf093b657d9083d31b750118c758cea2204a0"
+    },
+    {
+      "bytes": 1242,
+      "path": "Open_In_Kit.ps1",
+      "sha256": "6b22bfb4dfc0e96454dccbcbb22ee39f0c1570931ef8defd20908d5b30179611"
+    },
+    {
+      "bytes": 9240,
+      "path": "README.md",
+      "sha256": "585695e3bcfe8abaf5e50f863d58cd86f88368b9f2d8062de43a2b79ba87c267"
+    },
+    {
+      "bytes": 2971,
+      "path": "World_Manual.usda",
+      "sha256": "6729eb17fd4325bbdf4725bf6e750ca6a73ec11ebe145e19cc1ee0f7b6e90aaa"
+    },
+    {
+      "bytes": 2732,
+      "path": "World_MaskedSelection.usda",
+      "sha256": "e4d96c7b5f9505a6e1da2d960642df70d27360fb37126a9d9ceebe21ff853f96"
+    },
+    {
+      "bytes": 2706,
+      "path": "World_MaskedSize.usda",
+      "sha256": "65c0e3d3a84b2723bcb48e2f174dfbb10c8dad5e9c218ee5d785b546560b99e0"
+    },
+    {
+      "bytes": 2991,
+      "path": "World_Scenarios.usda",
+      "sha256": "747808f3f7c358afc1a8ce5f1bc119c643f7c8e7220e41275de776478df72692"
+    }
+  ],
+  "profile": "CC-EXAMPLE-01/0.2",
+  "python": "3.13.3",
+  "schema": "cc-example-build/0.1",
+  "scope": "authoring and default-entrypoint read-back only; no acceptance tests run",
+  "session": "empty",
+  "tests": "not run",
+  "time": "default",
+  "usd": [
+    0,
+    26,
+    8
+  ]
+}

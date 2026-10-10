@@ -1,0 +1,141 @@
+{
+  "authority": "Project-authored demo design, revision 0.2",
+  "common_policy": {
+    "conflict": "report undeclared overlap; no automatic routing or repair",
+    "evidence": "expected.json; build_manifest.json; manual UI review pending",
+    "lifecycle": "draft local example",
+    "persistence": "explicit save to declared file; static authored data",
+    "source_authority": "This example design; no PLM or external engineering authority"
+  },
+  "owners": [
+    {
+      "fields": "UsdPreviewSurface shader values",
+      "id": "library:Palette@1",
+      "override": "new reviewed library revision; no scene shader edits",
+      "package": "010_ASS_USD/MatLib/Palette_v001.usda",
+      "public": "/Materials/{Red,Blue,Yellow,Ground}",
+      "role": "MatLyr"
+    },
+    {
+      "defaults": {
+        "Finish": "Red",
+        "Size": "Normal"
+      },
+      "edit_targets": "layers/GeoLyr, TransLyr, MatLyr, VariLyr.usda according to role",
+      "fields": "geometry; intrinsic placement; branch scale/order; branch material binding",
+      "id": "asset:Cube@1",
+      "override": "downstream selects public variants; private edits only in explicit review fixture",
+      "package": "010_ASS_USD/USD_Wrappers/Cube/Cube.usda",
+      "pivot": "base center; Z-up; 100 cm height in Normal",
+      "private": [
+        "/Cube/Geometry",
+        "/Cube/Looks"
+      ],
+      "public": "/Cube",
+      "variants": {
+        "Finish": [
+          "Red",
+          "Blue",
+          "Yellow"
+        ],
+        "Size": [
+          "Normal",
+          "Large",
+          "Tall"
+        ]
+      }
+    },
+    {
+      "defaults": {
+        "Finish": "Yellow",
+        "Size": "Normal"
+      },
+      "edit_targets": "layers/GeoLyr, TransLyr, MatLyr, VariLyr.usda according to role",
+      "fields": "geometry; intrinsic placement; branch scale/order; branch material binding",
+      "id": "asset:Cone@1",
+      "override": "downstream selects public variants; private edits only in explicit review fixture",
+      "package": "010_ASS_USD/USD_Wrappers/Cone/Cone.usda",
+      "pivot": "base center; Z-up; 100 cm height in Normal",
+      "private": [
+        "/Cone/Geometry",
+        "/Cone/Looks"
+      ],
+      "public": "/Cone",
+      "variants": {
+        "Finish": [
+          "Red",
+          "Blue",
+          "Yellow"
+        ],
+        "Size": [
+          "Normal",
+          "Large",
+          "Tall"
+        ]
+      }
+    },
+    {
+      "defaults": {
+        "Palette": "Warm"
+      },
+      "edit_targets": "layers/GeoLyr, TransLyr, VariLyr.usda according to role",
+      "fields": "child references; child placement; Palette branch child Finish selections",
+      "id": "assembly:DisplayPair@1",
+      "override": "scene selects Palette; child paths remain assembly implementation",
+      "package": "010_ASS_USD/Assemblies/DisplayPair/DisplayPair.usda",
+      "public": "/DisplayPair",
+      "variants": {
+        "Palette": [
+          "Warm",
+          "Cool"
+        ]
+      }
+    },
+    {
+      "fields": "supplied ground/collider, lighting, viewport cameras, materials and render state",
+      "id": "application:OmniverseStandard",
+      "override": "preserve the user-selected startup scene; explicit later changes only",
+      "package": "ROOT_example.usda",
+      "public": [
+        "/Environment",
+        "/Render",
+        "/OmniverseKit_*"
+      ],
+      "role": "Root application-template baseline (CC-01 exception)"
+    },
+    {
+      "defaults": {
+        "Layout": "Normal"
+      },
+      "edit_targets": "role registry in profile.json; manual/scenario VariLyr are mutually exclusive",
+      "fields": "occurrence hierarchy, placement, selections, scenario adjustments and project identity",
+      "id": "scene:LayeredScene@1",
+      "override": "named ReviewLyr exceptions only; remove its sublayer to restore baseline",
+      "public": "/World",
+      "variants": {
+        "Layout": [
+          "Normal",
+          "Exploded"
+        ]
+      }
+    }
+  ],
+  "review_exceptions": [
+    {
+      "disposition": "teaching fixture only; exclude from normal root",
+      "file": "050_REVIEW/MaskedSize/ReviewLyr.usda",
+      "reason": "reproduce original local-versus-variant failure",
+      "supersedes": "Size=Tall scale",
+      "target": "/World/Cube02/Adjustment/Asset.xformOp:scale"
+    },
+    {
+      "disposition": "teaching fixture only; exclude from normal root",
+      "file": "050_REVIEW/MaskedSelection/ReviewLyr.usda",
+      "reason": "show direct child selection masking scene scenario",
+      "supersedes": "Layout branch Finish",
+      "target": "/World/Cube01/Adjustment/Asset Finish selection"
+    }
+  ],
+  "schema": "cc-example-ownership/0.1",
+  "team": "Example maintainer (role placeholder; no external acceptance)"
+}

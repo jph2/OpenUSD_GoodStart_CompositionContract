@@ -1,0 +1,22 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "cc:context" = "unconditional"
+        string "cc:owner" = "scene:LayeredScene@1"
+        string "cc:profile" = "CC-EXAMPLE-01/0.2"
+        string "cc:role" = "RenderLyr"
+    }
+)
+
+def "World"
+{
+    def Scope "Render"
+    {
+        def RenderSettings "Settings"
+        {
+            rel camera = </World/Cameras/Overview>
+            uniform int2 resolution = (1440, 960)
+        }
+    }
+}
+

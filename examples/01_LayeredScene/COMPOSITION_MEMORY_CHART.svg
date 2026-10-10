@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1080" viewBox="0 0 1800 1080" role="img" aria-labelledby="title desc">
+  <title id="title">OpenUSD Composition Contracts — composition memory chart</title>
+  <desc id="desc">A schematic of scene roots composing scene-owned role layers, which reference an assembly and reusable assets. Role follows ownership and meaning; scene selections and variant context are preserved. Review layers demonstrate intentional masking only.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10Z" fill="#1685bd"/></marker>
+    <style>
+      .title{font:700 38px 'Segoe UI',Arial,sans-serif;fill:#111827}.sub{font:18px 'Segoe UI',Arial,sans-serif;fill:#607080}.section{font:700 19px 'Segoe UI',Arial,sans-serif;fill:#17212b}.head{font:700 17px 'Segoe UI',Arial,sans-serif;fill:#17212b}.body{font:15px 'Segoe UI',Arial,sans-serif;fill:#263746}.small{font:13px 'Segoe UI',Arial,sans-serif;fill:#526372}.file{font:700 15px 'Segoe UI',Arial,sans-serif;fill:#132b3c}.edge{fill:none;stroke:#1685bd;stroke-width:3;marker-end:url(#arrow)}.edge2{fill:none;stroke:#7894a6;stroke-width:2.5;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1800" height="1080" fill="#ffffff"/>
+  <text x="55" y="58" class="title">Scene composition around owned assets</text>
+  <text x="55" y="92" class="sub">Composition memory chart · CC-EXAMPLE-01/0.2 · schematic of the authored example, acceptance pending</text>
+  <line x1="55" y1="116" x2="1745" y2="116" stroke="#d7e0e6" stroke-width="2"/>
+
+  <!-- scene roots -->
+  <rect x="55" y="160" width="290" height="365" rx="12" fill="#fde8df" stroke="#efb9a6" stroke-width="2"/>
+  <text x="80" y="198" class="section">SCENE ENTRYPOINTS</text>
+  <rect x="78" y="220" width="244" height="62" rx="7" fill="#fff" stroke="#edc5b8"/>
+  <text x="94" y="245" class="file">World_Manual.usda</text><text x="94" y="267" class="small">base scene; manual VariLyr</text>
+  <rect x="78" y="294" width="244" height="62" rx="7" fill="#fff" stroke="#edc5b8"/>
+  <text x="94" y="319" class="file">World_Scenarios.usda</text><text x="94" y="341" class="small">scenario VariLyr instead</text>
+  <rect x="78" y="368" width="244" height="54" rx="7" fill="#fff5f1" stroke="#edc5b8" stroke-dasharray="6 4"/>
+  <text x="94" y="391" class="file">World_MaskedSize.usda</text><text x="94" y="411" class="small">review fixture · intentional mask</text>
+  <rect x="78" y="432" width="244" height="54" rx="7" fill="#fff5f1" stroke="#edc5b8" stroke-dasharray="6 4"/>
+  <text x="94" y="455" class="file">World_MaskedSelection.usda</text><text x="94" y="475" class="small">review fixture · intentional mask</text>
+  <text x="78" y="510" class="small">Root owns metadata + sublayer assembly.</text>
+
+  <!-- ownership boundary -->
+  <rect x="390" y="145" width="620" height="625" rx="18" fill="#f5fbff" stroke="#84c83d" stroke-width="4"/>
+  <text x="420" y="182" class="section">SCENE-OWNED LAYERS · edit the contribution that owns the opinion</text>
+  <text x="420" y="208" class="small">Actual World_Manual order shown strongest → weakest; role names do not define strength.</text>
+  <g>
+    <rect x="420" y="228" width="560" height="48" rx="6" fill="#dceef9"/><text x="440" y="258" class="file">DataLyr.usda</text><text x="600" y="258" class="body">project identity and context</text>
+    <rect x="420" y="286" width="560" height="48" rx="6" fill="#dceef9"/><text x="440" y="316" class="file">RenderLyr · CamLyr · LightLyr</text><text x="760" y="316" class="body">output, optics, lighting</text>
+    <rect x="420" y="344" width="560" height="48" rx="6" fill="#dceef9"/><text x="440" y="374" class="file">EnvLyr · MatLyr</text><text x="620" y="374" class="body">environment + scene bindings</text>
+    <rect x="420" y="402" width="560" height="48" rx="6" fill="#dceef9"/><text x="440" y="432" class="file">TransLyr.usda</text><text x="600" y="432" class="body">ordinary scene placement</text>
+    <rect x="420" y="460" width="560" height="48" rx="6" fill="#dceef9"/><text x="440" y="490" class="file">VariLyr.usda</text><text x="600" y="490" class="body">published choices / scene scenarios</text>
+    <rect x="420" y="518" width="560" height="48" rx="6" fill="#dceef9"/><text x="440" y="548" class="file">GeoLyr.usda</text><text x="600" y="548" class="body">hierarchy + references; no transforms</text>
+  </g>
+  <rect x="420" y="588" width="560" height="145" rx="8" fill="#ffffff" stroke="#c6dbe8"/>
+  <text x="440" y="617" class="head">Role follows owner and meaning</text>
+  <text x="440" y="643" class="body">Scene placement → scene TransLyr · asset placement → asset TransLyr</text>
+  <text x="440" y="668" class="body">Variant-dependent value → stays inside its owning variant branch</text>
+  <text x="440" y="693" class="body">Animation / rig / physics / solver pose → CC-21 semantic owner</text>
+  <text x="440" y="718" class="small">Layer strength still decides composition; intentional overlaps need a declared policy.</text>
+
+  <!-- connected sources -->
+  <rect x="1060" y="160" width="685" height="205" rx="14" fill="#f6f9fb" stroke="#b6cfdd" stroke-width="2"/>
+  <text x="1090" y="195" class="section">NESTED ASSEMBLY · rightful assembly owner</text>
+  <rect x="1090" y="217" width="285" height="112" rx="8" fill="#e8f3fa" stroke="#bfdeed"/>
+  <text x="1110" y="246" class="file">DisplayPair.usda</text><text x="1110" y="271" class="body">public assembly interface</text><text x="1110" y="295" class="small">Geo · Trans · Vari layers</text><text x="1110" y="316" class="small">Palette branch selects child Finish</text>
+  <rect x="1400" y="217" width="315" height="112" rx="8" fill="#fff" stroke="#bfdeed"/>
+  <text x="1420" y="246" class="file">Palette_v001.usda</text><text x="1420" y="271" class="body">shared material definitions</text><text x="1420" y="297" class="small">Material library owns shader values</text>
+
+  <rect x="1060" y="395" width="685" height="212" rx="14" fill="#f6f9fb" stroke="#b6cfdd" stroke-width="2"/>
+  <text x="1090" y="430" class="section">REUSABLE ASSETS · asset owns its implementation</text>
+  <rect x="1090" y="453" width="285" height="120" rx="8" fill="#fff" stroke="#bfdeed"/>
+  <text x="1110" y="482" class="file">Cube.usda · Cone.usda</text><text x="1110" y="507" class="body">published asset roots</text><text x="1110" y="532" class="small">Geo · Trans · Mat · Vari layers</text><text x="1110" y="555" class="small">Finish + Size variants remain asset-owned</text>
+  <rect x="1400" y="453" width="315" height="120" rx="8" fill="#fff" stroke="#bfdeed"/>
+  <text x="1420" y="482" class="file">Ground.usda</text><text x="1420" y="507" class="body">reusable environment asset</text><text x="1420" y="532" class="small">scene references; binding at mount</text><text x="1420" y="555" class="small">no competing authored binding</text>
+
+  <rect x="1060" y="640" width="685" height="130" rx="14" fill="#fff9ef" stroke="#e7c783" stroke-width="2"/>
+  <text x="1090" y="676" class="section">EXPLICIT TEACHING EXCEPTIONS</text>
+  <text x="1090" y="706" class="body">ReviewLyr overlays intentionally mask Size or a child variant selection</text>
+  <text x="1090" y="733" class="body">only in named conflict entrypoints. Remove that overlay to restore baseline.</text>
+  <text x="1090" y="757" class="small">Not a normal authoring destination or automatic repair recommendation.</text>
+
+  <!-- arrows: root->scene contributions and scene geometry->assembly/assets/materials -->
+  <path d="M345 250 H375 V252 H420" class="edge"/>
+  <path d="M345 315 H375 V485 H420" class="edge"/>
+  <path d="M345 460 H375 V610 H420" class="edge2"/>
+  <path d="M980 544 H1025 V270 H1090" class="edge"/>
+  <path d="M980 544 H1038 V512 H1090" class="edge"/>
+  <path d="M980 368 H1035 V270 H1400" class="edge2"/>
+  <path d="M1375 272 H1390" class="edge2"/>
+  <path d="M1230 395 V365" class="edge2"/>
+
+  <!-- footer principles -->
+  <line x1="55" y1="820" x2="1745" y2="820" stroke="#d7e0e6" stroke-width="2"/>
+  <text x="60" y="860" class="section">COMPOSITION MEMORY</text>
+  <g class="body">
+    <text x="60" y="899">1. Decide who owns the change before choosing a file.</text>
+    <text x="60" y="933">2. Geometry links; TransLyr owns ordinary placement at that scope.</text>
+    <text x="60" y="967">3. Scene selects public alternatives; it does not copy asset implementation.</text>
+    <text x="60" y="1001">4. Role names do not weaken a stronger local opinion or establish universal order.</text>
+  </g>
+  <rect x="1060" y="845" width="685" height="160" rx="12" fill="#eef7fb" stroke="#c5dce8"/>
+  <text x="1090" y="880" class="head">Illustrated entrypoint order (strongest → weakest)</text>
+  <text x="1090" y="911" class="body">Data → Render → Camera → Light → Environment → Materials</text>
+  <text x="1090" y="941" class="body">→ Transforms → (manual or scenario Variants) → Geometry</text>
+  <text x="1090" y="978" class="small">This is this profile’s authored order, not a universal USD layer order.</text>
+  <text x="55" y="1052" class="small">Authored example; acceptance pending. UI persistence, renderer appearance, variant matrix, animation, physics and general conformance are outside this chart’s evidence.</text>
+</svg>

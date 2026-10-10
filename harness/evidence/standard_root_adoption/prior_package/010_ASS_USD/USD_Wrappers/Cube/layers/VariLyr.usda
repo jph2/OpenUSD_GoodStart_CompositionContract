@@ -1,0 +1,66 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "cc:context" = "asset variants; defaults on public root"
+        string "cc:owner" = "asset:Cube@1"
+        string "cc:profile" = "CC-EXAMPLE-01/0.2"
+        string "cc:role" = "VariLyr"
+    }
+)
+
+over "Cube" (
+    variants = {
+        string Finish = "Red"
+        string Size = "Normal"
+    }
+    prepend variantSets = ["Size", "Finish"]
+)
+{
+    variantSet "Size" = {
+        "Large" {
+            double3 xformOp:scale = (2, 2, 2)
+            uniform token[] xformOpOrder = ["xformOp:scale"]
+
+        }
+        "Normal" {
+            double3 xformOp:scale = (1, 1, 1)
+            uniform token[] xformOpOrder = ["xformOp:scale"]
+
+        }
+        "Tall" {
+            double3 xformOp:scale = (1, 1, 2)
+            uniform token[] xformOpOrder = ["xformOp:scale"]
+
+        }
+    }
+    variantSet "Finish" = {
+        "Blue" {
+            over "Geometry" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </Cube/Looks/Blue>
+            }
+
+        }
+        "Red" {
+            over "Geometry" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </Cube/Looks/Red>
+            }
+
+        }
+        "Yellow" {
+            over "Geometry" (
+                prepend apiSchemas = ["MaterialBindingAPI"]
+            )
+            {
+                rel material:binding = </Cube/Looks/Yellow>
+            }
+
+        }
+    }
+}
+

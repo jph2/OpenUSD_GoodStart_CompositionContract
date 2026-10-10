@@ -1,0 +1,75 @@
+#usda 1.0
+(
+    customLayerData = {
+        dictionary cameraSettings = {
+            dictionary Front = {
+                double3 position = (50000.00111758712, 0, 0)
+                double radius = 500
+            }
+            dictionary Perspective = {
+                double3 position = (500, 500, 500)
+                double3 target = (-0.000003978038705554354, -0.000003978038478180679, 0.000007956076956361358)
+            }
+            dictionary Right = {
+                double3 position = (0, -50000.00111758712, 0)
+                double radius = 500
+            }
+            dictionary Top = {
+                double3 position = (0, 0, 50000.00111758712)
+                double radius = 500
+            }
+            string boundCamera = "/OmniverseKit_Persp"
+        }
+        string "cc:context" = "unconditional"
+        string "cc:defaultAuthoring" = "session"
+        bool "cc:lockPersistentLayers" = 1
+        string "cc:owner" = "scene:LayeredScene@1"
+        string "cc:profile" = "CC-EXAMPLE-01/0.2"
+        string "cc:role" = "Root"
+        string "cc:startupTemplate" = "ROOT_example supplied by Jan"
+        dictionary omni_layer = {
+            dictionary locked = {
+                bool "./010_ASS_USD/Assemblies/DisplayPair/DisplayPair.usda" = 1
+                bool "./010_ASS_USD/Assemblies/DisplayPair/layers/GeoLyr.usda" = 1
+                bool "./010_ASS_USD/Assemblies/DisplayPair/layers/TransLyr.usda" = 1
+                bool "./010_ASS_USD/Assemblies/DisplayPair/layers/VariLyr.usda" = 1
+                bool "./010_ASS_USD/MatLib/Palette_v001.usda" = 1
+                bool "./010_ASS_USD/USD_Wrappers/Cone/Cone.usda" = 1
+                bool "./010_ASS_USD/USD_Wrappers/Cone/layers/GeoLyr.usda" = 1
+                bool "./010_ASS_USD/USD_Wrappers/Cone/layers/MatLyr.usda" = 1
+                bool "./010_ASS_USD/USD_Wrappers/Cone/layers/TransLyr.usda" = 1
+                bool "./010_ASS_USD/USD_Wrappers/Cone/layers/VariLyr.usda" = 1
+                bool "./010_ASS_USD/USD_Wrappers/Cube/Cube.usda" = 1
+                bool "./010_ASS_USD/USD_Wrappers/Cube/layers/GeoLyr.usda" = 1
+                bool "./010_ASS_USD/USD_Wrappers/Cube/layers/MatLyr.usda" = 1
+                bool "./010_ASS_USD/USD_Wrappers/Cube/layers/TransLyr.usda" = 1
+                bool "./010_ASS_USD/USD_Wrappers/Cube/layers/VariLyr.usda" = 1
+                bool "./020_BASE_LYR/GeoLyr.usda" = 1
+                bool "./020_BASE_LYR/Scenarios/VariLyr.usda" = 1
+                bool "./020_BASE_LYR/TransLyr.usda" = 1
+                bool "./040_DATA_LYRs/Data/ContextLyr.usda" = 1
+                bool "./040_DATA_LYRs/Data/IdentityLyr.usda" = 1
+                bool "./040_DATA_LYRs/DataLyr.usda" = 1
+                bool "./050_REVIEW/MaskedSelection/ReviewLyr.usda" = 1
+                bool "./World_Scenarios.usda" = 1
+            }
+            dictionary muteness = {
+            }
+        }
+        dictionary renderSettings = {
+            double "rtx:post:lensFlares:flareScale" = 0.075
+            float3 "rtx:sceneDb:ambientLightColor" = (0, 0, 0)
+        }
+    }
+    defaultPrim = "World"
+    endTimeCode = 100
+    metersPerUnit = 0.009999999776482582
+    startTimeCode = 0
+    subLayers = [
+        @./050_REVIEW/MaskedSelection/ReviewLyr.usda@,
+        @./World_Scenarios.usda@
+    ]
+    timeCodesPerSecond = 60
+    upAxis = "Z"
+)
+

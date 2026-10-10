@@ -1,0 +1,19 @@
+{
+  "source": "user-supplied examples/01_LayeredScene/ROOT_example.usda",
+  "sha256": "b6372d2538c1d128f5a858ec9b545c6a371d98f1568d2fda8e6861ff0e04e563",
+  "resources": [
+    {
+      "property": "/Environment/Sky.inputs:texture:file",
+      "file": "CarLight_512x256.hdr",
+      "sha256": "ffd325de8b5048108a80eff82ddfc55a402d266d9ad66632c34926529c70f1c1",
+      "source": "installed omni.kit.stage_templates 2.0.3 resource referenced by the supplied root"
+    },
+    {
+      "property": "/Environment/Looks/Grid/Shader.inputs:diffuse_texture",
+      "file": "ov_uv_grids_basecolor_1024.png",
+      "sha256": "6de6882ff7acfd8c13fdfa8c56e8df5fce198bb8e11d1e4da22ae52e527f1422",
+      "source": "installed omni.kit.stage_templates 2.0.3 resource referenced by the supplied root"
+    }
+  ],
+  "preservation": "original bytes retained; reusable template rebases two texture paths only"
+}

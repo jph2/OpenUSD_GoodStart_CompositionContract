@@ -8,7 +8,9 @@ Review DISCUSSION.md with intended collaborators when Jan chooses to share. Agre
 
 ## 2. Minimal reference package
 
-Explicitly select or build a small cube-based example in this repository in a later task. Demonstrate geometry references, TransLyr placement, asset-owned variants and scene selections, including a deliberate conflict. Keep historical TutorialBuilder examples in place unless migration is requested. Establish expected outcomes before claiming a best practice.
+**Authored; acceptance pending.** Jan requested a new example and project layout using VariantSetups, the scene-layer schematic and `USD_GoodStart/_Generated_Test`. `examples/01_LayeredScene` now contains cube/cone packages, two cube occurrences, a reusable assembly, shared materials, placement, manual/scenario choices and separate property/selection conflicts. PROJECT_STRUCTURE.md records the revised storage model; CC-24/25 cover storage lifecycle and imported-source boundaries.
+
+The USD-aware author records a default-entrypoint read-back; full variant, relocation, renderer and UI save/reopen acceptance remain open. Agree that acceptance scope before promoting the example to best-practice status. Historical TutorialBuilder examples stay in place.
 
 ## 3. Deterministic read-only core
 

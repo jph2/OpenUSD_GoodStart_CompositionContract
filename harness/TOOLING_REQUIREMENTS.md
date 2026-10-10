@@ -2,6 +2,8 @@
 
 **Draft 0.1. All capabilities below are planned, not implemented.**
 
+The 0.2 example adds `tools/build_example.py`, a bounded author for a new fixture directory. It uses OpenUSD 26.08, refuses nonempty output, records files/hashes and reads back the four saved default entrypoints. This supplies preliminary fixture evidence for DT-01; it does not implement the general DT-01–09 core, enumerate inactive opinions, classify arbitrary scenes or certify the fixture. Example-specific JSON documents are draft inputs, not an accepted general schema.
+
 We need repeatable scripts as the execution foundation. An LLM may explain findings or propose an ownership decision; it must not improvise USD repair operations for each run. A UI, MCP bridge or pipeline node should call the same core.
 
 | ID | Requirement | Future acceptance evidence |

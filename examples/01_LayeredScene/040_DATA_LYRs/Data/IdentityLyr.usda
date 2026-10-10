@@ -1,0 +1,33 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "cc:context" = "unconditional"
+        string "cc:owner" = "scene:LayeredScene@1"
+        string "cc:profile" = "CC-EXAMPLE-01/0.2"
+        string "cc:role" = "DataLyr"
+    }
+)
+
+over "World"
+{
+    over "Cube01"
+    {
+        custom string cc:occurrenceId = "example-01/Cube01"
+    }
+
+    over "Cube02"
+    {
+        custom string cc:occurrenceId = "example-01/Cube02"
+    }
+
+    over "Cone01"
+    {
+        custom string cc:occurrenceId = "example-01/Cone01"
+    }
+
+    over "Pair01"
+    {
+        custom string cc:occurrenceId = "example-01/Pair01"
+    }
+}
+

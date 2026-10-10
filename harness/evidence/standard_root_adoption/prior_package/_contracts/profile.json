@@ -1,0 +1,288 @@
+{
+  "composition": "references; no payloads; no native instancing; default time",
+  "contract": "CompositionContracts.md 0.2; CC-01 through CC-25",
+  "default_session": "fresh session is the default authoring target; persistent layers locked",
+  "dependencies": "bundled assets and Palette_v001; pinned to bundled revision",
+  "entrypoints_strongest_first": {
+    "World_Manual.usda": [
+      "./040_DATA_LYRs/DataLyr.usda",
+      "./020_BASE_LYR/RenderLyr.usda",
+      "./020_BASE_LYR/CamLyr.usda",
+      "./020_BASE_LYR/LightLyr.usda",
+      "./020_BASE_LYR/EnvLyr.usda",
+      "./020_BASE_LYR/MatLyr.usda",
+      "./020_BASE_LYR/TransLyr.usda",
+      "./020_BASE_LYR/VariLyr.usda",
+      "./020_BASE_LYR/GeoLyr.usda"
+    ],
+    "World_MaskedSelection.usda": [
+      "./050_REVIEW/MaskedSelection/ReviewLyr.usda",
+      "./World_Scenarios.usda"
+    ],
+    "World_MaskedSize.usda": [
+      "./050_REVIEW/MaskedSize/ReviewLyr.usda",
+      "./World_Manual.usda"
+    ],
+    "World_Scenarios.usda": [
+      "./040_DATA_LYRs/DataLyr.usda",
+      "./020_BASE_LYR/RenderLyr.usda",
+      "./020_BASE_LYR/CamLyr.usda",
+      "./020_BASE_LYR/LightLyr.usda",
+      "./020_BASE_LYR/EnvLyr.usda",
+      "./020_BASE_LYR/MatLyr.usda",
+      "./020_BASE_LYR/TransLyr.usda",
+      "./020_BASE_LYR/Scenarios/VariLyr.usda",
+      "./020_BASE_LYR/GeoLyr.usda"
+    ]
+  },
+  "excluded_acceptance": [
+    "Omniverse UI/persistence",
+    "renderer appearance",
+    "payload lofting",
+    "animation",
+    "physics",
+    "live integration",
+    "general conformance"
+  ],
+  "intentional_overlaps": [
+    "Scene selection overrides referenced asset default selection.",
+    "DisplayPair Palette selects child Finish through the published interface.",
+    "Review overlays mask Size or nested Finish only in the named conflict entrypoints."
+  ],
+  "kit_startup": "Open_In_Kit.ps1 enables _workflows/kit/session_defaults.py; plain USD cannot persist an anonymous edit target",
+  "ordinary_instance_transform": [
+    "translate",
+    "rotateXYZ",
+    "scale"
+  ],
+  "persistent_authoring": "explicitly unlock the rightful layer, choose its edit/variant context, save and return to session",
+  "profile": "CC-EXAMPLE-01/0.2",
+  "reset_xform_stack": false,
+  "resolver": "ArDefaultResolver; relative package paths; no search path required",
+  "roles": [
+    {
+      "context": "unconditional",
+      "file": "010_ASS_USD/MatLib/Palette_v001.usda",
+      "owner": "library:Palette@1",
+      "role": "MatLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "010_ASS_USD/USD_Wrappers/Cube/layers/GeoLyr.usda",
+      "owner": "asset:Cube@1",
+      "role": "GeoLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "010_ASS_USD/USD_Wrappers/Cube/layers/TransLyr.usda",
+      "owner": "asset:Cube@1",
+      "role": "TransLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "010_ASS_USD/USD_Wrappers/Cube/layers/MatLyr.usda",
+      "owner": "asset:Cube@1",
+      "role": "MatLyr"
+    },
+    {
+      "context": "asset variants; defaults on public root",
+      "file": "010_ASS_USD/USD_Wrappers/Cube/layers/VariLyr.usda",
+      "owner": "asset:Cube@1",
+      "role": "VariLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "010_ASS_USD/USD_Wrappers/Cube/Cube.usda",
+      "owner": "asset:Cube@1",
+      "role": "Root"
+    },
+    {
+      "context": "unconditional",
+      "file": "010_ASS_USD/USD_Wrappers/Cone/layers/GeoLyr.usda",
+      "owner": "asset:Cone@1",
+      "role": "GeoLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "010_ASS_USD/USD_Wrappers/Cone/layers/TransLyr.usda",
+      "owner": "asset:Cone@1",
+      "role": "TransLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "010_ASS_USD/USD_Wrappers/Cone/layers/MatLyr.usda",
+      "owner": "asset:Cone@1",
+      "role": "MatLyr"
+    },
+    {
+      "context": "asset variants; defaults on public root",
+      "file": "010_ASS_USD/USD_Wrappers/Cone/layers/VariLyr.usda",
+      "owner": "asset:Cone@1",
+      "role": "VariLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "010_ASS_USD/USD_Wrappers/Cone/Cone.usda",
+      "owner": "asset:Cone@1",
+      "role": "Root"
+    },
+    {
+      "context": "unconditional",
+      "file": "010_ASS_USD/Assemblies/DisplayPair/layers/GeoLyr.usda",
+      "owner": "assembly:DisplayPair@1",
+      "role": "GeoLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "010_ASS_USD/Assemblies/DisplayPair/layers/TransLyr.usda",
+      "owner": "assembly:DisplayPair@1",
+      "role": "TransLyr"
+    },
+    {
+      "context": "Palette branches",
+      "file": "010_ASS_USD/Assemblies/DisplayPair/layers/VariLyr.usda",
+      "owner": "assembly:DisplayPair@1",
+      "role": "VariLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "010_ASS_USD/Assemblies/DisplayPair/DisplayPair.usda",
+      "owner": "assembly:DisplayPair@1",
+      "role": "Root"
+    },
+    {
+      "context": "unconditional",
+      "file": "010_ASS_USD/Envs/Ground/layers/GeoLyr.usda",
+      "owner": "asset:Ground@1",
+      "role": "GeoLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "010_ASS_USD/Envs/Ground/Ground.usda",
+      "owner": "asset:Ground@1",
+      "role": "Root"
+    },
+    {
+      "context": "unconditional",
+      "file": "020_BASE_LYR/EnvLyr.usda",
+      "owner": "scene:LayeredScene@1",
+      "role": "EnvLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "020_BASE_LYR/MatLyr.usda",
+      "owner": "scene:LayeredScene@1",
+      "role": "MatLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "020_BASE_LYR/GeoLyr.usda",
+      "owner": "scene:LayeredScene@1",
+      "role": "GeoLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "020_BASE_LYR/TransLyr.usda",
+      "owner": "scene:LayeredScene@1",
+      "role": "TransLyr"
+    },
+    {
+      "context": "manual selections",
+      "file": "020_BASE_LYR/VariLyr.usda",
+      "owner": "scene:LayeredScene@1",
+      "role": "VariLyr"
+    },
+    {
+      "context": "Layout branches",
+      "file": "020_BASE_LYR/Scenarios/VariLyr.usda",
+      "owner": "scene:LayeredScene@1",
+      "role": "VariLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "020_BASE_LYR/CamLyr.usda",
+      "owner": "scene:LayeredScene@1",
+      "role": "CamLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "020_BASE_LYR/LightLyr.usda",
+      "owner": "scene:LayeredScene@1",
+      "role": "LightLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "020_BASE_LYR/RenderLyr.usda",
+      "owner": "scene:LayeredScene@1",
+      "role": "RenderLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "040_DATA_LYRs/Data/IdentityLyr.usda",
+      "owner": "scene:LayeredScene@1",
+      "role": "DataLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "040_DATA_LYRs/Data/ContextLyr.usda",
+      "owner": "scene:LayeredScene@1",
+      "role": "DataLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "040_DATA_LYRs/DataLyr.usda",
+      "owner": "scene:LayeredScene@1",
+      "role": "DataLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "World_Manual.usda",
+      "owner": "scene:LayeredScene@1",
+      "role": "Root"
+    },
+    {
+      "context": "unconditional",
+      "file": "World_Scenarios.usda",
+      "owner": "scene:LayeredScene@1",
+      "role": "Root"
+    },
+    {
+      "context": "intentional masking demonstration",
+      "file": "050_REVIEW/MaskedSize/ReviewLyr.usda",
+      "owner": "scene:LayeredScene@1",
+      "role": "ReviewLyr"
+    },
+    {
+      "context": "intentional masking demonstration",
+      "file": "050_REVIEW/MaskedSelection/ReviewLyr.usda",
+      "owner": "scene:LayeredScene@1",
+      "role": "ReviewLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "World_MaskedSize.usda",
+      "owner": "scene:LayeredScene@1",
+      "role": "Root"
+    },
+    {
+      "context": "unconditional",
+      "file": "World_MaskedSelection.usda",
+      "owner": "scene:LayeredScene@1",
+      "role": "Root"
+    }
+  ],
+  "root_fields": [
+    "stage metadata",
+    "sublayer list",
+    "defaultPrim",
+    "camera hint"
+  ],
+  "schema": "cc-example-profile/0.1",
+  "status": "authored example; acceptance pending",
+  "units": {
+    "metersPerUnit": 0.01,
+    "upAxis": "Z"
+  },
+  "usd_authoring_version": "26.08",
+  "writer_mode": "static authored scene; no solver or live writer"
+}

@@ -1,0 +1,14 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "cc:context" = "unconditional"
+        string "cc:owner" = "scene:LayeredScene@1"
+        string "cc:profile" = "CC-EXAMPLE-01/0.2"
+        string "cc:role" = "DataLyr"
+    }
+    subLayers = [
+        @./Data/IdentityLyr.usda@,
+        @./Data/ContextLyr.usda@
+    ]
+)
+

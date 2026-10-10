@@ -1,0 +1,64 @@
+{
+  "ROOT_example.usda": {
+    "Cone01": {
+      "Finish": "Yellow",
+      "Size": "Normal",
+      "base_cm": [
+        220,
+        0,
+        0
+      ],
+      "height_cm": 100
+    },
+    "Cube01": {
+      "Finish": "Red",
+      "Size": "Normal",
+      "base_cm": [
+        -220,
+        0,
+        0
+      ],
+      "height_cm": 100
+    },
+    "Cube02": {
+      "Finish": "Blue",
+      "Size": "Tall",
+      "base_cm": [
+        0,
+        0,
+        0
+      ],
+      "height_cm": 200
+    },
+    "Pair01": {
+      "Palette": "Cool",
+      "base_cm": [
+        0,
+        260,
+        0
+      ],
+      "child_finishes": [
+        "Blue",
+        "Blue"
+      ]
+    }
+  },
+  "World_Manual.usda": "compatibility alias of ROOT_example.usda",
+  "World_MaskedSelection.usda": "Cube01 Finish remains Blue under either Layout branch",
+  "World_MaskedSize.usda": "Cube02 Size reads Tall, resolved asset scale=(1,1,1), height=100 cm",
+  "World_Scenarios.usda": {
+    "Exploded": "Cube02 base z=80 cm, height=200 cm, Red; Cube01 Yellow; Pair01 Warm (Red/Yellow); other placements unchanged",
+    "Normal": "same visible configuration as Manual; explicit neutral Adjustment operations"
+  },
+  "manual_acceptance": [
+    "all listed variant choices",
+    "placement and scenario independence",
+    "save/reopen VariLyr",
+    "source hashes unchanged by scene edits",
+    "relocation of complete folder",
+    "resolved materials in target renderer",
+    "remove review overlay to restore expected behavior"
+  ],
+  "material_resolution": "Geometry binds to its remapped Asset/Looks/<Finish>; pair children bind to their own Looks",
+  "status": "expected outcomes; not executed acceptance results"
+}

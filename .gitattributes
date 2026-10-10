@@ -1,2 +1,8 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Use stable LF checkouts for prose, including the hashed composition contract.
+* text=auto eol=lf
+
+# Preserve exact bytes for recorded package, template, tool and source hashes.
+/examples/** -text
+/templates/** -text
+/tools/** -text
+/harness/evidence/** -text
