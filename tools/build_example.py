@@ -17,7 +17,7 @@ import shutil
 from pxr import Gf, Sdf, Usd, UsdGeom, UsdShade, UsdUtils
 
 
-PROFILE = "CC-EXAMPLE-01/0.2"
+PROFILE = "CC-EXAMPLE-01/0.1.1"
 TEMPLATE = Path(__file__).resolve().parents[1] / "templates/Omniverse/ROOT_example.usda"
 TEMPLATE_TEXTURES = {
     "/Environment/Sky.inputs:texture:file": "CarLight_512x256.hdr",
@@ -291,14 +291,14 @@ def project_data(a):
 def entrypoints(a):
     owner = "scene:LayeredScene@1"
     stacks = {}
-    for name, variant_layer in (("ROOT_example.usda", "VariLyr.usda"), ("World_Scenarios.usda", "Scenarios/VariLyr.usda")):
+    for name, variant_layer in (("SceneROOT_Example.usda", "VariLyr.usda"), ("SceneROOT_Scenarios.usda", "Scenarios/VariLyr.usda")):
         layers = ["./040_DATA_LYRs/DataLyr.usda"] + [f"./020_BASE_LYR/{name}" for name in (
             "TransLyr.usda", variant_layer, "GeoLyr.usda")]
         standard_root(a, name, layers)
         stacks[name] = layers
     # Keep existing links useful while making the supplied root the canonical entrypoint.
-    standard_root(a, "World_Manual.usda", ["./ROOT_example.usda"], include_template_prims=False)
-    stacks["World_Manual.usda"] = ["./ROOT_example.usda"]
+    standard_root(a, "SceneROOT_Manual.usda", stacks["SceneROOT_Example.usda"])
+    stacks["SceneROOT_Manual.usda"] = list(stacks["SceneROOT_Example.usda"])
 
     stage = a.layer("050_REVIEW/MaskedSize/ReviewLyr.usda", "ReviewLyr", owner, "intentional masking demonstration")
     stage.OverridePrim("/World/Cube02/Adjustment/Asset").CreateAttribute(
@@ -308,12 +308,12 @@ def entrypoints(a):
     select(stage, "/World/Cube01/Adjustment/Asset", {"Finish": "Blue"})
     save(stage)
     for mode, review, baseline in (
-        ("MaskedSize", "MaskedSize", "ROOT_example.usda"),
-        ("MaskedSelection", "MaskedSelection", "World_Scenarios.usda"),
+        ("MaskedSize", "MaskedSize", "SceneROOT_Example.usda"),
+        ("MaskedSelection", "MaskedSelection", "SceneROOT_Scenarios.usda"),
     ):
-        name = f"World_{mode}.usda"
-        layers = [f"./050_REVIEW/{review}/ReviewLyr.usda", f"./{baseline}"]
-        standard_root(a, name, layers, include_template_prims=False)
+        name = f"SceneROOT_{mode}.usda"
+        layers = [f"./050_REVIEW/{review}/ReviewLyr.usda", *stacks[baseline]]
+        standard_root(a, name, layers)
         stacks[name] = layers
     return stacks
 
@@ -322,12 +322,12 @@ def contracts(a, stacks):
     template = Sdf.Layer.FindOrOpen(str(TEMPLATE))
     a.json("_contracts/profile.json", {
         "schema": "cc-example-profile/0.1", "profile": PROFILE,
-        "contract": "CompositionContracts.md 0.2; CC-01 through CC-25",
+        "contract": "CompositionContracts.md 0.1.1; CC-01 through CC-26",
         "status": "authored example; acceptance pending", "usd_authoring_version": "26.08",
         "units": {"metersPerUnit": template.pseudoRoot.GetInfo("metersPerUnit"), "upAxis": "Z"},
         "timeline": {"startTimeCode": 0, "endTimeCode": 100, "timeCodesPerSecond": 60},
-        "standard_scene": "ROOT_example.usda; user-supplied Omniverse starting scene",
-        "compatibility_alias": "World_Manual.usda",
+        "standard_scene": "SceneROOT_Example.usda; user-supplied Omniverse starting scene",
+        "manual_entrypoint": "SceneROOT_Manual.usda; independent root with direct scene sublayers",
         "resolver": "ArDefaultResolver; relative package paths; no search path required",
         "composition": "references; no payloads; no native instancing; default time",
         "entrypoints_strongest_first": stacks,
@@ -350,7 +350,7 @@ def contracts(a, stacks):
                                 "animation", "physics", "live integration", "general conformance"],
     })
     a.json("_contracts/ownership.json", {
-        "schema": "cc-example-ownership/0.1", "authority": "Project-authored demo design, revision 0.2",
+        "schema": "cc-example-ownership/0.1", "authority": "Project-authored demo design, revision 0.1.1",
         "team": "Example maintainer (role placeholder; no external acceptance)",
         "common_policy": {
             "persistence": "explicit save to declared file; static authored data",
@@ -376,7 +376,7 @@ def contracts(a, stacks):
              "fields": "child references; child placement; Palette branch child Finish selections",
              "edit_targets": "layers/GeoLyr, TransLyr, VariLyr.usda according to role",
              "override": "scene selects Palette; child paths remain assembly implementation"},
-            {"id": "application:OmniverseStandard", "package": "ROOT_example.usda",
+            {"id": "application:OmniverseStandard", "package": "SceneROOT_Example.usda",
              "public": ["/Environment", "/Render", "/OmniverseKit_*"],
              "fields": "supplied ground/collider, lighting, viewport cameras, materials and render state",
              "role": "Root application-template baseline (CC-01 exception)",
@@ -398,19 +398,19 @@ def contracts(a, stacks):
     })
     a.json("_contracts/expected.json", {
         "status": "expected outcomes; not executed acceptance results",
-        "ROOT_example.usda": {
+        "SceneROOT_Example.usda": {
             "Cube01": {"Finish": "Red", "Size": "Normal", "height_cm": 100, "base_cm": [-220, 0, 0]},
             "Cube02": {"Finish": "Blue", "Size": "Tall", "height_cm": 200, "base_cm": [0, 0, 0]},
             "Cone01": {"Finish": "Yellow", "Size": "Normal", "height_cm": 100, "base_cm": [220, 0, 0]},
             "Pair01": {"Palette": "Cool", "child_finishes": ["Blue", "Blue"], "base_cm": [0, 260, 0]},
         },
-        "World_Manual.usda": "compatibility alias of ROOT_example.usda",
-        "World_Scenarios.usda": {
+        "SceneROOT_Manual.usda": "independent manual root; same baseline and direct stack as SceneROOT_Example.usda",
+        "SceneROOT_Scenarios.usda": {
             "Normal": "same visible configuration as Manual; explicit neutral Adjustment operations",
             "Exploded": "Cube02 base z=80 cm, height=200 cm, Red; Cube01 Yellow; Pair01 Warm (Red/Yellow); other placements unchanged",
         },
-        "World_MaskedSize.usda": "Cube02 Size reads Tall, resolved asset scale=(1,1,1), height=100 cm",
-        "World_MaskedSelection.usda": "Cube01 Finish remains Blue under either Layout branch",
+        "SceneROOT_MaskedSize.usda": "Cube02 Size reads Tall, resolved asset scale=(1,1,1), height=100 cm",
+        "SceneROOT_MaskedSelection.usda": "Cube01 Finish remains Blue under either Layout branch",
         "material_resolution": "Geometry binds to its remapped Asset/Looks/<Finish>; pair children bind to their own Looks",
         "manual_acceptance": ["all listed variant choices", "placement and scenario independence", "save/reopen VariLyr",
                               "source hashes unchanged by scene edits", "relocation of complete folder",
@@ -426,9 +426,9 @@ def folder_notes(a):
         "030_SIM_LYR/README.md": "# Published simulation results\n\nReserved for explicit, versioned solver results with provenance and time semantics. No simulation result or SimLyr is present or composed in this static profile.",
         "035_RUNTIME_LYR/README.md": "# Runtime snapshots\n\nReserved for deliberately saved operational snapshots. Live measurements normally stay in session/runtime/external storage. No connector, credentials, runtime writer or RuntimeLyr is present.",
         "040_DATA_LYRs/README.md": "# Project data\n\nDataLyr aggregates IdentityLyr and ContextLyr. These demo custom cc attributes describe scene occurrences and project purpose. They are not a standardized schema or an external system integration.",
-        "050_REVIEW/README.md": "# Review demonstrations\n\nEach exception has an owner, reason, affected field and removal route in _contracts/ownership.json. Only the World_MaskedSize and World_MaskedSelection entrypoints compose these files. Baseline roots exclude them.",
+        "050_REVIEW/README.md": "# Review demonstrations\n\nEach exception has an owner, reason, affected field and removal route in _contracts/ownership.json. Only the SceneROOT_MaskedSize and SceneROOT_MaskedSelection entrypoints compose these files. Baseline roots exclude them.",
         "_workflows/README.md": "# Reproduction and workflow files\n\nReproduction uses the parent repository's tools/build_example.py. kit/session_defaults.py is the scoped Kit startup helper used by Open_In_Kit.ps1: persistent layers are protected and Session Layer becomes the edit target. It does not route or persist edits. Optional pipeline or ComfyUI definitions can be added here when needed; none is installed.",
-        "_pipeline_reports/README.md": "# Evidence\n\nbuild_manifest.json records runtime, file identities and the saved defaults of ROOT_example plus four companion entrypoints. It includes stage metrics, the World matrix, camera choice and cube opinions. This is not a conformance verdict or a variant-matrix test. Expected outcomes live in _contracts/expected.json. Kit UI and rendering acceptance are pending.",
+        "_pipeline_reports/README.md": "# Evidence\n\nbuild_manifest.json records runtime, file identities and the saved defaults of SceneROOT_Example plus four companion entrypoints. It includes stage metrics, the World matrix, camera choice and cube opinions. This is not a conformance verdict or a variant-matrix test. Expected outcomes live in _contracts/expected.json. Kit UI and rendering acceptance are pending.",
         "_contracts/README.md": "# Example contracts\n\nprofile.json declares package roles and actual scene orders. ownership.json declares public interfaces, writer scope and review exceptions. expected.json states intended outcomes. These versioned example-specific JSON documents are design inputs; no generic validator or accepted contract schema exists yet. The parent repository's CompositionContracts.md owns CC semantics.",
     }
     for name, note in notes.items():

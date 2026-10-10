@@ -1,6 +1,6 @@
 # Layered scene example
 
-**CC-EXAMPLE-01/0.2 · Omniverse standard scene selected by Jan · centimetres · Z-up.** Start with [ROOT_example.usda](ROOT_example.usda). It preserves the supplied Omniverse starting scene and composes the example assets below `/World`. All referenced USD assets and the two template textures are bundled. The template's OmniPBR material and RTX/viewport features require a compatible Omniverse application.
+**CC-EXAMPLE-01/0.1.1 · Omniverse standard scene selected by Jan · centimetres · Z-up.** Start with [SceneROOT_Example.usda](SceneROOT_Example.usda). It preserves the supplied Omniverse starting scene and composes the example assets below `/World`. All referenced USD assets and the two template textures are bundled. The template's OmniPBR material and RTX/viewport features require a compatible Omniverse application.
 
 The standard scene uses `/World` with no transform, `/Environment` and `/Render` as top-level siblings, and `/OmniverseKit_Persp` as the initial viewport camera. Its original `metersPerUnit = 0.009999999776482582`, Z-up, time codes 0–100 and 60 fps are preserved. This is effectively the same centimetre scale as the earlier example; no axis conversion or extra world transform was introduced. The custom Overview camera and earlier scene ground/lights have been retired from the active package.
 
@@ -14,7 +14,7 @@ The standard scene uses `/World` with no transform, `/Environment` and `/Render`
 .\Open_In_Kit.ps1 -Scene Scenarios
 ```
 
-The launcher opens `ROOT_example.usda` by default in a new Kit application using the executable and app configuration detected from an already running Kit instance. If none is running, supply `-KitExe <path-to-kit.exe> -AppConfig <path-to-composer.kit>`. It leaves the existing window and its unsaved session alone. `-Scene Standard` and `-Scene Manual` both select the standard root.
+The launcher opens `SceneROOT_Example.usda` by default in a new Kit application using the executable and app configuration detected from an already running Kit instance. If none is running, supply `-KitExe <path-to-kit.exe> -AppConfig <path-to-composer.kit>`. It leaves the existing window and its unsaved session alone. `-Scene Standard` and `-Scene Manual` both select the standard root.
 
 The bundled `_workflows/kit/session_defaults.py` helper selects the fresh session layer after opening a tagged project, shows it in the Layers panel and protects all loaded persistent layers, including referenced assets and the root. Auto Authoring and Specs Linking are disabled for this working mode. The helper acts once per stage open, so intentional persistent authoring remains possible. It does not save files or alter filesystem permissions.
 
@@ -28,13 +28,15 @@ Use the supplied Omniverse perspective viewport, `/OmniverseKit_Persp`, or frame
 
 ## Standard scene and companion entrypoints
 
+Each entrypoint now has one root with direct scene work sublayers. `World_Manual`, `World_MaskedSize` and `World_MaskedSelection` no longer wrap another scene root. The supplied startup content is adopted into each root. Prior build observations below are historical; this structural correction has not received a new full acceptance run. Original wrappers and the prior report are preserved in `harness/evidence/before_direct_scene_roots`.
+
 | Open | What it demonstrates | Saved state / expected appearance |
 |---|---|---|
-| [ROOT_example.usda](ROOT_example.usda) | Standard Omniverse root with two independently configured Cube references, Cone and nested assembly | Red normal cube, blue tall cube, yellow cone; blue cube/cone pair behind |
-| [World_Manual.usda](World_Manual.usda) | Compatibility alias of ROOT_example | Same standard scene |
-| [World_Scenarios.usda](World_Scenarios.usda) | A scene-level Layout controls child selections and relative adjustments | Normal matches Manual; Exploded raises the tall cube by 80 cm, makes it red, makes Cube01 yellow and the pair Warm |
-| [World_MaskedSize.usda](World_MaskedSize.usda) | Direct local scale masks an asset variant | Cube02 still selects Tall but resolves to scale one |
-| [World_MaskedSelection.usda](World_MaskedSelection.usda) | Direct child selection masks a scene scenario | Cube01 remains Blue although the Normal branch selects Red |
+| [SceneROOT_Example.usda](SceneROOT_Example.usda) | Standard Omniverse root with two independently configured Cube references, Cone and nested assembly | Red normal cube, blue tall cube, yellow cone; blue cube/cone pair behind |
+| [SceneROOT_Manual.usda](SceneROOT_Manual.usda) | Independent manual root matching ROOT_example | Same standard scene |
+| [SceneROOT_Scenarios.usda](SceneROOT_Scenarios.usda) | A scene-level Layout controls child selections and relative adjustments | Normal matches Manual; Exploded raises the tall cube by 80 cm, makes it red, makes Cube01 yellow and the pair Warm |
+| [SceneROOT_MaskedSize.usda](SceneROOT_MaskedSize.usda) | Direct local scale masks an asset variant | Cube02 still selects Tall but resolves to scale one |
+| [SceneROOT_MaskedSelection.usda](SceneROOT_MaskedSelection.usda) | Direct child selection masks a scene scenario | Cube01 remains Blue although the Normal branch selects Red |
 
 The two masked entrypoints are deliberate counterexamples. Their ReviewLyr files are excluded from the baseline roots. They reproduce the distinction between selecting a variant and obtaining its intended result. Local opinions masking variant opinions are illustrated in the upstream [OpenUSD variant tutorial](https://openusd.org/release/tut_authoring_variants.html).
 
@@ -65,6 +67,17 @@ With the supplied identity placement rotation and scale, the Exploded offset rai
 
 See the repository's [project structure and diagram](../../PROJECT_STRUCTURE.md). Within this folder:
 
+The root's scene sublayers form this vertical stack, strongest at the top:
+
+```text
+DataLyr
+TransLyr
+VariLyr        (manual OR scenario contribution)
+GeoLyr         BOTTOM / WEAKEST — references Cube, Cone and DisplayPair
+```
+
+All four are sibling sublayers of the root. Additional scene roles are stacked above GeoLyr when needed; their relative order is declared by the profile. Referenced source assets remain outside this scene sublayer stack.
+
 - `000_SOURCE` retains original inputs; `010_ASS_USD/USD_Startpoint` retains imported USD. Both are unused by these procedural shapes.
 - `010_ASS_USD/USD_Wrappers` holds published Cube/Cone packages; `Assemblies` holds DisplayPair; `MatLib` holds the asset material library; `Envs/OmniverseStandard/Resources` holds the supplied ground texture and sky HDR.
 - `020_BASE_LYR` holds scene contributions. `040_DATA_LYRs` holds demo occurrence IDs and project context.
@@ -81,12 +94,14 @@ The recorded read-back found:
 
 | Entry | Cube01 Finish / resolved material suffix | Cube02 Size / resolved scale |
 |---|---|---|
-| ROOT_example and Manual alias | Red / Looks/Red | Tall / (1, 1, 2) |
+| ROOT_example and Manual root | Red / Looks/Red | Tall / (1, 1, 2) |
 | Scenarios, Normal | Red / Looks/Red | Tall / (1, 1, 2) |
 | MaskedSize | Red / Looks/Red | Tall / (1, 1, 1) |
 | MaskedSelection, Normal | Blue / Looks/Blue | Tall / (1, 1, 2) |
 
 See [build_manifest.json](_pipeline_reports/build_manifest.json) for file hashes, runtime and observations. This read-back covers the saved defaults and stage coordinates; it does not establish a full variant matrix, assembly behavior in all configurations, renderer appearance, physical simulation or UI persistence. No acceptance tests were run. [expected.json](_contracts/expected.json) records intended outcomes separately. The previous package and byte-exact supplied root are retained in the repository's `harness/evidence/standard_root_adoption` folder.
+
+The 0.1.1 correction updates the current version/profile labels and diagrams. File hashes were refreshed; the USD observations above were retained from the earlier build and were not rerun. Their original report is preserved at `harness/evidence/build_before_version_0.1.1.json`, and the current manifest records that provenance.
 
 ## Reproduce the authored fixture
 

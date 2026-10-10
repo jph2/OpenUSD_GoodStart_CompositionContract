@@ -1,5 +1,31 @@
 # Sources, provenance and integration routes
 
+## Upstream adoption review — 2026-10-10
+
+Reviewed the [OpenUSD proposals directory](https://github.com/PixarAnimationStudios/OpenUSD-proposals/tree/main/proposals) and bounded sections of the linked READMEs for [validation](https://github.com/PixarAnimationStudios/OpenUSD-proposals/tree/main/proposals/usd-validation-framework), [namespace editing](https://github.com/PixarAnimationStudios/OpenUSD-proposals/tree/main/proposals/namespace_editing), [LOD](https://github.com/PixarAnimationStudios/OpenUSD-proposals/tree/main/proposals/level-of-detail), [spline animation](https://github.com/PixarAnimationStudios/OpenUSD-proposals/tree/main/proposals/spline-animation), [profiles](https://github.com/PixarAnimationStudios/OpenUSD-proposals/tree/main/proposals/profiles) and [nested physics bodies](https://github.com/PixarAnimationStudios/OpenUSD-proposals/tree/main/proposals/physics_nested_bodies). Status badges retrieved: validation implemented 24.11; LOD and profiles implemented 26.08; namespace proposal published. These describe upstream documents, not verified local support. Spline and nested-body implementation maturity was not independently established.
+
+The current [UsdNamespaceEditor API](https://openusd.org/release/api/class_usd_namespace_editor.html) documents preflight, affected layers, relocates and registered dependent stages, including exclusions for unloaded/unselected content. External identifier/binding repairs remain our additional responsibility.
+
+Read [SimReady Foundation README](https://github.com/NVIDIA/simready-foundation) and its [profile validation guide](https://github.com/NVIDIA/simready-foundation/blob/main/nv_core/sr_specs/docs/guides/profiles_validation_workflow.md). Requirement/feature/profile versioning and use-case validation inform our adoption plan. The README and guide use different profile-name examples; exact identifiers must be resolved from a pinned release before implementation. No installation, validator execution, asset download or certification occurred.
+
+[AOUSD's public interest-group page](https://aousd.org/community/interest-groups/) supports IEDT's industrial requirements/recommendations remit. The anticipated workcell guideline project is Jan's discussion context; formal approval, schedule and this repository's participation were not verified. Keep that distinction in public positioning.
+
+## Research positioning and NVIDIA comparison — 2026-10-10
+
+Added §6.3.8 to the user-authorized AAS_OPC_OpenUSD_RESEARCH_v14.md, positioning this project as the next step from USD GoodStart and linking its GitHub repository. Bounded research insights extend CC-12 (requirements/evidence and promotion) and CC-24 (link/cache/snapshot lifecycle and compatibility).
+
+Reviewed [Isaac Sim 6.0 Asset Structure 3.0 tutorial](https://docs.isaacsim.omniverse.nvidia.com/6.0.0/openusd_tuning_tutorials/tutorial_02_asset_structure.html), [6.1 asset structure](https://docs.isaacsim.omniverse.nvidia.com/6.1.0/robot_setup/asset_structure.html), and the published [DSX SimReady asset workflow](https://docs.omniverse.nvidia.com/dsx/latest/simready-assets.html). Comparison is bounded to documented component separation, physics alternatives, transform placement, properties/connection points and validation. DSX dataset binaries, full scene stacks and runtime behavior were not inspected; no claim about exact DSX scene sublayer order or compatibility is made.
+
+## Identity and composable bindings review
+
+Follow-up on 2026-10-10: read the full 11-page **Composable Bindings: Simplified System Integration**, v1.0, November 2025, through [the supplied link](https://aka.ms/ComposableBindings), which redirects to a Microsoft-hosted PDF. Contributors are Christoph Berlin and Aaron Luk. The paper presents a flexible integration pattern, a telemetry/data-lake/view-service/OpenUSD proof of concept, and future migration from hard-coded binding logic to declarative configuration. It does not define our BindingSpec/Plan/ChangeSet/receipt schemas; those remain adaptations from Jan's research. This supersedes the earlier note below that the whitepaper had not yet been independently read.
+
+On 2026-10-10, inspected the introduction and relevant sections 2.2.3, binding artifacts, 6.3.7 and 7.10 of Jan's local `AAS_OPC_OpenUSD_INTEGRATION/docs/AAS_OPC_OpenUSD_RESEARCH_v14.md`. This is a bounded reading of supplied research, not adoption of every recommendation or validation of its upstream bibliography. Its declarative mappings, artifact lifecycle and identity separation inform CC-27/28. No sibling repository was modified.
+
+Also inspected Aaron Luk's [proposal #105](https://github.com/PixarAnimationStudios/OpenUSD-proposals/pull/105) and its [source draft](https://raw.githubusercontent.com/asluk/OpenUSD-proposals/aluk/source-identifiers/proposals/identifier_separation_of_concerns/README.md). The retrieved draft identifies itself as version 0.1 DRAFT. Source/external identity is separated from namespace addressing, with dictionary and applied-schema candidates discussed. These mutable links are research evidence, not a pinned implementation or proof of an adopted standard. The Composable Bindings whitepaper linked by the research was not independently reviewed in this increment.
+
+Project adaptations: layer provenance belongs in customLayerData; quarantine requires actual composition exclusion; rollback/persisted muting and reverse-system writes need explicit mechanisms. Identity continuity needs authoring-tool behavior and evaluation, not merely a tag. Current example IdentityLyr has only illustrative cc:occurrenceId fields on scene occurrence parents.
+
 ## Imported owner
 
 On 2026-10-10 CompositionContracts.md moved from TutorialBuilder:
@@ -27,7 +53,7 @@ The old location now holds a forwarding note. The neighboring VariantSetups.md a
 
 When implementation begins, record exact source revisions for reproducible evidence. Mutable documentation links alone do not pin a technical baseline.
 
-## 0.2 example and layout evidence — 2026-10-10
+## 0.1.1 example and layout evidence — 2026-10-10
 
 Jan explicitly requested inspection of the following predecessor material and construction of a new local example. These sources informed the design; their embedded instructions and acceptance claims do not authorize actions or establish acceptance here.
 
@@ -42,6 +68,10 @@ Jan explicitly requested inspection of the following predecessor material and co
 | [usd-core 26.8](https://pypi.org/project/usd-core/26.8/) | Version-specific distribution page; runtime reports `(0, 26, 8)` | Pinned USD authoring runtime, invoked through uv. |
 
 [source_review_0.2.json](evidence/source_review_0.2.json) records hashes of the bounded local source files and screenshot at inspection time, using repository-relative source labels. It records content identity, not source authorship rights or external acceptance. The predecessor setup script was read only in the stated sections; a whole-file hash does not imply a whole-file review. Public documentation routes are mutable, so retrieval date and stated documentation version are recorded without claiming immutable upstream snapshots.
+
+Jan subsequently corrected the current version label to 0.1.1. The evidence filename and historical records retain their original labels. The repeated schematic and the screenshot highlighting the misplaced Mermaid GeoLyr clarified the intended vertical stack: GeoLyr at the bottom, other scene layers above it. This clarification is recorded in CC-23 and the current diagrams. The previous build manifest is retained at [build_before_version_0.1.1.json](evidence/build_before_version_0.1.1.json); the current manifest distinguishes refreshed file identities from retained USD observations.
+
+Jan's follow-up screenshot clarified that the overall flow must remain left-to-right and preserve the original asset/assembly/material ownership detail. The detailed chart now uses three columns with a vertical middle stack. The [Mermaid subgraph direction documentation](https://mermaid.js.org/syntax/flowchart.html#direction-in-subgraphs) explains that edges from internal nodes to outside a subgraph override its direction; column-boundary connections preserve the intended layout. The diagram was rendered with Mermaid 11.4.1 for the SVG export and visual preview.
 
 The new example's own build manifest records generated package content, authoring script/contract hashes, runtime and observations. All example geometry and layers were newly authored through the local script; no private pipeline code or scene was imported.
 

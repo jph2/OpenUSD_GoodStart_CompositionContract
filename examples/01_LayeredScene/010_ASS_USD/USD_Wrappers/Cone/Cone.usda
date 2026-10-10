@@ -5,7 +5,7 @@
         string "cc:defaultAuthoring" = "session"
         bool "cc:lockPersistentLayers" = 1
         string "cc:owner" = "asset:Cone@1"
-        string "cc:profile" = "CC-EXAMPLE-01/0.2"
+        string "cc:profile" = "CC-EXAMPLE-01/0.1.1"
         string "cc:role" = "Root"
         dictionary omni_layer = {
             dictionary locked = {

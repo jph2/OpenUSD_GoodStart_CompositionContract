@@ -3,7 +3,7 @@
     customLayerData = {
         string "cc:context" = "unconditional"
         string "cc:owner" = "scene:LayeredScene@1"
-        string "cc:profile" = "CC-EXAMPLE-01/0.2"
+        string "cc:profile" = "CC-EXAMPLE-01/0.1.1"
         string "cc:role" = "TransLyr"
     }
 )

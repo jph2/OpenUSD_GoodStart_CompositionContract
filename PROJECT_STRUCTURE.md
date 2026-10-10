@@ -1,35 +1,73 @@
 # Project structure and the revised scene paradigm
 
-**Draft 0.2 · 2026-10-10.** This design develops Jan's scene-layer schematic, TutorialBuilder's VariantSetups exploration and the inspected `USD_GoodStart/_Generated_Test` folder. [CompositionContracts.md](CompositionContracts.md) owns the rules. The [local example](examples/01_LayeredScene/README.md) implements a bounded static profile; acceptance remains pending.
+**Draft 0.1.1 · 2026-10-10.** This design develops Jan's scene-layer schematic, TutorialBuilder's VariantSetups exploration and the inspected `USD_GoodStart/_Generated_Test` folder. [CompositionContracts.md](CompositionContracts.md) owns the rules. The [local example](examples/01_LayeredScene/README.md) implements a bounded static profile; acceptance remains pending.
 
 ## The authoring model
 
-Open `ROOT_example.usda`, the supplied Omniverse starting scene, with all persistent layers locked and the session layer selected for temporary edits. The supplied environment, viewport camera and render specs remain its declared application baseline. When persisting a project change, deliberately unlock and edit the contribution that owns it. GeoLyr links published assets; TransLyr places occurrences; VariLyr selects configurations and owns scene scenarios. Material roles remain available when the scene has additional material responsibilities. Each referenced assembly or asset repeats this separation for its own decisions.
+Open `SceneROOT_Example.usda`, the supplied Omniverse starting scene, with all persistent layers locked and the session layer selected for temporary edits. The supplied environment, viewport camera and render specs remain its declared application baseline. When persisting a project change, deliberately unlock and edit the contribution that owns it. GeoLyr links published assets; TransLyr places occurrences; VariLyr selects configurations and owns scene scenarios. Material roles remain available when the scene has additional material responsibilities. Each referenced assembly or asset repeats this separation for its own decisions.
 
 ```mermaid
+%%{init: {"flowchart": {"wrappingWidth": 380, "nodeSpacing": 22, "rankSpacing": 28}}}%%
 flowchart LR
-    Root["ROOT_example.usda / World_Scenarios.usda"]
-    subgraph Scene["Scene-owned contributions — edit the responsible layer"]
-        Geo["GeoLyr — hierarchy and asset references"]
-        Trans["TransLyr — occurrence placement"]
-        Vari["VariLyr — selections OR scene scenarios"]
-        Other["DataLyr — occurrence identity and context"]
+    accTitle: OpenUSD Composition Contracts 0.1.1 - Root, scene stack and reusable sources
+    accDescr: Left to right, the root assembles a vertical scene layer stack with GeoLyr at the bottom. Reusable assets, assemblies and materials retain their own implementation and variant context.
+    %% Connect the column subgraphs, keeping their internal TB layout intact.
+    subgraph ENTRY["ROOT + AUTHORING · 0.1.1"]
+        direction TB
+        Session["Session Layer<br/>Default target for temporary edits<br/>Persistent layers start locked"]
+        R["SceneROOT_Example.usda<br/>Stage metadata and sublayer assembly<br/>SceneROOT_Manual is an independent manual root"]
+        Startup["Supplied Omniverse baseline in the root<br/>Environment · Render · viewport cameras<br/>Z-up · centimetres · identity World · 60 fps"]
+        Session ~~~ R
+        R ~~~ Startup
+        Review["Optional REVIEW · 050_REVIEW<br/>ReviewLyr · explicit experiments above the base stack<br/>Declare owner, purpose and removal route"]
+        Startup ~~~ Review
     end
-    Root -->|sublayer| Geo
-    Root -->|sublayer| Trans
-    Root -->|sublayer| Vari
-    Root -->|sublayer| Other
-    Geo -->|reference| Cube["Cube public interface"]
-    Geo -->|reference| Cone["Cone public interface"]
-    Geo -->|reference| Pair["DisplayPair public interface"]
-    Pair -->|owned GeoLyr references| Cube
-    Pair -->|owned GeoLyr references| Cone
-    Cube -->|owned MatLyr references| Library["Palette_v001 material library"]
-    Cone -->|owned MatLyr references| Library
-    Root -->|"supplied root specs"| Startup["Omniverse Environment · Render · viewport cameras"]
+
+    subgraph STACK["SCENE LAYER CLASSES"]
+        direction TB
+        RT["RUNTIME LAYER · 035_RUNTIME_LYR<br/>RuntimeLyr · deliberate operational snapshots<br/>Live values may remain in session / external storage<br/>Declare writer authority and persistence"]
+        S["SIM LAYER · 030_SIM_LYR<br/>SimLyr · published solver results<br/>Record scenario, solver, time and provenance"]
+        D["DATA LAYERS · 040_DATA_LYRs<br/>DataLyr · project identity and context<br/>IdentityLyr · scoped occurrence / external IDs<br/>ContextLyr · installation context<br/>Bindings resolve identities to explicit targets<br/>UNSMappingLyr · optional integration mappings"]
+        BASE["BASE LAYER · 020_BASE_LYR<br/>MatLyr · scene resources and assignments; respect asset Finish<br/>TransLyr · ordinary placement on occurrence parents<br/>VariLyr · published selections OR Layout scenarios<br/>Relative adjustments stay in their scenario branch<br/>Optional: EnvLyr · LightLyr · CamLyr · RenderLyr<br/>AnimLyr · PhysicsLyr · RigLyr as the profile requires<br/>GeoLyr · hierarchy and asset references · BOTTOM / WEAKEST<br/>Linked packages retain their own implementation"]
+        RT ~~~ S
+        S ~~~ D
+        D ~~~ BASE
+    end
+
+    subgraph SRC["ASSET USD · 010_ASS_USD"]
+        direction TB
+        B["Nested assembly interface · DisplayPair<br/>Own GeoLyr + TransLyr + VariLyr<br/>Palette variants coordinate child Finish selections<br/>Scene selects the assembly's public interface"]
+        A["Published asset interfaces · Cube and Cone<br/>Own GeoLyr + TransLyr + MatLyr + VariLyr<br/>Source identity belongs at the asset/component scope<br/>Asset-owned geometry, intrinsic transforms and materials<br/>Reusable Size / Finish definitions remain in the asset"]
+        Library["Shared material library · Palette_v001<br/>Reusable material definitions and shader values<br/>Asset MatLyr references the required materials<br/>Library revisions are adopted deliberately"]
+        Context["Preserve owner and variant context<br/>Asset / assembly changes belong in that package<br/>Variant-dependent values stay in their owning branch<br/>Scene choices do not duplicate asset implementations"]
+        B -->|"assembly GeoLyr references Cube and Cone"| A
+        A -->|"asset MatLyr references shared definitions"| Library
+        Library ~~~ Context
+    end
+
+    ENTRY -->|"Root composes sibling sublayers"| STACK
+    STACK -->|"GeoLyr references assets and assemblies"| SRC
+    STACK -.->|"VariLyr selects published controls"| SRC
+    STACK -.->|"Scene MatLyr links materials when needed"| SRC
+
+    classDef root fill:#fde8df,stroke:#d99b84,color:#17212b,stroke-width:2px
+    classDef layer fill:#dceef9,stroke:#91bfd8,color:#17212b,stroke-width:1.5px
+    classDef optional fill:#f4f9fc,stroke:#91bfd8,color:#334155,stroke-width:1.5px,stroke-dasharray:6 4
+    classDef base fill:#dceef9,stroke:#1685bd,color:#17212b,stroke-width:3px
+    classDef asset fill:#ffffff,stroke:#9db9c8,color:#17212b,stroke-width:1.5px
+    classDef note fill:#f5f8fa,stroke:#cbd6dc,color:#334155
+    class R root
+    class D layer
+    class RT,S,Review optional
+    class BASE base
+    class B,A,Library asset
+    class Session,Startup,Context note
+    style STACK fill:#f8fcff,stroke:#84c83d,stroke-width:3px
 ```
 
-Arrows show composition dependencies, not strength order or movement of edits into the source. Selection opinions target the composed public asset prim. Referencing an asset does not require changing its source file when configuring a scene occurrence.
+Read the diagram **left to right**: the root assembles the scene layer stack, which uses reusable assets, assemblies and materials. Inside the middle column, **GeoLyr is at the bottom**, beneath the other scene contributions. Numbered solid rows give the active standard-scene order: DataLyr → TransLyr → VariLyr → GeoLyr. Dashed rows retain the optional work roles and the explicit Review role; the profile declares their order when included.
+
+The root's sublayers are siblings. GeoLyr references Cube, Cone and DisplayPair; TransLyr places occurrences; VariLyr selects published controls and keeps scenario-relative adjustments in their branches. DisplayPair's own GeoLyr references Cube and Cone, and its Palette variants coordinate child Finish choices. Cube/Cone keep their geometry, intrinsic transforms, materials and Size/Finish implementations in their own package. Their MatLyr contributions reference Palette_v001. The supplied environment/render/camera content stays in the root under CC-01. See the [composition contract](CompositionContracts.md#composition-memory-chart) for the corresponding ownership and persistence guidance.
 
 ## Changes from the two predecessors
 
@@ -53,15 +91,17 @@ The inspected setup script and its generated output are separate evidence. Scrip
 
 ## Storage layout
 
+Use Root for entrypoint naming (`SceneROOT_<Purpose>.usda`) and scene for the composed result. All active scene entrypoints follow CC-26. Diagram class labels map to the [contract classification table](CompositionContracts.md#naming-and-classification): ASSET USD, BASE, SIM, RUNTIME, DATA and REVIEW. These classify package/layer purpose; mixed-case names inside them identify technical roles. No additional aggregate layers are implied.
+
 The example folder is the portable unit. The complete folder includes all USD dependencies; moving an individual root does not preserve its relative dependencies. Numeric prefixes organize storage and carry **no USD strength semantics**.
 
 ```text
 examples/01_LayeredScene/
-  ROOT_example.usda                 standard Omniverse root + direct scene selections
-  World_Manual.usda                 compatibility alias of ROOT_example
-  World_Scenarios.usda              scene Layout variant
-  World_MaskedSize.usda             deliberate property conflict
-  World_MaskedSelection.usda        deliberate selection conflict
+  SceneROOT_Example.usda                 standard Omniverse root + direct scene selections
+  SceneROOT_Manual.usda                 independent manual root matching ROOT_example
+  SceneROOT_Scenarios.usda              scene Layout variant
+  SceneROOT_MaskedSize.usda             deliberate property conflict
+  SceneROOT_MaskedSelection.usda        deliberate selection conflict
   Open_In_Kit.ps1                   launch with locked layers and session authoring
   000_SOURCE/                      retained CAD/DCC originals; unused here
   010_ASS_USD/
@@ -124,9 +164,9 @@ Both baseline scene roots list, strongest first:
 3. Exactly one VariLyr: direct selections or scene scenarios.
 4. GeoLyr.
 
-The supplied root's environment/render/viewport specs remain local root content by the explicit CC-01 application-template exception. They do not author transforms on `/World` or the example occurrences. The earlier presentation layers and Ground package were archived outside the active example. `World_Manual.usda` sublayers the standard root as a compatibility alias; it has no independent scene content.
+The supplied root's environment/render/viewport specs remain local root content by the explicit CC-01 application-template exception. They do not author transforms on `/World` or the example occurrences. The earlier presentation layers and Ground package were archived outside the active example. Every scene entrypoint owns its startup content and directly lists its work layers. Manual and review entrypoints never sublayer another scene root; review layers sit directly above the baseline work layers.
 
-Most contributions own different fields. This ordering documents the example; it is not a universal recommendation. Asset roots list VariLyr, MatLyr where needed, TransLyr where needed, then GeoLyr. Review entrypoints compose their exception above the corresponding baseline root.
+Most contributions own different fields. GeoLyr at the bottom is this project's scene convention; the profile declares the order above it. Asset roots likewise list VariLyr, MatLyr where needed, TransLyr where needed, then GeoLyr. Review entrypoints compose their exception above the corresponding baseline work layers.
 
 | Intended edit | Destination | Context |
 |---|---|---|

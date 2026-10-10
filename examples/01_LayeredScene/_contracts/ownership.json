@@ -1,5 +1,5 @@
 {
-  "authority": "Project-authored demo design, revision 0.2",
+  "authority": "Project-authored demo design, revision 0.1.1",
   "common_policy": {
     "conflict": "report undeclared overlap; no automatic routing or repair",
     "evidence": "expected.json; build_manifest.json; manual UI review pending",
@@ -95,7 +95,7 @@
       "fields": "supplied ground/collider, lighting, viewport cameras, materials and render state",
       "id": "application:OmniverseStandard",
       "override": "preserve the user-selected startup scene; explicit later changes only",
-      "package": "ROOT_example.usda",
+      "package": "SceneROOT_Example.usda",
       "public": [
         "/Environment",
         "/Render",

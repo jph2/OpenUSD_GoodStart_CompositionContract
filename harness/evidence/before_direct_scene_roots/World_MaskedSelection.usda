@@ -24,7 +24,7 @@
         string "cc:defaultAuthoring" = "session"
         bool "cc:lockPersistentLayers" = 1
         string "cc:owner" = "scene:LayeredScene@1"
-        string "cc:profile" = "CC-EXAMPLE-01/0.2"
+        string "cc:profile" = "CC-EXAMPLE-01/0.1.1"
         string "cc:role" = "Root"
         string "cc:startupTemplate" = "ROOT_example supplied by Jan"
         dictionary omni_layer = {
@@ -45,12 +45,13 @@
                 bool "./010_ASS_USD/USD_Wrappers/Cube/layers/TransLyr.usda" = 1
                 bool "./010_ASS_USD/USD_Wrappers/Cube/layers/VariLyr.usda" = 1
                 bool "./020_BASE_LYR/GeoLyr.usda" = 1
+                bool "./020_BASE_LYR/Scenarios/VariLyr.usda" = 1
                 bool "./020_BASE_LYR/TransLyr.usda" = 1
-                bool "./020_BASE_LYR/VariLyr.usda" = 1
                 bool "./040_DATA_LYRs/Data/ContextLyr.usda" = 1
                 bool "./040_DATA_LYRs/Data/IdentityLyr.usda" = 1
                 bool "./040_DATA_LYRs/DataLyr.usda" = 1
-                bool "./ROOT_example.usda" = 1
+                bool "./050_REVIEW/MaskedSelection/ReviewLyr.usda" = 1
+                bool "./World_Scenarios.usda" = 1
             }
             dictionary muteness = {
             }
@@ -65,7 +66,8 @@
     metersPerUnit = 0.009999999776482582
     startTimeCode = 0
     subLayers = [
-        @./ROOT_example.usda@
+        @./050_REVIEW/MaskedSelection/ReviewLyr.usda@,
+        @./World_Scenarios.usda@
     ]
     timeCodesPerSecond = 60
     upAxis = "Z"

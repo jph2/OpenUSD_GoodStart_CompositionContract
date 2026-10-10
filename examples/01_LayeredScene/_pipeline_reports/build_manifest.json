@@ -1,9 +1,17 @@
 {
-  "contract_sha256": "d99d5a0cc4e2364dd555e7803a27dc796eb167fa45367e6e846592e6bd2608de",
+  "contract_sha256": "53c22e6c574b88fe5a373f5cad650420f659ffc49aab49825d14c509c52e8c8b",
   "generator": "tools/build_example.py",
-  "generator_sha256": "7322f7aca358a89f8eb112011fc2a035431ef174992cf05b62a6f16d31eef5dd",
+  "generator_sha256": "70bef1abfd316ce45a621a59b605eafc08c0856b5decc05cd506b7fcb67c9521",
   "human_acceptance": "pending",
   "load": "LoadAll",
+  "metadata_revision": {
+    "date": "2026-10-10",
+    "diagram": "Detailed left-to-right root, vertical layer stack and reusable-source columns; GeoLyr at the bottom; existing sublayer order retained",
+    "from": "CC-EXAMPLE-01/0.2",
+    "tests": "not run",
+    "to": "CC-EXAMPLE-01/0.1.1",
+    "usd_edit": "customLayerData cc:profile only"
+  },
   "observations": {
     "ROOT_example.usda": {
       "bound_camera": "/OmniverseKit_Persp",
@@ -341,6 +349,12 @@
       ]
     }
   },
+  "observations_provenance": {
+    "note": "The source retains its original version label. This revision changes profile metadata and documentation only; no composition or Kit acceptance was rerun.",
+    "recorded_profile": "CC-EXAMPLE-01/0.2",
+    "sha256": "6cc46ac28e2852340d4eb2b1bb85b20ae7711a2d58087ab83eec554c2094b453",
+    "source": "harness/evidence/build_before_version_0.1.1.json"
+  },
   "package_files_at_recording": [
     {
       "bytes": 207,
@@ -348,24 +362,24 @@
       "sha256": "888c59278b45af4e50a2878f0138679c4681bca72ecc7f1ed13c085a4000ab91"
     },
     {
-      "bytes": 1545,
+      "bytes": 1547,
       "path": "010_ASS_USD/Assemblies/DisplayPair/DisplayPair.usda",
-      "sha256": "2be6b9ced8ae4c465c20e8e31c1b457629f4ff2bf5313d03ef1faa7b3e7bec84"
+      "sha256": "9cc416e21ba314f10f31da5e1683bdd18076013abb4587d4ab85e542dbf848b7"
     },
     {
-      "bytes": 762,
+      "bytes": 764,
       "path": "010_ASS_USD/Assemblies/DisplayPair/layers/GeoLyr.usda",
-      "sha256": "f440f83260a968c098a741e7afcc12cd4622348e91084cf3f5d6b88d7bebf736"
+      "sha256": "e0cd3a503a8f76e3eef74ca40617d1c3494bb8b50bba1b08c6789f8b7eb82954"
     },
     {
-      "bytes": 790,
+      "bytes": 792,
       "path": "010_ASS_USD/Assemblies/DisplayPair/layers/TransLyr.usda",
-      "sha256": "9ccfb7532983cfa2733146f357a61d2d29ae11548ba403d1dd1e7e348cb8c2b2"
+      "sha256": "968ba2360c3f10f7fc7035dc72d42a59be2bd6a7164eb084275ff6a92ece7d08"
     },
     {
-      "bytes": 1811,
+      "bytes": 1813,
       "path": "010_ASS_USD/Assemblies/DisplayPair/layers/VariLyr.usda",
-      "sha256": "91af8b5ff6f0737b996053eeb0fe44bf29985c4f1cb3b2b2727ccf77b0eb3a0e"
+      "sha256": "f1e87cb01d538df0bdcf3b653aba856d2dabd2a881bfa2d7407b8f8aaa160170"
     },
     {
       "bytes": 179842,
@@ -378,9 +392,9 @@
       "sha256": "6de6882ff7acfd8c13fdfa8c56e8df5fce198bb8e11d1e4da22ae52e527f1422"
     },
     {
-      "bytes": 1890,
+      "bytes": 1892,
       "path": "010_ASS_USD/MatLib/Palette_v001.usda",
-      "sha256": "b788e949023494272d812a920224552ea29e3408619de8062753309150f26319"
+      "sha256": "48a41e6641a45d85f366cfc2dae1a5df7d62345e6b6771281d9bfdd06c092cf7"
     },
     {
       "bytes": 168,
@@ -393,74 +407,74 @@
       "sha256": "796508208409012cfa2fda78b12f67c8420e4b6cb88df1697fc0a7421ae3e6e5"
     },
     {
-      "bytes": 920,
+      "bytes": 922,
       "path": "010_ASS_USD/USD_Wrappers/Cone/Cone.usda",
-      "sha256": "a42147e09ad2e9ba9b1a1a278bd2febdfc46531f7ef00fecef63d662622df84a"
+      "sha256": "d7a951a7cb04f202720dad916d531a58c416d49023b3682cfa105234e669f57c"
     },
     {
-      "bytes": 451,
+      "bytes": 453,
       "path": "010_ASS_USD/USD_Wrappers/Cone/layers/GeoLyr.usda",
-      "sha256": "e1612d7ed7d3d4314d335104d5e3f1e112975bbd1a909b706b2e16971eb08805"
+      "sha256": "e1db955ff2200e220418b60d101f591bead2d56331ed1223009085b166e4cd6b"
     },
     {
-      "bytes": 712,
+      "bytes": 714,
       "path": "010_ASS_USD/USD_Wrappers/Cone/layers/MatLyr.usda",
-      "sha256": "04d85ab0308a3e2ad0dc8f01b78e676ee9cb8c2bdf13d78bb85d519455eb53e2"
+      "sha256": "dc11003007c80cacc2480ceee8b05f3b0b009a0c4fd09baf7b1788c0292a59c0"
     },
     {
-      "bytes": 505,
+      "bytes": 507,
       "path": "010_ASS_USD/USD_Wrappers/Cone/layers/TransLyr.usda",
-      "sha256": "b4516962eb0d50f6621c83e2f57530d4eeabb398d3adc9d9d8a350644a75007e"
+      "sha256": "49885c7973646f590e7d5f3273f98a511dc82f7c28249af2d6a3aa308ad25e6d"
     },
     {
-      "bytes": 1530,
+      "bytes": 1532,
       "path": "010_ASS_USD/USD_Wrappers/Cone/layers/VariLyr.usda",
-      "sha256": "faecb4175e0d66441b15a3d6b38c842abd581f45fe69b0cf5f86aeae9d741a75"
+      "sha256": "399287b401dd6d84f902497eaa98f974402a074f1ead543293354363829cf3e9"
     },
     {
-      "bytes": 920,
+      "bytes": 922,
       "path": "010_ASS_USD/USD_Wrappers/Cube/Cube.usda",
-      "sha256": "a566e918159d18827c49e8c1be71ce0e48ddf3dc974d7e80783dda423eace996"
+      "sha256": "0de20f6b732d593e4790e9b9301d23ce6b3ae819de0276f1c450652c3f593fe7"
     },
     {
-      "bytes": 389,
+      "bytes": 391,
       "path": "010_ASS_USD/USD_Wrappers/Cube/layers/GeoLyr.usda",
-      "sha256": "c28ed14a31b56b8ae502556856d8e43dc7d523037eb56bbf029a464b944b100c"
+      "sha256": "782daee0987387ca02cfd151470269642441d1652e05ced11d1f20279023c851"
     },
     {
-      "bytes": 712,
+      "bytes": 714,
       "path": "010_ASS_USD/USD_Wrappers/Cube/layers/MatLyr.usda",
-      "sha256": "56474ca0b8abdc77cd06e32e3f2b41a3299b76ba2537fbeb1dec0176cce97278"
+      "sha256": "e02f101fe3be367e0af512f72c4768b8ca878eabcef4130d05355367194d9e4d"
     },
     {
-      "bytes": 505,
+      "bytes": 507,
       "path": "010_ASS_USD/USD_Wrappers/Cube/layers/TransLyr.usda",
-      "sha256": "2532363ed7f7c7af41cdc38a86e51da1f822b2ab59fd8a741c4afd9570fd3ddc"
+      "sha256": "48f6c20c98119cf1078f1e029be3910e47aaa34ba65f3533a1476c8ea7d83aaf"
     },
     {
-      "bytes": 1527,
+      "bytes": 1529,
       "path": "010_ASS_USD/USD_Wrappers/Cube/layers/VariLyr.usda",
-      "sha256": "7843bc9a2d92ec7545303eb1372309de0cda9c8688b0306b00e9c8534305dd52"
+      "sha256": "56411bc0b397469d0a511eee4b1380db902fec326f28c75101e8af55e7daf0be"
     },
     {
-      "bytes": 1234,
+      "bytes": 1236,
       "path": "020_BASE_LYR/GeoLyr.usda",
-      "sha256": "9e38e7c9a1dfae0289bb84702f2baf2a9c516a3b08b23122d4707c158a389c67"
+      "sha256": "d67d4eb8d5c13fef9f974d61676bc29e6542c7c8ddf15c730de78a02d2832090"
     },
     {
-      "bytes": 5723,
+      "bytes": 5725,
       "path": "020_BASE_LYR/Scenarios/VariLyr.usda",
-      "sha256": "8f2e6dc35a7e449d6b9515b1c35ee0321bf00d590c308cd987a3899005c63367"
+      "sha256": "59a638c6d331b41641a1b8e2d66c99c03a5b826ebae29373e9a007d592d6f195"
     },
     {
-      "bytes": 1310,
+      "bytes": 1312,
       "path": "020_BASE_LYR/TransLyr.usda",
-      "sha256": "7db104c50ad5e587653c08ed87b2397d51e4b8aece5e0ca3ade0560939b3f6c7"
+      "sha256": "df7f401664c43a517711213f9d338df7329f231f50635963aac3974e0a04d129"
     },
     {
-      "bytes": 1323,
+      "bytes": 1325,
       "path": "020_BASE_LYR/VariLyr.usda",
-      "sha256": "d0050f8e7dba4dc14ff40dcebeb781632dc1ea397efa2807e34528e5a717b141"
+      "sha256": "3646bd7f2893641c544af8480d2303fa07a5052ff5e51e1bfb7da3ef27f712d8"
     },
     {
       "bytes": 197,
@@ -473,19 +487,19 @@
       "sha256": "0e947796300ac1b1c2b39692002ecedbd6b4bac6f64ed983dff3265610a72683"
     },
     {
-      "bytes": 365,
+      "bytes": 367,
       "path": "040_DATA_LYRs/Data/ContextLyr.usda",
-      "sha256": "1e210875f5356e9ba43e43f081ddf8392e75b9d40cc6541f52bd05aed05b96f3"
+      "sha256": "085a7498d0872e4307de35ea17117cd814fe7517dba851f73efb6a2d9fbe644c"
     },
     {
-      "bytes": 610,
+      "bytes": 612,
       "path": "040_DATA_LYRs/Data/IdentityLyr.usda",
-      "sha256": "d59127d8b94c0cb0c3ed585323bafe568f849925ce4f12f033fdb4102be9ed70"
+      "sha256": "5e51951ec685fa9665f3cb3d7d8dbaf1af9c077bfb06d306c31cfb6db4290042"
     },
     {
-      "bytes": 321,
+      "bytes": 323,
       "path": "040_DATA_LYRs/DataLyr.usda",
-      "sha256": "97b35d5e866c42abb3bd6e004f1d46a8949d53ba2ae695a8af29a12874675b23"
+      "sha256": "44b9d3ce53aa73cba7e7a6aa43ea2b41e7554355266cb8f49d516688c50573ee"
     },
     {
       "bytes": 216,
@@ -493,14 +507,14 @@
       "sha256": "b231cc08345ca0093b710cf75517f5a782abb3e10fe073e8413c1616eccc18c3"
     },
     {
-      "bytes": 504,
+      "bytes": 506,
       "path": "050_REVIEW/MaskedSelection/ReviewLyr.usda",
-      "sha256": "710babe13e17f21bf455d2480bdf8d612dd025912c8af209eb147d450b48eba7"
+      "sha256": "5acd919f9acc0ce04c54113d809d49eb7e0cc842eb2a968d6f55fd1dd2f131b2"
     },
     {
-      "bytes": 448,
+      "bytes": 450,
       "path": "050_REVIEW/MaskedSize/ReviewLyr.usda",
-      "sha256": "7f6234cb4a7e48486e2c7d71d2e72d8ee0dbe28c8f8e52321fe1a85909144579"
+      "sha256": "857af2e9ce32bbf3a35436602cfcdc911c3c24068afe9eac1b913d6f5ac2efcf"
     },
     {
       "bytes": 242,
@@ -513,14 +527,14 @@
       "sha256": "da3e2aa872ea66d679fa0fb607d950bb3bded000979e36c461054b60c5d46ca8"
     },
     {
-      "bytes": 4894,
+      "bytes": 4896,
       "path": "_contracts/ownership.json",
-      "sha256": "60db23af8fc49c2501b5b248f3a3026e83d13ad7011b46a8a26ae257b3e1b5d0"
+      "sha256": "affd62644c847b87241f095cd2b11bf11e5ac3365bd07702a108f03fbe9932b5"
     },
     {
-      "bytes": 7893,
+      "bytes": 7897,
       "path": "_contracts/profile.json",
-      "sha256": "02b4017cee7d94ba4b7f69452a51cb07c7eb067686fad3f5d55aee7e6fd1f545"
+      "sha256": "93041460b403c49bd944b11984a1e0b56823572733027193fbd510616766c366"
     },
     {
       "bytes": 399,
@@ -543,9 +557,9 @@
       "sha256": "205d3eebd4971109a27fd0200c34a58d601e6758b2c574c50acb6a43e1f25109"
     },
     {
-      "bytes": 9362,
+      "bytes": 31137,
       "path": "COMPOSITION_MEMORY_CHART.svg",
-      "sha256": "791bfec0e6a7425c7627a022d60cf093b657d9083d31b750118c758cea2204a0"
+      "sha256": "bdb866dfa6952c3e95a26371d4bcdaae7a67690cb16ac03e70dd688bb89a7e8a"
     },
     {
       "bytes": 1353,
@@ -553,42 +567,79 @@
       "sha256": "edc1dcd61966f9c84f83a5074402bdc02a4f31d9542021cfafed920c9b0b59ca"
     },
     {
-      "bytes": 10745,
+      "bytes": 11529,
       "path": "README.md",
-      "sha256": "b17d52758f245e02abf97f3ee6b4275342868468378894ac7319f42d92dbae33"
+      "sha256": "e6fa17b8ea306d87f0828bbd896e8d0f96bb0df08820c9496b0e2bce34ebd3be"
     },
     {
-      "bytes": 15110,
+      "bytes": 15112,
       "path": "ROOT_example.usda",
-      "sha256": "762f30c1fbee411123766b6c59427565f515ee0d0e839db288a086cda31144f7"
+      "sha256": "2a4d0c144be03745df8784fc43c9015cf8fecc6ce63520a7f972f45cfdb9be61"
     },
     {
-      "bytes": 3223,
+      "bytes": 3225,
       "path": "World_Manual.usda",
-      "sha256": "c7ea5b287122c161bbaecefc1da74d8cd9a5c0c5b8ec3a03bfde69eaab05cf7e"
+      "sha256": "a0ee7005ba18780981cc7c64961748c1c2d96027255a8b0c3e16eca5a89b7ece"
     },
     {
-      "bytes": 3365,
+      "bytes": 3367,
       "path": "World_MaskedSelection.usda",
-      "sha256": "80ac8cda9bb1d3b578801d476c4b2c2cb5870eab4a2300129a1d7a67f4839992"
+      "sha256": "5ef9285900846cc2e8c798dfbcf9d91bebf608efba57365a4dfaec12c24028ac"
     },
     {
-      "bytes": 3339,
+      "bytes": 3341,
       "path": "World_MaskedSize.usda",
-      "sha256": "b524665934a0cffcd62bbec6f3582e735862cd247ecc3b7dd7eaa91653a59b09"
+      "sha256": "e4b9c93d4c3fae71abc692f0507e4a1c32a1d27a09e354154ef70f5374676c27"
     },
     {
-      "bytes": 15130,
+      "bytes": 15132,
       "path": "World_Scenarios.usda",
-      "sha256": "4c7eb2ff3c9972a6dd060816a95e70eba9d2a8dbac09f0391e297611f43630ee"
+      "sha256": "965051fd8f687eb038392bbdd3a6755b51c29af89c9e315905b5db462b2a0129"
     }
   ],
-  "profile": "CC-EXAMPLE-01/0.2",
+  "profile": "CC-EXAMPLE-01/0.1.1",
   "python": "3.13.3",
   "schema": "cc-example-build/0.1",
-  "scope": "authoring and default-entrypoint read-back only; no acceptance tests run",
+  "scope": "Current file identities after the 0.1.1 label/chart correction; USD observations retained from the earlier build, not rerun.",
   "session": "empty",
   "startup_template_sha256": "7cb7c2b7d5caf72a8825f36b19466f09100740975a472503a01a625161d1ad56",
+  "subsequent_direct_root_migration": {
+    "changes": {
+      "World_Manual.usda": {
+        "sha256": "2a4d0c144be03745df8784fc43c9015cf8fecc6ce63520a7f972f45cfdb9be61",
+        "sublayers": [
+          "./040_DATA_LYRs/DataLyr.usda",
+          "./020_BASE_LYR/TransLyr.usda",
+          "./020_BASE_LYR/VariLyr.usda",
+          "./020_BASE_LYR/GeoLyr.usda"
+        ]
+      },
+      "World_MaskedSelection.usda": {
+        "sha256": "5ae6fbd53d97b5767891d543f6053a966f54ef910f80b4e3818f848b8130eafe",
+        "sublayers": [
+          "./050_REVIEW/MaskedSelection/ReviewLyr.usda",
+          "./040_DATA_LYRs/DataLyr.usda",
+          "./020_BASE_LYR/TransLyr.usda",
+          "./020_BASE_LYR/Scenarios/VariLyr.usda",
+          "./020_BASE_LYR/GeoLyr.usda"
+        ]
+      },
+      "World_MaskedSize.usda": {
+        "sha256": "a7675e35120498ae81fc2ee69a714b07fe4488f56b4e5b4eeb6f90ee2826b923",
+        "sublayers": [
+          "./050_REVIEW/MaskedSize/ReviewLyr.usda",
+          "./040_DATA_LYRs/DataLyr.usda",
+          "./020_BASE_LYR/TransLyr.usda",
+          "./020_BASE_LYR/VariLyr.usda",
+          "./020_BASE_LYR/GeoLyr.usda"
+        ]
+      }
+    },
+    "kit_acceptance": "pending",
+    "prior_report": "harness/evidence/before_direct_scene_roots/_pipeline_reports/build_manifest.json",
+    "scope": "Sdf-authored wrapper replacement; prior observations and file inventory are historical, not revalidated",
+    "tests": "not run"
+  },
   "tests": "not run",
   "time": "default",
   "usd": [

@@ -22,6 +22,6 @@ if (-not $KitExe -or -not $AppConfig) {
 $kitPath = (Resolve-Path -LiteralPath $KitExe).Path
 $appPath = (Resolve-Path -LiteralPath $AppConfig).Path
 $startupScript = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '_workflows/kit/session_defaults.py')).Path
-$sceneFile = if ($Scene -in @('Standard', 'Manual')) { 'ROOT_example.usda' } else { "World_$Scene.usda" }
+$sceneFile = if ($Scene -in @('Standard', 'Manual')) { 'SceneROOT_Example.usda' } else { "SceneROOT_$Scene.usda" }
 $stagePath = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot $sceneFile)).Path
 & $kitPath $appPath '--enable' 'omni.kit.usd.layers' '--exec' "`"$startupScript`"" "--/cc/sessionDefaults/stage=$stagePath"
