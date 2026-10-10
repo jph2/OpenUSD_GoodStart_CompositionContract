@@ -83,6 +83,17 @@ The supplied Omniverse environment, render and viewport-camera specs remain in t
 
 These are project authoring conventions built on OpenUSD, not additional USD composition rules or a universal Pixar/NVIDIA standard. Requirements below define the intended harness; documentation alone does not enforce them.
 
+### Minimal teaching profile
+
+The [USD Essentials example](examples/01_LayeredScene/USDEssentials_Minimal/README.md)
+is an introductory profile for reading composition: one cube, one cone, two
+materials, and three scene roles (MatLyr, TransLyr, GeoLyr). It preserves geometry,
+placement and material ownership while deliberately omitting Opinion authoring,
+DATA/SIM/RUNTIME roles, variants and the full folder taxonomy. Its Y-up, centimetre,
+24 fps root is opened independently from the larger Z-up examples. Authors select
+the role layer manually; automatic locking is not supplied. This is a documented
+teaching subset, not a full conformance example or a replacement for the starter.
+
 ## 2. Why local opinions do not prevent this design
 
 Distinguish three different authored contributions:

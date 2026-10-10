@@ -1,0 +1,16 @@
+#usda 1.0
+
+over "World"
+{
+    over "Cube01"
+    {
+        double3 xformOp:translate = (-75, 50, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+
+    over "Cone01"
+    {
+        double3 xformOp:translate = (75, 50, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+}

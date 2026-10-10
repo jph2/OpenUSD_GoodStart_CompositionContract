@@ -4,7 +4,7 @@
 
 ## Start with a scene
 
-This folder is ready to use. Choose **STARTER** for a new project, **Example/Manual** for individual asset choices, **Scenarios** for coordinated layouts, **Lofted** for payload interfaces, the **Instanced** scenes for extensive reuse and code-driven layouts, **MotionGraphics** for animation with live JSON controls, or either **Masked** scene to explore a composition conflict. [Choose a scene](#choose-a-scene) jumps to its explanation and diagrams.
+This folder is ready to use. Choose **USD Essentials Minimal** for a first lesson with one cube and one cone, **STARTER** for a new project, **Example/Manual** for individual asset choices, **Scenarios** for coordinated layouts, **Lofted** for payload interfaces, the **Instanced** scenes for extensive reuse and code-driven layouts, **MotionGraphics** for animation with live JSON controls, or either **Masked** scene to explore a composition conflict. [Choose a scene](#choose-a-scene) jumps to its explanation and diagrams.
 
 ## Open an existing scene
 
@@ -32,6 +32,7 @@ Developed with AI assistance, including OpenAI Codex. Human review and verificat
 
 | Scene | Purpose |
 |---|---|
+| [USD Essentials Minimal](#usd-essentials-minimal) | One cube, one cone and two materials: trace sublayers, references, placement and bindings from USDA text to the viewport. |
 | [STARTER](#sceneroot_starterusda) | Generous preset with demo assets, independent work layers and optional role slots. Remove or mute what you do not need. |
 | [Example](#sceneroot_exampleusda) | Two cubes, a cone and a nested Cube/Cone assembly with independent selections. |
 | [Manual](#sceneroot_manualusda) | Same setup as Example through a separate root. |
@@ -44,6 +45,52 @@ Developed with AI assistance, including OpenAI Codex. Human review and verificat
 | [Instanced Spiral](#sceneroot_instanced_spiralusda) | The same signal arranged in a spiral. |
 | [Instanced Rings](#sceneroot_instanced_ringsusda) | The same signal arranged in concentric rings. |
 | [MotionGraphics](#sceneroot_motiongraphicsusda) | **Experimental proof of concept under development**: 1,024 point instances, saved animation and optional JSON-driven live preview. |
+
+## USD Essentials Minimal
+
+Open [USDEssentials_Minimal/SceneROOT_USDEssentials.usda](USDEssentials_Minimal/SceneROOT_USDEssentials.usda)
+through **File > Open** in USD Composer. Frame `/World` to see one red cube and
+one blue cone. Open the same folder's USDA files in your text editor alongside
+Composer. The [short tutorial](USDEssentials_Minimal/README.md) walks through the
+Stage tree, Layer panel and viewport and explains which authored opinion creates
+each result.
+
+**Goal:** learn how one composed scene emerges from small, readable files.
+GeoLyr references the two reusable shapes; TransLyr positions their occurrences;
+MatLyr references a two-color palette and binds its materials. The root assembles
+those three sibling layers, strongest first. A material binding is a relationship;
+the palette and geometry imports are reference arcs.
+
+```mermaid
+flowchart LR
+    R["SceneROOT_USDEssentials.usda"]
+    subgraph STACK["Scene sublayers · strongest first"]
+        direction TB
+        M["1 · MatLyr · palette reference and bindings"]
+        T["2 · TransLyr · occurrence placement"]
+        G["3 · GeoLyr · asset references"]
+        M ~~~ T
+        T ~~~ G
+    end
+    subgraph SOURCES["Reusable sources"]
+        direction TB
+        P["Palette.usda · Red and Blue"]
+        C["Cube.usda · one Cube geometry"]
+        N["Cone.usda · one Cone geometry"]
+    end
+    R -->|sublayers| STACK
+    STACK -->|MatLyr references| P
+    STACK -->|GeoLyr references| C
+    STACK -->|GeoLyr references| N
+```
+
+Use a copy to experiment: explicitly select TransLyr before moving a shape, or
+MatLyr before changing a binding, then inspect the saved USDA. This teaching
+profile uses **Y-up, centimetres and 24 fps** and has no Opinion layer, locking
+helper, environment, variants or animation. Open it directly as its own stage;
+the parent `Open_In_Kit.ps1 -Scene ...` menu is for the larger examples. Keep the
+minimal folder together when copying it. Its simplified layer and folder choices
+are documented in its README; it is an introductory subset of the contracts.
 
 ## Play and control the MoGraph scene
 

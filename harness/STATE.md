@@ -1,5 +1,20 @@
 # Resume state
 
+## 2026-10-11 — USD Essentials minimal teaching scene copied here
+
+Added the self-contained TutorialBuilder USDEssentials_Minimal scene under
+examples/01_LayeredScene, preserving all seven USDA files byte-for-byte. Added
+README navigation, a composition Mermaid and opening/editing walkthrough, plus
+a declared teaching profile in CompositionContracts.md. Explicitly documents
+Y-up/24 fps, manual edit targets, no automatic locks or Opinion layer, and the
+simplified Assets/Layers folders. The tutorial source and slides are untouched.
+Updated the portable ZIP and its inventory with these files and documentation;
+other packaged bytes, including shipped motion controls, were preserved.
+Source-copy and ZIP byte/dependency checks plus diff review performed; no Kit
+execution, rendering or USD acceptance tests. Prepared a scoped commit excluding
+the existing motion-control edits, Kit log and earlier research state note.
+
+
 ## 2026-10-11 — README version label updated
 
 Updated the repository README project version from 0.1.1 to 0.2.0, including
