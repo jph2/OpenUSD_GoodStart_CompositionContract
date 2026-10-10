@@ -94,6 +94,13 @@ DATA/SIM/RUNTIME roles, variants and the full folder taxonomy. Its Y-up, centime
 the role layer manually; automatic locking is not supplied. This is a documented
 teaching subset, not a full conformance example or a replacement for the starter.
 
+The [second Essentials lesson](examples/01_LayeredScene/USDEssentials_Minimal/README_ColorVariants.md)
+adds asset-owned Red/Blue Color alternatives and scene-owned selections while
+reusing the original shape, placement and palette files. Fixed scene bindings
+are excluded from this root to preserve the variant result. Its small asset
+interfaces author the shape reference directly as a teaching exception to the
+full asset GeoLyr packaging convention; the scene still separates Geo/Trans/Vari.
+
 ## 2. Why local opinions do not prevent this design
 
 Distinguish three different authored contributions:

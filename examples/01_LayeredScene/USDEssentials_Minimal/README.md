@@ -101,3 +101,9 @@ These are declared teaching simplifications, not full composition-contract
 conformance. Continue with the [larger scene guide](../README.md) to learn Opinion
 authoring, variants, payloads and instancing. No PowerPoint content is part of this
 copy. Developed with AI assistance; application review remains required.
+
+## Next lesson
+
+Continue with [color variants](README_ColorVariants.md): keep the same two shapes
+and two materials, publish Red/Blue alternatives on each asset, and select them
+independently from the scene.

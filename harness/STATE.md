@@ -1,5 +1,20 @@
 # Resume state
 
+## 2026-10-11 — second Essentials lesson: color variants
+
+Added SceneROOT_USDEssentials_ColorVariants under USDEssentials_Minimal with
+independent asset-owned Color=Red/Blue choices. Two lightweight interfaces reuse
+the original Cube/Cone geometry and common asset Mat/Vari layers referencing the
+original palette. Scene Geo/Vari files reuse existing placement. The original
+scene's fixed binding layer is excluded only from the new root. Added a tutorial,
+Mermaid diagram, main README navigation and explicit teaching-profile exceptions.
+Read back all four color combinations with usd-core 26.8 in a temporary Session;
+resolved material paths matched each selection. No files saved by read-back and
+no Kit viewport inspection. Updated ZIP documentation, new files and inventory;
+unrelated local motion controls and shipped settings preserved. The subsequent
+user request authorizes committing and pushing this lesson and its package.
+
+
 ## 2026-10-11 — README Mermaid rendering repairs
 
 Replaced invalid labeled reverse arrows in all generated scene diagrams with

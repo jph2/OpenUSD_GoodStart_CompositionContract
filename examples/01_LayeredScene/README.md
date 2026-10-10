@@ -33,6 +33,7 @@ Developed with AI assistance, including OpenAI Codex. Human review and verificat
 | Scene | Purpose |
 |---|---|
 | [USD Essentials Minimal](#usd-essentials-minimal) | One cube, one cone and two materials: trace sublayers, references, placement and bindings from USDA text to the viewport. |
+| [USD Essentials Color Variants](#usd-essentials-color-variants) | The same two shapes and colors, with independent asset Color variants selected by the scene. |
 | [STARTER](#sceneroot_starterusda) | Generous preset with demo assets, independent work layers and optional role slots. Remove or mute what you do not need. |
 | [Example](#sceneroot_exampleusda) | Two cubes, a cone and a nested Cube/Cone assembly with independent selections. |
 | [Manual](#sceneroot_manualusda) | Same setup as Example through a separate root. |
@@ -91,6 +92,18 @@ helper, environment, variants or animation. Open it directly as its own stage;
 the parent `Open_In_Kit.ps1 -Scene ...` menu is for the larger examples. Keep the
 minimal folder together when copying it. Its simplified layer and folder choices
 are documented in its README; it is an introductory subset of the contracts.
+
+## USD Essentials Color Variants
+
+Open [SceneROOT_USDEssentials_ColorVariants.usda](USDEssentials_Minimal/SceneROOT_USDEssentials_ColorVariants.usda)
+for the second Essentials lesson: one cube, one cone, two shared colors, and an
+independent `Color` choice on each shape. Select `Layers/VariLyr_ColorVariants.usda`
+as the edit target, select Cube01 or Cone01, and switch Red/Blue in the variant UI.
+The [walkthrough and composition diagram](USDEssentials_Minimal/README_ColorVariants.md)
+show the asset-owned definitions, scene selections, and why the first lesson's
+fixed material-binding layer is excluded. Geometry, placement and palette files
+are shared with the first lesson. Y-up, centimetres, 24 fps; direct open and manual
+authoring targets, with the same introductory-profile limitations.
 
 ## Play and control the MoGraph scene
 

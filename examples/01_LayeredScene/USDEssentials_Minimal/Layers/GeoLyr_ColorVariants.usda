@@ -1,0 +1,6 @@
+#usda 1.0
+over "World"
+{
+    def Xform "Cube01" (prepend references = @../Assets/CubeColor.usda@) {}
+    def Xform "Cone01" (prepend references = @../Assets/ConeColor.usda@) {}
+}

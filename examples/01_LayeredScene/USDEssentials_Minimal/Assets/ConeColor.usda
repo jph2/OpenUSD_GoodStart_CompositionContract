@@ -1,0 +1,8 @@
+#usda 1.0
+(
+    defaultPrim = "Asset"
+    metersPerUnit = 0.01
+    upAxis = "Y"
+    subLayers = [@./ColorLayers/VariLyr.usda@, @./ColorLayers/MatLyr.usda@]
+)
+def Xform "Asset" (prepend references = @./Cone.usda@) {}
