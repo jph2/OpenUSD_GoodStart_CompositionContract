@@ -1,6 +1,6 @@
 # OpenUSD Composition Contracts
 
-**Version 0.1.1 — independent work-in-progress proposal and local example · 2026-10-10**
+**Version 0.2.0 — independent work-in-progress proposal and local example · 2026-10-11**
 
 This project grew out of my journey into OpenUSD. I have spent a lot of time thinking about asset structures, how they compose, and what makes them useful. That led me to a more precise starting point: **a structure needs a purpose, requirements and an evaluation standard before we can judge how well it works.**
 
@@ -39,7 +39,7 @@ When the purpose or requirements change, revise the contract explicitly and eval
 ```mermaid
 %%{init: {"flowchart": {"wrappingWidth": 280, "nodeSpacing": 20, "rankSpacing": 24}}}%%
 flowchart LR
-    accTitle: OpenUSD Composition Contracts 0.1.1 - The paradigm
+    accTitle: OpenUSD Composition Contracts 0.2.0 - The paradigm
     accDescr: Root on the left, vertical scene layers in the middle with GeoLyr at the bottom, and reusable assemblies, assets and materials on the right.
     R["SceneROOT_Example.usda<br/>Combines the scene layers"]
 

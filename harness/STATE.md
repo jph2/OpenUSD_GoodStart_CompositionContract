@@ -1,5 +1,12 @@
 # Resume state
 
+## 2026-10-11 — README version label updated
+
+Updated the repository README project version from 0.1.1 to 0.2.0, including
+the Mermaid diagram title. Kept the `Composition_Starter_0.1.1` package path
+unchanged because it identifies the existing starter bundle, not the project
+version. No scene or package contents changed; no tests or USD validation ran.
+
 ## 2026-10-11 — MotionGraphics marked as under-development proof of concept
 
 Jan reports that MotionGraphics remained visually inactive after the runtime and
