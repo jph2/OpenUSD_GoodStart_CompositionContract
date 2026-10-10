@@ -1,5 +1,15 @@
 # Resume state
 
+## 2026-10-11 — remaining tracked changes prepared for publication
+
+Retained the user-edited MotionGraphics controls and rebuilt the starter ZIP
+from the current example folder so its controls and documentation agree with
+the repository. Included the earlier comparative-research handoff note in this
+repository; the research paper itself remains in the separate USD_GoodStart
+checkout. The generated direct_root_kit.log remains local and untracked.
+Packaging and diff checks only; no new Kit execution or runtime acceptance.
+
+
 ## 2026-10-11 — USD Essentials minimal teaching scene copied here
 
 Added the self-contained TutorialBuilder USDEssentials_Minimal scene under
@@ -14,6 +24,34 @@ Source-copy and ZIP byte/dependency checks plus diff review performed; no Kit
 execution, rendering or USD acceptance tests. Prepared a scoped commit excluding
 the existing motion-control edits, Kit log and earlier research state note.
 
+
+## 2026-10-11 — comparative composition research updated
+
+Updated the existing local draft in `USD_GoodStart/WIP_Docs/LAYER_ORDER_REFERENCES_RESEARCH.md`
+from its pre-existing uncommitted 1.10.0 draft to 1.11.0, preserving the 1.10.0
+profiles/composition-contracts edits. Added Section 21 with a quick comparison table
+for the locally inspected Kitchen Set, NVIDIA DSX, Isaac Sim Asset Structure 3.0,
+and the OpenUSD Composition Contracts project/sample set labelled 0.2.0. The table
+compares scope, composition center, specialization/benefit, and fit/boundary; the
+follow-up explains how the patterns can compose instead of treating them as rival
+universal structures.
+
+Important version finding: the Composition Contracts project README says 0.2.0,
+while `CompositionContracts.md` still labels its normative working text 0.1.1.
+The research therefore describes 0.2.0 as the current project/example state, not
+as a released 0.2.0 contract specification. Kitchen evidence is attributed to a
+bounded read-only local audit (425 reference sites, 76 packages, 425 instanceable
+sites, 114 prototypes; stage layer counts 230 LoadAll / 78 LoadNone including the
+anonymous session layer). Explicitly states these are not performance benchmarks.
+The local MotionGraphics and general conformance work remain under development.
+
+Reviewed official NVIDIA DSX SimReady asset-journey and system-architecture pages;
+the Asset Structure 3.0 section already links and analyzes NVIDIA's published
+robot-package guidance. Checks: `git diff --check` on the research paper and
+targeted `rg` inspection of version/section routes. No USD, Kit, benchmark, test,
+or validator ran. No commit/push. The target GoodStart checkout already had an
+uncommitted paper edit to 1.10.0 and an unrelated untracked `_Generated_Test/`;
+both were preserved, and only the requested paper was edited there.
 
 ## 2026-10-11 — README version label updated
 
