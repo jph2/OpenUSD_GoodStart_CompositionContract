@@ -1,5 +1,17 @@
 # Resume state
 
+## Starter publication checkpoint
+
+Jan requested commit/push of the Opinion authoring change, generous starter master and portable setup bundle. Include their source scripts, authored layers, profile/expected records and documentation; retain the raw Kit log locally. Packaging completed, but installer execution, generator acceptance and updated Kit startup remain untested. Git history records the publication commit; push outcome is reported in the task.
+
+## Portable project setup
+
+Inspected only USD_GoodStart's supplied batch/PowerShell launchers as requested. Added our own Windows BAT/PowerShell setup and tools/build_starter_bundle.py, which packages authored sample/starter files and dependencies into starter/Composition_Starter_0.1.1/Composition_Starter.zip. The portable folder can be copied to a destination and run offline without Python; extraction preflights collisions and destination paths, never overwrites existing files and installs no applications. Bundled launcher defaults to STARTER. Historical acceptance manifests are excluded and replaced by a packaging-only inventory. Packaging executed; installer, updated generator and Kit runtime were not tested. No commit/push. The companion BAT, PS1 and ZIP must remain together.
+
+## Opinion authoring and generous starter master
+
+Jan confirmed normalized OpinLYR_default.usda and SceneROOT_STARTER.usda names, requested a deliberately generous starter, and superseded Session-default authoring with editable Opinion plus all other persistent layers protected. Added shared Opinion to five demo roots and independent Starter work layers: copied demo references/placement/variants/data, optional BASE roles plus SIM/RUNTIME slots, supplied Omniverse baseline in the root. Relative references were reanchored through USD APIs; authoring emitted transient warnings before reanchoring, and the generator now groups those mutations in Sdf.ChangeBlock. Updated generator, bounded migration script, launcher, profile, expected outcomes, CC-01 and docs. Startup helper selects the declared Opinion with legacy session-policy support. Existing build reports are historical. No tests or Kit launch, no conformance claim, no commit/push. Runtime target/lock UI acceptance remains pending; copying the whole package is required for independent projects.
+
 ## AI assistance disclosure
 
 Added a README disclosure at Jan's request acknowledging AI tools, including OpenAI Codex, in research support, documentation, code and examples. It retains human responsibility and distinguishes recorded checks from unverified content. Documentation only; no tests, commit or push in this increment.

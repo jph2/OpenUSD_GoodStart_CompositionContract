@@ -18,7 +18,7 @@ flowchart LR
     %% Connect the column subgraphs, keeping their internal TB layout intact.
     subgraph ENTRY["ROOT + AUTHORING · 0.1.1"]
         direction TB
-        Session["Session Layer<br/>Default target for temporary edits<br/>Persistent layers start locked"]
+        Session["Opinion Layer<br/>Default editable target<br/>Other persistent layers start locked"]
         R["SceneROOT_Example.usda<br/>Stage metadata and sublayer assembly<br/>SceneROOT_Manual is an independent manual root"]
         Startup["Supplied Omniverse baseline in the root<br/>Environment · Render · viewport cameras<br/>Z-up · centimetres · identity World · 60 fps"]
         Session ~~~ R
@@ -77,7 +77,7 @@ The labeled arrows between columns identify the responsible layer: GeoLyr refere
 - **Assembly decisions:** DisplayPair owns its child placement and Palette variants. Its GeoLyr references Cube and Cone; its VariLyr coordinates their Finish selections. The scene selects Palette on the public assembly interface.
 - **Asset decisions:** Cube and Cone own their geometry, intrinsic transforms, material bindings and reusable Size/Finish definitions. A value that depends on a variant stays in its owning variant branch (CC-21).
 - **Shared materials:** the material library owns reusable shader definitions; each asset's MatLyr imports the materials it needs. Scene material overrides require an explicit responsibility and must respect asset-controlled Finish choices.
-- **Authoring and persistence:** Session Layer is the default temporary target, with all persistent layers locked. Persist an accepted edit by deliberately unlocking its rightful owner and selecting the correct layer and variant context.
+- **Authoring and persistence:** Opinion is the default editable target; other persistent layers are locked. Promote accepted edits to the rightful owner and variant branch, then retire superseded experimental opinions.
 
 The supplied Omniverse environment, render and viewport-camera specs remain in the root under the CC-01 template exception. The dashed scene roles remain available for additional work without duplicating that startup content.
 
@@ -119,9 +119,9 @@ If another scene opinion directly forces the controlled material or colour, the 
 
 ## 3. File ownership contract
 
-**CC-01 — Root assembly and default session authoring.** The root establishes stage metadata and includes scene sublayers. On opening a project, lock all persistent layers, including the root and referenced packages, and select the writable session layer as the default authoring target. Session edits are temporary working opinions. Persisting an accepted edit requires deliberately unlocking its rightful layer and using the correct role and variant context; the session is not the durable owner of that edit. Keep routine instance edits out of the root. Environment and camera content remaining in earlier teaching samples is a historical simplification; new conforming packages use the roles in section 17.
+**CC-01 — Root assembly and default Opinion authoring.** The root establishes stage metadata and includes scene sublayers. Select the declared `OpinLYR_default.usda` as the default editable authoring target; lock all other persistent layers, including the root and referenced assets. Opinion is the strongest scene work sublayer for explicit experiments and starts empty. Saving persists those experiments. Declare its owner, sharing scope and promotion/removal route. Promote accepted fields to their rightful layer and variant context, then retire only superseded opinions. Keep routine edits out of the root. Session remains available for transient previews and can mask Opinion; it is no longer the default target.
 
-This default is an application behavior. Anonymous session identifiers cannot be saved as portable authoring-layer paths. The example ships Kit lock metadata and a scoped startup helper that selects the fresh session layer and protects persistent layer edit permissions. Use its launcher for this behavior; opening the USDA alone cannot guarantee session selection. Session edits remain transient until deliberately transferred or authored into their rightful persistent destination; no automatic promotion is implemented.
+This default is an application behavior. Roots declare `cc:defaultAuthoring = "opinion"` and a relative `cc:opinionLayer` path. The Kit helper unlocks/selects that layer and protects other persistent layers; use the launcher because opening USDA alone does not guarantee edit-target selection. Older session-policy roots remain supported. No automatic promotion or saving is implemented. A shared Opinion file affects every scene composing it; independent projects need their own copy.
 
 **Application-template baseline exception.** Jan's supplied `SceneROOT_Example.usda` is the standard starting scene for this project's Omniverse profile. Preserve its stage metrics, identity `/World`, top-level `/Environment` and `/Render`, and `OmniverseKit_*` viewport camera opinions. Those supplied application startup specs may remain in the root, including their transforms and material/light settings. New asset occurrences and project edits still follow the layer ownership rules. Record this exception and the template revision in the profile; do not duplicate the startup environment in new scene layers or insert coordinate corrections without evidence. This selects a concrete project baseline, not one universal startup scene for every Omniverse application/version.
 
@@ -208,7 +208,7 @@ Required tool behavior:
 4. Save VariLyr deliberately and report unsaved/session-only state.
 5. Flag a stronger opinion that masks the intended configuration.
 
-The default session workflow in CC-01 permits temporary selection previews in the session. The destinations above apply when deliberately persisting a configuration. Tools must distinguish preview from persistence and must not silently merge the whole session into VariLyr.
+CC-01 retains Session for optional transient previews; Opinion is the default experiment target. The destinations above apply when deliberately persisting a configuration. Tools must distinguish preview from persistence and must not silently merge the whole session into VariLyr.
 
 USD's selection API writes to the stage's current edit target. For a manual workflow, select the intended scene authoring layer and confirm the actual authored destination in the installed application. Guaranteed automatic routing requires a configured tool or adapter and acceptance evidence. The stock Presenter's precise write behavior in this installed Kit build has not been inspected here. No automatic routing or autosave is claimed as implemented.
 

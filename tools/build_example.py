@@ -288,11 +288,75 @@ def project_data(a):
     save(stage)
 
 
+def opinion_layer(a, relative, owner):
+    stage = a.layer(relative, "OpinionLyr", owner, "explicit temporary experiments")
+    stage.GetRootLayer().documentation = (
+        "Empty by default; default editable authoring layer for experiments. "
+        "Promote reviewed fields to their rightful owner/layer/variant branch, "
+        "then remove only superseded opinions. Saving persists these experiments."
+    )
+    save(stage)
+
+
+def starter(a):
+    owner = "scene:Starter@1"
+    opinion = "050_REVIEW/Starter/OpinLYR_default.usda"
+    opinion_layer(a, opinion, owner)
+    layers = ["./" + opinion]
+    # Ready-to-use examples plus explicit optional slots; preserve source assets.
+    for relative, role in (
+        ("035_RUNTIME_LYR/Starter/RuntimeLyr.usda", "RuntimeLyr"),
+        ("030_SIM_LYR/Starter/SimLyr.usda", "SimLyr"),
+        ("040_DATA_LYRs/Starter/DataLyr.usda", "DataLyr"),
+        *((f"020_BASE_LYR/Starter/{role}.usda", role) for role in (
+            "EnvLyr", "LightLyr", "CamLyr", "RenderLyr", "AnimLyr",
+            "PhysicsLyr", "RigLyr", "MatLyr")),
+        ("020_BASE_LYR/Starter/TransLyr.usda", "TransLyr"),
+        ("020_BASE_LYR/Starter/VariLyr.usda", "VariLyr"),
+        ("020_BASE_LYR/Starter/GeoLyr.usda", "GeoLyr"),
+    ):
+        stage = a.layer(relative, role, owner)
+        layer = stage.GetRootLayer()
+        metadata = dict(layer.customLayerData)
+        if role in ("GeoLyr", "TransLyr", "VariLyr"):
+            source = a.root / f"020_BASE_LYR/{role}.usda"
+            with Sdf.ChangeBlock():
+                layer.TransferContent(Sdf.Layer.FindOrOpen(str(source)))
+                UsdUtils.ModifyAssetPaths(layer, lambda path: Path(os.path.relpath(
+                    (source.parent / path).resolve(), a.path(relative).parent)).as_posix() if path else path)
+            layer.customLayerData = metadata
+        elif role == "DataLyr":
+            for data_role in ("IdentityLyr", "ContextLyr"):
+                child = a.layer(f"040_DATA_LYRs/Starter/{data_role}.usda", data_role, owner)
+                child_data = dict(child.GetRootLayer().customLayerData)
+                child.GetRootLayer().TransferContent(Sdf.Layer.FindOrOpen(str(
+                    a.root / f"040_DATA_LYRs/Data/{data_role}.usda")))
+                child.GetRootLayer().customLayerData = child_data
+                save(child)
+            layer.subLayerPaths = ["./IdentityLyr.usda", "./ContextLyr.usda"]
+        else:
+            layer.documentation = (
+                f"Optional {role} authoring slot; no active behavior authored. "
+                "Remove or mute when unused. Supplied environment, lights, cameras and render baseline remain in the root. "
+                "Declare ownership and writer authority before adding animation, physics, simulation or live state."
+            )
+        save(stage)
+        layers.append("./" + relative)
+    stage = standard_root(a, "SceneROOT_STARTER.usda", layers)
+    data = dict(stage.GetRootLayer().customLayerData)
+    data["cc:owner"] = owner
+    stage.GetRootLayer().customLayerData = data
+    a.roles[-1]["owner"] = owner
+    save(stage)
+    return layers
+
+
 def entrypoints(a):
     owner = "scene:LayeredScene@1"
+    opinion_layer(a, "050_REVIEW/OpinLYR_default.usda", owner)
     stacks = {}
     for name, variant_layer in (("SceneROOT_Example.usda", "VariLyr.usda"), ("SceneROOT_Scenarios.usda", "Scenarios/VariLyr.usda")):
-        layers = ["./040_DATA_LYRs/DataLyr.usda"] + [f"./020_BASE_LYR/{name}" for name in (
+        layers = ["./050_REVIEW/OpinLYR_default.usda", "./040_DATA_LYRs/DataLyr.usda"] + [f"./020_BASE_LYR/{name}" for name in (
             "TransLyr.usda", variant_layer, "GeoLyr.usda")]
         standard_root(a, name, layers)
         stacks[name] = layers
@@ -312,9 +376,10 @@ def entrypoints(a):
         ("MaskedSelection", "MaskedSelection", "SceneROOT_Scenarios.usda"),
     ):
         name = f"SceneROOT_{mode}.usda"
-        layers = [f"./050_REVIEW/{review}/ReviewLyr.usda", *stacks[baseline]]
+        layers = [stacks[baseline][0], f"./050_REVIEW/{review}/ReviewLyr.usda", *stacks[baseline][1:]]
         standard_root(a, name, layers)
         stacks[name] = layers
+    stacks["SceneROOT_STARTER.usda"] = starter(a)
     return stacks
 
 
@@ -328,15 +393,17 @@ def contracts(a, stacks):
         "timeline": {"startTimeCode": 0, "endTimeCode": 100, "timeCodesPerSecond": 60},
         "standard_scene": "SceneROOT_Example.usda; user-supplied Omniverse starting scene",
         "manual_entrypoint": "SceneROOT_Manual.usda; independent root with direct scene sublayers",
+        "starter_entrypoint": "SceneROOT_STARTER.usda; demo assets and independent work layers with optional authoring slots",
+        "opinion_policy": "Samples share 050_REVIEW/OpinLYR_default.usda; Starter has its own. Strongest work sublayer, editable by default; Opinion is the authoring target. Promote reviewed fields then retire superseded opinions.",
         "resolver": "ArDefaultResolver; relative package paths; no search path required",
         "composition": "references; no payloads; no native instancing; default time",
         "entrypoints_strongest_first": stacks,
         "root_fields": ["stage metadata", "sublayer list", "defaultPrim", "supplied Environment/Render/OmniverseKit camera specs"],
         "root_exception": "CC-01 application-template baseline; supplied startup content stays in root",
         "writer_mode": "static authored scene; no solver or live writer",
-        "default_session": "fresh session is the default authoring target; persistent layers locked",
-        "kit_startup": "Open_In_Kit.ps1 enables _workflows/kit/session_defaults.py; plain USD cannot persist an anonymous edit target",
-        "persistent_authoring": "explicitly unlock the rightful layer, choose its edit/variant context, save and return to session",
+        "default_session": "Opinion is the default authoring target; other persistent layers locked",
+        "kit_startup": "Open_In_Kit.ps1 enables _workflows/kit/session_defaults.py; launcher selects declared Opinion target",
+        "persistent_authoring": "explicitly unlock the rightful layer, choose its edit/variant context, save, retire superseded Opinion fields and return to Opinion",
         "dependencies": "bundled assets, Palette_v001 and two Kit template textures; OmniPBR.mdl and OmniRtx schemas require compatible Omniverse",
         "ordinary_instance_transform": ["translate", "rotateXYZ", "scale"],
         "reset_xform_stack": False,
@@ -405,6 +472,7 @@ def contracts(a, stacks):
             "Pair01": {"Palette": "Cool", "child_finishes": ["Blue", "Blue"], "base_cm": [0, 260, 0]},
         },
         "SceneROOT_Manual.usda": "independent manual root; same baseline and direct stack as SceneROOT_Example.usda",
+        "SceneROOT_STARTER.usda": "Omniverse baseline and Manual demo configuration; independent work layers plus optional empty role slots; Opinion authoring through launcher; other persistent layers locked",
         "SceneROOT_Scenarios.usda": {
             "Normal": "same visible configuration as Manual; explicit neutral Adjustment operations",
             "Exploded": "Cube02 base z=80 cm, height=200 cm, Red; Cube01 Yellow; Pair01 Warm (Red/Yellow); other placements unchanged",
@@ -427,7 +495,7 @@ def folder_notes(a):
         "035_RUNTIME_LYR/README.md": "# Runtime snapshots\n\nReserved for deliberately saved operational snapshots. Live measurements normally stay in session/runtime/external storage. No connector, credentials, runtime writer or RuntimeLyr is present.",
         "040_DATA_LYRs/README.md": "# Project data\n\nDataLyr aggregates IdentityLyr and ContextLyr. These demo custom cc attributes describe scene occurrences and project purpose. They are not a standardized schema or an external system integration.",
         "050_REVIEW/README.md": "# Review demonstrations\n\nEach exception has an owner, reason, affected field and removal route in _contracts/ownership.json. Only the SceneROOT_MaskedSize and SceneROOT_MaskedSelection entrypoints compose these files. Baseline roots exclude them.",
-        "_workflows/README.md": "# Reproduction and workflow files\n\nReproduction uses the parent repository's tools/build_example.py. kit/session_defaults.py is the scoped Kit startup helper used by Open_In_Kit.ps1: persistent layers are protected and Session Layer becomes the edit target. It does not route or persist edits. Optional pipeline or ComfyUI definitions can be added here when needed; none is installed.",
+        "_workflows/README.md": "# Reproduction and workflow files\n\nReproduction uses the parent repository's tools/build_example.py. kit/session_defaults.py is the scoped Kit startup helper used by Open_In_Kit.ps1: other persistent layers are protected and Opinion becomes the edit target. It does not route or persist edits. Optional pipeline or ComfyUI definitions can be added here when needed; none is installed.",
         "_pipeline_reports/README.md": "# Evidence\n\nbuild_manifest.json records runtime, file identities and the saved defaults of SceneROOT_Example plus four companion entrypoints. It includes stage metrics, the World matrix, camera choice and cube opinions. This is not a conformance verdict or a variant-matrix test. Expected outcomes live in _contracts/expected.json. Kit UI and rendering acceptance are pending.",
         "_contracts/README.md": "# Example contracts\n\nprofile.json declares package roles and actual scene orders. ownership.json declares public interfaces, writer scope and review exceptions. expected.json states intended outcomes. These versioned example-specific JSON documents are design inputs; no generic validator or accepted contract schema exists yet. The parent repository's CompositionContracts.md owns CC semantics.",
     }
@@ -436,19 +504,20 @@ def folder_notes(a):
 
 
 def session_defaults(a):
-    """Persist supported Kit locks and ship the session-selection runtime hook."""
+    """Persist supported Kit locks and ship the declared-target runtime hook."""
     templates = Path(__file__).resolve().parent / "kit"
     for source, destination in (("session_defaults.py", "_workflows/kit/session_defaults.py"),
                                 ("Open_In_Kit.ps1", "Open_In_Kit.ps1")):
         shutil.copyfile(templates / source, a.path(destination))
     for record in a.roles:
-        if record["role"] != "Root":
+        if record["role"] != "Root" or not record["owner"].startswith("scene:"):
             continue
         path = a.root / record["file"]
         stage = Usd.Stage.Open(str(path))
         root = stage.GetRootLayer()
         data = dict(root.customLayerData)
-        data["cc:defaultAuthoring"] = "session"
+        data["cc:defaultAuthoring"] = "opinion"
+        data["cc:opinionLayer"] = root.subLayerPaths[0]
         data["cc:lockPersistentLayers"] = True
         omni = dict(data.get("omni_layer", {}))
         # Anonymous session identifiers are transient and must never be serialized here.
@@ -458,7 +527,8 @@ def session_defaults(a):
             if layer.anonymous or layer == root:
                 continue
             relative = Path(os.path.relpath(layer.realPath, path.parent)).as_posix()
-            locks[relative if relative.startswith(".") else "./" + relative] = True
+            relative = relative if relative.startswith(".") else "./" + relative
+            locks[relative] = relative != root.subLayerPaths[0]
         if locks:
             omni["locked"] = locks
         data["omni_layer"] = omni

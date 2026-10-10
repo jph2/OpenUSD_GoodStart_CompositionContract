@@ -81,7 +81,7 @@ flowchart LR
 
 Read **left to right**. Four class boxes list their layer types; they do not introduce aggregate USD layers. SIM and RUNTIME are optional, with strength set by the profile. The baseline remains DataLyr → TransLyr → VariLyr → GeoLyr, with **GeoLyr at the bottom**. An optional REVIEW / ReviewLyr contribution holds explicit experiments above that baseline.
 
-**Work in Session Layer by default**, with all persistent layers locked. This setting avoids accidential editing or storing 'malious code' in the wrong layer, using the [Kit launcher](examples/01_LayeredScene/Open_In_Kit.ps1). To keep an edit, deliberately unlock and save its rightful scene, asset or assembly layer. Variant-dependent values stay in their owning variant branch.
+**Work in Opinion by default**, with all other persistent layers locked, using the [Kit launcher](examples/01_LayeredScene/Open_In_Kit.ps1). Saving Opinion retains experiments; promote accepted fields to their rightful owner and variant branch, then retire superseded opinions.
 
 See the [detailed ownership diagram](CompositionContracts.md#composition-memory-chart) and [project structure](PROJECT_STRUCTURE.md) for the full responsibilities and example setup.
 
@@ -125,15 +125,21 @@ The intended workflow combines model interpretation with deterministic USD-aware
 - [Source and dependency routes](harness/SOURCES.md).
 - [Resume state](harness/STATE.md): what exists and the next useful step.
 
+## Starter master preset
+
+**Copy-and-run setup:** copy the entire [portable setup folder](starter/Composition_Starter_0.1.1/README_SETUP.md) into your destination and double-click `Create_Composition_Project.bat`. It expands the bundled scenes, assets, layers and launch helper into that folder. Windows PowerShell is sufficient; setup needs no Python or network access. Existing files are never overwritten. Omniverse remains a separately installed prerequisite for the Kit launcher.
+
+[SceneROOT_STARTER.usda](examples/01_LayeredScene/SceneROOT_STARTER.usda) is deliberately generous: demo assets, independent placement/variant/data layers, an Opinion layer, and optional material, environment, lighting, camera, render, animation, rig, physics, simulation and runtime slots. Remove or disable unused contributions. Launch with `Open_In_Kit.ps1 -Scene STARTER`. See the [starter guide](examples/01_LayeredScene/README.md#starter-master-preset).
+
 ## Current scope
 
 The contract was moved from TutorialBuilder. Its VariantSetups paper and A–H scenes remain there; they are exploratory evidence, not conforming examples shipped by this project. See [provenance](harness/SOURCES.md). The new `examples/01_LayeredScene` package develops those experiments and the numbered storage structure inspected in `USD_GoodStart/_Generated_Test`.
 
-Start with [SceneROOT_Example.usda](examples/01_LayeredScene/SceneROOT_Example.usda), Jan's supplied Omniverse starting scene with the example assets composed under `/World`. The package contains 29 USD layers, Cube/Cone packages, a nested DisplayPair assembly, shared asset materials, scene contributions, data, explicit review exceptions and draft JSON contracts. The supplied environment, viewport cameras and render state remain the startup baseline. Its two textures are bundled; OmniPBR and RTX features require a compatible Omniverse application. `SceneROOT_Manual.usda` is an independent root with the same direct work-layer stack.
+Start with [SceneROOT_Example.usda](examples/01_LayeredScene/SceneROOT_Example.usda), Jan's supplied Omniverse starting scene with the example assets composed under `/World`. The package contains demo and starter layers, Cube/Cone packages, a nested DisplayPair assembly, shared asset materials, scene contributions, data, explicit review exceptions and draft JSON contracts. The supplied environment, viewport cameras and render state remain the startup baseline. Its two textures are bundled; OmniPBR and RTX features require a compatible Omniverse application. `SceneROOT_Manual.usda` is an independent root with the same direct work-layer stack.
 
 [tools/build_example.py](tools/build_example.py) reproduces this setup from the retained [Omniverse template](templates/Omniverse/README.md) through OpenUSD 26.08 APIs. Default-entrypoint read-back is recorded; full acceptance and Omniverse review are pending. No general inspector, repair engine, ownership-routing extension or pipeline integration is implemented.
 
-The default working state locks all persistent layers and selects Session Layer. Use [Open_In_Kit.ps1](examples/01_LayeredScene/Open_In_Kit.ps1) to run the bundled startup helper: a USDA file alone cannot restore a fresh anonymous session target. Persistent edits require deliberately unlocking the rightful contribution. See the example guide for startup and persistence details; Kit execution remains pending.
+The default working state selects the editable Opinion layer and locks all other persistent layers. Use [Open_In_Kit.ps1](examples/01_LayeredScene/Open_In_Kit.ps1) for edit-target selection and root protection. The updated startup behavior awaits Kit acceptance.
 
 OpenUSD-GoodStart remains a knowledge reference and potential consumer. TutorialBuilder remains a teaching consumer. The private `OpenUSD_GoodStart_Pipeline_nodes` repository is a candidate backbone for a future composition pipeline, subject to interface and suitability review. This project must remain understandable and eventually inspectable without that private dependency.
 

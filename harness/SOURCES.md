@@ -1,5 +1,9 @@
 # Sources, provenance and integration routes
 
+## Portable setup reference
+
+On 2026-10-10, inspected USD_GoodStart/scripts/setup_usd_project.bat and setup_usd_project.ps1 and its generated standalone batch launcher at Jan's request. Used the companion-launcher pattern only. Our setup extracts this repository's authored preset using Windows PowerShell; it does not copy the GoodStart generator or depend on that sibling repository. Packaging inventory is not USD/Kit validation evidence.
+
 ## Upstream adoption review — 2026-10-10
 
 Reviewed the [OpenUSD proposals directory](https://github.com/PixarAnimationStudios/OpenUSD-proposals/tree/main/proposals) and bounded sections of the linked READMEs for [validation](https://github.com/PixarAnimationStudios/OpenUSD-proposals/tree/main/proposals/usd-validation-framework), [namespace editing](https://github.com/PixarAnimationStudios/OpenUSD-proposals/tree/main/proposals/namespace_editing), [LOD](https://github.com/PixarAnimationStudios/OpenUSD-proposals/tree/main/proposals/level-of-detail), [spline animation](https://github.com/PixarAnimationStudios/OpenUSD-proposals/tree/main/proposals/spline-animation), [profiles](https://github.com/PixarAnimationStudios/OpenUSD-proposals/tree/main/proposals/profiles) and [nested physics bodies](https://github.com/PixarAnimationStudios/OpenUSD-proposals/tree/main/proposals/physics_nested_bodies). Status badges retrieved: validation implemented 24.11; LOD and profiles implemented 26.08; namespace proposal published. These describe upstream documents, not verified local support. Spline and nested-body implementation maturity was not independently established.

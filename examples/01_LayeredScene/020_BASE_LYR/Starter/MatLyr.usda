@@ -1,0 +1,11 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "cc:context" = "unconditional"
+        string "cc:owner" = "scene:Starter@1"
+        string "cc:profile" = "CC-EXAMPLE-01/0.1.1"
+        string "cc:role" = "MatLyr"
+    }
+    doc = "Optional MatLyr authoring slot; no active behavior authored. Remove or mute when unused. Supplied environment, lights, cameras and render baseline remain in the root. Declare ownership and writer authority before adding animation, physics, simulation or live state."
+)
+

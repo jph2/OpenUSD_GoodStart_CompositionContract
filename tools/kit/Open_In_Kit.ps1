@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('Standard', 'Manual', 'Scenarios', 'MaskedSize', 'MaskedSelection')]
+    [ValidateSet('Standard', 'Manual', 'Scenarios', 'MaskedSize', 'MaskedSelection', 'STARTER')]
     [string]$Scene = 'Standard',
     [string]$KitExe,
     [string]$AppConfig

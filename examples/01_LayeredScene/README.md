@@ -4,25 +4,38 @@
 
 The standard scene uses `/World` with no transform, `/Environment` and `/Render` as top-level siblings, and `/OmniverseKit_Persp` as the initial viewport camera. Its original `metersPerUnit = 0.009999999776482582`, Z-up, time codes 0–100 and 60 fps are preserved. This is effectively the same centimetre scale as the earlier example; no axis conversion or extra world transform was introduced. The custom Overview camera and earlier scene ground/lights have been retired from the active package.
 
+## Starter master preset
+
+For a fresh independent copy, use the repository's `starter/Composition_Starter_0.1.1` portable setup folder. Copy that whole folder into your chosen location and run `Create_Composition_Project.bat`. Its launcher defaults to STARTER; this source example's launcher still defaults to Example. The setup refuses file collisions and requires no Python or network connection.
+
+[SceneROOT_STARTER.usda](SceneROOT_STARTER.usda) deliberately includes more than a minimal scene. It includes the Cube/Cone examples and DisplayPair assembly, shared asset materials, independent placement and variant selections, identity/context examples, and the supplied Omniverse environment, lights, cameras and render baseline. Its direct work sublayers are:
+
+| Class | Included roles, strongest to weakest within the listed group |
+|---|---|
+| REVIEW | `Starter/OpinLYR_default.usda` — default editable experiment target |
+| RUNTIME | `Starter/RuntimeLyr.usda` — optional empty slot |
+| SIM | `Starter/SimLyr.usda` — optional empty result slot |
+| DATA | `Starter/DataLyr.usda` with independent IdentityLyr and ContextLyr examples |
+| BASE | EnvLyr, LightLyr, CamLyr, RenderLyr, AnimLyr, PhysicsLyr, RigLyr, MatLyr — optional empty work slots |
+| BASE | TransLyr, VariLyr, GeoLyr — independent demo setup; GeoLyr at the bottom |
+
+The optional slots provide destinations, not a running physics solver, animation, connector or simulation result. Asset material definitions and bindings already work through the linked packages; MatLyr is available for additional scene-owned work. Baseline environment/lights/cameras/render remain in the root under the existing template exception, so muting their empty work slots does not remove that baseline. This root has no nested SceneROOT.
+
+Remove unneeded sublayers from a copied root or mute them for temporary exploration. Muting GeoLyr removes its linked demo assets; deleting a layer file can break other roots. The starter work layers are separate from the demo work layers, while reusable assets and textures are shared. For a new independent project, copy the package with its dependencies before editing; copying only the root preserves shared file links. Treat the master as a preset to copy.
+
 ## Default authoring state
 
-**All persistent layers start locked; Session Layer is the default authoring target.** Launch with [Open_In_Kit.ps1](Open_In_Kit.ps1) to apply that state automatically:
+**Opinion is the default editable authoring layer; all other persistent layers are protected.** The five demo roots share `050_REVIEW/OpinLYR_default.usda`; the starter has its own `050_REVIEW/Starter/OpinLYR_default.usda`. Both start empty. Demo Opinion edits affect all five demo roots, and its stronger opinions can mask the deliberate conflict fixtures.
 
 ```powershell
 .\Open_In_Kit.ps1
-# Choose another scene:
+.\Open_In_Kit.ps1 -Scene STARTER
 .\Open_In_Kit.ps1 -Scene Scenarios
 ```
 
-The launcher opens `SceneROOT_Example.usda` by default in a new Kit application using the executable and app configuration detected from an already running Kit instance. If none is running, supply `-KitExe <path-to-kit.exe> -AppConfig <path-to-composer.kit>`. It leaves the existing window and its unsaved session alone. `-Scene Standard` and `-Scene Manual` both select the standard root.
+The launcher opens Example by default and detects the executable/app configuration from a running Kit instance, or accepts `-KitExe` and `-AppConfig`. Existing application windows are left alone. Standard and Manual select Example. The bundled `_workflows/kit/session_defaults.py` retains its historical filename but now selects the declared Opinion layer, unlocks it, protects the root and other loaded persistent layers, and disables Auto Authoring and Specs Linking. It does not save or route edits. Opening a USDA directly does not guarantee edit-target selection; use the launcher. Updated Kit runtime acceptance remains pending.
 
-The bundled `_workflows/kit/session_defaults.py` helper selects the fresh session layer after opening a tagged project, shows it in the Layers panel and protects all loaded persistent layers, including referenced assets and the root. Auto Authoring and Specs Linking are disabled for this working mode. The helper acts once per stage open, so intentional persistent authoring remains possible. It does not save files or alter filesystem permissions.
-
-Opening a USDA directly applies the supported saved Kit layer-lock metadata, but cannot persist or restore an anonymous session authoring target. The launcher is needed for the complete default. The installed Kit layer-lock utility also excludes the root; the helper protects it through USD's runtime edit permission. Root protection may appear differently from the ordinary sublayer lock icon.
-
-For the current Kit window, execute the bundled Python file in its Script Editor. It applies to the current opted-in stage and subsequent opted-in stages for that application session. Its runtime behavior has not yet been exercised here in Kit.
-
-Session edits are temporary and are not saved with the scene. To persist an edit, deliberately unlock its rightful contribution and select that layer/context. The helper's explicit escape hatch is `builtins.cc_session_defaults.unlock(layer.identifier)` in Kit Python; then select that layer as the edit target. Clear any competing preview opinion from the session once its intended persistent equivalent is authored. Return to the default by scheduling `builtins.cc_session_defaults.schedule()`. No automatic session merge is implemented.
+Saving Opinion persists experiments. Promote reviewed fields to their rightful owner/layer/variant branch, then remove only superseded opinions from Opinion. To edit another persistent layer, deliberately unlock and select it; the helper supports `builtins.cc_session_defaults.unlock(layer.identifier)`. Restore the default using `builtins.cc_session_defaults.schedule()`. Session remains available for transient edits; clear competing Session opinions when returning to Opinion authoring. No automatic promotion or cleanup is implemented.
 
 Use the supplied Omniverse perspective viewport, `/OmniverseKit_Persp`, or frame `/World`. The camera settings, orthographic viewpoints, grid ground, sky, distant light and render state come from the supplied root. Its viewport cameras include application-managed `over` specs that Kit completes; a standalone USD reader is not a substitute for that runtime. Asset Finish appearance uses UsdPreviewSurface, while the standard ground uses OmniPBR. Rendering and viewport startup have not been inspected in Kit.
 
@@ -88,7 +101,7 @@ The whole folder is the intended relocation unit. File references and the two te
 
 ## Actual authoring evidence
 
-The revised package contains 29 USD layers. The author ran with Python 3.13.3 and OpenUSD 26.08 and reopened the standard scene plus four companion entrypoints, with default time and an empty session. No composition errors were returned for those saved configurations. The recorded `/World` matrix is identity; all entries retain the supplied Z-up, centimetre scale, 60 fps, 0–100 range and bound viewport camera.
+The historical build covered 29 USD layers, before the Opinion/starter additions. The author ran with Python 3.13.3 and OpenUSD 26.08 and reopened the standard scene plus four companion entrypoints, with default time and an empty session. No composition errors were returned for those saved configurations. The recorded `/World` matrix is identity; all entries retain the supplied Z-up, centimetre scale, 60 fps, 0–100 range and bound viewport camera.
 
 The recorded read-back found:
 

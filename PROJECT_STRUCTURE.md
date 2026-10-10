@@ -4,7 +4,7 @@
 
 ## The authoring model
 
-Open `SceneROOT_Example.usda`, the supplied Omniverse starting scene, with all persistent layers locked and the session layer selected for temporary edits. The supplied environment, viewport camera and render specs remain its declared application baseline. When persisting a project change, deliberately unlock and edit the contribution that owns it. GeoLyr links published assets; TransLyr places occurrences; VariLyr selects configurations and owns scene scenarios. Material roles remain available when the scene has additional material responsibilities. Each referenced assembly or asset repeats this separation for its own decisions.
+Open `SceneROOT_Example.usda`, the supplied Omniverse starting scene, with Opinion selected and editable and all other persistent layers locked. The supplied environment, viewport camera and render specs remain its declared application baseline. When persisting a project change, deliberately unlock and edit the contribution that owns it. GeoLyr links published assets; TransLyr places occurrences; VariLyr selects configurations and owns scene scenarios. Material roles remain available when the scene has additional material responsibilities. Each referenced assembly or asset repeats this separation for its own decisions.
 
 ```mermaid
 %%{init: {"flowchart": {"wrappingWidth": 380, "nodeSpacing": 22, "rankSpacing": 28}}}%%
@@ -14,7 +14,7 @@ flowchart LR
     %% Connect the column subgraphs, keeping their internal TB layout intact.
     subgraph ENTRY["ROOT + AUTHORING · 0.1.1"]
         direction TB
-        Session["Session Layer<br/>Default target for temporary edits<br/>Persistent layers start locked"]
+        Session["Opinion Layer<br/>Default editable target<br/>Other persistent layers start locked"]
         R["SceneROOT_Example.usda<br/>Stage metadata and sublayer assembly<br/>SceneROOT_Manual is an independent manual root"]
         Startup["Supplied Omniverse baseline in the root<br/>Environment · Render · viewport cameras<br/>Z-up · centimetres · identity World · 60 fps"]
         Session ~~~ R
@@ -84,7 +84,7 @@ The root's sublayers are siblings. GeoLyr references Cube, Cone and DisplayPair;
 | Generated `USD_Startpoint` and `USD_Wrappers` slots | Keep import evidence separate from owned package layers | Explicit source boundary, CC-25 |
 | Generated root is Y-up, `/world`, centimetres | Preserve the supplied ROOT_example: Z-up, `/World`, centimetres, 60 fps, 0–100 | The user-selected Omniverse scene now establishes startup conventions |
 | Earlier example had a custom Overview camera, ground and lights | Keep the supplied top-level Environment/Render and OmniverseKit viewport cameras | Remove alternate starting conditions; preserve identity world coordinates |
-| Generated root carries Kit locks and a root edit target | Persistent layer locks plus a scoped Kit helper selecting Session Layer | Session is the default working target; durable destinations still follow ownership |
+| Generated root carries Kit locks and a root edit target | Other persistent layers locked; scoped helper selects Opinion | Opinion is the default working target; reviewed destinations follow ownership |
 | `_comfyui_workflows` | `_workflows`, with optional application subfolders | Keep the base package usable without a selected pipeline runtime |
 
 The inspected setup script and its generated output are separate evidence. Script comments about locking or default asset locations do not establish what is in the saved scene. This example is newly authored; predecessor files remain historical evidence.
@@ -179,7 +179,7 @@ Most contributions own different fields. GeoLyr at the bottom is this project's 
 | Change the shared Blue shader | Material-library revision | Library-owned definition |
 | Add a temporary masked-scale experiment | Dedicated ReviewLyr | Declared exception with removal route |
 
-The table gives persistent destinations. By default, temporary edits go into the session while all persistent layers are protected. The supplied launcher runs a scoped Kit startup helper because a fresh anonymous session layer has no portable saved identifier. Deliberate persistence requires unlocking the rightful layer and choosing its edit target. Scene scenario contents also require the correct variant edit context. This helper sets the opening state; it does not classify or route individual edits.
+The table gives reviewed destinations. Experiments start in the declared editable Opinion layer; other persistent layers are locked. Saving Opinion retains experiments. The launcher selects the target and protects the root; it does not classify, promote or save edits. Choose the correct role and variant branch when promoting accepted fields.
 
 ## Reproduction and evidence
 

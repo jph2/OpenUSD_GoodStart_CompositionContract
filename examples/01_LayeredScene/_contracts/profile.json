@@ -1,22 +1,25 @@
 {
   "composition": "references; no payloads; no native instancing; default time",
   "contract": "CompositionContracts.md 0.1.1; CC-01 through CC-26",
-  "default_session": "fresh session is the default authoring target; persistent layers locked",
+  "default_session": "Opinion layer is the default editable authoring target; other persistent layers locked",
   "dependencies": "bundled assets, Palette_v001 and two Kit template textures; OmniPBR.mdl and OmniRtx schemas require compatible Omniverse",
   "entrypoints_strongest_first": {
     "SceneROOT_Example.usda": [
+      "./050_REVIEW/OpinLYR_default.usda",
       "./040_DATA_LYRs/DataLyr.usda",
       "./020_BASE_LYR/TransLyr.usda",
       "./020_BASE_LYR/VariLyr.usda",
       "./020_BASE_LYR/GeoLyr.usda"
     ],
     "SceneROOT_Manual.usda": [
+      "./050_REVIEW/OpinLYR_default.usda",
       "./040_DATA_LYRs/DataLyr.usda",
       "./020_BASE_LYR/TransLyr.usda",
       "./020_BASE_LYR/VariLyr.usda",
       "./020_BASE_LYR/GeoLyr.usda"
     ],
     "SceneROOT_MaskedSelection.usda": [
+      "./050_REVIEW/OpinLYR_default.usda",
       "./050_REVIEW/MaskedSelection/ReviewLyr.usda",
       "./040_DATA_LYRs/DataLyr.usda",
       "./020_BASE_LYR/TransLyr.usda",
@@ -24,13 +27,32 @@
       "./020_BASE_LYR/GeoLyr.usda"
     ],
     "SceneROOT_MaskedSize.usda": [
+      "./050_REVIEW/OpinLYR_default.usda",
       "./050_REVIEW/MaskedSize/ReviewLyr.usda",
       "./040_DATA_LYRs/DataLyr.usda",
       "./020_BASE_LYR/TransLyr.usda",
       "./020_BASE_LYR/VariLyr.usda",
       "./020_BASE_LYR/GeoLyr.usda"
     ],
+    "SceneROOT_STARTER.usda": [
+      "./050_REVIEW/Starter/OpinLYR_default.usda",
+      "./035_RUNTIME_LYR/Starter/RuntimeLyr.usda",
+      "./030_SIM_LYR/Starter/SimLyr.usda",
+      "./040_DATA_LYRs/Starter/DataLyr.usda",
+      "./020_BASE_LYR/Starter/EnvLyr.usda",
+      "./020_BASE_LYR/Starter/LightLyr.usda",
+      "./020_BASE_LYR/Starter/CamLyr.usda",
+      "./020_BASE_LYR/Starter/RenderLyr.usda",
+      "./020_BASE_LYR/Starter/AnimLyr.usda",
+      "./020_BASE_LYR/Starter/PhysicsLyr.usda",
+      "./020_BASE_LYR/Starter/RigLyr.usda",
+      "./020_BASE_LYR/Starter/MatLyr.usda",
+      "./020_BASE_LYR/Starter/TransLyr.usda",
+      "./020_BASE_LYR/Starter/VariLyr.usda",
+      "./020_BASE_LYR/Starter/GeoLyr.usda"
+    ],
     "SceneROOT_Scenarios.usda": [
+      "./050_REVIEW/OpinLYR_default.usda",
       "./040_DATA_LYRs/DataLyr.usda",
       "./020_BASE_LYR/TransLyr.usda",
       "./020_BASE_LYR/Scenarios/VariLyr.usda",
@@ -51,14 +73,15 @@
     "DisplayPair Palette selects child Finish through the published interface.",
     "Review overlays mask Size or nested Finish only in the named conflict entrypoints."
   ],
-  "kit_startup": "Open_In_Kit.ps1 enables _workflows/kit/session_defaults.py; plain USD cannot persist an anonymous edit target",
+  "kit_startup": "Open_In_Kit.ps1 enables _workflows/kit/session_defaults.py; launcher selects declared Opinion target",
   "manual_entrypoint": "SceneROOT_Manual.usda; independent root with direct scene sublayers",
+  "opinion_policy": "Strongest work sublayer; samples share 050_REVIEW/OpinLYR_default.usda, Starter has its own. Save persists experiments; promote reviewed fields to rightful owner and branch.",
   "ordinary_instance_transform": [
     "translate",
     "rotateXYZ",
     "scale"
   ],
-  "persistent_authoring": "explicitly unlock the rightful layer, choose its edit/variant context, save and return to session",
+  "persistent_authoring": "explicitly unlock the rightful layer, choose its edit/variant context, save, retire superseded Opinion fields and return to Opinion",
   "profile": "CC-EXAMPLE-01/0.1.1",
   "reset_xform_stack": false,
   "resolver": "ArDefaultResolver; relative package paths; no search path required",
@@ -236,6 +259,120 @@
       "file": "SceneROOT_MaskedSelection.usda",
       "owner": "scene:LayeredScene@1",
       "role": "Root"
+    },
+    {
+      "context": "explicit temporary experiments",
+      "file": "050_REVIEW/OpinLYR_default.usda",
+      "owner": "scene:LayeredScene@1",
+      "role": "OpinionLyr"
+    },
+    {
+      "context": "explicit temporary experiments",
+      "file": "050_REVIEW/Starter/OpinLYR_default.usda",
+      "owner": "scene:Starter@1",
+      "role": "OpinionLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "035_RUNTIME_LYR/Starter/RuntimeLyr.usda",
+      "owner": "scene:Starter@1",
+      "role": "RuntimeLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "030_SIM_LYR/Starter/SimLyr.usda",
+      "owner": "scene:Starter@1",
+      "role": "SimLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "040_DATA_LYRs/Starter/DataLyr.usda",
+      "owner": "scene:Starter@1",
+      "role": "DataLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "040_DATA_LYRs/Starter/IdentityLyr.usda",
+      "owner": "scene:Starter@1",
+      "role": "IdentityLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "040_DATA_LYRs/Starter/ContextLyr.usda",
+      "owner": "scene:Starter@1",
+      "role": "ContextLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "020_BASE_LYR/Starter/EnvLyr.usda",
+      "owner": "scene:Starter@1",
+      "role": "EnvLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "020_BASE_LYR/Starter/LightLyr.usda",
+      "owner": "scene:Starter@1",
+      "role": "LightLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "020_BASE_LYR/Starter/CamLyr.usda",
+      "owner": "scene:Starter@1",
+      "role": "CamLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "020_BASE_LYR/Starter/RenderLyr.usda",
+      "owner": "scene:Starter@1",
+      "role": "RenderLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "020_BASE_LYR/Starter/AnimLyr.usda",
+      "owner": "scene:Starter@1",
+      "role": "AnimLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "020_BASE_LYR/Starter/PhysicsLyr.usda",
+      "owner": "scene:Starter@1",
+      "role": "PhysicsLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "020_BASE_LYR/Starter/RigLyr.usda",
+      "owner": "scene:Starter@1",
+      "role": "RigLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "020_BASE_LYR/Starter/MatLyr.usda",
+      "owner": "scene:Starter@1",
+      "role": "MatLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "020_BASE_LYR/Starter/TransLyr.usda",
+      "owner": "scene:Starter@1",
+      "role": "TransLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "020_BASE_LYR/Starter/VariLyr.usda",
+      "owner": "scene:Starter@1",
+      "role": "VariLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "020_BASE_LYR/Starter/GeoLyr.usda",
+      "owner": "scene:Starter@1",
+      "role": "GeoLyr"
+    },
+    {
+      "context": "unconditional",
+      "file": "SceneROOT_STARTER.usda",
+      "owner": "scene:Starter@1",
+      "role": "Root"
     }
   ],
   "root_exception": "CC-01 application-template baseline; supplied startup content stays in root",
@@ -247,6 +384,7 @@
   ],
   "schema": "cc-example-profile/0.1",
   "standard_scene": "SceneROOT_Example.usda; user-supplied Omniverse starting scene",
+  "starter_entrypoint": "SceneROOT_STARTER.usda; demo assets and independent work layers with optional authoring slots",
   "status": "authored example; acceptance pending",
   "timeline": {
     "endTimeCode": 100,

@@ -1,4 +1,4 @@
-"""Kit startup helper for CC stages explicitly opting into session authoring.
+"""Kit startup helper for CC stages opting into declared Opinion/session authoring.
 
 Run with Kit --exec, or execute this file in Kit's Script Editor. No layer is
 saved. Locks are applied once on open; the user can deliberately unlock later.
@@ -12,6 +12,7 @@ import carb.settings
 import omni.kit.app
 import omni.kit.usd.layers as kit_layers
 import omni.usd
+from pxr import Sdf
 
 
 class SessionDefaults:
@@ -63,7 +64,10 @@ class SessionDefaults:
 
     async def apply(self):
         stage = self.context.get_stage()
-        if not stage or stage.GetRootLayer().customLayerData.get("cc:defaultAuthoring") != "session":
+        if not stage:
+            return
+        policy = stage.GetRootLayer().customLayerData.get("cc:defaultAuthoring")
+        if policy not in ("session", "opinion"):
             return
         # Let the Layers panel finish restoring its saved UI state first.
         for _ in range(3):
@@ -82,15 +86,24 @@ class SessionDefaults:
         kit_layers.get_layers(self.context).set_edit_mode(kit_layers.LayerEditMode.NORMAL)
         session = stage.GetSessionLayer()
         stage.SetEditTarget(session)
+        target = session
+        if policy == "opinion":
+            path = stage.GetRootLayer().customLayerData.get("cc:opinionLayer", "")
+            target = Sdf.Layer.FindRelativeToLayer(stage.GetRootLayer(), path) if path else None
+            if target is None or target not in stage.GetLayerStack():
+                raise RuntimeError("Declared Opinion layer is unavailable in the local stack; Session retained.")
         if stage.GetRootLayer().customLayerData.get("cc:lockPersistentLayers", False):
             for layer in stage.GetUsedLayers():
-                if layer.anonymous:
+                if layer.anonymous or layer == target:
                     continue
                 self.permissions.append((layer, layer.permissionToEdit))
                 # Includes the root, which Kit's normal layer-lock helper excludes.
                 layer.SetPermissionToEdit(False)
-        stage.SetEditTarget(session)
-        carb.log_info(f"CC: Session Layer selected; {len(self.permissions)} persistent layers protected.")
+        if target != session:
+            self.permissions.append((target, target.permissionToEdit))
+            self.unlock(target.identifier)
+        stage.SetEditTarget(target)
+        carb.log_info(f"CC: {target.identifier} selected; other persistent layers protected.")
 
     def unlock(self, layer_identifier):
         """Explicit persistent-authoring escape hatch; never selects or saves a layer."""

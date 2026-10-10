@@ -46,6 +46,7 @@
   "SceneROOT_Manual.usda": "independent manual root; same baseline and direct stack as SceneROOT_Example.usda",
   "SceneROOT_MaskedSelection.usda": "Cube01 Finish remains Blue under either Layout branch",
   "SceneROOT_MaskedSize.usda": "Cube02 Size reads Tall, resolved asset scale=(1,1,1), height=100 cm",
+  "SceneROOT_STARTER.usda": "Omniverse baseline and Manual demo configuration; independent work layers plus optional empty role slots; Opinion authoring through launcher; other persistent layers locked",
   "SceneROOT_Scenarios.usda": {
     "Exploded": "Cube02 base z=80 cm, height=200 cm, Red; Cube01 Yellow; Pair01 Warm (Red/Yellow); other placements unchanged",
     "Normal": "same visible configuration as Manual; explicit neutral Adjustment operations"
