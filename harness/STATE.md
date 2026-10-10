@@ -1,5 +1,20 @@
 # Resume state
 
+## 2026-10-11 — README Mermaid rendering repairs
+
+Replaced invalid labeled reverse arrows in all generated scene diagrams with
+consumer-to-dependency arrows, retaining the root/layers/sources layout intent.
+Renamed the reserved-looking root style class to ccRoot; MotionGraphics namespace
+styles now have unique motion prefixes and explicitly unfilled connectors.
+Consolidated its six long VariLyr selection arrows into one labeled site-control
+edge and increased spacing. Updated the generator and README arrow legend.
+All 16 README Mermaid blocks rendered successfully with the cached Mermaid CLI;
+inspected the namespace PNG and confirmed the oversized filled shapes are gone.
+GitHub's deployed renderer was not directly exercised. Updated the starter ZIP
+README and inventory only, preserving other packaged contents and new local
+motion-control edits. No USD scene/runtime changes.
+
+
 ## 2026-10-11 — remaining tracked changes prepared for publication
 
 Retained the user-edited MotionGraphics controls and rebuilt the starter ZIP

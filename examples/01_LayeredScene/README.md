@@ -271,7 +271,7 @@ The root is a thin scene entrypoint, not a nested starter root. It directly comp
 The next diagram is the **composed prim namespace**, not a layer stack. The scene root composes layer files; those layers author opinions on prims in this namespace. Each of the six prototype sites references one of two asset roots, with its Finish choice set by VariLyr. Shared materials remain inside/referenced by those asset packages.
 
 ```mermaid
-%%{init: {"flowchart": {"htmlLabels": false, "wrappingWidth": 250, "nodeSpacing": 24, "rankSpacing": 34}}}%%
+%%{init: {"flowchart": {"htmlLabels": false, "wrappingWidth": 250, "nodeSpacing": 48, "rankSpacing": 34}}}%%
 flowchart LR
     accTitle: MotionGraphics composed USD prim namespace
     accDescr: The root composes a World containing the motion cloner, overview camera and DATA control declaration. The cloner has one PointInstancer with stable IDs 0 to 1023 and six prototype reference sites. Those sites reuse only a Cube and Cone asset root; VariLyr supplies their Size and Finish selections.
@@ -309,21 +309,17 @@ flowchart LR
     NR -->|reference| CONE
     NB -->|reference| CONE
     NY -->|reference| CONE
-    SELECT["VariLyr<br/>Size = Normal<br/>Finish = site colour"] -.-> CR
-    SELECT -.-> CB
-    SELECT -.-> CY
-    SELECT -.-> NR
-    SELECT -.-> NB
-    SELECT -.-> NY
+    SELECT["VariLyr<br/>All six sites: Size = Normal<br/>Finish = site colour"] -.->|selects on each prototype site| SITES
 
-    classDef root fill:#fde8df,stroke:#d99b84,color:#17212b
-    classDef scene fill:#dceef9,stroke:#91bfd8,color:#17212b
-    classDef source fill:#ffffff,stroke:#9db9c8,color:#17212b
-    classDef control fill:#f4f9fc,stroke:#91bfd8,color:#334155,stroke-dasharray:6 4
-    class ROOT root
-    class WORLD,MG,CLONER,IDS,PROTOS,SITES,CR,CB,CY,NR,NB,NY,CAMERA,CONTROLS scene
-    class CUBE,CONE,PALETTE source
-    class SELECT control
+    classDef motionRoot fill:#fde8df,stroke:#d99b84,color:#17212b
+    classDef motionScene fill:#dceef9,stroke:#91bfd8,color:#17212b
+    classDef motionSource fill:#ffffff,stroke:#9db9c8,color:#17212b
+    classDef motionControl fill:#f4f9fc,stroke:#91bfd8,color:#334155,stroke-dasharray:6 4
+    class ROOT motionRoot
+    class WORLD,MG,CLONER,IDS,PROTOS,SITES,CR,CB,CY,NR,NB,NY,CAMERA,CONTROLS motionScene
+    class CUBE,CONE,PALETTE motionSource
+    class SELECT motionControl
+    linkStyle default fill:none
 ```
 
 There are **six prototype configurations**, but only **two source assets** and **three shared finish materials**. Each of the 1,024 points is an element in PointInstancer arrays, not an individually editable prim. `protoIndices` selects among the six referenced prototype sites; the per-point transform arrays control their motion. The camera, whole-cloner placement, prototype choices, data declaration, baked animation and geometry therefore have separate owners.
@@ -467,7 +463,7 @@ Textures and USD assets are bundled; the ground's OmniPBR shader and viewport fe
 
 ## Exact composition diagrams for every scene
 
-Read from the saved USD files. **Layout: root left, ordered scene layers middle, reusable sources right.** Solid incoming arrows show composition dependencies; dashed arrows describe control selection or baseline resources. Internal stack order is numbered strongest first; invisible layout links do not create sublayer nesting. Asset boxes list their own exact sublayers. DataLyr boxes list their nested data contributions.
+Read from the saved USD files. **Layout: root left, ordered scene layers middle, reusable sources right.** Solid arrows point from each consumer to its composition dependencies; dashed arrows describe control selection or baseline resources. Internal stack order is numbered strongest first; invisible layout links do not create sublayer nesting. Asset boxes list their own exact sublayers. DataLyr boxes list their nested data contributions.
 
 The reuse views draw each source definition once: one Cube, one Cone and one shared definition each for Red, Blue and Yellow. The teaching layout has five shapes (three cubes, two cones); each Instanced scene adds 1,024 occurrences, shown as two counted groups. MotionGraphics instead has one PointInstancer with 1,024 points and six prototype configurations. Reference arrows are composition arcs, not copies. Saved selections appear on reference sites.
 
@@ -513,14 +509,14 @@ flowchart LR
         CONE -->|"MatLyr references Red, Blue, Yellow"| MAT
         MAT ~~~ RES
     end
-    ENTRY <--|"root subLayers list; sibling layers"| STACK
-    STACK <--|"GeoLyr: Cube01 and Cube02 → Cube; Cone01 → Cone; Pair01 → DisplayPair"| SOURCES
+    ENTRY -->|"root subLayers list; sibling layers"| STACK
+    STACK -->|"GeoLyr: Cube01 and Cube02 → Cube; Cone01 → Cone; Pair01 → DisplayPair"| SOURCES
     STACK -.->|"VariLyr selects public controls; definitions stay in packages"| SOURCES
     ENTRY -.->|"root Sky/Grid resource dependencies"| SOURCES
-    classDef root fill:#fde8df,stroke:#d99b84,color:#17212b
+    classDef ccRoot fill:#fde8df,stroke:#d99b84,color:#17212b
     classDef layer fill:#dceef9,stroke:#91bfd8,color:#17212b
     classDef asset fill:#ffffff,stroke:#9db9c8,color:#17212b
-    class R,B root
+    class R,B ccRoot
     class L0,L1,L2,L3,L4 layer
     class PAIR,CUBE,CONE,MAT,RES asset
 ```
@@ -576,14 +572,14 @@ flowchart LR
         CONE -->|"MatLyr references Red, Blue, Yellow"| MAT
         MAT ~~~ RES
     end
-    ENTRY <--|"root subLayers list; sibling layers"| STACK
-    STACK <--|"GeoLyr: Cube01 and Cube02 → Cube; Cone01 → Cone; Pair01 → DisplayPair"| SOURCES
+    ENTRY -->|"root subLayers list; sibling layers"| STACK
+    STACK -->|"GeoLyr: Cube01 and Cube02 → Cube; Cone01 → Cone; Pair01 → DisplayPair"| SOURCES
     STACK -.->|"VariLyr selects public controls; definitions stay in packages"| SOURCES
     ENTRY -.->|"root Sky/Grid resource dependencies"| SOURCES
-    classDef root fill:#fde8df,stroke:#d99b84,color:#17212b
+    classDef ccRoot fill:#fde8df,stroke:#d99b84,color:#17212b
     classDef layer fill:#dceef9,stroke:#91bfd8,color:#17212b
     classDef asset fill:#ffffff,stroke:#9db9c8,color:#17212b
-    class R,B root
+    class R,B ccRoot
     class L0,L1,L2,L3,L4 layer
     class PAIR,CUBE,CONE,MAT,RES asset
 ```
@@ -639,14 +635,14 @@ flowchart LR
         CONE -->|"MatLyr references Red, Blue, Yellow"| MAT
         MAT ~~~ RES
     end
-    ENTRY <--|"root subLayers list; sibling layers"| STACK
-    STACK <--|"GeoLyr: Cube01 and Cube02 → Cube; Cone01 → Cone; Pair01 → DisplayPair"| SOURCES
+    ENTRY -->|"root subLayers list; sibling layers"| STACK
+    STACK -->|"GeoLyr: Cube01 and Cube02 → Cube; Cone01 → Cone; Pair01 → DisplayPair"| SOURCES
     STACK -.->|"VariLyr selects public controls; definitions stay in packages"| SOURCES
     ENTRY -.->|"root Sky/Grid resource dependencies"| SOURCES
-    classDef root fill:#fde8df,stroke:#d99b84,color:#17212b
+    classDef ccRoot fill:#fde8df,stroke:#d99b84,color:#17212b
     classDef layer fill:#dceef9,stroke:#91bfd8,color:#17212b
     classDef asset fill:#ffffff,stroke:#9db9c8,color:#17212b
-    class R,B root
+    class R,B ccRoot
     class L0,L1,L2,L3,L4 layer
     class PAIR,CUBE,CONE,MAT,RES asset
 ```
@@ -704,14 +700,14 @@ flowchart LR
         CONE -->|"MatLyr references Red, Blue, Yellow"| MAT
         MAT ~~~ RES
     end
-    ENTRY <--|"root subLayers list; sibling layers"| STACK
-    STACK <--|"GeoLyr: Cube01 and Cube02 → Cube; Cone01 → Cone; Pair01 → DisplayPair"| SOURCES
+    ENTRY -->|"root subLayers list; sibling layers"| STACK
+    STACK -->|"GeoLyr: Cube01 and Cube02 → Cube; Cone01 → Cone; Pair01 → DisplayPair"| SOURCES
     STACK -.->|"VariLyr selects public controls; definitions stay in packages"| SOURCES
     ENTRY -.->|"root Sky/Grid resource dependencies"| SOURCES
-    classDef root fill:#fde8df,stroke:#d99b84,color:#17212b
+    classDef ccRoot fill:#fde8df,stroke:#d99b84,color:#17212b
     classDef layer fill:#dceef9,stroke:#91bfd8,color:#17212b
     classDef asset fill:#ffffff,stroke:#9db9c8,color:#17212b
-    class R,B root
+    class R,B ccRoot
     class L0,L1,L2,L3,L4,L5 layer
     class PAIR,CUBE,CONE,MAT,RES asset
 ```
@@ -769,14 +765,14 @@ flowchart LR
         CONE -->|"MatLyr references Red, Blue, Yellow"| MAT
         MAT ~~~ RES
     end
-    ENTRY <--|"root subLayers list; sibling layers"| STACK
-    STACK <--|"GeoLyr: Cube01 and Cube02 → Cube; Cone01 → Cone; Pair01 → DisplayPair"| SOURCES
+    ENTRY -->|"root subLayers list; sibling layers"| STACK
+    STACK -->|"GeoLyr: Cube01 and Cube02 → Cube; Cone01 → Cone; Pair01 → DisplayPair"| SOURCES
     STACK -.->|"VariLyr selects public controls; definitions stay in packages"| SOURCES
     ENTRY -.->|"root Sky/Grid resource dependencies"| SOURCES
-    classDef root fill:#fde8df,stroke:#d99b84,color:#17212b
+    classDef ccRoot fill:#fde8df,stroke:#d99b84,color:#17212b
     classDef layer fill:#dceef9,stroke:#91bfd8,color:#17212b
     classDef asset fill:#ffffff,stroke:#9db9c8,color:#17212b
-    class R,B root
+    class R,B ccRoot
     class L0,L1,L2,L3,L4,L5 layer
     class PAIR,CUBE,CONE,MAT,RES asset
 ```
@@ -852,14 +848,14 @@ flowchart LR
         CONE -->|"MatLyr references Red, Blue, Yellow"| MAT
         MAT ~~~ RES
     end
-    ENTRY <--|"root subLayers list; sibling layers"| STACK
-    STACK <--|"GeoLyr: Cube01 and Cube02 → Cube; Cone01 → Cone; Pair01 → DisplayPair"| SOURCES
+    ENTRY -->|"root subLayers list; sibling layers"| STACK
+    STACK -->|"GeoLyr: Cube01 and Cube02 → Cube; Cone01 → Cone; Pair01 → DisplayPair"| SOURCES
     STACK -.->|"VariLyr selects public controls; definitions stay in packages"| SOURCES
     ENTRY -.->|"root Sky/Grid resource dependencies"| SOURCES
-    classDef root fill:#fde8df,stroke:#d99b84,color:#17212b
+    classDef ccRoot fill:#fde8df,stroke:#d99b84,color:#17212b
     classDef layer fill:#dceef9,stroke:#91bfd8,color:#17212b
     classDef asset fill:#ffffff,stroke:#9db9c8,color:#17212b
-    class R,B root
+    class R,B ccRoot
     class L0,L1,L2,L3,L4,L5,L6,L7,L8,L9,L10,L11,L12,L13,L14 layer
     class PAIR,CUBE,CONE,MAT,RES asset
 ```
@@ -921,14 +917,14 @@ flowchart LR
         CONEC -->|"MatLyr references Red, Blue, Yellow"| MAT
         MAT ~~~ RES
     end
-    ENTRY <--|"root subLayers list; sibling layers"| STACK
-    STACK <--|"GeoLyr: Cube01 and Cube02 → Cube; Cone01 → Cone; Pair01 → DisplayPair"| SOURCES
+    ENTRY -->|"root subLayers list; sibling layers"| STACK
+    STACK -->|"GeoLyr: Cube01 and Cube02 → Cube; Cone01 → Cone; Pair01 → DisplayPair"| SOURCES
     STACK -.->|"VariLyr selects public controls; definitions stay in packages"| SOURCES
     ENTRY -.->|"root Sky/Grid resource dependencies"| SOURCES
-    classDef root fill:#fde8df,stroke:#d99b84,color:#17212b
+    classDef ccRoot fill:#fde8df,stroke:#d99b84,color:#17212b
     classDef layer fill:#dceef9,stroke:#91bfd8,color:#17212b
     classDef asset fill:#ffffff,stroke:#9db9c8,color:#17212b
-    class R,B root
+    class R,B ccRoot
     class L0,L1,L2,L3,L4 layer
     class PAIR,CUBE,CONE,MAT,RES asset
 ```
@@ -990,14 +986,14 @@ flowchart LR
         CONEC -->|"MatLyr references Red, Blue, Yellow"| MAT
         MAT ~~~ RES
     end
-    ENTRY <--|"root subLayers list; sibling layers"| STACK
-    STACK <--|"GeoLyr: teaching objects + InstanceGrid (512 Cube + 512 Cone); shape sites instanceable"| SOURCES
+    ENTRY -->|"root subLayers list; sibling layers"| STACK
+    STACK -->|"GeoLyr: teaching objects + InstanceGrid (512 Cube + 512 Cone); shape sites instanceable"| SOURCES
     STACK -.->|"VariLyr selects public controls; definitions stay in packages"| SOURCES
     ENTRY -.->|"root Sky/Grid resource dependencies"| SOURCES
-    classDef root fill:#fde8df,stroke:#d99b84,color:#17212b
+    classDef ccRoot fill:#fde8df,stroke:#d99b84,color:#17212b
     classDef layer fill:#dceef9,stroke:#91bfd8,color:#17212b
     classDef asset fill:#ffffff,stroke:#9db9c8,color:#17212b
-    class R,B root
+    class R,B ccRoot
     class L0,L1,L2,L3,L4 layer
     class PAIR,CUBE,CONE,MAT,RES asset
 ```
@@ -1059,14 +1055,14 @@ flowchart LR
         CONEC -->|"MatLyr references Red, Blue, Yellow"| MAT
         MAT ~~~ RES
     end
-    ENTRY <--|"root subLayers list; sibling layers"| STACK
-    STACK <--|"GeoLyr: teaching objects + InstanceGrid (512 Cube + 512 Cone); shape sites instanceable"| SOURCES
+    ENTRY -->|"root subLayers list; sibling layers"| STACK
+    STACK -->|"GeoLyr: teaching objects + InstanceGrid (512 Cube + 512 Cone); shape sites instanceable"| SOURCES
     STACK -.->|"VariLyr selects public controls; definitions stay in packages"| SOURCES
     ENTRY -.->|"root Sky/Grid resource dependencies"| SOURCES
-    classDef root fill:#fde8df,stroke:#d99b84,color:#17212b
+    classDef ccRoot fill:#fde8df,stroke:#d99b84,color:#17212b
     classDef layer fill:#dceef9,stroke:#91bfd8,color:#17212b
     classDef asset fill:#ffffff,stroke:#9db9c8,color:#17212b
-    class R,B root
+    class R,B ccRoot
     class L0,L1,L2,L3,L4 layer
     class PAIR,CUBE,CONE,MAT,RES asset
 ```
@@ -1128,14 +1124,14 @@ flowchart LR
         CONEC -->|"MatLyr references Red, Blue, Yellow"| MAT
         MAT ~~~ RES
     end
-    ENTRY <--|"root subLayers list; sibling layers"| STACK
-    STACK <--|"GeoLyr: teaching objects + InstanceGrid (512 Cube + 512 Cone); shape sites instanceable"| SOURCES
+    ENTRY -->|"root subLayers list; sibling layers"| STACK
+    STACK -->|"GeoLyr: teaching objects + InstanceGrid (512 Cube + 512 Cone); shape sites instanceable"| SOURCES
     STACK -.->|"VariLyr selects public controls; definitions stay in packages"| SOURCES
     ENTRY -.->|"root Sky/Grid resource dependencies"| SOURCES
-    classDef root fill:#fde8df,stroke:#d99b84,color:#17212b
+    classDef ccRoot fill:#fde8df,stroke:#d99b84,color:#17212b
     classDef layer fill:#dceef9,stroke:#91bfd8,color:#17212b
     classDef asset fill:#ffffff,stroke:#9db9c8,color:#17212b
-    class R,B root
+    class R,B ccRoot
     class L0,L1,L2,L3,L4 layer
     class PAIR,CUBE,CONE,MAT,RES asset
 ```
@@ -1197,14 +1193,14 @@ flowchart LR
         CONEC -->|"MatLyr references Red, Blue, Yellow"| MAT
         MAT ~~~ RES
     end
-    ENTRY <--|"root subLayers list; sibling layers"| STACK
-    STACK <--|"GeoLyr: teaching objects + InstanceGrid (512 Cube + 512 Cone); shape sites instanceable"| SOURCES
+    ENTRY -->|"root subLayers list; sibling layers"| STACK
+    STACK -->|"GeoLyr: teaching objects + InstanceGrid (512 Cube + 512 Cone); shape sites instanceable"| SOURCES
     STACK -.->|"VariLyr selects public controls; definitions stay in packages"| SOURCES
     ENTRY -.->|"root Sky/Grid resource dependencies"| SOURCES
-    classDef root fill:#fde8df,stroke:#d99b84,color:#17212b
+    classDef ccRoot fill:#fde8df,stroke:#d99b84,color:#17212b
     classDef layer fill:#dceef9,stroke:#91bfd8,color:#17212b
     classDef asset fill:#ffffff,stroke:#9db9c8,color:#17212b
-    class R,B root
+    class R,B ccRoot
     class L0,L1,L2,L3,L4 layer
     class PAIR,CUBE,CONE,MAT,RES asset
 ```
@@ -1267,13 +1263,13 @@ flowchart LR
         MAT ~~~ JSON
         JSON ~~~ RES
     end
-    ENTRY <--|root sublayers| STACK
-    STACK <--|GeoLyr references three configurations of each shape| SRC
+    ENTRY -->|root sublayers| STACK
+    STACK -->|GeoLyr references three configurations of each shape| SRC
     STACK -.->|DATA declares JSON; VariLyr selects public controls| SRC
     SRC -.->|optional Python model writes Session runtime arrays| ENTRY
-    classDef root fill:#fde8df,stroke:#d99b84,color:#17212b
+    classDef ccRoot fill:#fde8df,stroke:#d99b84,color:#17212b
     classDef layer fill:#dceef9,stroke:#91bfd8,color:#17212b
-    class R root
+    class R ccRoot
     class L0,L1,L2,L3,L4,L5,L6 layer
 ```
 

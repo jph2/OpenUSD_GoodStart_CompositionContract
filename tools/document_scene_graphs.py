@@ -109,14 +109,14 @@ def diagram(root):
         '        CUBE -->|"MatLyr references Red, Blue, Yellow"| MAT',
         '        CONE -->|"MatLyr references Red, Blue, Yellow"| MAT',
         '        MAT ~~~ RES', '    end',
-        '    ENTRY <--|"root subLayers list; sibling layers"| STACK',
-        '    STACK <--|"GeoLyr: Cube01 and Cube02 → Cube; Cone01 → Cone; Pair01 → DisplayPair"| SOURCES',
+        '    ENTRY -->|"root subLayers list; sibling layers"| STACK',
+        '    STACK -->|"GeoLyr: Cube01 and Cube02 → Cube; Cone01 → Cone; Pair01 → DisplayPair"| SOURCES',
         '    STACK -.->|"VariLyr selects public controls; definitions stay in packages"| SOURCES',
         '    ENTRY -.->|"root Sky/Grid resource dependencies"| SOURCES',
-        '    classDef root fill:#fde8df,stroke:#d99b84,color:#17212b',
+        '    classDef ccRoot fill:#fde8df,stroke:#d99b84,color:#17212b',
         '    classDef layer fill:#dceef9,stroke:#91bfd8,color:#17212b',
         '    classDef asset fill:#ffffff,stroke:#9db9c8,color:#17212b',
-        '    class R,B root',
+        '    class R,B ccRoot',
         '    class '+','.join(f'L{i}' for i in range(len(root.subLayerPaths)))+' layer',
         '    class PAIR,CUBE,CONE,MAT,RES asset', '```'])
     result = '\n'.join(lines)
@@ -158,13 +158,13 @@ def motion_diagram(root):
         '        JSON["040_DATA_LYRs/Controls/motion_graphics.json<br/>layout · wave · scale · rotation · falloff · colour"]',
         '        RES["Baseline: bundled HDR and grid texture<br/>OmniPBR.mdl from Kit"]',
         '        MAT ~~~ JSON', '        JSON ~~~ RES', '    end',
-        '    ENTRY <--|root sublayers| STACK',
-        '    STACK <--|GeoLyr references three configurations of each shape| SRC',
+        '    ENTRY -->|root sublayers| STACK',
+        '    STACK -->|GeoLyr references three configurations of each shape| SRC',
         '    STACK -.->|DATA declares JSON; VariLyr selects public controls| SRC',
         '    SRC -.->|optional Python model writes Session runtime arrays| ENTRY',
-        '    classDef root fill:#fde8df,stroke:#d99b84,color:#17212b',
+        '    classDef ccRoot fill:#fde8df,stroke:#d99b84,color:#17212b',
         '    classDef layer fill:#dceef9,stroke:#91bfd8,color:#17212b',
-        '    class R root', '    class '+','.join(f'L{i}' for i in range(len(root.subLayerPaths)))+' layer', '```'])
+        '    class R ccRoot', '    class '+','.join(f'L{i}' for i in range(len(root.subLayerPaths)))+' layer', '```'])
     return '\n'.join(lines)
 
 
@@ -275,7 +275,7 @@ def main():
     parser.add_argument('--mermaid-cli', help='Path to mmdc for rendering fixed-layout reuse SVGs')
     args = parser.parse_args()
     chunks=[START, '## Exact composition diagrams for every scene',
-            'Read from the saved USD files. **Layout: root left, ordered scene layers middle, reusable sources right.** Solid incoming arrows show composition dependencies; dashed arrows describe control selection or baseline resources. Internal stack order is numbered strongest first; invisible layout links do not create sublayer nesting. Asset boxes list their own exact sublayers. DataLyr boxes list their nested data contributions.',
+            'Read from the saved USD files. **Layout: root left, ordered scene layers middle, reusable sources right.** Solid arrows point from each consumer to its composition dependencies; dashed arrows describe control selection or baseline resources. Internal stack order is numbered strongest first; invisible layout links do not create sublayer nesting. Asset boxes list their own exact sublayers. DataLyr boxes list their nested data contributions.',
             'The reuse views draw each source definition once: one Cube, one Cone and one shared definition each for Red, Blue and Yellow. The teaching layout has five shapes (three cubes, two cones); each Instanced scene adds 1,024 occurrences, shown as two counted groups. MotionGraphics instead has one PointInstancer with 1,024 points and six prototype configurations. Reference arrows are composition arcs, not copies. Saved selections appear on reference sites.',
             'These are source/dependency views, not expanded stage trees or rendered results. The Instanced scenes enable native instancing. Lofted and Instanced introduce payload boundaries and public interface declarations while sharing the original role files. Palette also contains an unused Ground definition; the visible ground uses its separate Grid material. Rendered outcomes remain deferred.']
     for name,description in SCENES.items():
