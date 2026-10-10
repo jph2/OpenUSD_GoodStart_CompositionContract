@@ -1,0 +1,20 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "cc:owner" = "scene:MotionGraphics@1"
+        string "cc:profile" = "CC-MOTION-01/0.1.1"
+        string "cc:role" = "DataLyr"
+    }
+)
+
+over "World"
+{
+    def Scope "MotionGraphControls"
+    {
+        custom asset cc:controls = @./Controls/motion_graphics.json@
+        custom string cc:identityScope = "MotionGraphics cloner IDs 0..1023; fixed row-major topology"
+        custom string cc:profile = "CC-MOTION-01/0.1.1"
+        custom string cc:target = "/World/MotionGraphics/Cloner"
+        custom string cc:writer = "baked AnimLyr OR temporary runtime overlay"
+    }
+}

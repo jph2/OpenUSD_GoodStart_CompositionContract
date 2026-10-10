@@ -29,33 +29,37 @@
         string "cc:role" = "Root"
         string "cc:startupTemplate" = "ROOT_example supplied by Jan"
         dictionary omni_layer = {
+            string authoring_layer = "./050_REVIEW/Starter/OpinLYR_default.usda"
             dictionary locked = {
-                bool "./010_ASS_USD/Assemblies/DisplayPair/DisplayPair.usda" = 1
-                bool "./010_ASS_USD/Assemblies/DisplayPair/layers/GeoLyr.usda" = 1
-                bool "./010_ASS_USD/Assemblies/DisplayPair/layers/TransLyr.usda" = 1
-                bool "./010_ASS_USD/Assemblies/DisplayPair/layers/VariLyr.usda" = 1
+                bool "./010_ASS_USD/Assemblies/DisplayPair/020_BASE_LYR/GeoLyr.usda" = 1
+                bool "./010_ASS_USD/Assemblies/DisplayPair/020_BASE_LYR/TransLyr.usda" = 1
+                bool "./010_ASS_USD/Assemblies/DisplayPair/020_BASE_LYR/VariLyr.usda" = 1
+                bool "./010_ASS_USD/Assemblies/DisplayPair/050_REVIEW/OpinLYR_default.usda" = 1
+                bool "./010_ASS_USD/Assemblies/DisplayPair/AssetROOT_DisplayPair.usda" = 1
                 bool "./010_ASS_USD/MatLib/Palette_v001.usda" = 1
-                bool "./010_ASS_USD/USD_Wrappers/Cone/Cone.usda" = 1
-                bool "./010_ASS_USD/USD_Wrappers/Cone/layers/GeoLyr.usda" = 1
-                bool "./010_ASS_USD/USD_Wrappers/Cone/layers/MatLyr.usda" = 1
-                bool "./010_ASS_USD/USD_Wrappers/Cone/layers/TransLyr.usda" = 1
-                bool "./010_ASS_USD/USD_Wrappers/Cone/layers/VariLyr.usda" = 1
-                bool "./010_ASS_USD/USD_Wrappers/Cube/Cube.usda" = 1
-                bool "./010_ASS_USD/USD_Wrappers/Cube/layers/GeoLyr.usda" = 1
-                bool "./010_ASS_USD/USD_Wrappers/Cube/layers/MatLyr.usda" = 1
-                bool "./010_ASS_USD/USD_Wrappers/Cube/layers/TransLyr.usda" = 1
-                bool "./010_ASS_USD/USD_Wrappers/Cube/layers/VariLyr.usda" = 1
-                bool "./020_BASE_LYR/Starter/AnimLyr.usda" = 1
-                bool "./020_BASE_LYR/Starter/CamLyr.usda" = 1
-                bool "./020_BASE_LYR/Starter/EnvLyr.usda" = 1
-                bool "./020_BASE_LYR/Starter/GeoLyr.usda" = 1
-                bool "./020_BASE_LYR/Starter/LightLyr.usda" = 1
-                bool "./020_BASE_LYR/Starter/MatLyr.usda" = 1
-                bool "./020_BASE_LYR/Starter/PhysicsLyr.usda" = 1
-                bool "./020_BASE_LYR/Starter/RenderLyr.usda" = 1
-                bool "./020_BASE_LYR/Starter/RigLyr.usda" = 1
-                bool "./020_BASE_LYR/Starter/TransLyr.usda" = 1
-                bool "./020_BASE_LYR/Starter/VariLyr.usda" = 1
+                bool "./010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/GeoLyr.usda" = 1
+                bool "./010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/MatLyr.usda" = 1
+                bool "./010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/TransLyr.usda" = 1
+                bool "./010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/VariLyr.usda" = 1
+                bool "./010_ASS_USD/USD_Wrappers/Cone/050_REVIEW/OpinLYR_default.usda" = 1
+                bool "./010_ASS_USD/USD_Wrappers/Cone/AssetROOT_Cone.usda" = 1
+                bool "./010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/GeoLyr.usda" = 1
+                bool "./010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/MatLyr.usda" = 1
+                bool "./010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/TransLyr.usda" = 1
+                bool "./010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/VariLyr.usda" = 1
+                bool "./010_ASS_USD/USD_Wrappers/Cube/050_REVIEW/OpinLYR_default.usda" = 1
+                bool "./010_ASS_USD/USD_Wrappers/Cube/AssetROOT_Cube.usda" = 1
+                bool "./020_BASE_LYR/AnimLyr_Starter.usda" = 1
+                bool "./020_BASE_LYR/CamLyr_Starter.usda" = 1
+                bool "./020_BASE_LYR/EnvLyr_Starter.usda" = 1
+                bool "./020_BASE_LYR/GeoLyr_Starter.usda" = 1
+                bool "./020_BASE_LYR/LightLyr_Starter.usda" = 1
+                bool "./020_BASE_LYR/MatLyr_Starter.usda" = 1
+                bool "./020_BASE_LYR/PhysicsLyr_Starter.usda" = 1
+                bool "./020_BASE_LYR/RenderLyr_Starter.usda" = 1
+                bool "./020_BASE_LYR/RigLyr_Starter.usda" = 1
+                bool "./020_BASE_LYR/TransLyr_Starter.usda" = 1
+                bool "./020_BASE_LYR/VariLyr_Starter.usda" = 1
                 bool "./030_SIM_LYR/Starter/SimLyr.usda" = 1
                 bool "./035_RUNTIME_LYR/Starter/RuntimeLyr.usda" = 1
                 bool "./040_DATA_LYRs/Starter/ContextLyr.usda" = 1
@@ -80,17 +84,17 @@
         @./035_RUNTIME_LYR/Starter/RuntimeLyr.usda@,
         @./030_SIM_LYR/Starter/SimLyr.usda@,
         @./040_DATA_LYRs/Starter/DataLyr.usda@,
-        @./020_BASE_LYR/Starter/EnvLyr.usda@,
-        @./020_BASE_LYR/Starter/LightLyr.usda@,
-        @./020_BASE_LYR/Starter/CamLyr.usda@,
-        @./020_BASE_LYR/Starter/RenderLyr.usda@,
-        @./020_BASE_LYR/Starter/AnimLyr.usda@,
-        @./020_BASE_LYR/Starter/PhysicsLyr.usda@,
-        @./020_BASE_LYR/Starter/RigLyr.usda@,
-        @./020_BASE_LYR/Starter/MatLyr.usda@,
-        @./020_BASE_LYR/Starter/TransLyr.usda@,
-        @./020_BASE_LYR/Starter/VariLyr.usda@,
-        @./020_BASE_LYR/Starter/GeoLyr.usda@
+        @./020_BASE_LYR/EnvLyr_Starter.usda@,
+        @./020_BASE_LYR/LightLyr_Starter.usda@,
+        @./020_BASE_LYR/CamLyr_Starter.usda@,
+        @./020_BASE_LYR/RenderLyr_Starter.usda@,
+        @./020_BASE_LYR/AnimLyr_Starter.usda@,
+        @./020_BASE_LYR/PhysicsLyr_Starter.usda@,
+        @./020_BASE_LYR/RigLyr_Starter.usda@,
+        @./020_BASE_LYR/MatLyr_Starter.usda@,
+        @./020_BASE_LYR/TransLyr_Starter.usda@,
+        @./020_BASE_LYR/VariLyr_Starter.usda@,
+        @./020_BASE_LYR/GeoLyr_Starter.usda@
     ]
     timeCodesPerSecond = 60
     upAxis = "Z"

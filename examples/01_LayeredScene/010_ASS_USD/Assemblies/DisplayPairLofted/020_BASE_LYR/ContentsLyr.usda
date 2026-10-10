@@ -1,0 +1,18 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "cc:context" = "implementation aggregate; no copied variant values"
+        string "cc:owner" = "assembly:DisplayPairLofted@1"
+        string "cc:profile" = "CC-SCALE-01/0.1.1"
+        string "cc:role" = "PayloadContents"
+    }
+    defaultPrim = "DisplayPair"
+    metersPerUnit = 0.01
+    subLayers = [
+        @./../../DisplayPair/020_BASE_LYR/VariLyr.usda@,
+        @./../../DisplayPair/020_BASE_LYR/TransLyr.usda@,
+        @./GeoLyr.usda@
+    ]
+    timeCodesPerSecond = 60
+    upAxis = "Z"
+)

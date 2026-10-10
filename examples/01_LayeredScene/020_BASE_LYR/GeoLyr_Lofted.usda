@@ -1,0 +1,59 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "cc:owner" = "scene:Lofted@1"
+        string "cc:profile" = "CC-SCALE-01/0.1.1"
+        string "cc:role" = "GeoLyr"
+    }
+)
+
+def Xform "World"
+{
+    def Xform "Cube01"
+    {
+        def Xform "Adjustment"
+        {
+            def Xform "Asset" (
+                prepend references = @./../010_ASS_USD/USD_Wrappers/CubeLofted/AssetROOT_CubeLofted.usda@
+            )
+            {
+            }
+        }
+    }
+
+    def Xform "Cube02"
+    {
+        def Xform "Adjustment"
+        {
+            def Xform "Asset" (
+                prepend references = @./../010_ASS_USD/USD_Wrappers/CubeLofted/AssetROOT_CubeLofted.usda@
+            )
+            {
+            }
+        }
+    }
+
+    def Xform "Cone01"
+    {
+        def Xform "Adjustment"
+        {
+            def Xform "Asset" (
+                prepend references = @./../010_ASS_USD/USD_Wrappers/ConeLofted/AssetROOT_ConeLofted.usda@
+            )
+            {
+            }
+        }
+    }
+
+    def Xform "Pair01"
+    {
+        def Xform "Adjustment"
+        {
+            def Xform "Asset" (
+                prepend references = @./../010_ASS_USD/Assemblies/DisplayPairLofted/AssetROOT_DisplayPairLofted.usda@
+            )
+            {
+            }
+        }
+    }
+}

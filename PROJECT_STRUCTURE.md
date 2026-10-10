@@ -4,7 +4,7 @@
 
 ## The authoring model
 
-Open `SceneROOT_Example.usda`, the supplied Omniverse starting scene, with Opinion selected and editable and all other persistent layers locked. The supplied environment, viewport camera and render specs remain its declared application baseline. When persisting a project change, deliberately unlock and edit the contribution that owns it. GeoLyr links published assets; TransLyr places occurrences; VariLyr selects configurations and owns scene scenarios. Material roles remain available when the scene has additional material responsibilities. Each referenced assembly or asset repeats this separation for its own decisions.
+Open `SceneROOT_Example.usda`, the supplied Omniverse starting scene, with Opinion selected and editable and persistent work/source layers locked. The supplied environment, viewport camera and render specs remain its declared application baseline. When persisting a project change, deliberately unlock and edit the contribution that owns it. GeoLyr links published assets; TransLyr places occurrences; VariLyr selects configurations and owns scene scenarios. Material roles remain available when the scene has additional material responsibilities. Each referenced assembly or asset repeats this separation for its own decisions.
 
 ```mermaid
 %%{init: {"flowchart": {"wrappingWidth": 380, "nodeSpacing": 22, "rankSpacing": 28}}}%%
@@ -14,7 +14,7 @@ flowchart LR
     %% Connect the column subgraphs, keeping their internal TB layout intact.
     subgraph ENTRY["ROOT + AUTHORING · 0.1.1"]
         direction TB
-        Session["Opinion Layer<br/>Default editable target<br/>Other persistent layers start locked"]
+        Session["Opinion Layer<br/>Default editable target<br/>Work/source layers start locked"]
         R["SceneROOT_Example.usda<br/>Stage metadata and sublayer assembly<br/>SceneROOT_Manual is an independent manual root"]
         Startup["Supplied Omniverse baseline in the root<br/>Environment · Render · viewport cameras<br/>Z-up · centimetres · identity World · 60 fps"]
         Session ~~~ R
@@ -84,7 +84,7 @@ The root's sublayers are siblings. GeoLyr references Cube, Cone and DisplayPair;
 | Generated `USD_Startpoint` and `USD_Wrappers` slots | Keep import evidence separate from owned package layers | Explicit source boundary, CC-25 |
 | Generated root is Y-up, `/world`, centimetres | Preserve the supplied ROOT_example: Z-up, `/World`, centimetres, 60 fps, 0–100 | The user-selected Omniverse scene now establishes startup conventions |
 | Earlier example had a custom Overview camera, ground and lights | Keep the supplied top-level Environment/Render and OmniverseKit viewport cameras | Remove alternate starting conditions; preserve identity world coordinates |
-| Generated root carries Kit locks and a root edit target | Other persistent layers locked; scoped helper selects Opinion | Opinion is the default working target; reviewed destinations follow ownership |
+| Generated root carries Kit locks and a root edit target | Work/source layers locked; scoped helper selects Opinion | Opinion is the default working target; reviewed destinations follow ownership |
 | `_comfyui_workflows` | `_workflows`, with optional application subfolders | Keep the base package usable without a selected pipeline runtime |
 
 The inspected setup script and its generated output are separate evidence. Script comments about locking or default asset locations do not establish what is in the saved scene. This example is newly authored; predecessor files remain historical evidence.
@@ -102,18 +102,18 @@ examples/01_LayeredScene/
   SceneROOT_Scenarios.usda              scene Layout variant
   SceneROOT_MaskedSize.usda             deliberate property conflict
   SceneROOT_MaskedSelection.usda        deliberate selection conflict
-  Open_In_Kit.ps1                   launch with locked layers and session authoring
+  Open_In_Kit.ps1                   launch with protected layers and Opinion authoring
   000_SOURCE/                      retained CAD/DCC originals; unused here
   010_ASS_USD/
     USD_Startpoint/                retained imported USD; unused here
     USD_Wrappers/
-      Cube/Cube.usda               published asset entrypoint
-        layers/{Geo,Trans,Mat,Vari}Lyr.usda
-      Cone/Cone.usda
-        layers/{Geo,Trans,Mat,Vari}Lyr.usda
+      Cube/AssetROOT_Cube.usda               published asset entrypoint
+        020_BASE_LYR/{Geo,Trans,Mat,Vari}Lyr.usda
+      Cone/AssetROOT_Cone.usda
+        020_BASE_LYR/{Geo,Trans,Mat,Vari}Lyr.usda
     Assemblies/
-      DisplayPair/DisplayPair.usda
-        layers/{Geo,Trans,Vari}Lyr.usda
+      DisplayPair/AssetROOT_DisplayPair.usda
+        020_BASE_LYR/{Geo,Trans,Vari}Lyr.usda
     MatLib/Palette_v001.usda        shared material definitions
     Envs/OmniverseStandard/Resources/ supplied sky HDR and ground texture
     tex/                           shared texture slot; unused here
@@ -121,7 +121,7 @@ examples/01_LayeredScene/
     GeoLyr.usda                    occurrence hierarchy and references
     TransLyr.usda                  occurrence placement only
     VariLyr.usda                   direct selections, manual mode only
-    Scenarios/VariLyr.usda          Layout definitions/selections, scenario mode only
+    VariLyr_Scenarios.usda          Layout definitions/selections, scenario mode only
   030_SIM_LYR/                     reserved; no result layer composed
   035_RUNTIME_LYR/                 reserved; no live state or snapshot composed
   040_DATA_LYRs/
@@ -143,7 +143,7 @@ Reserved directories contain a short README explaining their use. Empty USD cont
 ```text
 /World/Cube02                         scene TransLyr: base placement
   /Adjustment                        scene Layout branch: relative offset
-    /Asset                           scene GeoLyr: reference to Cube.usda
+    /Asset                           scene GeoLyr: reference to AssetROOT_Cube.usda
       [Size, Finish public controls] asset VariLyr: intrinsic alternatives
       /Geometry                      asset GeoLyr: cube; TransLyr: center at z=50
       /Looks                         asset MatLyr: references to shared materials
@@ -151,7 +151,7 @@ Reserved directories contain a short README explaining their use. Empty USD cont
 
 The cube's Size branch owns scale and its complete operation order on Asset. Its fixed geometry-centering transform belongs to the cube's TransLyr. Scene placement and adjustment affect different prims, so they combine through hierarchy. A direct scale on Asset would compete with Size even if placed in a differently named scene layer.
 
-The DisplayPair assembly follows the same arrangement for CubePart and ConePart. Its Palette variant selects child Finish controls. The scene selects Palette on the assembly interface; it does not reach through the assembly to recolor private meshes. The example uses regular references, not native USD instancing or payloads.
+The DisplayPair assembly follows the same arrangement for CubePart and ConePart. Its Palette variant selects child Finish controls. The scene selects Palette on the assembly interface; it does not reach through the assembly to recolor private meshes. The original teaching roots use regular references. Lofted adds public asset interfaces and payload ContentsLyr aggregates; the Instanced roots additionally use native shape instancing. The assembly stays non-instanceable. Wave, Spiral and Rings own separate TransLyr/VariLyr/Opinion layers while sharing the Instanced GeoLyr and source packages.
 
 The material library is pinned by a versioned bundled filename. Each consumer references a material subtree. No scene or asset layer repeats the library's shader inputs. A new material revision requires an explicit adoption decision; these paths are not a production asset resolver or publishing service.
 
@@ -179,10 +179,45 @@ Most contributions own different fields. GeoLyr at the bottom is this project's 
 | Change the shared Blue shader | Material-library revision | Library-owned definition |
 | Add a temporary masked-scale experiment | Dedicated ReviewLyr | Declared exception with removal route |
 
-The table gives reviewed destinations. Experiments start in the declared editable Opinion layer; other persistent layers are locked. Saving Opinion retains experiments. The launcher selects the target and protects the root; it does not classify, promote or save edits. Choose the correct role and variant branch when promoting accepted fields.
+The table gives reviewed destinations. Experiments start in the declared editable Opinion layer; persistent work/source layers are locked. Saving Opinion retains experiments. The launcher selects the target and keeps the root writable for Kit settings; it does not classify, promote or save edits. Choose the correct role and variant branch when promoting accepted fields.
 
 ## Reproduction and evidence
 
 The repository includes a bounded [USD-aware authoring script](tools/build_example.py). It creates this fixture in a new or empty folder, refuses to overwrite existing content, and records a default-entrypoint read-back. It does not inspect arbitrary projects or repair existing opinions. See the [example guide](examples/01_LayeredScene/README.md) for the actual command and recorded results.
 
 The JSON contracts are example-specific drafts. They make owner, role, context, dependency, order and expected result reviewable; no generic validator enforces them yet. Full variant coverage, relocation and host UI acceptance remain follow-up work.
+
+## Recursive asset packages
+
+Keep scene `020_BASE_LYR` flat: use role filenames with `_Starter` or `_Scenarios` purpose suffixes for alternative contributions. These filenames distinguish independent work layers without nesting class folders further. Sublayer lists still declare actual strength.
+
+Cube, Cone and DisplayPair repeat the same numbered class folders as the scene. Each has an AssetROOT_<Name>.usda, owned roles in 020_BASE_LYR and its own Opinion in 050_REVIEW. Other classes are reserved with notes. See CC-25/26 for the distinction between scene entrypoints, reusable packages and preserved third-party imports. Object type does not change this convention: a building used in a city is an asset.
+
+## Scalability samples
+
+`SceneROOT_Lofted.usda` and the four `SceneROOT_Instanced*.usda` roots directly compose scene role layers. `CubeLofted`, `ConeLofted` and `DisplayPairLofted` packages repeat the BASE/REVIEW structure for their active roles. Their `AssetROOT_*Lofted.usda` files expose empty variant declarations and payload `020_BASE_LYR/ContentsLyr.usda`. ContentsLyr aggregates original role files, preserving one geometry/material implementation. DisplayPairLofted's own GeoLyr links the lofted shapes; its original placement and Palette definitions remain shared. Source demo Opinion layers are excluded behind these payloads; each published interface has its own Opinion above the payload.
+
+The `_workflows/arrange_instances.py` driver maps a normalized JSON signal to independently saved Wave/Spiral/Rings scenes. Only instance placement and public selection metadata vary. Prototype counts depend on composed configurations, not just source-file counts. See the sample README and `_contracts/scalability.json` for scope and acceptance requirements.
+
+## Animated point-instancing profile
+
+`SceneROOT_MotionGraphics.usda` is a separate direct root with its own Opinion,
+DATA declaration, Geo/Vari/Trans/Cam roles and baked AnimLyr. It uses 1,024 stable
+point IDs and six prototype reference sites, sharing the existing CubeLofted and
+ConeLofted implementations and Palette materials. It does not repeat the five
+teaching objects. Per-point motion belongs to AnimLyr; ordinary whole-cloner
+placement belongs to TransLyr.
+
+`040_DATA_LYRs/Controls/motion_graphics.json` supplies validated controls through
+the DATA-declared path. `_workflows/motion_graphics_core.py` is shared by the
+offline author/baker and the opt-in Kit runtime. Live output is an anonymous
+RUNTIME sublayer under Session, not an automatically saved file in
+`035_RUNTIME_LYR`. The runtime owns only instancer arrays and derived bounds;
+Opinion remains the user's authoring target. Removal restores the saved animation.
+The profile records timing, input failure handling, precedence and pending Kit
+acceptance. The script-created `Motion Graphics Controls` panel uses the same
+validation and ranges, writes only the DATA JSON on explicit Apply & Save, and
+retains prior bytes. It shows persistent input errors and detects stale drafts.
+It does not bake or save USD. Panel startup and control saves were observed in
+Kit; the user reported successful operation. Lifecycle fixes and full acceptance
+remain pending.

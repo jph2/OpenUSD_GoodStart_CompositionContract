@@ -1,0 +1,270 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CC-MOTION-01/0.1.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "controls",
+    "schema_version",
+    "topology"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "_help": {
+      "type": "object"
+    },
+    "schema_version": {
+      "const": 1
+    },
+    "topology": {
+      "const": {
+        "rows": 32,
+        "columns": 32,
+        "seed": 7
+      }
+    },
+    "controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "live_preview",
+        "layout",
+        "wave_mode",
+        "strength",
+        "spacing_cm",
+        "amplitude_cm",
+        "wavelength_cm",
+        "speed_hz",
+        "phase_degrees",
+        "direction_degrees",
+        "base_scale",
+        "scale_wave",
+        "rotation_degrees",
+        "spin_degrees_per_second",
+        "noise_cm",
+        "noise_speed_hz",
+        "falloff_radius_cm",
+        "color_cycle_hz"
+      ],
+      "properties": {
+        "live_preview": {
+          "type": "boolean",
+          "description": "true = live JSON; false = saved animation (other JSON controls then have no effect)."
+        },
+        "layout": {
+          "enum": [
+            "grid",
+            "rings",
+            "spiral"
+          ],
+          "description": "Choose \"grid\", \"rings\" or \"spiral\". Keep the quotes."
+        },
+        "wave_mode": {
+          "enum": [
+            "plane",
+            "radial",
+            "swirl"
+          ],
+          "description": "Choose \"plane\", \"radial\" or \"swirl\". Keep the quotes."
+        },
+        "strength": {
+          "type": "number",
+          "default": 1.0,
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Range 0 to 1; default 1.0. Overall animated effect strength; zero gives the neutral cloner."
+        },
+        "spacing_cm": {
+          "type": "number",
+          "default": 160.0,
+          "minimum": 50,
+          "maximum": 500,
+          "description": "Range 50 to 500; default 160.0. Grid spacing or spacing between rings."
+        },
+        "amplitude_cm": {
+          "type": "number",
+          "default": 220.0,
+          "minimum": 0,
+          "maximum": 1500,
+          "description": "Range 0 to 1500; default 220.0. Wave height."
+        },
+        "wavelength_cm": {
+          "type": "number",
+          "default": 1600.0,
+          "minimum": 100,
+          "maximum": 10000,
+          "description": "Range 100 to 10000; default 1600.0. Distance between wave crests. Try 1800; near/below clone spacing the pattern can look irregular."
+        },
+        "speed_hz": {
+          "type": "number",
+          "default": 0.25,
+          "minimum": -2,
+          "maximum": 2,
+          "description": "Range -2 to 2; default 0.25. Cycles per second, not percent. Try 0.5 (one cycle every 2 seconds); negative reverses travel; 0 freezes the wave."
+        },
+        "phase_degrees": {
+          "type": "number",
+          "default": 0.0,
+          "minimum": -360,
+          "maximum": 360,
+          "description": "Range -360 to 360; default 0.0. Wave phase offset."
+        },
+        "direction_degrees": {
+          "type": "number",
+          "default": 25.0,
+          "minimum": -180,
+          "maximum": 180,
+          "description": "Range -180 to 180; default 25.0. Direction in degrees; affects plane waves only."
+        },
+        "base_scale": {
+          "type": "number",
+          "default": 0.7,
+          "minimum": 0.1,
+          "maximum": 3,
+          "description": "Range 0.1 to 3; default 0.7. Neutral clone scale multiplier."
+        },
+        "scale_wave": {
+          "type": "number",
+          "default": 0.45,
+          "minimum": 0,
+          "maximum": 0.9,
+          "description": "Range 0 to 0.9; default 0.45. Wave-driven scale modulation relative to base scale."
+        },
+        "rotation_degrees": {
+          "type": "number",
+          "default": 35.0,
+          "minimum": 0,
+          "maximum": 180,
+          "description": "Range 0 to 180; default 35.0. Wave-driven clone tilt."
+        },
+        "spin_degrees_per_second": {
+          "type": "number",
+          "default": 45.0,
+          "minimum": -360,
+          "maximum": 360,
+          "description": "Range -360 to 360; default 45.0. Continuous clone spin."
+        },
+        "noise_cm": {
+          "type": "number",
+          "default": 25.0,
+          "minimum": 0,
+          "maximum": 500,
+          "description": "Range 0 to 500; default 25.0. Deterministic per-clone bobbing amplitude."
+        },
+        "noise_speed_hz": {
+          "type": "number",
+          "default": 0.5,
+          "minimum": 0,
+          "maximum": 2,
+          "description": "Range 0 to 2; default 0.5. Noise oscillation speed."
+        },
+        "falloff_radius_cm": {
+          "type": "number",
+          "default": 4500.0,
+          "minimum": 100,
+          "maximum": 20000,
+          "description": "Range 100 to 20000; default 4500.0. Effect fades to zero at this radius. Try 12000 so most clones move; a small radius leaves outer clones still."
+        },
+        "color_cycle_hz": {
+          "type": "number",
+          "default": 0.375,
+          "minimum": 0,
+          "maximum": 2,
+          "description": "Range 0 to 2; default 0.375. Prototype steps per second among three shared material configurations."
+        },
+        "_comment_live_preview": {
+          "type": "string",
+          "readOnly": true,
+          "description": "Documentation only; ignored by the motion model."
+        },
+        "_comment_layout": {
+          "type": "string",
+          "readOnly": true,
+          "description": "Documentation only; ignored by the motion model."
+        },
+        "_comment_wave_mode": {
+          "type": "string",
+          "readOnly": true,
+          "description": "Documentation only; ignored by the motion model."
+        },
+        "_comment_strength": {
+          "type": "string",
+          "readOnly": true,
+          "description": "Documentation only; ignored by the motion model."
+        },
+        "_comment_spacing_cm": {
+          "type": "string",
+          "readOnly": true,
+          "description": "Documentation only; ignored by the motion model."
+        },
+        "_comment_amplitude_cm": {
+          "type": "string",
+          "readOnly": true,
+          "description": "Documentation only; ignored by the motion model."
+        },
+        "_comment_wavelength_cm": {
+          "type": "string",
+          "readOnly": true,
+          "description": "Documentation only; ignored by the motion model."
+        },
+        "_comment_speed_hz": {
+          "type": "string",
+          "readOnly": true,
+          "description": "Documentation only; ignored by the motion model."
+        },
+        "_comment_phase_degrees": {
+          "type": "string",
+          "readOnly": true,
+          "description": "Documentation only; ignored by the motion model."
+        },
+        "_comment_direction_degrees": {
+          "type": "string",
+          "readOnly": true,
+          "description": "Documentation only; ignored by the motion model."
+        },
+        "_comment_base_scale": {
+          "type": "string",
+          "readOnly": true,
+          "description": "Documentation only; ignored by the motion model."
+        },
+        "_comment_scale_wave": {
+          "type": "string",
+          "readOnly": true,
+          "description": "Documentation only; ignored by the motion model."
+        },
+        "_comment_rotation_degrees": {
+          "type": "string",
+          "readOnly": true,
+          "description": "Documentation only; ignored by the motion model."
+        },
+        "_comment_spin_degrees_per_second": {
+          "type": "string",
+          "readOnly": true,
+          "description": "Documentation only; ignored by the motion model."
+        },
+        "_comment_noise_cm": {
+          "type": "string",
+          "readOnly": true,
+          "description": "Documentation only; ignored by the motion model."
+        },
+        "_comment_noise_speed_hz": {
+          "type": "string",
+          "readOnly": true,
+          "description": "Documentation only; ignored by the motion model."
+        },
+        "_comment_falloff_radius_cm": {
+          "type": "string",
+          "readOnly": true,
+          "description": "Documentation only; ignored by the motion model."
+        },
+        "_comment_color_cycle_hz": {
+          "type": "string",
+          "readOnly": true,
+          "description": "Documentation only; ignored by the motion model."
+        }
+      }
+    }
+  }
+}

@@ -21,11 +21,11 @@
         "Finish": "Red",
         "Size": "Normal"
       },
-      "edit_targets": "layers/GeoLyr, TransLyr, MatLyr, VariLyr.usda according to role",
+      "edit_targets": "020_BASE_LYR/GeoLyr, TransLyr, MatLyr, VariLyr.usda according to role",
       "fields": "geometry; intrinsic placement; branch scale/order; branch material binding",
       "id": "asset:Cube@1",
       "override": "downstream selects public variants; private edits only in explicit review fixture",
-      "package": "010_ASS_USD/USD_Wrappers/Cube/Cube.usda",
+      "package": "010_ASS_USD/USD_Wrappers/Cube/AssetROOT_Cube.usda",
       "pivot": "base center; Z-up; 100 cm height in Normal",
       "private": [
         "/Cube/Geometry",
@@ -50,11 +50,11 @@
         "Finish": "Yellow",
         "Size": "Normal"
       },
-      "edit_targets": "layers/GeoLyr, TransLyr, MatLyr, VariLyr.usda according to role",
+      "edit_targets": "020_BASE_LYR/GeoLyr, TransLyr, MatLyr, VariLyr.usda according to role",
       "fields": "geometry; intrinsic placement; branch scale/order; branch material binding",
       "id": "asset:Cone@1",
       "override": "downstream selects public variants; private edits only in explicit review fixture",
-      "package": "010_ASS_USD/USD_Wrappers/Cone/Cone.usda",
+      "package": "010_ASS_USD/USD_Wrappers/Cone/AssetROOT_Cone.usda",
       "pivot": "base center; Z-up; 100 cm height in Normal",
       "private": [
         "/Cone/Geometry",
@@ -78,11 +78,11 @@
       "defaults": {
         "Palette": "Warm"
       },
-      "edit_targets": "layers/GeoLyr, TransLyr, VariLyr.usda according to role",
+      "edit_targets": "020_BASE_LYR/GeoLyr, TransLyr, VariLyr.usda according to role",
       "fields": "child references; child placement; Palette branch child Finish selections",
       "id": "assembly:DisplayPair@1",
       "override": "scene selects Palette; child paths remain assembly implementation",
-      "package": "010_ASS_USD/Assemblies/DisplayPair/DisplayPair.usda",
+      "package": "010_ASS_USD/Assemblies/DisplayPair/AssetROOT_DisplayPair.usda",
       "public": "/DisplayPair",
       "variants": {
         "Palette": [

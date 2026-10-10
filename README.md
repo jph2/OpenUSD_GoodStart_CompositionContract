@@ -81,7 +81,10 @@ flowchart LR
 
 Read **left to right**. Four class boxes list their layer types; they do not introduce aggregate USD layers. SIM and RUNTIME are optional, with strength set by the profile. The baseline remains DataLyr → TransLyr → VariLyr → GeoLyr, with **GeoLyr at the bottom**. An optional REVIEW / ReviewLyr contribution holds explicit experiments above that baseline.
 
-**Work in Opinion by default**, with all other persistent layers locked, using the [Kit launcher](examples/01_LayeredScene/Open_In_Kit.ps1). Saving Opinion retains experiments; promote accepted fields to their rightful owner and variant branch, then retire superseded opinions.
+**Work in Opinion by default**, with persistent work/source layers locked, using the [Kit launcher](examples/01_LayeredScene/Open_In_Kit.ps1). Saving Opinion retains experiments; promote accepted fields to their rightful owner and variant branch, then retire superseded opinions.
+
+The active root remains writable for Kit's camera and authoring-target metadata;
+it is not the default editing destination. See the [CC-01 host exception](CompositionContracts.md#3-file-ownership-contract).
 
 See the [detailed ownership diagram](CompositionContracts.md#composition-memory-chart) and [project structure](PROJECT_STRUCTURE.md) for the full responsibilities and example setup.
 
@@ -115,6 +118,7 @@ The intended workflow combines model interpretation with deterministic USD-aware
 
 - [Composition contracts](CompositionContracts.md): the evolving proposal and stable CC rule IDs.
 - [Open the example guide](examples/01_LayeredScene/README.md): manual configuration, scene scenarios and two deliberate conflicts.
+- [Animated MoGraph proof of concept](examples/01_LayeredScene/README.md#play-and-control-the-mograph-scene): under development. Follow the Mermaid data/runtime/USD/render flow, saved-clip fallback and current reload limitation; JSON is a local mock source for a future incoming-data adapter.
 - [Project structure and diagram](PROJECT_STRUCTURE.md): the revised paradigm, storage layout and edit destinations.
 - [Open questions](DISCUSSION.md): the first review agenda.
 - [Roadmap](ROADMAP.md): from discussion to deterministic inspection and pipeline experiments.
@@ -126,6 +130,8 @@ The intended workflow combines model interpretation with deterministic USD-aware
 - [Resume state](harness/STATE.md): what exists and the next useful step.
 
 ## Starter master preset
+
+The same package layout repeats inside locally authored assets and assemblies. Open `AssetROOT_Cube.usda`, `AssetROOT_Cone.usda` or `AssetROOT_DisplayPair.usda` to work at that owner's scope: BASE roles remain in `020_BASE_LYR`, and each package has its own Opinion in `050_REVIEW`. A building used in a city is also an asset; object type does not change the root naming rule. Working scenes use `SceneROOT_<Purpose>.usda`. See [recursive package rules](CompositionContracts.md#recursive-package-layout).
 
 **Copy-and-run setup:** copy the entire [portable setup folder](starter/Composition_Starter_0.1.1/README_SETUP.md) into your destination and double-click `Create_Composition_Project.bat`. It expands the bundled scenes, assets, layers and launch helper into that folder. Windows PowerShell is sufficient; setup needs no Python or network access. Existing files are never overwritten. Omniverse remains a separately installed prerequisite for the Kit launcher.
 
@@ -139,7 +145,13 @@ Start with [SceneROOT_Example.usda](examples/01_LayeredScene/SceneROOT_Example.u
 
 [tools/build_example.py](tools/build_example.py) reproduces this setup from the retained [Omniverse template](templates/Omniverse/README.md) through OpenUSD 26.08 APIs. Default-entrypoint read-back is recorded; full acceptance and Omniverse review are pending. No general inspector, repair engine, ownership-routing extension or pipeline integration is implemented.
 
-The default working state selects the editable Opinion layer and locks all other persistent layers. Use [Open_In_Kit.ps1](examples/01_LayeredScene/Open_In_Kit.ps1) for edit-target selection and root protection. The updated startup behavior awaits Kit acceptance.
+### Payload interfaces and extensive instancing
+
+The [scene guide](examples/01_LayeredScene/README.md#choose-a-scene) now includes **Lofted**, **Instanced**, **Instanced_Wave**, **Instanced_Spiral** and **Instanced_Rings**. Lightweight public variants sit above payloads; shape contents reuse our existing Cube/Cone implementations. Instanced scenes contain 1,029 shape occurrences. The three driven formations map JSON inputs to placement and nine Size/Finish combinations per shape type. Each scene owns its Opinion and generated work layers; root files directly compose those layers.
+
+These examples adapt the Kitchen Set's packaging ideas using our own sources. CC-05a–c define loading, instancing boundaries and input-driven ownership. The bundled Python driver shows its plan before an explicit apply and preserves backups. This demonstrates authoring patterns; measured performance, physics readiness and Kit acceptance remain pending.
+
+The default working state selects the editable Opinion layer and locks persistent work/source layers. Use [Open_In_Kit.ps1](examples/01_LayeredScene/Open_In_Kit.ps1) for edit-target selection and layer protection. The updated startup behavior awaits Kit acceptance.
 
 OpenUSD-GoodStart remains a knowledge reference and potential consumer. TutorialBuilder remains a teaching consumer. The private `OpenUSD_GoodStart_Pipeline_nodes` repository is a candidate backbone for a future composition pipeline, subject to interface and suitability review. This project must remain understandable and eventually inspectable without that private dependency.
 

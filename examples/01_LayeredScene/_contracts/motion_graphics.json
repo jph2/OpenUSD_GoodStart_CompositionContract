@@ -1,0 +1,94 @@
+{
+  "profile": "CC-MOTION-01/0.1.1",
+  "status": "authored; Kit acceptance pending",
+  "root": "SceneROOT_MotionGraphics.usda",
+  "direct_sublayers_strongest_first": [
+    "050_REVIEW/MotionGraphics/OpinLYR_default.usda",
+    "040_DATA_LYRs/DataLyr_MotionGraphics.usda",
+    "020_BASE_LYR/AnimLyr_MotionGraphics.usdc",
+    "020_BASE_LYR/CamLyr_MotionGraphics.usda",
+    "020_BASE_LYR/TransLyr_MotionGraphics.usda",
+    "020_BASE_LYR/VariLyr_MotionGraphics.usda",
+    "020_BASE_LYR/GeoLyr_MotionGraphics.usda"
+  ],
+  "controls": "040_DATA_LYRs/Controls/motion_graphics.json",
+  "control_panel": {
+    "name": "Motion Graphics Controls",
+    "bootstrap": "_workflows/kit/motion_graphics.py",
+    "implementation": "_workflows/kit/motion_graphics_panel.py",
+    "ranges_and_validation": "_workflows/motion_graphics_core.py",
+    "comments": "optional _comment_<control> strings beside values; excluded from motion evaluation",
+    "persistence": "explicit Apply & Save JSON; validated atomic replacement with prior-byte backup and stale-input checks",
+    "drafts": "panel edits take effect after Apply & Save; external edits do not overwrite an unapplied draft",
+    "invalid_input": "persistent panel reason, syntax location/excerpt or rejected field/range; keep last valid motion",
+    "usd_writes": "no additional writer; existing runtime consumes the saved DATA JSON",
+    "playback": "explicit Play/Pause callbacks use the USD context's timeline and stage frame range; automatic advancement enabled on Play if needed and restored on disconnect",
+    "connection_status": "live/baked mode, playing/paused state, seconds and runtime-update counter; warns about stalled time, detached/muted runtime, missing target, visibility and masking opinions",
+    "playback_readback": "automatically wait for Play and three advancing snapshots; report sampled USD/Fabric position changes in panel and log; no claim of rendered-image verification",
+    "reconnect": "reload saved controls and recreate the owned overlay/watcher; discard unsaved panel draft; preserve other scene contributions",
+    "acceptance": "panel startup, control saves and changing USD/Fabric values observed in Kit; user reports visible motion only after restarting Kit and reloading the scene; automatic viewport refresh and full lifecycle remain under development",
+    "input_source_status": "local JSON is an editable mock data source, not a server or live connector",
+    "viewport_observation": "manual Kit restart and scene reload restored visible motion in the user's session; cause is not established"
+  },
+  "input_prim": "/World/MotionGraphControls",
+  "target": "/World/MotionGraphics/Cloner",
+  "count": 1024,
+  "ids": "0..1023, fixed row-major 32 x 32",
+  "prototypes": [
+    "/World/MotionGraphics/Cloner/Prototypes/CubeRed",
+    "/World/MotionGraphics/Cloner/Prototypes/CubeBlue",
+    "/World/MotionGraphics/Cloner/Prototypes/CubeYellow",
+    "/World/MotionGraphics/Cloner/Prototypes/ConeRed",
+    "/World/MotionGraphics/Cloner/Prototypes/ConeBlue",
+    "/World/MotionGraphics/Cloner/Prototypes/ConeYellow"
+  ],
+  "writer_properties": [
+    "positions",
+    "orientations",
+    "scales",
+    "protoIndices",
+    "extent"
+  ],
+  "units": {
+    "distance": "cm",
+    "time": "seconds",
+    "angle": "degrees"
+  },
+  "baked": {
+    "file": "020_BASE_LYR/AnimLyr_MotionGraphics.usdc",
+    "time_codes_per_second": 60,
+    "range": [
+      0,
+      480
+    ],
+    "sample_step": 2,
+    "input_sha256": "63a5e2e7ed7e16d11e25a41e20c3201c17918c5cedbe776de7c9b0d05e691919"
+  },
+  "runtime": {
+    "storage": "owned anonymous sublayer of session",
+    "save": "never",
+    "precedence": "runtime arrays override baked arrays; direct Session opinions can still mask them",
+    "clock": "USD context's Kit timeline seconds; no wall-clock accumulation",
+    "sampling": "two time samples per owned array at current stage time code and one code ahead; matching timeCodesPerSecond; prune old samples; no live defaults or accumulated recording",
+    "poll_seconds": 0.25,
+    "stale_input": "hold last valid controls and continue timeline; report error",
+    "stop": "disable live_preview or stop helper removes owned overlay, exposing bake",
+    "reload": "stage replacement/rerun tears down old tasks/overlay"
+  },
+  "rules": [
+    "CC-05c",
+    "CC-05d",
+    "CC-21",
+    "CC-23",
+    "CC-27",
+    "CC-28"
+  ],
+  "limitations": [
+    "not a generic binding engine",
+    "no physics",
+    "no per-point prim namespace",
+    "runtime undo uses overlay removal; no per-frame undo commands",
+    "prototype/source edits invalidate the conservative extent assumption",
+    "Kit playback, point-instancer rendering and throughput not verified"
+  ]
+}

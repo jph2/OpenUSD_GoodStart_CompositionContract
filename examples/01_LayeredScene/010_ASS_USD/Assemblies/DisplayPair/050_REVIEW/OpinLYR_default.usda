@@ -1,0 +1,10 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "cc:context" = "explicit temporary experiments"
+        string "cc:owner" = "assembly:DisplayPair@1"
+        string "cc:profile" = "CC-EXAMPLE-01/0.1.1"
+        string "cc:role" = "OpinionLyr"
+    }
+    doc = "Empty by default; default editable authoring layer for experiments. Promote reviewed fields to their rightful owner/layer/variant branch, then remove only superseded opinions. Saving persists these experiments."
+)

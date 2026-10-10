@@ -1,7 +1,7 @@
 {
-  "composition": "references; no payloads; no native instancing; default time",
+  "composition": "Original roots: references without native instancing. CC-SCALE-01 additions: payload interfaces; Instanced roots use native instancing. See scalability.json.",
   "contract": "CompositionContracts.md 0.1.1; CC-01 through CC-26",
-  "default_session": "Opinion layer is the default editable authoring target; other persistent layers locked",
+  "default_session": "Opinion layer is the default editable authoring target; persistent work/source layers locked",
   "dependencies": "bundled assets, Palette_v001 and two Kit template textures; OmniPBR.mdl and OmniRtx schemas require compatible Omniverse",
   "entrypoints_strongest_first": {
     "SceneROOT_Example.usda": [
@@ -23,7 +23,7 @@
       "./050_REVIEW/MaskedSelection/ReviewLyr.usda",
       "./040_DATA_LYRs/DataLyr.usda",
       "./020_BASE_LYR/TransLyr.usda",
-      "./020_BASE_LYR/Scenarios/VariLyr.usda",
+      "./020_BASE_LYR/VariLyr_Scenarios.usda",
       "./020_BASE_LYR/GeoLyr.usda"
     ],
     "SceneROOT_MaskedSize.usda": [
@@ -39,34 +39,34 @@
       "./035_RUNTIME_LYR/Starter/RuntimeLyr.usda",
       "./030_SIM_LYR/Starter/SimLyr.usda",
       "./040_DATA_LYRs/Starter/DataLyr.usda",
-      "./020_BASE_LYR/Starter/EnvLyr.usda",
-      "./020_BASE_LYR/Starter/LightLyr.usda",
-      "./020_BASE_LYR/Starter/CamLyr.usda",
-      "./020_BASE_LYR/Starter/RenderLyr.usda",
-      "./020_BASE_LYR/Starter/AnimLyr.usda",
-      "./020_BASE_LYR/Starter/PhysicsLyr.usda",
-      "./020_BASE_LYR/Starter/RigLyr.usda",
-      "./020_BASE_LYR/Starter/MatLyr.usda",
-      "./020_BASE_LYR/Starter/TransLyr.usda",
-      "./020_BASE_LYR/Starter/VariLyr.usda",
-      "./020_BASE_LYR/Starter/GeoLyr.usda"
+      "./020_BASE_LYR/EnvLyr_Starter.usda",
+      "./020_BASE_LYR/LightLyr_Starter.usda",
+      "./020_BASE_LYR/CamLyr_Starter.usda",
+      "./020_BASE_LYR/RenderLyr_Starter.usda",
+      "./020_BASE_LYR/AnimLyr_Starter.usda",
+      "./020_BASE_LYR/PhysicsLyr_Starter.usda",
+      "./020_BASE_LYR/RigLyr_Starter.usda",
+      "./020_BASE_LYR/MatLyr_Starter.usda",
+      "./020_BASE_LYR/TransLyr_Starter.usda",
+      "./020_BASE_LYR/VariLyr_Starter.usda",
+      "./020_BASE_LYR/GeoLyr_Starter.usda"
     ],
     "SceneROOT_Scenarios.usda": [
       "./050_REVIEW/OpinLYR_default.usda",
       "./040_DATA_LYRs/DataLyr.usda",
       "./020_BASE_LYR/TransLyr.usda",
-      "./020_BASE_LYR/Scenarios/VariLyr.usda",
+      "./020_BASE_LYR/VariLyr_Scenarios.usda",
       "./020_BASE_LYR/GeoLyr.usda"
     ]
   },
   "excluded_acceptance": [
     "Omniverse UI/persistence",
     "renderer appearance",
-    "payload lofting",
     "animation",
     "physics",
     "live integration",
-    "general conformance"
+    "general conformance",
+    "scalability variant/load acceptance and performance"
   ],
   "intentional_overlaps": [
     "Scene selection overrides referenced asset default selection.",
@@ -75,7 +75,7 @@
   ],
   "kit_startup": "Open_In_Kit.ps1 enables _workflows/kit/session_defaults.py; launcher selects declared Opinion target",
   "manual_entrypoint": "SceneROOT_Manual.usda; independent root with direct scene sublayers",
-  "opinion_policy": "Strongest work sublayer; samples share 050_REVIEW/OpinLYR_default.usda, Starter has its own. Save persists experiments; promote reviewed fields to rightful owner and branch.",
+  "opinion_policy": "Original five demo roots share one Opinion. Starter and each scalability root have independent Opinion files.",
   "ordinary_instance_transform": [
     "translate",
     "rotateXYZ",
@@ -94,85 +94,85 @@
     },
     {
       "context": "unconditional",
-      "file": "010_ASS_USD/USD_Wrappers/Cube/layers/GeoLyr.usda",
+      "file": "010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/GeoLyr.usda",
       "owner": "asset:Cube@1",
       "role": "GeoLyr"
     },
     {
       "context": "unconditional",
-      "file": "010_ASS_USD/USD_Wrappers/Cube/layers/TransLyr.usda",
+      "file": "010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/TransLyr.usda",
       "owner": "asset:Cube@1",
       "role": "TransLyr"
     },
     {
       "context": "unconditional",
-      "file": "010_ASS_USD/USD_Wrappers/Cube/layers/MatLyr.usda",
+      "file": "010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/MatLyr.usda",
       "owner": "asset:Cube@1",
       "role": "MatLyr"
     },
     {
       "context": "asset variants; defaults on public root",
-      "file": "010_ASS_USD/USD_Wrappers/Cube/layers/VariLyr.usda",
+      "file": "010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/VariLyr.usda",
       "owner": "asset:Cube@1",
       "role": "VariLyr"
     },
     {
       "context": "unconditional",
-      "file": "010_ASS_USD/USD_Wrappers/Cube/Cube.usda",
+      "file": "010_ASS_USD/USD_Wrappers/Cube/AssetROOT_Cube.usda",
       "owner": "asset:Cube@1",
       "role": "Root"
     },
     {
       "context": "unconditional",
-      "file": "010_ASS_USD/USD_Wrappers/Cone/layers/GeoLyr.usda",
+      "file": "010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/GeoLyr.usda",
       "owner": "asset:Cone@1",
       "role": "GeoLyr"
     },
     {
       "context": "unconditional",
-      "file": "010_ASS_USD/USD_Wrappers/Cone/layers/TransLyr.usda",
+      "file": "010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/TransLyr.usda",
       "owner": "asset:Cone@1",
       "role": "TransLyr"
     },
     {
       "context": "unconditional",
-      "file": "010_ASS_USD/USD_Wrappers/Cone/layers/MatLyr.usda",
+      "file": "010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/MatLyr.usda",
       "owner": "asset:Cone@1",
       "role": "MatLyr"
     },
     {
       "context": "asset variants; defaults on public root",
-      "file": "010_ASS_USD/USD_Wrappers/Cone/layers/VariLyr.usda",
+      "file": "010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/VariLyr.usda",
       "owner": "asset:Cone@1",
       "role": "VariLyr"
     },
     {
       "context": "unconditional",
-      "file": "010_ASS_USD/USD_Wrappers/Cone/Cone.usda",
+      "file": "010_ASS_USD/USD_Wrappers/Cone/AssetROOT_Cone.usda",
       "owner": "asset:Cone@1",
       "role": "Root"
     },
     {
       "context": "unconditional",
-      "file": "010_ASS_USD/Assemblies/DisplayPair/layers/GeoLyr.usda",
+      "file": "010_ASS_USD/Assemblies/DisplayPair/020_BASE_LYR/GeoLyr.usda",
       "owner": "assembly:DisplayPair@1",
       "role": "GeoLyr"
     },
     {
       "context": "unconditional",
-      "file": "010_ASS_USD/Assemblies/DisplayPair/layers/TransLyr.usda",
+      "file": "010_ASS_USD/Assemblies/DisplayPair/020_BASE_LYR/TransLyr.usda",
       "owner": "assembly:DisplayPair@1",
       "role": "TransLyr"
     },
     {
       "context": "Palette branches",
-      "file": "010_ASS_USD/Assemblies/DisplayPair/layers/VariLyr.usda",
+      "file": "010_ASS_USD/Assemblies/DisplayPair/020_BASE_LYR/VariLyr.usda",
       "owner": "assembly:DisplayPair@1",
       "role": "VariLyr"
     },
     {
       "context": "unconditional",
-      "file": "010_ASS_USD/Assemblies/DisplayPair/DisplayPair.usda",
+      "file": "010_ASS_USD/Assemblies/DisplayPair/AssetROOT_DisplayPair.usda",
       "owner": "assembly:DisplayPair@1",
       "role": "Root"
     },
@@ -196,7 +196,7 @@
     },
     {
       "context": "Layout branches",
-      "file": "020_BASE_LYR/Scenarios/VariLyr.usda",
+      "file": "020_BASE_LYR/VariLyr_Scenarios.usda",
       "owner": "scene:LayeredScene@1",
       "role": "VariLyr"
     },
@@ -304,67 +304,67 @@
     },
     {
       "context": "unconditional",
-      "file": "020_BASE_LYR/Starter/EnvLyr.usda",
+      "file": "020_BASE_LYR/EnvLyr_Starter.usda",
       "owner": "scene:Starter@1",
       "role": "EnvLyr"
     },
     {
       "context": "unconditional",
-      "file": "020_BASE_LYR/Starter/LightLyr.usda",
+      "file": "020_BASE_LYR/LightLyr_Starter.usda",
       "owner": "scene:Starter@1",
       "role": "LightLyr"
     },
     {
       "context": "unconditional",
-      "file": "020_BASE_LYR/Starter/CamLyr.usda",
+      "file": "020_BASE_LYR/CamLyr_Starter.usda",
       "owner": "scene:Starter@1",
       "role": "CamLyr"
     },
     {
       "context": "unconditional",
-      "file": "020_BASE_LYR/Starter/RenderLyr.usda",
+      "file": "020_BASE_LYR/RenderLyr_Starter.usda",
       "owner": "scene:Starter@1",
       "role": "RenderLyr"
     },
     {
       "context": "unconditional",
-      "file": "020_BASE_LYR/Starter/AnimLyr.usda",
+      "file": "020_BASE_LYR/AnimLyr_Starter.usda",
       "owner": "scene:Starter@1",
       "role": "AnimLyr"
     },
     {
       "context": "unconditional",
-      "file": "020_BASE_LYR/Starter/PhysicsLyr.usda",
+      "file": "020_BASE_LYR/PhysicsLyr_Starter.usda",
       "owner": "scene:Starter@1",
       "role": "PhysicsLyr"
     },
     {
       "context": "unconditional",
-      "file": "020_BASE_LYR/Starter/RigLyr.usda",
+      "file": "020_BASE_LYR/RigLyr_Starter.usda",
       "owner": "scene:Starter@1",
       "role": "RigLyr"
     },
     {
       "context": "unconditional",
-      "file": "020_BASE_LYR/Starter/MatLyr.usda",
+      "file": "020_BASE_LYR/MatLyr_Starter.usda",
       "owner": "scene:Starter@1",
       "role": "MatLyr"
     },
     {
       "context": "unconditional",
-      "file": "020_BASE_LYR/Starter/TransLyr.usda",
+      "file": "020_BASE_LYR/TransLyr_Starter.usda",
       "owner": "scene:Starter@1",
       "role": "TransLyr"
     },
     {
       "context": "unconditional",
-      "file": "020_BASE_LYR/Starter/VariLyr.usda",
+      "file": "020_BASE_LYR/VariLyr_Starter.usda",
       "owner": "scene:Starter@1",
       "role": "VariLyr"
     },
     {
       "context": "unconditional",
-      "file": "020_BASE_LYR/Starter/GeoLyr.usda",
+      "file": "020_BASE_LYR/GeoLyr_Starter.usda",
       "owner": "scene:Starter@1",
       "role": "GeoLyr"
     },
@@ -373,6 +373,24 @@
       "file": "SceneROOT_STARTER.usda",
       "owner": "scene:Starter@1",
       "role": "Root"
+    },
+    {
+      "context": "explicit temporary experiments",
+      "file": "010_ASS_USD/USD_Wrappers/Cube/050_REVIEW/OpinLYR_default.usda",
+      "owner": "asset:Cube@1",
+      "role": "OpinionLyr"
+    },
+    {
+      "context": "explicit temporary experiments",
+      "file": "010_ASS_USD/USD_Wrappers/Cone/050_REVIEW/OpinLYR_default.usda",
+      "owner": "asset:Cone@1",
+      "role": "OpinionLyr"
+    },
+    {
+      "context": "explicit temporary experiments",
+      "file": "010_ASS_USD/Assemblies/DisplayPair/050_REVIEW/OpinLYR_default.usda",
+      "owner": "assembly:DisplayPair@1",
+      "role": "OpinionLyr"
     }
   ],
   "root_exception": "CC-01 application-template baseline; supplied startup content stays in root",
@@ -396,5 +414,8 @@
     "upAxis": "Z"
   },
   "usd_authoring_version": "26.08",
-  "writer_mode": "static authored scene; no solver or live writer"
+  "writer_mode": "static authored scene; no solver or live writer",
+  "additional_profiles": [
+    "scalability.json"
+  ]
 }

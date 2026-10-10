@@ -1,5 +1,395 @@
 # Resume state
 
+## 2026-10-11 — MotionGraphics marked as under-development proof of concept
+
+Jan reports that MotionGraphics remained visually inactive after the runtime and
+read-back changes, then began working after restarting Kit and reloading the
+scene. This is evidence that a manual lifecycle reset restored the visible
+result in that session; it does not identify the cause or prove automatic
+refresh/rebind behavior.
+
+Expanded the sample README with three Mermaid diagrams and an implementation
+walkthrough: local JSON mock input versus future publishers; DATA declaration;
+shared validation/evaluation model; Kit watcher/panel/timeline; direct root
+sublayers and PointInstancer namespace; saved AnimLyr fallback; temporary
+anonymous Session overlay and its five arrays; USD-to-Fabric-to-renderer path;
+stop/reload lifecycle and current stale-viewport boundary. Marked the sample as
+an under-development proof of concept in both the sample and repository READMEs.
+Updated the machine-readable profile with the reload observation and clarified
+that JSON is a local file, not a server/live connector.
+
+No scene or runtime implementation changed. Rebuilt the portable starter ZIP
+(173 files), then read back its README and MotionGraphics profile: three or more
+Mermaid diagrams, proof-of-concept status, mock-source description and reload
+observation are present and the packaged profile matches the source JSON. No
+tests or Kit execution ran. Resume with automatic viewport refresh/rebind still
+open; this documentation and package update does not fix it.
+
+## 2026-10-11 — Live arrays reach Fabric; renderer-specific safeguard added
+
+The newest attached auto-diagnostic has six playback snapshots: timeline seconds
+advance, sampled USD `positions` change, `positions_time_varying=true`, and Fabric
+`positions` match USD and change at each sample. The viewport remains bound to the
+same stage with updates enabled and no freeze frame. The user's image is still
+visually static. This localizes the remaining failure after USD-to-Fabric value
+sync; position authoring is not the current suspect. The Kit log identifies the
+host as Kit 110.3.2, FSD enabled, with `usdrt.scenegraph` 7.6.3.
+
+NVIDIA Kit 110.3 release notes document an FSD defect where scene-partitioned
+instanced prim transforms could remain visually stationary while Fabric world
+transforms were correct (OMPE-104540). The MotionGraphics USD does not author
+`primvars:omni:scenePartition`; RTX scene partitioning is disabled by default, so
+the user's effective app setting was not established by the prior diagnostic.
+NVIDIA's release notes mark the cited defect fixed in Kit 110.3, while the user's
+installed extensions identify as 110.3.2; this match alone therefore does not
+establish that the older defect is present in their build.
+Added that setting to playback read-back. The helper now temporarily disables
+`/renderer/scenePartitioning/enabled` only when the host reports it true, and
+restores true on controller detach; it does not edit the app config or scene.
+This is a targeted compatibility guard, not yet confirmed as the cause/fix.
+
+README and source provenance updated; portable starter ZIP rebuilt. No tests or
+Kit execution ran here. Next: rerun the main MotionGraphics bootstrap, inspect
+the panel/log for the scene-partitioning warning and visible playback. If it was
+already disabled and the render is still static, the next decisive A/B is to
+disable Fabric Scene Delegate in the app's Rendering preferences and reopen the
+scene, comparing OmniHydra rendering. Do not change scene geometry or writer
+again until that renderer comparison is known.
+
+## 2026-10-11 — Paused read-back received; live writer now uses time samples
+
+User supplied three diagnostics with playing=false, seconds=3.3666667 (frame
+202), updates=1. All three sampled positions match between runtime default,
+composed USD and Fabric; viewport uses the same stage, updates=true and
+freeze_frame=false. Log confirms Play at 22:04:04Z occurred AFTER diagnostics
+at 22:03:55Z, followed by advancing time/counters; later Pause was explicit.
+This proves a paused pose reached Fabric, not dynamic propagation or rendering.
+Requested a viewport/panel screenshot during Play; none received at edit time.
+
+Changed live writer from default replacement to a rolling two-sample window at
+current time and one stage time code ahead, evaluated with identical accepted
+controls. Set overlay timeCodesPerSecond to stage rate; prune old samples within
+the change block. Same five arrays, anonymous layer, precedence and cleanup;
+no scene/control files or renderer settings changed. This makes the live arrays
+explicitly time-varying for imaging; it is a candidate playback repair, not a
+proven explanation for the earlier static image. It evaluates twice per update;
+throughput and shutter-time behavior outside the narrow window remain unmeasured.
+
+Controller loads the diagnostic from current source and runs it on attach/Play.
+It waits up to 60 seconds for three advancing playback snapshots, reports
+time-varying state/sample times, and exposes USD/Fabric position-change results
+in a separate panel label. Paused captures no longer stand in for moving data.
+Tasks cancel on detach/reconnect; standalone diagnostic remains read-only.
+README, runtime note, machine profile, source evidence and ZIP updated. No tests
+or new Kit execution ran by the agent. Next: rerun MAIN motion_graphics.py (not
+the diagnostic), press Play and leave running. Inspect automatic report and
+viewport. Actual resolution remains pending; do not call this confirmed fixed.
+
+## 2026-10-11 — Timeline and writer active; visible motion still unresolved
+
+User confirms Play/Pause work but there is no animation or error. Read the live
+Kit log: 21:53:46–21:54:59Z reports advancing seconds and runtime update counts,
+successful Reconnect and accepted JSON, without masking/visibility warnings.
+The context timeline is the default empty-name timeline. This does not prove
+the values change in composed USD or that rendering consumes them. The earlier
+timeline-binding improvement did not resolve the reported symptom.
+
+Added `_workflows/kit/diagnose_motion_graphics.py`: three read-only snapshots
+0.37 seconds apart, logging selected positions from the controller's layer,
+composed USD and an already-present Fabric prim, plus layer sources and viewport
+stage/time/updates/freeze state. It does not force synchronization, mutate scene
+or render settings, change playback or write report files. Requested that Jan
+run it once while playing; the output can be read from the existing Kit log.
+No response or diagnostic output received at this update. No speculative
+render-setting changes or motion-writer changes applied. README and ZIP include
+the diagnostic. No tests or Kit execution ran by the agent.
+
+Read installed USDRT 7.6.3 FSD comparison/known-issues and viewport 110.0.0 API.
+FSD normally synchronizes USD before rendering; general documentation of array
+diffing limitations is not proof of this fault. Next: inspect the three live
+reports, then repair the specific failed boundary. Do not claim animation fixed
+based on counters alone or switch render delegates without evidence.
+
+## 2026-10-10 — Visible panel with apparently inactive playback
+
+User reports Play has no visible effect or errors although widgets work. Existing
+log through 21:43:29Z shows successful restart after cleanup, stage attachment,
+accepted valid JSON and subsequent saves. Current controls are the visible-wave
+preset (live=true, strength=1, amplitude=600, wavelength=1800, speed=0.5). These
+establish input connectivity, not timeline advancement or composed motion. Asked
+for panel status/screenshot; no answer yet at implementation time. Current live
+timeline state and masking opinions have not been inspected directly.
+
+Replaced global-default timeline use with UsdContext.get_timeline/name (installed
+omni.usd 1.18.0 API). Play/Pause now have explicit controller callbacks, logging,
+readiness/range/director checks and visible failures. Play uses stage time-code
+range and enables auto advancement if disabled, retaining/restoring its prior
+state on detach. Changed callbacks so cancelled tasks from Reconnect cannot
+detach the new run. Reconnect restarts only this controller, discards panel draft,
+reloads saved controls and recreates its anonymous overlay; no other scene
+layers are unmuted or edited.
+
+Added a separate half-second runtime status with live/baked, playing/paused,
+seconds and output-update count. It diagnoses stalled clocks, detached/muted
+overlay, missing/invisible PointInstancer and stronger authored opinions for the
+five controlled arrays. Diagnostic errors are isolated from the motion writer;
+state changes and Play clicks are logged. Input status remains separate.
+
+README/profile/source evidence and portable ZIP updated. No saved controls or USD
+scene files modified by this repair. No tests or live Kit execution ran. Context
+timeline binding fixes a real implementation weakness, but a different timeline
+has not been proven to be the cause in the user's current session. Next evidence:
+rerun bootstrap, Play, inspect advancing seconds/update count and any named
+blocking opinion in the panel. Actual playback resolution is still unconfirmed.
+
+## 2026-10-10 — Restart cleanup after expired USD layer handles
+
+User reports the panel ran nicely before an ArgumentError in old
+session_defaults.restore at 21:31:03Z. Existing Kit log confirms panel opening
+at 21:27:03/21:27:40Z, repeated successful DATA JSON saves/acceptance through
+21:30:01Z, then layer muteness changes before the failed restart. The failure
+calls SetPermissionToEdit on a saved Sdf layer handle; an expired handle is
+consistent with this trace and the composition changes. No direct live-object
+inspection was performed. Panel startup/control-save evidence is now recorded;
+this is not full rendering or lifecycle acceptance.
+
+Updated both session_defaults.py copies: capture identifier, instance handle and
+original permission; registry-find the same surviving instance for restoration;
+skip expired/replaced handles without opening files. Consume cleanup records
+before processing, isolate/log each restore failure and continue UI-setting
+restoration. Stop is repeatable, subscriptions/tasks are released, and stopped
+helpers cannot reschedule. Crucially, bootstrap invokes the new stop_helper on
+the previous object rather than its old stop/restore methods, supporting the
+already-running helper's legacy two-field permission records. Motion bootstrap
+now runs authoring-helper recovery before stopping the prior motion controller.
+
+README/profile/project structure and source evidence updated; starter ZIP rebuilt.
+Control values, scene USD files and installed Kit code unchanged. Read-only
+inspection and source edits only; no tests or Kit script execution ran. User
+must rerun the same bootstrap. Cleanup after muting/unloading, scene changes and
+subsequent reruns still needs observation in the running Kit instance.
+
+## 2026-10-10 — Panel startup loaded an outdated motion model
+
+User's Kit traceback at 21:25:21Z reports missing cc_motion_model.control_hints
+in panel construction. The function exists in the current core source. Read-only
+inspection found the Kit/Python 3.12 core pyc still dated 20:59 local, predating
+the panel changes, while the newer authoring runtime's pyc was updated. Installed
+Kit kernel stat_cache.py patches importlib's file-stat lookup with a cache whose
+refresh is explicit. This supports a stale import-cache explanation; no live
+module introspection or cache-invalidation experiment was performed.
+
+Changed the bootstrap's two fixed local helper loads to read source bytes and
+compile into fresh ModuleType namespaces. This bypasses loader/pyc/stat caching
+without changing global import hooks, sys.modules, installed files or caches.
+Startup logs the source path/hash and checks required model functions/attributes
+before stopping the previous controller or creating the panel. Panel construction
+now releases partially built UI on errors; stop is idempotent for repeated runs.
+README updated and starter ZIP rebuilt. Control JSON and scene assets unchanged.
+No tests or Kit execution ran; user must rerun the same runpy bootstrap once.
+Panel display and interactions remain pending acceptance in the running Kit app.
+
+## 2026-10-10 — Ranges beside controls and visible native Kit panel
+
+User asked for ranges/comments, understandable rejection reasons and the missing
+Script Editor UI. Added optional `_comment_<control>` strings immediately above
+each JSON value, with units, limits and useful examples. The shared core owns
+these hints, validation and the IDE schema; annotation strings are excluded from
+evaluation. Existing plain controls remain supported. Syntax errors now include
+nearby text as well as line/column. A single invalid value still rejects input.
+
+Added `_workflows/kit/motion_graphics_panel.py`: Motion Graphics Controls opens
+with the existing bootstrap, with bounded sliders, choice lists, explanations,
+persistent accepted/rejected/draft states, Apply & Save JSON, Reload JSON,
+Visible wave preset and Play/Pause. Panel edits wait for explicit Apply; saves
+validate, detect stale disk revisions, preserve original bytes under ignored
+motion_graphics/panel_save_* and atomically replace only the DATA JSON. Reload
+discards a draft for valid disk values; invalid disk input can be repaired from
+the displayed controls with an explicit Save and backup. No USD bake/save is
+performed. Controller owns the window/listeners and releases them on rerun/stop;
+stage changes rebind it. A dispatched disk save finishes for its original path
+even if the scene closes, without later UI/USD callbacks into that scene.
+
+Fresh input was valid JSON but speed_hz=500. Changed only that control to 0.5;
+preserved spacing=100, wavelength=111 and all other numeric/choice values.
+Original bytes are under panel_save_08df78fbdb584444865e97742fba582e. The existing
+writer validated the candidate as part of applying this repair; no tests or
+rebake ran. Short wavelength relative to spacing may still look irregular; the
+panel's Visible wave preset offers an explicit alternative.
+
+Updated scene guide, project structure, workflow notes, motion profile and source
+evidence. Starter ZIP is rebuilt from these files. Inspected installed omni.ui
+3.3.1 and timeline 1.1.0 APIs; did not execute the new panel or visually verify
+playback in Kit. User must rerun the bootstrap once to replace their old in-memory
+controller: it cannot read the new comment fields or show the panel. UI, closing,
+reload, external-edit conflicts and root-save acceptance remain pending in Kit.
+No commit/push or installed application modifications.
+
+## 2026-10-10 — Kit root save compatibility and more visible motion
+
+User supplied SETTINGS_SAVING exceptions: root customLayerData/cameraSettings
+writes failed because our helper hard-locked the root. Inspected installed Layers
+2.7.2, Widget Layers 1.9.3 and Viewport 110.0.0 source; the active Kit traceback
+reports USD 0.25.11.kit.5. Updated both session_defaults.py copies to keep the
+active root API-writable while protecting other persistent work/source layers and
+retaining Opinion authoring. Record/restore prior permissions on teardown. This
+is a host exception, not metadata-only write protection. CC-01, diagrams' lock
+label, profiles/expected text, generator text, READMEs, PROJECT_STRUCTURE and the
+decision record now say so. No installed code, root USD files or geometry changed.
+The running helper needs one rerun; updated settings-save behavior is unverified.
+
+User also reported little visible reaction. Latest JSON had broken layout and
+missing commas, wavelength_cm=6 outside limits, and amplitude_cm=20. Repaired it
+and installed an explicit visible rings preset: amplitude 600 cm, wavelength
+1800 cm, speed 0.5 Hz, base scale 1, scale wave 0.8, tilt 60 degrees, spin 45 deg/s,
+falloff radius 12000 cm; retained spacing 200 and other values. Original bytes and
+changes retained under ignored motion_graphics/visible_preset_fef36514b0364d2fa11ba6ddbfa8449c.
+Candidate was parsed/validated as part of authoring. Existing Kit log at 21:05:31Z
+confirms accepted controls and recovered input. No visual playback inspection,
+tests or bake ran. README distinguishes JSON edits in the IDE from the one-time
+Python bootstrap in Kit and explains falloff. Portable ZIP refreshed with the
+current helper/docs/controls; saved animation still reflects its original bake.
+
+## 2026-10-10 — Corrected latest live control edit
+
+After repeated watcher rejections and the interrupted turn, inspected the latest
+file rather than replaying the old repair. spacing_cm was already 160 and speed_hz
+already 1; the remaining issues were a missing comma after spacing_cm and
+scale_wave=8. Added the comma and changed scale_wave to 0.8, preserving all other
+values. Parsed and validated the candidate as part of the repair before atomic
+replacement. Original bytes retained in ignored motion_graphics/repair_cde856268d004bc696f86f73bd560e49.
+No USD edits, tests or rebake. This repairs the active local control file, not the
+previously shipped preset. Existing Kit log records "accepted saved JSON controls"
+and "control input recovered" at 20:58:13Z after this repair. Live input acceptance
+is therefore observed; viewport response was not visually inspected.
+
+## 2026-10-10 — Live watcher reports a new malformed save
+
+User supplied the running helper's JSON syntax warning at 18:59:35Z; this confirms
+the watcher is now active, not viewport correctness. Inspected current controls:
+missing commas after spacing_cm=5000 and speed_hz=2000. Added only those commas,
+retaining every control value and a prior-byte backup under the ignored motion
+repair folder. JSON parses after the repair. Range validation will still reject
+spacing_cm=5000 (50–500), speed_hz=2000 (−2–2), and scale_wave=22 (0–0.9).
+These newly chosen values were preserved for user correction rather than silently
+normalized again. No tests, USD edits or archive refresh; the shipped preset was
+left with its previously valid controls. Live viewport response remains unverified.
+
+## 2026-10-10 — JSON changes appeared ineffective
+
+User reported editing motion_graphics.json without a scene response. Read the
+saved JSON, running Kit command line and its existing direct_root_kit.log. Kit
+loaded SceneROOT_MotionGraphics at 18:47:30Z, but this process was launched with
+session_defaults.py only; there were no CC motion startup/accepted-input messages.
+It was displaying the bake without the live adapter. The JSON also had an
+unterminated swirl string, missing speed comma and four unsupported values.
+
+Repaired syntax and normalized those four fields to their declared maxima:
+strength 10→1, spacing_cm 1160→500, speed_hz 22→2, color_cycle_hz 11.375→2.
+Preserved other controls, including swirl/noise/spin edits. Exact original bytes
+and field-change record retained under ignored _pipeline_reports/motion_graphics/
+repair_d452904c10b948179c0b7f5ee41cd8ae. The repair invokes the existing validator
+before writing; no test suite or Kit playback check ran. Runtime still rejects
+out-of-range saves rather than automatically clamping user input.
+
+Added syntax line/column and aggregated numeric diagnostics. Kit adapter now
+posts optional host notifications for accepted/rejected JSON and runtime/watcher
+failures; inspected installed notification_manager 1.0.16's public API. README
+includes one-time runpy activation in the already-open scene, required success
+messages and common range/syntax pitfalls. No script was injected into the running
+Kit process, no new Kit process launched, and no USD layer saved. Activation in
+the user's existing window remains the next step. Refreshed the portable ZIP;
+notifications and live playback remain application acceptance work.
+
+## 2026-10-10 — Animated cloner and live JSON controls
+
+Added independent `SceneROOT_MotionGraphics.usda`: one PointInstancer, 1024 fixed
+IDs (32 x 32), six Cube/Cone × Red/Blue/Yellow prototypes with Size=Normal. Uses
+existing lofted sources and materials; no Kitchen content copied. Root retains
+the standard cm/Z-up/identity-World baseline and directly lists its own Opinion,
+DATA, Anim, Cam, Trans, Vari and Geo roles. DATA declares the local JSON input and
+cloner target. BASE AnimLyr_MotionGraphics.usdc stores 241 samples over 0–480 at
+60 time codes/s (eight seconds). Whole-cloner placement remains in TransLyr;
+CamLyr supplies /World/MotionOverview. No prior scenes were replaced.
+
+Portable motion_graphics_core.py supplies validated controls and deterministic
+grid/rings/spiral, plane/radial/swirl waves, scale, tilt/spin, noise, falloff and
+colour cycling. Controls sit at the top of DATA/Controls/motion_graphics.json;
+adjacent JSON Schema provides ranges for IDEs. Fixed IDs/topology remain stable.
+build_motion_graphics.py defaults to a plan; --apply creates only new named files.
+--rebake changes only the clip, retaining prior bytes, exact input and provenance
+with stale-input/output checks and atomic single-file replacement. Backup records
+are ignored by Git and excluded from packaging. Rebaking was not exercised.
+
+Launcher option MotionGraphics activates the existing Opinion/lock helper and a
+new opt-in Kit controller. The latter uses timeline seconds, asynchronously reads
+JSON about every 250 ms, and writes the five declared arrays into its own anonymous
+RUNTIME sublayer of Session on Kit's update thread. It does not save files or change
+the user's edit target. Invalid input holds the last valid controls; before any
+valid input the bake remains visible. live_preview=false removes the overlay.
+Stage close/replacement, rerun and explicit stop release owned tasks/layers. No UI
+panel was built: Jan's follow-up asked whether script-created omni.ui panels are
+possible; explained that they are, with explicit lifetime/cleanup, and that the
+same model can support a later panel or packaged extension.
+
+Added CC-05d, motion profile, README instructions/ownership table and the twelfth
+scene's Mermaid/SVG diagrams. Updated project structure and launcher. Authoring
+ran with usd-core 26.8; an Sdf constructor keyword error was fixed before outputs
+were written. References are authored as Sdf specs to avoid anonymous-layer path
+resolution warnings. Documentation extraction opened saved stages at LoadAll;
+Mermaid CLI rendered 12 reuse SVGs. No tests, Kit launch/playback, live reload,
+renderer/camera/lock acceptance or performance measurements ran. These remain
+required application acceptance, including interruption and malformed-input cases.
+The 4.94 MB clip uses USDC to keep sample storage manageable. No installed Kit
+files changed, no commits or pushes. Rebuilt portable ZIP with 171 files, including
+controls/schema, bake, runtime helper, source model, updated guide and diagrams.
+
+## Standalone SVG label compatibility
+
+Jan reported missing text when opening the full-size SVG despite visible inline labels. Disabled Mermaid HTML labels globally and for flowcharts, regenerated all six reuse SVGs, and inspected the Example raster preview. Each SVG now contains 43 native text elements and zero foreignObject elements, removing the embedded-HTML dependency. Rebuilt ZIP with corrected SVGs and sources. No USD changes or Kit execution.
+
+## Fixed-layout reuse SVGs
+
+Jan's screenshots showed unchanged layout despite Mermaid spacing directives. Replaced the six inline reuse Mermaid renders with generated SVG embeds and full-size links, retaining .mmd sources under examples/01_LayeredScene/diagrams. tools/document_scene_graphs.py accepts --mermaid-cli to regenerate them. Rendered all six with mmdc and visually inspected the Example PNG preview: tall layout with separated rows; SVG viewBox is 3063.94 × 1692. Markdown host handling of Mermaid directives is no longer responsible for reuse-view spacing. Rebuilt ZIP to include SVG/source files. No scene edits, acceptance tests, commit or push.
+
+## Vertical diagram spacing correction
+
+Jan clarified that diagrams need more separation top-to-bottom, not extra width. Changed LR flowchart nodeSpacing to 200 (vertical separation) and rankSpacing to 35 (horizontal separation), with modest internal padding. Regenerated README diagrams and portable ZIP. No scene changes or tests.
+
+## Diagram spacing
+
+Increased Mermaid node padding and node/column spacing for all per-scene composition and reuse diagrams at Jan's request. Updated the shared diagram generator, regenerated README diagrams and refreshed the portable ZIP. Layout-only change; no tests or scene edits.
+
+## Source reuse diagrams corrected
+
+Replaced expanded composed namespace trees with source-reuse graphs in all six README sections. One Cube, one Cone and one definition each for Red/Blue/Yellow now have converging reference edges from their consumers; scene occurrences retain their selections. Distinguishes ordinary references from native instancing and source definitions from composed prims. Explicitly separates the unused Palette Ground entry and the baseline Grid ground material. Updated diagram generator and rebuilt ZIP. Documentation only; no scene edits, tests, commit or push.
+
+## Concise sample README
+
+Removed sample README origin attribution, migration narrative, historical layer counts and old read-back tables at Jan's request. Kept a short launch guide, six-scene chooser, practical authoring rules, folder mapping and current limitations. Preserved all per-scene composition/namespace diagrams and rebuilt the portable ZIP. History remains in harness evidence rather than the user guide. Documentation only; no tests, commit or push.
+
+## Per-scene composition and namespace diagrams
+
+Added six Mermaid composition diagrams and six collapsible composed prim-hierarchy diagrams to examples/01_LayeredScene/README.md using tools/document_scene_graphs.py. Read actual saved root/asset sublayers and composed default prim trees through USD; this is documentation extraction, not acceptance testing. Root-left / stack-middle / assets-right layout includes numbered stack order, nested Data layers, recursive asset stacks, shared material/resource routes and scenario/review distinctions. Scene graphs include saved selections and all traversed prims, not every variant branch or property connection. Rendered outcomes to the left of root remain deferred per Jan. Rebuilt portable ZIP with updated README. No Kit render, tests, commit or push.
+
+## Portable delivery refresh
+
+At Jan's request, refreshed the BAT/PowerShell companions and rebuilt the ZIP from the current corrected sample. Setup notes identify the flat BASE layout, recursive AssetROOT packages, Opinion target metadata and material-path correction. Existing extracted projects are not automatically migrated; use a fresh destination. No installer or Kit execution, no commit/push.
+
+## Ground material path and flat scene BASE storage
+
+Jan reported a red ground and unnecessary nesting in 020_BASE_LYR. Found that the previous recursive path migration had anchored the OmniPBR.mdl search identifier as ./OmniPBR.mdl. Restored the search identifier in all roots and guarded that migration against modifying unanchored search paths. Flattened Starter role layers to <Role>_Starter.usda and scenario variants to VariLyr_Scenarios.usda, updating references, lock metadata, profiles, generator and docs. tools/simplify_base_layout.py records the bounded USD-aware migration. Rebuilt portable bundle. No tests or Kit rendering check; ground appearance after reloading remains unverified. No changes to unsaved application edits, no commit/push.
+
+## Recursive asset package layout
+
+Portable bundle rebuilt with 95 files. Automatic approval review blocked removal of the three obsolete empty layers/ directories; left them on disk. They contain no USD files, are not composed, and Git does not track empty directories.
+
+Jan requested the same readable folder/layer pattern at asset scope. Migrated Cube, Cone and DisplayPair from named .usda roots and layers/ into AssetROOT_<Name>.usda and 020_BASE_LYR. Added package-owned Opinion and reserved class folders with notes. tools/adopt_recursive_asset_layout.py updates USD asset paths, lock metadata and profile/ownership references; tools/build_example.py reproduces the layout and standalone Opinion policy. Scene roots lock referenced asset Opinions; opening an asset itself selects its own Opinion. Updated CC-25/26, docs and portable bundle. Original prim paths and variant implementations retained; no tests or Kit runtime verification. Historical evidence keeps old filenames. No commit/push. AssetROOT is role-based, including reusable buildings/workcells; SceneROOT remains the working-scene convention. External imported packages are not automatically normalized.
+
+## Opinion target restoration fix
+
+Jan reported Opinion was not the default authoring layer. Inspected installed omni.kit.usd.layers 2.7.2 layer_utils.py: Kit restores omni_layer.authoring_layer via a root-relative path. Our generator/migration incorrectly removed that field from the former Session workflow. Added it to all six scene roots, generator and migration script, leaving Opinion unlocked. Helper now uses Kit's set_edit_target_by_identifier and checks the resulting target. Rebuilt portable preset with corrected roots/helper. Source inspection and USD-aware metadata authoring only; no tests or Kit runtime execution. Existing open stages or previously extracted copies need the updated files reopened; unsaved work was not touched. No commit/push.
+
 ## Starter publication checkpoint
 
 Jan requested commit/push of the Opinion authoring change, generous starter master and portable setup bundle. Include their source scripts, authored layers, profile/expected records and documentation; retain the raw Kit log locally. Packaging completed, but installer execution, generator acceptance and updated Kit startup remain untested. Git history records the publication commit; push outcome is reported in the task.
@@ -157,3 +547,97 @@ Open `examples/01_LayeredScene/ROOT_example.usda`, using Open_In_Kit.ps1 for the
 ## Continuity
 
 The origin was a TutorialBuilder discussion of local opinions masking variants. It developed into explicit ownership at asset/assembly/scene scopes, separate layer roles and deterministic inspection/repair requirements. The independent project enables focused feedback from Nandu, Dylan and the AOUSD IEDT group while leaving future GoodStart/workcell integration open. Their review or acceptance has not occurred here.
+
+## 2026-10-10 — Authority terminology routing
+
+Authorized cross-repository routing improvement after the manual-only lofting
+lookup missed Pixar's full API snapshot. GoodStart's authority router now offers
+`lookup TERM`, bounded excerpts across spec/manual/full, per-source counts and
+hashes, and a retrieval-hint index containing payload lofting. The route fallback
+and both repositories' agent guidance now include unresolved terminology.
+Hints record term occurrence separately from formal definition; no new normative
+vocabulary or AOUSD conformance claim was introduced. Existing unrelated
+GoodStart changes were preserved. Source/diff inspection only; no tests or
+execution of the new lookup command performed. Runtime validation remains
+pending. No scene, diagram, bundle, commit or publication changes in this task.
+
+## 2026-10-10 — Launcher explanation
+Added a brief explanation beside the sample README launch command: new Kit process, bundled Python helper, Opinion target, in-memory layer protection, UI setting changes/restoration, no automatic USD save or Windows policy change, ordinary Kit logs/caches/preferences, and direct-open alternative. Read both launcher and helper; neither executed. No tests run.
+
+## 2026-10-10 — Setup and project README separation
+Outer README_SETUP.md now documents manual extraction/copy, direct PowerShell setup and batch setup, destinations and process-only execution-policy bypass. Canonical setup text lives in tools/setup/README_SETUP.md and is copied by the builder. Inner README.md covers opening/using scenes and distinguishes setup from Kit launch. Removed generated START_HERE.md from new archives. Rebuilt the portable ZIP (106 files); inspected archive entry names and confirmed its README bytes match the example README. No installer, Kit or tests run. Previously extracted folders are not changed and may retain their old START_HERE.md.
+
+## 2026-10-10 — Scene guide navigation and walkthroughs
+Numbered the three project setup options in the scene README, changed the scene chooser to internal heading links, and replaced the folder table with an ASCII directory tree. Added goal/ownership/graph walkthroughs for all six scenes in the documentation generator so regeneration preserves them. Regenerated documentation from saved USD and rebuilt the 106-file portable ZIP. Mermaid/SVG presentation retained. No tests or Kit run.
+
+## 2026-10-10 — Extracted-project README scope correction
+Removed extraction/setup options and setup cross-instructions from the inner scene README. It now starts with choosing among existing scenes and opening them in Kit. Outer README_SETUP.md retains all three setup options. Rebuilt the portable ZIP with the corrected README. No tests or Kit execution.
+
+## 2026-10-10 — Kitchen Set comparison (read-only)
+
+Inspected the user-supplied Kitchen_set package using Sdf across 230 USD files
+(76 asset packages) and Usd.Stage with LoadNone/LoadAll for both entrypoints.
+Each root has 425 reference sites, 76 unique asset targets, no sublayers and
+placement authored directly alongside references/variant selections. The
+instanced entrypoint has 425 instanceable sites and composed 114 prototypes.
+Observed 21 asset interfaces with variant sets; Nail publishes empty NailA/NailB
+branches above its payload while geometry supplies implementation. Unloaded
+stages retain the variant names: actual payload lofting. Both roots used 78
+layers with LoadNone and 230 with LoadAll, including the anonymous session.
+These are composition observations, not memory/speed benchmarks. No Physics
+attributes/applied schemas, Material/Shader prim types, or time samples were
+found in the authored-file scan; displayColor supplies appearance (Book sampled).
+Roots author Z-up but omit metersPerUnit; USD resolved fallback 0.01. Geometry
+includes legacy export IDs/primvars; no industrial identity-binding contract
+was established. Reader emitted crate 0.7.0 deprecation warnings. No migration,
+rendering, simulation, edits to Kitchen_set or acceptance tests occurred.
+
+Interpretation: published visual set demonstrates reference/payload interfaces,
+lofting and optional instancing beyond our starter's current implementation.
+Our role separation adds authoring ownership and proposed identity/runtime
+contracts; reserved role layers do not establish robotics readiness. Recommend
+preserving imported internals and adding purpose-specific integration layers;
+selective instancing/payload boundaries should follow required access and
+physics topology. No contract changes adopted by this analysis. GoodStart's
+new lookup was used for lofting: spec/manual no match, full one term occurrence;
+this establishes a successful lookup observation, not a router test suite.
+
+## 2026-10-10 — Lofting, extensive instancing and driven formations
+
+User authorized new samples/contracts from the Kitchen comparison, then requested
+extensive instancing, variant diversity and separate code-driven formation scenes.
+Added SceneROOT_Lofted, Instanced, Instanced_Wave, Instanced_Spiral and Instanced_Rings.
+Each is a direct root with its own Opinion; the three formations own Trans/Vari
+and share Instanced Geo plus original Data. Lofted contains five shapes; each
+Instanced scene adds 1024 sites (32 x 32, half Cube/half Cone), for 1029 shape sites.
+Shape Asset prims are instanceable; assembly and occurrence parents stay editable.
+Three new lightweight interfaces payload ContentsLyr aggregates referencing our
+existing role files; the original source variants/geometry/materials stay shared.
+Source demo Opinion layers are excluded; lofted interfaces have their own Opinions.
+No Kitchen assets or code were copied, migrated or modified.
+
+Added tools/add_scalable_examples.py (bounded USD author, explicit replacement flag)
+and portable _workflows/arrange_instances.py. The latter maps 1024 JSON values in
+[0,1] to TransLyr placement/heading and VariLyr Size/Finish choices. Default is plan
+only; --apply writes the named derived scene, two roles and preserved/new Opinion.
+It keeps prior bytes plus input/plan locally and attempts rollback on ordinary write
+errors. Backups are ignored by Git and excluded from the portable archive. Hard
+process termination is not a cross-file transaction; backups support recovery.
+The bundled signal is synthetic; all 18 shape/size/finish configurations were emitted
+by each formation run. These are static snapshots, not animation/live integration.
+
+Expanded CC-05 with CC-05a/b/c (load evidence, native sharing boundaries, generated
+writer/input contracts) and the asset-interface checklist; updated both READMEs,
+PROJECT_STRUCTURE, profile links and launcher scene choices. Added exact diagrams
+and walkthroughs for all 11 scenes; instancing graphs aggregate the 1024 sites into
+two explicitly counted groups. README remains Mermaid/SVG. Rebuilt starter ZIP
+with all new scenes, driver and data (154 files; inventory is packaging evidence).
+
+Executed authors/driver with usd-core 26.8 and generated documentation by opening
+saved stages at default LoadAll; Mermaid CLI rendered all 11 reuse SVGs. Authoring
+API and profile-serialization errors were corrected while generating; no original
+source-role files were changed. No tests, variant sweep, benchmark, Kit viewport,
+new-scene unloaded inspection or robotics validation ran. Scene placement extends
+beyond the standard camera/ground; frame /World/InstanceGrid in Kit. Prototype
+counts/performance are not claimed. Load/unload locks, source-interface sync,
+relative-path relocation and host authoring persistence remain acceptance work.

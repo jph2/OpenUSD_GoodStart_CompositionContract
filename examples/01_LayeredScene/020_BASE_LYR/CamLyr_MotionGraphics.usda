@@ -1,0 +1,21 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "cc:owner" = "scene:MotionGraphics@1"
+        string "cc:profile" = "CC-MOTION-01/0.1.1"
+        string "cc:role" = "CamLyr"
+    }
+)
+
+def "World"
+{
+    def Camera "MotionOverview" (
+        prepend apiSchemas = ["OmniRtxCameraAutoExposureAPI_1", "OmniRtxCameraExposureAPI_1"]
+    )
+    {
+        float2 clippingRange = (10, 100000)
+        float focalLength = 35
+        matrix4d xformOp:transform = ( (0.7719302356170495, 0.6357072528610996, 5.551115123125783e-17, 0), (-0.36745885810539614, 0.4462000419851238, 0.8160144055911955, -0), (0.5187462760734622, -0.6299061923749184, 0.5780315647675722, 0), (7000, -8500.000000000002, 8500, 1.0000000000000002) )
+        uniform token[] xformOpOrder = ["xformOp:transform"]
+    }
+}

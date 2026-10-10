@@ -1,0 +1,58 @@
+%%{init: {"htmlLabels": false, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": false, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%
+flowchart LR
+    ROOT["SceneROOT_Instanced_Spiral.usda"]
+    WORLD["/World · scene hierarchy"]
+    ROOT --> WORLD
+    C1["Cube01/Adjustment/Asset<br/>Finish=Blue, Size=Normal"]
+    WORLD --> C1
+    C1 -->|"reference"| CUBE
+    C2["Cube02/Adjustment/Asset<br/>Finish=Blue, Size=Normal"]
+    WORLD --> C2
+    C2 -->|"reference"| CUBE
+    N1["Cone01/Adjustment/Asset<br/>Finish=Blue, Size=Normal"]
+    WORLD --> N1
+    N1 -->|"reference"| CONE
+    P1["Pair01/Adjustment/Asset<br/>Palette=Cool"]
+    WORLD --> P1
+    P1 -->|"reference"| PAIR
+    PAIR["ONE assembly source<br/>AssetROOT_DisplayPairLofted.usda"]
+    PC["CubePart/Adjustment/Asset<br/>Finish=Blue, Size=Normal"]
+    PN["ConePart/Adjustment/Asset<br/>Finish=Blue, Size=Normal"]
+    PPAY --> PC
+    PPAY --> PN
+    PC -->|"reference"| CUBE
+    PN -->|"reference"| CONE
+    CUBE["ONE Cube source<br/>AssetROOT_CubeLofted.usda<br/>Size / Finish names above payload<br/>515 instanceable occurrences"]
+    CONE["ONE Cone source<br/>AssetROOT_ConeLofted.usda<br/>Size / Finish names above payload<br/>514 instanceable occurrences"]
+    CM["Cube MatLyr<br/>Looks/Red, Blue, Yellow are reference sites<br/>Finish variant binds Geometry to selected Looks material"]
+    NM["Cone MatLyr<br/>Looks/Red, Blue, Yellow are reference sites<br/>Finish variant binds Geometry to selected Looks material"]
+    CPAY --> CM
+    NPAY --> NM
+    subgraph LIB["ONE shared library · Palette_v001.usda"]
+        RED["/Materials/Red<br/>one Material + Surface shader definition"]
+        BLUE["/Materials/Blue<br/>one Material + Surface shader definition"]
+        YELLOW["/Materials/Yellow<br/>one Material + Surface shader definition"]
+        GROUND["/Materials/Ground<br/>defined but unused by these assets"]
+    end
+    CM -->|"reference /Materials/Red"| RED
+    CM -->|"reference /Materials/Blue"| BLUE
+    CM -->|"reference /Materials/Yellow"| YELLOW
+    NM -->|"reference /Materials/Red"| RED
+    NM -->|"reference /Materials/Blue"| BLUE
+    NM -->|"reference /Materials/Yellow"| YELLOW
+    ENV["Root baseline<br/>Environment: ground, collider, sky, light<br/>Render settings and viewport cameras"]
+    GRID["/Environment/Looks/Grid<br/>separate ground material + shader<br/>OmniPBR.mdl + grid texture"]
+    ROOT --> ENV
+    ENV -->|"ground material binding"| GRID
+    CPAY["Cube payload ContentsLyr<br/>original VariLyr + MatLyr + TransLyr + GeoLyr"]
+    NPAY["Cone payload ContentsLyr<br/>original VariLyr + MatLyr + TransLyr + GeoLyr"]
+    PPAY["DisplayPair payload ContentsLyr<br/>original Palette and placement<br/>GeoLyr references lofted Cube/Cone"]
+    CUBE -->|"payload"| CPAY
+    CONE -->|"payload"| NPAY
+    PAIR -->|"payload"| PPAY
+    GRIDC["InstanceGrid: 512 Cube occurrence sites<br/>9 Size / Finish combinations; instanceable<br/>individual placement on parents"]
+    GRIDN["InstanceGrid: 512 Cone occurrence sites<br/>9 Size / Finish combinations; instanceable<br/>individual placement on parents"]
+    WORLD --> GRIDC
+    WORLD --> GRIDN
+    GRIDC -->|"512 references to one interface"| CUBE
+    GRIDN -->|"512 references to one interface"| CONE

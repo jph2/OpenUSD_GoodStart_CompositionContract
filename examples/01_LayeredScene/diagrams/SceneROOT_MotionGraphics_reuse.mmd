@@ -1,0 +1,44 @@
+%%{init: {"htmlLabels": false, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": false, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%
+flowchart LR
+    R["SceneROOT_MotionGraphics.usda"]
+    P["ONE PointInstancer<br/>/World/MotionGraphics/Cloner<br/>1,024 stable IDs · 512 Cube + 512 Cone"]
+    R --> P
+    JSON["JSON controls via DATA<br/>Saved changes accepted after validation"]
+    MODEL["Shared Python motion model<br/>Grid / rings / spiral<br/>Plane / radial / swirl waves<br/>Scale, spin, tilt, noise, falloff"]
+    BAKE["AnimLyr · saved 8-second clip<br/>Explicit offline bake"]
+    LIVE["RUNTIME · temporary Session sublayer<br/>Timeline seconds · no disk writes<br/>Remove overlay to restore bake"]
+    JSON --> MODEL
+    MODEL --> BAKE
+    MODEL --> LIVE
+    BAKE -->|sampled arrays| P
+    LIVE -->|stronger current arrays| P
+    PC["Three Cube prototype sites<br/>Finish=Red / Blue / Yellow<br/>Size=Normal"]
+    PN["Three Cone prototype sites<br/>Finish=Red / Blue / Yellow<br/>Size=Normal"]
+    P -->|protoIndices 0–2| PC
+    P -->|protoIndices 3–5| PN
+    C["ONE Cube source<br/>AssetROOT_CubeLofted.usda<br/>Payload to original Cube role files"]
+    N["ONE Cone source<br/>AssetROOT_ConeLofted.usda<br/>Payload to original Cone role files"]
+    PC -->|three references| C
+    PN -->|three references| N
+    CM["Cube MatLyr references materials<br/>Finish branch binds Geometry"]
+    NM["Cone MatLyr references materials<br/>Finish branch binds Geometry"]
+    C --> CM
+    N --> NM
+    subgraph LIB["ONE shared Palette_v001 library"]
+        direction TB
+        RED["/Materials/Red<br/>ONE Material + Surface definition"]
+        BLUE["/Materials/Blue<br/>ONE Material + Surface definition"]
+        YELLOW["/Materials/Yellow<br/>ONE Material + Surface definition"]
+        GROUND["/Materials/Ground · unused here"]
+        RED ~~~ BLUE
+        BLUE ~~~ YELLOW
+        YELLOW ~~~ GROUND
+    end
+    CM --> RED
+    CM --> BLUE
+    CM --> YELLOW
+    NM --> RED
+    NM --> BLUE
+    NM --> YELLOW
+    ENV["Root baseline environment and rendering<br/>Grid material separate from Palette"]
+    R --> ENV

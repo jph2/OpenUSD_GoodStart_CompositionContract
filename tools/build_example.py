@@ -26,10 +26,10 @@ TEMPLATE_TEXTURES = {
 COLORS = {"Red": (0.65, 0.035, 0.025), "Blue": (0.025, 0.18, 0.65),
           "Yellow": (0.85, 0.52, 0.025), "Ground": (0.18, 0.2, 0.22)}
 INSTANCES = {
-    "Cube01": ("USD_Wrappers/Cube/Cube.usda", (-220, 0, 0)),
-    "Cube02": ("USD_Wrappers/Cube/Cube.usda", (0, 0, 0)),
-    "Cone01": ("USD_Wrappers/Cone/Cone.usda", (220, 0, 0)),
-    "Pair01": ("Assemblies/DisplayPair/DisplayPair.usda", (0, 260, 0)),
+    "Cube01": ("USD_Wrappers/Cube/AssetROOT_Cube.usda", (-220, 0, 0)),
+    "Cube02": ("USD_Wrappers/Cube/AssetROOT_Cube.usda", (0, 0, 0)),
+    "Cone01": ("USD_Wrappers/Cone/AssetROOT_Cone.usda", (220, 0, 0)),
+    "Pair01": ("Assemblies/DisplayPair/AssetROOT_DisplayPair.usda", (0, 260, 0)),
 }
 
 
@@ -114,11 +114,18 @@ def material_library(a):
     save(stage)
 
 
+def recursive_package_notes(a, prefix, owner):
+    opinion_layer(a, f"{prefix}/050_REVIEW/OpinLYR_default.usda", owner)
+    for lane in ("000_SOURCE", "010_ASS_USD", "030_SIM_LYR", "035_RUNTIME_LYR", "040_DATA_LYRs", "_contracts"):
+        a.text(f"{prefix}/{lane}/README.md", f"# {lane}\n\nReserved at {owner} scope. Add content only when required; a folder does not create a composed layer.")
+    a.text(f"{prefix}/README.md", f"# {owner}\n\nOpen AssetROOT_<Name>.usda. 020_BASE_LYR holds owned roles; 050_REVIEW holds Opinion experiments. Package edits affect all consumers. Scene experiments belong in the scene Opinion. Other class directories are reserved. External asset/material dependencies retain relative links.")
+
+
 def shape_asset(a, name):
     prefix = f"010_ASS_USD/USD_Wrappers/{name}"
     owner = f"asset:{name}@1"
     base = f"/{name}"
-    stage = a.layer(f"{prefix}/layers/GeoLyr.usda", "GeoLyr", owner)
+    stage = a.layer(f"{prefix}/020_BASE_LYR/GeoLyr.usda", "GeoLyr", owner)
     root = UsdGeom.Xform.Define(stage, base).GetPrim()
     Usd.ModelAPI(root).SetKind("component")
     if name == "Cube":
@@ -132,11 +139,11 @@ def shape_asset(a, name):
     geom.CreateExtentAttr([Gf.Vec3f(-50, -50, -50), Gf.Vec3f(50, 50, 50)])
     save(stage)
 
-    stage = a.layer(f"{prefix}/layers/TransLyr.usda", "TransLyr", owner)
+    stage = a.layer(f"{prefix}/020_BASE_LYR/TransLyr.usda", "TransLyr", owner)
     trs(stage, base + "/Geometry", translate=(0, 0, 50))
     save(stage)
 
-    stage = a.layer(f"{prefix}/layers/MatLyr.usda", "MatLyr", owner)
+    stage = a.layer(f"{prefix}/020_BASE_LYR/MatLyr.usda", "MatLyr", owner)
     stage.OverridePrim(base)
     UsdGeom.Scope.Define(stage, base + "/Looks")
     for finish in ("Red", "Blue", "Yellow"):
@@ -144,7 +151,7 @@ def shape_asset(a, name):
                   f"/Materials/{finish}", "Material")
     save(stage)
 
-    stage = a.layer(f"{prefix}/layers/VariLyr.usda", "VariLyr", owner,
+    stage = a.layer(f"{prefix}/020_BASE_LYR/VariLyr.usda", "VariLyr", owner,
                     "asset variants; defaults on public root")
     prim = stage.OverridePrim(base)
     sizes = prim.GetVariantSets().AddVariantSet("Size")
@@ -167,28 +174,29 @@ def shape_asset(a, name):
     finishes.SetVariantSelection("Red" if name == "Cube" else "Yellow")
     save(stage)
 
-    a.root_layer(f"{prefix}/{name}.usda", name,
-                 ["./layers/VariLyr.usda", "./layers/MatLyr.usda",
-                  "./layers/TransLyr.usda", "./layers/GeoLyr.usda"], owner)
+    recursive_package_notes(a, prefix, owner)
+    a.root_layer(f"{prefix}/AssetROOT_{name}.usda", name,
+                 ["./050_REVIEW/OpinLYR_default.usda", "./020_BASE_LYR/VariLyr.usda", "./020_BASE_LYR/MatLyr.usda",
+                  "./020_BASE_LYR/TransLyr.usda", "./020_BASE_LYR/GeoLyr.usda"], owner)
 
 
 def assembly(a):
     prefix = "010_ASS_USD/Assemblies/DisplayPair"
     owner = "assembly:DisplayPair@1"
-    stage = a.layer(f"{prefix}/layers/GeoLyr.usda", "GeoLyr", owner)
+    stage = a.layer(f"{prefix}/020_BASE_LYR/GeoLyr.usda", "GeoLyr", owner)
     root = UsdGeom.Xform.Define(stage, "/DisplayPair").GetPrim()
     Usd.ModelAPI(root).SetKind("assembly")
     for name, asset in (("CubePart", "Cube"), ("ConePart", "Cone")):
         base = f"/DisplayPair/{name}"
         UsdGeom.Xform.Define(stage, base)
         UsdGeom.Xform.Define(stage, base + "/Adjustment")
-        reference(stage, base + "/Adjustment/Asset", f"../../../USD_Wrappers/{asset}/{asset}.usda")
+        reference(stage, base + "/Adjustment/Asset", f"../../../USD_Wrappers/{asset}/AssetROOT_{asset}.usda")
     save(stage)
-    stage = a.layer(f"{prefix}/layers/TransLyr.usda", "TransLyr", owner)
+    stage = a.layer(f"{prefix}/020_BASE_LYR/TransLyr.usda", "TransLyr", owner)
     trs(stage, "/DisplayPair/CubePart", translate=(-70, 0, 0))
     trs(stage, "/DisplayPair/ConePart", translate=(70, 0, 0))
     save(stage)
-    stage = a.layer(f"{prefix}/layers/VariLyr.usda", "VariLyr", owner, "Palette branches")
+    stage = a.layer(f"{prefix}/020_BASE_LYR/VariLyr.usda", "VariLyr", owner, "Palette branches")
     palette = stage.OverridePrim("/DisplayPair").GetVariantSets().AddVariantSet("Palette")
     for name, finishes in {"Warm": ("Red", "Yellow"), "Cool": ("Blue", "Blue")}.items():
         palette.AddVariant(name)
@@ -198,8 +206,9 @@ def assembly(a):
                 select(stage, f"/DisplayPair/{part}/Adjustment/Asset", {"Finish": finish})
     palette.SetVariantSelection("Warm")
     save(stage)
-    a.root_layer(f"{prefix}/DisplayPair.usda", "DisplayPair",
-                 ["./layers/VariLyr.usda", "./layers/TransLyr.usda", "./layers/GeoLyr.usda"], owner)
+    recursive_package_notes(a, prefix, owner)
+    a.root_layer(f"{prefix}/AssetROOT_DisplayPair.usda", "DisplayPair",
+                 ["./050_REVIEW/OpinLYR_default.usda", "./020_BASE_LYR/VariLyr.usda", "./020_BASE_LYR/TransLyr.usda", "./020_BASE_LYR/GeoLyr.usda"], owner)
 
 
 def standard_root(a, name, sublayers, include_template_prims=True):
@@ -251,7 +260,7 @@ def scene(a):
         select(stage, f"/World/{name}/Adjustment/Asset", choices)
     save(stage)
 
-    stage = a.layer("020_BASE_LYR/Scenarios/VariLyr.usda", "VariLyr", owner, "Layout branches")
+    stage = a.layer("020_BASE_LYR/VariLyr_Scenarios.usda", "VariLyr", owner, "Layout branches")
     layout = stage.OverridePrim("/World").GetVariantSets().AddVariantSet("Layout")
     for choice in ("Normal", "Exploded"):
         layout.AddVariant(choice)
@@ -308,12 +317,12 @@ def starter(a):
         ("035_RUNTIME_LYR/Starter/RuntimeLyr.usda", "RuntimeLyr"),
         ("030_SIM_LYR/Starter/SimLyr.usda", "SimLyr"),
         ("040_DATA_LYRs/Starter/DataLyr.usda", "DataLyr"),
-        *((f"020_BASE_LYR/Starter/{role}.usda", role) for role in (
+        *((f"020_BASE_LYR/{role}_Starter.usda", role) for role in (
             "EnvLyr", "LightLyr", "CamLyr", "RenderLyr", "AnimLyr",
             "PhysicsLyr", "RigLyr", "MatLyr")),
-        ("020_BASE_LYR/Starter/TransLyr.usda", "TransLyr"),
-        ("020_BASE_LYR/Starter/VariLyr.usda", "VariLyr"),
-        ("020_BASE_LYR/Starter/GeoLyr.usda", "GeoLyr"),
+        ("020_BASE_LYR/TransLyr_Starter.usda", "TransLyr"),
+        ("020_BASE_LYR/VariLyr_Starter.usda", "VariLyr"),
+        ("020_BASE_LYR/GeoLyr_Starter.usda", "GeoLyr"),
     ):
         stage = a.layer(relative, role, owner)
         layer = stage.GetRootLayer()
@@ -323,7 +332,7 @@ def starter(a):
             with Sdf.ChangeBlock():
                 layer.TransferContent(Sdf.Layer.FindOrOpen(str(source)))
                 UsdUtils.ModifyAssetPaths(layer, lambda path: Path(os.path.relpath(
-                    (source.parent / path).resolve(), a.path(relative).parent)).as_posix() if path else path)
+                    (source.parent / path).resolve(), a.path(relative).parent)).as_posix() if path.startswith(".") else path)
             layer.customLayerData = metadata
         elif role == "DataLyr":
             for data_role in ("IdentityLyr", "ContextLyr"):
@@ -355,7 +364,7 @@ def entrypoints(a):
     owner = "scene:LayeredScene@1"
     opinion_layer(a, "050_REVIEW/OpinLYR_default.usda", owner)
     stacks = {}
-    for name, variant_layer in (("SceneROOT_Example.usda", "VariLyr.usda"), ("SceneROOT_Scenarios.usda", "Scenarios/VariLyr.usda")):
+    for name, variant_layer in (("SceneROOT_Example.usda", "VariLyr.usda"), ("SceneROOT_Scenarios.usda", "VariLyr_Scenarios.usda")):
         layers = ["./050_REVIEW/OpinLYR_default.usda", "./040_DATA_LYRs/DataLyr.usda"] + [f"./020_BASE_LYR/{name}" for name in (
             "TransLyr.usda", variant_layer, "GeoLyr.usda")]
         standard_root(a, name, layers)
@@ -401,7 +410,7 @@ def contracts(a, stacks):
         "root_fields": ["stage metadata", "sublayer list", "defaultPrim", "supplied Environment/Render/OmniverseKit camera specs"],
         "root_exception": "CC-01 application-template baseline; supplied startup content stays in root",
         "writer_mode": "static authored scene; no solver or live writer",
-        "default_session": "Opinion is the default authoring target; other persistent layers locked",
+        "default_session": "Opinion is the default authoring target; persistent work/source layers locked",
         "kit_startup": "Open_In_Kit.ps1 enables _workflows/kit/session_defaults.py; launcher selects declared Opinion target",
         "persistent_authoring": "explicitly unlock the rightful layer, choose its edit/variant context, save, retire superseded Opinion fields and return to Opinion",
         "dependencies": "bundled assets, Palette_v001 and two Kit template textures; OmniPBR.mdl and OmniRtx schemas require compatible Omniverse",
@@ -429,19 +438,19 @@ def contracts(a, stacks):
             {"id": "library:Palette@1", "package": "010_ASS_USD/MatLib/Palette_v001.usda",
              "public": "/Materials/{Red,Blue,Yellow,Ground}", "fields": "UsdPreviewSurface shader values",
              "role": "MatLyr", "override": "new reviewed library revision; no scene shader edits"},
-            *[{"id": f"asset:{name}@1", "package": f"010_ASS_USD/USD_Wrappers/{name}/{name}.usda",
+            *[{"id": f"asset:{name}@1", "package": f"010_ASS_USD/USD_Wrappers/{name}/AssetROOT_{name}.usda",
                "public": f"/{name}", "variants": {"Size": ["Normal", "Large", "Tall"], "Finish": ["Red", "Blue", "Yellow"]},
                "defaults": {"Size": "Normal", "Finish": "Red" if name == "Cube" else "Yellow"},
                "pivot": "base center; Z-up; 100 cm height in Normal",
                "private": [f"/{name}/Geometry", f"/{name}/Looks"],
                "fields": "geometry; intrinsic placement; branch scale/order; branch material binding",
-               "edit_targets": "layers/GeoLyr, TransLyr, MatLyr, VariLyr.usda according to role",
+               "edit_targets": "020_BASE_LYR/GeoLyr, TransLyr, MatLyr, VariLyr.usda according to role",
                "override": "downstream selects public variants; private edits only in explicit review fixture"}
               for name in ("Cube", "Cone")],
-            {"id": "assembly:DisplayPair@1", "package": "010_ASS_USD/Assemblies/DisplayPair/DisplayPair.usda",
+            {"id": "assembly:DisplayPair@1", "package": "010_ASS_USD/Assemblies/DisplayPair/AssetROOT_DisplayPair.usda",
              "public": "/DisplayPair", "variants": {"Palette": ["Warm", "Cool"]}, "defaults": {"Palette": "Warm"},
              "fields": "child references; child placement; Palette branch child Finish selections",
-             "edit_targets": "layers/GeoLyr, TransLyr, VariLyr.usda according to role",
+             "edit_targets": "020_BASE_LYR/GeoLyr, TransLyr, VariLyr.usda according to role",
              "override": "scene selects Palette; child paths remain assembly implementation"},
             {"id": "application:OmniverseStandard", "package": "SceneROOT_Example.usda",
              "public": ["/Environment", "/Render", "/OmniverseKit_*"],
@@ -472,7 +481,7 @@ def contracts(a, stacks):
             "Pair01": {"Palette": "Cool", "child_finishes": ["Blue", "Blue"], "base_cm": [0, 260, 0]},
         },
         "SceneROOT_Manual.usda": "independent manual root; same baseline and direct stack as SceneROOT_Example.usda",
-        "SceneROOT_STARTER.usda": "Omniverse baseline and Manual demo configuration; independent work layers plus optional empty role slots; Opinion authoring through launcher; other persistent layers locked",
+        "SceneROOT_STARTER.usda": "Omniverse baseline and Manual demo configuration; independent work layers plus optional empty role slots; Opinion authoring through launcher; persistent work/source layers locked",
         "SceneROOT_Scenarios.usda": {
             "Normal": "same visible configuration as Manual; explicit neutral Adjustment operations",
             "Exploded": "Cube02 base z=80 cm, height=200 cm, Red; Cube01 Yellow; Pair01 Warm (Red/Yellow); other placements unchanged",
@@ -495,7 +504,7 @@ def folder_notes(a):
         "035_RUNTIME_LYR/README.md": "# Runtime snapshots\n\nReserved for deliberately saved operational snapshots. Live measurements normally stay in session/runtime/external storage. No connector, credentials, runtime writer or RuntimeLyr is present.",
         "040_DATA_LYRs/README.md": "# Project data\n\nDataLyr aggregates IdentityLyr and ContextLyr. These demo custom cc attributes describe scene occurrences and project purpose. They are not a standardized schema or an external system integration.",
         "050_REVIEW/README.md": "# Review demonstrations\n\nEach exception has an owner, reason, affected field and removal route in _contracts/ownership.json. Only the SceneROOT_MaskedSize and SceneROOT_MaskedSelection entrypoints compose these files. Baseline roots exclude them.",
-        "_workflows/README.md": "# Reproduction and workflow files\n\nReproduction uses the parent repository's tools/build_example.py. kit/session_defaults.py is the scoped Kit startup helper used by Open_In_Kit.ps1: other persistent layers are protected and Opinion becomes the edit target. It does not route or persist edits. Optional pipeline or ComfyUI definitions can be added here when needed; none is installed.",
+        "_workflows/README.md": "# Reproduction and workflow files\n\nReproduction uses the parent repository's tools/build_example.py. kit/session_defaults.py is the scoped Kit startup helper used by Open_In_Kit.ps1: persistent work/source layers are protected and Opinion becomes the edit target. It does not route or persist edits. Optional pipeline or ComfyUI definitions can be added here when needed; none is installed.",
         "_pipeline_reports/README.md": "# Evidence\n\nbuild_manifest.json records runtime, file identities and the saved defaults of SceneROOT_Example plus four companion entrypoints. It includes stage metrics, the World matrix, camera choice and cube opinions. This is not a conformance verdict or a variant-matrix test. Expected outcomes live in _contracts/expected.json. Kit UI and rendering acceptance are pending.",
         "_contracts/README.md": "# Example contracts\n\nprofile.json declares package roles and actual scene orders. ownership.json declares public interfaces, writer scope and review exceptions. expected.json states intended outcomes. These versioned example-specific JSON documents are design inputs; no generic validator or accepted contract schema exists yet. The parent repository's CompositionContracts.md owns CC semantics.",
     }
@@ -510,7 +519,7 @@ def session_defaults(a):
                                 ("Open_In_Kit.ps1", "Open_In_Kit.ps1")):
         shutil.copyfile(templates / source, a.path(destination))
     for record in a.roles:
-        if record["role"] != "Root" or not record["owner"].startswith("scene:"):
+        if record["role"] != "Root":
             continue
         path = a.root / record["file"]
         stage = Usd.Stage.Open(str(path))
@@ -520,8 +529,8 @@ def session_defaults(a):
         data["cc:opinionLayer"] = root.subLayerPaths[0]
         data["cc:lockPersistentLayers"] = True
         omni = dict(data.get("omni_layer", {}))
-        # Anonymous session identifiers are transient and must never be serialized here.
-        omni.pop("authoring_layer", None)
+        # Kit restores this standard field on direct open; cc metadata alone is not enough.
+        omni["authoring_layer"] = data["cc:opinionLayer"]
         locks = {}  # Recompute for the actual dependency graph; discard retired destinations.
         for layer in stage.GetUsedLayers():
             if layer.anonymous or layer == root:

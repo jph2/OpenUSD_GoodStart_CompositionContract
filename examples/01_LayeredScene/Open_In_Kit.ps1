@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('Standard', 'Manual', 'Scenarios', 'MaskedSize', 'MaskedSelection', 'STARTER')]
+    [ValidateSet('Standard', 'Manual', 'Scenarios', 'MaskedSize', 'MaskedSelection', 'STARTER', 'Lofted', 'Instanced', 'Instanced_Wave', 'Instanced_Spiral', 'Instanced_Rings', 'MotionGraphics')]
     [string]$Scene = 'Standard',
     [string]$KitExe,
     [string]$AppConfig
@@ -22,6 +22,11 @@ if (-not $KitExe -or -not $AppConfig) {
 $kitPath = (Resolve-Path -LiteralPath $KitExe).Path
 $appPath = (Resolve-Path -LiteralPath $AppConfig).Path
 $startupScript = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '_workflows/kit/session_defaults.py')).Path
+$motionArgs = @()
+if ($Scene -eq 'MotionGraphics') {
+    $startupScript = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '_workflows/kit/motion_graphics.py')).Path
+    $motionArgs = @("--/cc/motion/script=$startupScript")
+}
 $sceneFile = if ($Scene -in @('Standard', 'Manual')) { 'SceneROOT_Example.usda' } else { "SceneROOT_$Scene.usda" }
 $stagePath = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot $sceneFile)).Path
-& $kitPath $appPath '--enable' 'omni.kit.usd.layers' '--exec' "`"$startupScript`"" "--/cc/sessionDefaults/stage=$stagePath"
+& $kitPath $appPath '--enable' 'omni.kit.usd.layers' '--exec' "`"$startupScript`"" "--/cc/sessionDefaults/stage=$stagePath" @motionArgs

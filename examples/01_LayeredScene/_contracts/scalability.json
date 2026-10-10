@@ -1,0 +1,215 @@
+{
+  "profile": "CC-SCALE-01/0.1.1",
+  "status": "authored; acceptance pending",
+  "entrypoints_strongest_first": {
+    "SceneROOT_Lofted.usda": [
+      "./050_REVIEW/Lofted/OpinLYR_default.usda",
+      "./040_DATA_LYRs/DataLyr.usda",
+      "./020_BASE_LYR/TransLyr_Lofted.usda",
+      "./020_BASE_LYR/VariLyr_Lofted.usda",
+      "./020_BASE_LYR/GeoLyr_Lofted.usda"
+    ],
+    "SceneROOT_Instanced.usda": [
+      "./050_REVIEW/Instanced/OpinLYR_default.usda",
+      "./040_DATA_LYRs/DataLyr.usda",
+      "./020_BASE_LYR/TransLyr_Instanced.usda",
+      "./020_BASE_LYR/VariLyr_Instanced.usda",
+      "./020_BASE_LYR/GeoLyr_Instanced.usda"
+    ]
+  },
+  "interfaces": {
+    "Cube": "010_ASS_USD/USD_Wrappers/CubeLofted/AssetROOT_CubeLofted.usda",
+    "Cone": "010_ASS_USD/USD_Wrappers/ConeLofted/AssetROOT_ConeLofted.usda",
+    "DisplayPair": "010_ASS_USD/Assemblies/DisplayPairLofted/AssetROOT_DisplayPairLofted.usda"
+  },
+  "purpose": "five-shape payload interface example plus a native-instancing stress scene with 1024 extra occurrences",
+  "expected": {
+    "LoadNone": "direct Size/Finish and assembly Palette names remain discoverable; payload geometry absent; local instanceability overs may be visible for nested children even before their definitions load",
+    "LoadAll": "Lofted/base Instanced teaching shapes are Blue/Normal. Driven scenes retain them and vary all 1024 additional grid occurrences.",
+    "Instanced": "1029 shape Asset sites instanceable (515 Cube, 514 Cone); Pair stays editable; 32 by 32 grid adds 1024 Blue Normal shapes; compatible occurrences may share prototypes",
+    "variant_context": "names/defaults above payload; values and bindings stay in owning source VariLyr branches"
+  },
+  "ownership": "independent scene Opinion/Trans/Vari/Geo; shared Data and source role files; asset Opinion above payload; source demo Opinions excluded",
+  "limitations": [
+    "no benchmark",
+    "no physics or robot readiness",
+    "no cached extentsHint",
+    "no live binding implementation",
+    "Kit lock/edit-target and load/unload acceptance pending"
+  ],
+  "acceptance_to_run": [
+    "unloaded interface discovery",
+    "all Size/Finish/Palette branches after load",
+    "prototype sharing and independent placement",
+    "save/reopen and source-path portability",
+    "Omniverse authoring defaults and later payload-load protection"
+  ],
+  "roles": [
+    {
+      "file": "010_ASS_USD/USD_Wrappers/CubeLofted/AssetROOT_CubeLofted.usda",
+      "cc:context": "public interface above payload",
+      "cc:owner": "asset:CubeLofted@1",
+      "cc:role": "Root"
+    },
+    {
+      "file": "010_ASS_USD/USD_Wrappers/CubeLofted/050_REVIEW/OpinLYR_default.usda",
+      "cc:context": "empty experiments; promote explicitly",
+      "cc:owner": "asset:CubeLofted@1",
+      "cc:role": "Opinion"
+    },
+    {
+      "file": "010_ASS_USD/USD_Wrappers/CubeLofted/020_BASE_LYR/ContentsLyr.usda",
+      "cc:context": "implementation aggregate; no copied variant values",
+      "cc:owner": "asset:CubeLofted@1",
+      "cc:role": "PayloadContents"
+    },
+    {
+      "file": "010_ASS_USD/USD_Wrappers/ConeLofted/AssetROOT_ConeLofted.usda",
+      "cc:context": "public interface above payload",
+      "cc:owner": "asset:ConeLofted@1",
+      "cc:role": "Root"
+    },
+    {
+      "file": "010_ASS_USD/USD_Wrappers/ConeLofted/050_REVIEW/OpinLYR_default.usda",
+      "cc:context": "empty experiments; promote explicitly",
+      "cc:owner": "asset:ConeLofted@1",
+      "cc:role": "Opinion"
+    },
+    {
+      "file": "010_ASS_USD/USD_Wrappers/ConeLofted/020_BASE_LYR/ContentsLyr.usda",
+      "cc:context": "implementation aggregate; no copied variant values",
+      "cc:owner": "asset:ConeLofted@1",
+      "cc:role": "PayloadContents"
+    },
+    {
+      "file": "010_ASS_USD/Assemblies/DisplayPairLofted/AssetROOT_DisplayPairLofted.usda",
+      "cc:context": "public interface above payload",
+      "cc:owner": "assembly:DisplayPairLofted@1",
+      "cc:role": "Root"
+    },
+    {
+      "file": "010_ASS_USD/Assemblies/DisplayPairLofted/050_REVIEW/OpinLYR_default.usda",
+      "cc:context": "empty experiments; promote explicitly",
+      "cc:owner": "assembly:DisplayPairLofted@1",
+      "cc:role": "Opinion"
+    },
+    {
+      "file": "010_ASS_USD/Assemblies/DisplayPairLofted/020_BASE_LYR/ContentsLyr.usda",
+      "cc:context": "implementation aggregate; no copied variant values",
+      "cc:owner": "assembly:DisplayPairLofted@1",
+      "cc:role": "PayloadContents"
+    },
+    {
+      "file": "010_ASS_USD/Assemblies/DisplayPairLofted/020_BASE_LYR/GeoLyr.usda",
+      "cc:owner": "assembly:DisplayPairLofted@1",
+      "cc:role": "GeoLyr"
+    },
+    {
+      "file": "050_REVIEW/Lofted/OpinLYR_default.usda",
+      "cc:context": "unconditional",
+      "cc:owner": "scene:Lofted@1",
+      "cc:role": "Opinion"
+    },
+    {
+      "file": "020_BASE_LYR/TransLyr_Lofted.usda",
+      "cc:owner": "scene:Lofted@1",
+      "cc:role": "TransLyr"
+    },
+    {
+      "file": "020_BASE_LYR/VariLyr_Lofted.usda",
+      "cc:owner": "scene:Lofted@1",
+      "cc:role": "VariLyr"
+    },
+    {
+      "file": "020_BASE_LYR/GeoLyr_Lofted.usda",
+      "cc:owner": "scene:Lofted@1",
+      "cc:role": "GeoLyr"
+    },
+    {
+      "file": "SceneROOT_Lofted.usda",
+      "cc:context": "unconditional",
+      "cc:owner": "scene:Lofted@1",
+      "cc:role": "Root"
+    },
+    {
+      "file": "050_REVIEW/Instanced/OpinLYR_default.usda",
+      "cc:context": "unconditional",
+      "cc:owner": "scene:Instanced@1",
+      "cc:role": "Opinion"
+    },
+    {
+      "file": "020_BASE_LYR/TransLyr_Instanced.usda",
+      "cc:owner": "scene:Instanced@1",
+      "cc:role": "TransLyr"
+    },
+    {
+      "file": "020_BASE_LYR/VariLyr_Instanced.usda",
+      "cc:owner": "scene:Instanced@1",
+      "cc:role": "VariLyr"
+    },
+    {
+      "file": "020_BASE_LYR/GeoLyr_Instanced.usda",
+      "cc:owner": "scene:Instanced@1",
+      "cc:role": "GeoLyr"
+    },
+    {
+      "file": "SceneROOT_Instanced.usda",
+      "cc:context": "unconditional",
+      "cc:owner": "scene:Instanced@1",
+      "cc:role": "Root"
+    }
+  ],
+  "generated_formations": {
+    "SceneROOT_Instanced_Wave.usda": {
+      "input": "_workflows/inputs/instance_signal.json",
+      "driver": "_workflows/arrange_instances.py --shape wave --apply",
+      "grid_occurrences": 1024,
+      "configurations": "2 shape types x 3 sizes x 3 finishes; generated selections use all 18",
+      "snapshot": "offline; no live telemetry or animation",
+      "layers": [
+        "050_REVIEW/Instanced_Wave/OpinLYR_default.usda",
+        "020_BASE_LYR/TransLyr_Instanced_Wave.usda",
+        "020_BASE_LYR/VariLyr_Instanced_Wave.usda"
+      ],
+      "shared": [
+        "020_BASE_LYR/GeoLyr_Instanced.usda",
+        "040_DATA_LYRs/DataLyr.usda",
+        "lofted source interfaces"
+      ]
+    },
+    "SceneROOT_Instanced_Spiral.usda": {
+      "input": "_workflows/inputs/instance_signal.json",
+      "driver": "_workflows/arrange_instances.py --shape spiral --apply",
+      "grid_occurrences": 1024,
+      "configurations": "2 shape types x 3 sizes x 3 finishes; generated selections use all 18",
+      "snapshot": "offline; no live telemetry or animation",
+      "layers": [
+        "050_REVIEW/Instanced_Spiral/OpinLYR_default.usda",
+        "020_BASE_LYR/TransLyr_Instanced_Spiral.usda",
+        "020_BASE_LYR/VariLyr_Instanced_Spiral.usda"
+      ],
+      "shared": [
+        "020_BASE_LYR/GeoLyr_Instanced.usda",
+        "040_DATA_LYRs/DataLyr.usda",
+        "lofted source interfaces"
+      ]
+    },
+    "SceneROOT_Instanced_Rings.usda": {
+      "input": "_workflows/inputs/instance_signal.json",
+      "driver": "_workflows/arrange_instances.py --shape rings --apply",
+      "grid_occurrences": 1024,
+      "configurations": "2 shape types x 3 sizes x 3 finishes; generated selections use all 18",
+      "snapshot": "offline; no live telemetry or animation",
+      "layers": [
+        "050_REVIEW/Instanced_Rings/OpinLYR_default.usda",
+        "020_BASE_LYR/TransLyr_Instanced_Rings.usda",
+        "020_BASE_LYR/VariLyr_Instanced_Rings.usda"
+      ],
+      "shared": [
+        "020_BASE_LYR/GeoLyr_Instanced.usda",
+        "040_DATA_LYRs/DataLyr.usda",
+        "lofted source interfaces"
+      ]
+    }
+  }
+}

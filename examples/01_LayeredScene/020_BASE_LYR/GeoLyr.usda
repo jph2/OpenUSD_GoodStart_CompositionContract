@@ -15,7 +15,7 @@ def Xform "World"
         def Xform "Adjustment"
         {
             def Xform "Asset" (
-                prepend references = @../010_ASS_USD/USD_Wrappers/Cube/Cube.usda@
+                prepend references = @../010_ASS_USD/USD_Wrappers/Cube/AssetROOT_Cube.usda@
             )
             {
             }
@@ -27,7 +27,7 @@ def Xform "World"
         def Xform "Adjustment"
         {
             def Xform "Asset" (
-                prepend references = @../010_ASS_USD/USD_Wrappers/Cube/Cube.usda@
+                prepend references = @../010_ASS_USD/USD_Wrappers/Cube/AssetROOT_Cube.usda@
             )
             {
             }
@@ -39,7 +39,7 @@ def Xform "World"
         def Xform "Adjustment"
         {
             def Xform "Asset" (
-                prepend references = @../010_ASS_USD/USD_Wrappers/Cone/Cone.usda@
+                prepend references = @../010_ASS_USD/USD_Wrappers/Cone/AssetROOT_Cone.usda@
             )
             {
             }
@@ -51,7 +51,7 @@ def Xform "World"
         def Xform "Adjustment"
         {
             def Xform "Asset" (
-                prepend references = @../010_ASS_USD/Assemblies/DisplayPair/DisplayPair.usda@
+                prepend references = @../010_ASS_USD/Assemblies/DisplayPair/AssetROOT_DisplayPair.usda@
             )
             {
             }

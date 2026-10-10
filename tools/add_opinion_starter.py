@@ -30,7 +30,7 @@ def main():
         data["cc:opinionLayer"] = layer.subLayerPaths[0]
         data["cc:lockPersistentLayers"] = True
         omni = dict(data.get("omni_layer", {}))
-        omni.pop("authoring_layer", None)
+        omni["authoring_layer"] = data["cc:opinionLayer"]
         locks = {} if name == "SceneROOT_STARTER.usda" else dict(omni.get("locked", {}))
         locks.update({path: path != layer.subLayerPaths[0] for path in layer.subLayerPaths})
         omni["locked"] = locks
@@ -41,12 +41,12 @@ def main():
     profile["roles"].extend(a.roles)
     a.roles = profile["roles"]
     session_defaults(a)
-    profile["default_session"] = "Opinion is the default authoring target; other persistent layers locked"
+    profile["default_session"] = "Opinion is the default authoring target; persistent work/source layers locked"
     profile["starter_entrypoint"] = "SceneROOT_STARTER.usda; demo assets and independent work layers with optional authoring slots"
     profile["opinion_policy"] = "Samples share 050_REVIEW/OpinLYR_default.usda; Starter has its own. Strongest work sublayer, editable by default; Opinion is the authoring target. Promote reviewed fields then retire superseded opinions."
     a.json("_contracts/profile.json", profile)
     expected = json.loads((package / "_contracts/expected.json").read_text(encoding="utf-8"))
-    expected["SceneROOT_STARTER.usda"] = "Omniverse baseline and Manual demo configuration; independent work layers plus optional empty role slots; Opinion authoring through launcher; other persistent layers locked"
+    expected["SceneROOT_STARTER.usda"] = "Omniverse baseline and Manual demo configuration; independent work layers plus optional empty role slots; Opinion authoring through launcher; persistent work/source layers locked"
     a.json("_contracts/expected.json", expected)
     print("Authored Opinion layers and independent starter; updated six root stacks and profile. No acceptance tests run.")
 

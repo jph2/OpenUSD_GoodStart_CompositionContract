@@ -1,0 +1,64 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "cc:context" = "public interface above payload"
+        string "cc:defaultAuthoring" = "opinion"
+        bool "cc:lockPersistentLayers" = 1
+        string "cc:opinionLayer" = "./050_REVIEW/OpinLYR_default.usda"
+        string "cc:owner" = "asset:CubeLofted@1"
+        string "cc:profile" = "CC-SCALE-01/0.1.1"
+        string "cc:role" = "Root"
+        dictionary omni_layer = {
+            string authoring_layer = "./050_REVIEW/OpinLYR_default.usda"
+            dictionary locked = {
+                bool "./020_BASE_LYR/ContentsLyr.usda" = 1
+                bool "./050_REVIEW/OpinLYR_default.usda" = 0
+            }
+        }
+    }
+    defaultPrim = "Cube"
+    metersPerUnit = 0.01
+    subLayers = [
+        @./050_REVIEW/OpinLYR_default.usda@
+    ]
+    timeCodesPerSecond = 60
+    upAxis = "Z"
+)
+
+def Xform "Cube" (
+    assetInfo = {
+        asset identifier = @./AssetROOT_CubeLofted.usda@
+        string name = "CubeLofted"
+    }
+    kind = "component"
+    prepend payload = @./020_BASE_LYR/ContentsLyr.usda@</Cube>
+    variants = {
+        string Finish = "Red"
+        string Size = "Normal"
+    }
+    prepend variantSets = ["Size", "Finish"]
+)
+{
+    variantSet "Size" = {
+        "Large" {
+
+        }
+        "Normal" {
+
+        }
+        "Tall" {
+
+        }
+    }
+    variantSet "Finish" = {
+        "Blue" {
+
+        }
+        "Red" {
+
+        }
+        "Yellow" {
+
+        }
+    }
+}

@@ -1,0 +1,49 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "cc:context" = "public interface above payload"
+        string "cc:defaultAuthoring" = "opinion"
+        bool "cc:lockPersistentLayers" = 1
+        string "cc:opinionLayer" = "./050_REVIEW/OpinLYR_default.usda"
+        string "cc:owner" = "assembly:DisplayPairLofted@1"
+        string "cc:profile" = "CC-SCALE-01/0.1.1"
+        string "cc:role" = "Root"
+        dictionary omni_layer = {
+            string authoring_layer = "./050_REVIEW/OpinLYR_default.usda"
+            dictionary locked = {
+                bool "./020_BASE_LYR/ContentsLyr.usda" = 1
+                bool "./050_REVIEW/OpinLYR_default.usda" = 0
+            }
+        }
+    }
+    defaultPrim = "DisplayPair"
+    metersPerUnit = 0.01
+    subLayers = [
+        @./050_REVIEW/OpinLYR_default.usda@
+    ]
+    timeCodesPerSecond = 60
+    upAxis = "Z"
+)
+
+def Xform "DisplayPair" (
+    assetInfo = {
+        asset identifier = @./AssetROOT_DisplayPairLofted.usda@
+        string name = "DisplayPairLofted"
+    }
+    kind = "assembly"
+    prepend payload = @./020_BASE_LYR/ContentsLyr.usda@</DisplayPair>
+    variants = {
+        string Palette = "Warm"
+    }
+    prepend variantSets = "Palette"
+)
+{
+    variantSet "Palette" = {
+        "Cool" {
+
+        }
+        "Warm" {
+
+        }
+    }
+}
