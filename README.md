@@ -22,6 +22,8 @@ We also track [OpenUSD proposals](https://github.com/PixarAnimationStudios/OpenU
 
 This work is informed by discussions around the **AOUSD Industrial and Engineering Digital Twin (IEDT) workcell effort**, which Jan expects to develop into a guideline project. The public [AOUSD interest-group remit](https://aousd.org/community/interest-groups/) supports industrial requirements and recommendations; the workcell's formal status and this project's participation remain to be confirmed. This repository is an independent proposal.
 
+For a concrete comparison, see Nandu Vellal's [Workcell Digital Twin](https://github.com/nAurava-Technologies/Workcell-DigitalTwin) project and [Naurava Technologies](https://www.naurava.com/). We propose evaluating the current workcell against this composition contract: what its structure could look like under the proposed paradigm, how its current approach differs, and which requirements should be adapted. The workcell project is likely to move to AOUSD's GitHub in the near future; this is an anticipated move, not a confirmed transfer or endorsement of this proposal.
+
 ## The contract is the eval
 
 Composition contracts define **what we want, why we want it, and how the result must behave**. They connect requirements to ownership, public interfaces, authoring rules and expected outcomes.
