@@ -1,0 +1,105 @@
+{
+  "report_type": "bounded_read_only_usd_inventory",
+  "review_date": "2026-10-11",
+  "usd_version": [
+    0,
+    26,
+    8
+  ],
+  "load_policy": "LoadNone",
+  "scope": "Saved defaults of Cube, Cone and SceneROOT_Example only.",
+  "limitations": [
+    "No SimReady validator or physics runtime executed.",
+    "No variant sweep, persistence test, sensor validation or performance benchmark.",
+    "Composition errors do not cover renderer or runtime resource compatibility."
+  ],
+  "observations": [
+    {
+      "file": "examples/01_LayeredScene/010_ASS_USD/USD_Wrappers/Cube/AssetROOT_Cube.usda",
+      "default_prim": "/Cube",
+      "meters_per_unit": 0.009999999776482582,
+      "up_axis": "Z",
+      "time_codes_per_second": 60.0,
+      "geometry_types": [
+        "Cube"
+      ],
+      "root_sublayers": [
+        "./050_REVIEW_LYR/OpinLYR_default.usda",
+        "./020_BASE_LYR/VariLyr.usda",
+        "./020_BASE_LYR/MatLyr.usda",
+        "./020_BASE_LYR/TransLyr.usda",
+        "./020_BASE_LYR/GeoLyr.usda"
+      ],
+      "composition_errors": []
+    },
+    {
+      "file": "examples/01_LayeredScene/010_ASS_USD/USD_Wrappers/Cone/AssetROOT_Cone.usda",
+      "default_prim": "/Cone",
+      "meters_per_unit": 0.009999999776482582,
+      "up_axis": "Z",
+      "time_codes_per_second": 60.0,
+      "geometry_types": [
+        "Cone"
+      ],
+      "root_sublayers": [
+        "./050_REVIEW_LYR/OpinLYR_default.usda",
+        "./020_BASE_LYR/VariLyr.usda",
+        "./020_BASE_LYR/MatLyr.usda",
+        "./020_BASE_LYR/TransLyr.usda",
+        "./020_BASE_LYR/GeoLyr.usda"
+      ],
+      "composition_errors": []
+    },
+    {
+      "file": "examples/01_LayeredScene/SceneROOT_Example.usda",
+      "default_prim": "/World",
+      "meters_per_unit": 0.009999999776482582,
+      "up_axis": "Z",
+      "time_codes_per_second": 60.0,
+      "geometry_types": [
+        "Cone",
+        "Cube",
+        "Mesh",
+        "Plane"
+      ],
+      "root_sublayers": [
+        "./050_REVIEW_LYR/OpinLYR_default.usda",
+        "./040_DATA_LYR/DataLyr.usda",
+        "./020_BASE_LYR/TransLyr.usda",
+        "./020_BASE_LYR/VariLyr.usda",
+        "./020_BASE_LYR/GeoLyr.usda"
+      ],
+      "composition_errors": []
+    }
+  ],
+  "input_sha256": {
+    "CompositionContract.md": "e2eb31e11b0f2c115a042b225b8e65f48c12360970be99d3622149988fff46fb",
+    "examples/01_LayeredScene/010_ASS_USD/Assemblies/DisplayPair/020_BASE_LYR/GeoLyr.usda": "a1b58584cacadb4eca62b1d620be62476e09f03aae21bb328a681087af7450a6",
+    "examples/01_LayeredScene/010_ASS_USD/Assemblies/DisplayPair/020_BASE_LYR/TransLyr.usda": "968ba2360c3f10f7fc7035dc72d42a59be2bd6a7164eb084275ff6a92ece7d08",
+    "examples/01_LayeredScene/010_ASS_USD/Assemblies/DisplayPair/020_BASE_LYR/VariLyr.usda": "f1e87cb01d538df0bdcf3b653aba856d2dabd2a881bfa2d7407b8f8aaa160170",
+    "examples/01_LayeredScene/010_ASS_USD/Assemblies/DisplayPair/050_REVIEW_LYR/OpinLYR_default.usda": "19f93a47e64e5e027a8bd414e1b106fa5c78f25bf1f84cd44038a0dbed711c47",
+    "examples/01_LayeredScene/010_ASS_USD/Assemblies/DisplayPair/AssetROOT_DisplayPair.usda": "4d955dde1d7ae5fd3b92e3ea5693fabb2104eff51b154bf1f9f853c458a7107b",
+    "examples/01_LayeredScene/010_ASS_USD/MatLib/Palette_v001.usda": "48a41e6641a45d85f366cfc2dae1a5df7d62345e6b6771281d9bfdd06c092cf7",
+    "examples/01_LayeredScene/010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/GeoLyr.usda": "e1db955ff2200e220418b60d101f591bead2d56331ed1223009085b166e4cd6b",
+    "examples/01_LayeredScene/010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/MatLyr.usda": "dc11003007c80cacc2480ceee8b05f3b0b009a0c4fd09baf7b1788c0292a59c0",
+    "examples/01_LayeredScene/010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/TransLyr.usda": "49885c7973646f590e7d5f3273f98a511dc82f7c28249af2d6a3aa308ad25e6d",
+    "examples/01_LayeredScene/010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/VariLyr.usda": "399287b401dd6d84f902497eaa98f974402a074f1ead543293354363829cf3e9",
+    "examples/01_LayeredScene/010_ASS_USD/USD_Wrappers/Cone/050_REVIEW_LYR/OpinLYR_default.usda": "9b4afd29c99ad52796fd9a5791ff5afa8cf8f8e1e9d4da9f6dfdab0736426bb1",
+    "examples/01_LayeredScene/010_ASS_USD/USD_Wrappers/Cone/AssetROOT_Cone.usda": "6370a222a4f0da9baa8edb10a6dbeef57ff4d6d24de948f3db3069ec716d31be",
+    "examples/01_LayeredScene/010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/GeoLyr.usda": "782daee0987387ca02cfd151470269642441d1652e05ced11d1f20279023c851",
+    "examples/01_LayeredScene/010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/MatLyr.usda": "e02f101fe3be367e0af512f72c4768b8ca878eabcef4130d05355367194d9e4d",
+    "examples/01_LayeredScene/010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/TransLyr.usda": "48f6c20c98119cf1078f1e029be3910e47aaa34ba65f3533a1476c8ea7d83aaf",
+    "examples/01_LayeredScene/010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/VariLyr.usda": "56411bc0b397469d0a511eee4b1380db902fec326f28c75101e8af55e7daf0be",
+    "examples/01_LayeredScene/010_ASS_USD/USD_Wrappers/Cube/050_REVIEW_LYR/OpinLYR_default.usda": "b212f068a00645c5b40b1adf31cdb4b6325f2cc6cea1b0dc56a66e27adda8727",
+    "examples/01_LayeredScene/010_ASS_USD/USD_Wrappers/Cube/AssetROOT_Cube.usda": "6edfdfd25392aac99f4d01596cefb59c33ce5d37c888ada6703e3ebd7b1b1133",
+    "examples/01_LayeredScene/020_BASE_LYR/GeoLyr.usda": "15a4b5195bdbdbea4216e691816123fe2568377febc3a995ce96b2751f6f75d6",
+    "examples/01_LayeredScene/020_BASE_LYR/TransLyr.usda": "df7f401664c43a517711213f9d338df7329f231f50635963aac3974e0a04d129",
+    "examples/01_LayeredScene/020_BASE_LYR/VariLyr.usda": "3646bd7f2893641c544af8480d2303fa07a5052ff5e51e1bfb7da3ef27f712d8",
+    "examples/01_LayeredScene/040_DATA_LYR/Data/ContextLyr.usda": "085a7498d0872e4307de35ea17117cd814fe7517dba851f73efb6a2d9fbe644c",
+    "examples/01_LayeredScene/040_DATA_LYR/Data/IdentityLyr.usda": "5e51951ec685fa9665f3cb3d7d8dbaf1af9c077bfb06d306c31cfb6db4290042",
+    "examples/01_LayeredScene/040_DATA_LYR/DataLyr.usda": "44b9d3ce53aa73cba7e7a6aa43ea2b41e7554355266cb8f49d516688c50573ee",
+    "examples/01_LayeredScene/050_REVIEW_LYR/OpinLYR_default.usda": "0a7c2bf00a3db485437e23fb11c5e86432ac8d748d8efb7fab76874a7b10a03a",
+    "examples/01_LayeredScene/_contracts/profile.json": "a1e2a92cc97dd53466dd585d3056998031e8816edccfe9fc582ccc461decadf1",
+    "examples/01_LayeredScene/SceneROOT_Example.usda": "ad5fe85d5ebfaaab0c23ae55e2316bcb80da666cf30072758485c5fc5a114b1a"
+  }
+}

@@ -164,7 +164,7 @@ spacing can extend beyond the overview camera; select
 The JSON file is a **local mock data source**: it lets us develop and evaluate the data-to-scene path before a real publisher is connected. It is not a server and does not stream on its own. The Kit helper polls it, validates a complete snapshot, and maps accepted controls into USD values. A future adapter could obtain the same normalized controls from a simulation feed, robotics middleware, OPC UA, a service/API or another publisher. The data schema and mapping should remain stable while only the input adapter changes.
 
 ```mermaid
-%%{init: {"flowchart": {"htmlLabels": false, "wrappingWidth": 260, "nodeSpacing": 28, "rankSpacing": 36}}}%%
+%%{init: {"htmlLabels": true, "flowchart": {"htmlLabels": true, "wrappingWidth": 260, "nodeSpacing": 28, "rankSpacing": 36}}}%%
 flowchart LR
     accTitle: MotionGraphics data and playback path
     accDescr: A local JSON mock source or future publisher feeds a validated Kit controller. The controller evaluates controls against timeline time and writes a temporary Session overlay over the saved animation. USD composes point-instancer arrays which pass through Fabric to the renderer. A manual reload currently restores visible motion when the viewport becomes stale.
@@ -240,7 +240,7 @@ The root is a thin scene entrypoint, not a nested starter root. It directly comp
 The next diagram is the **composed prim namespace**, not a layer stack. The scene root composes layer files; those layers author opinions on prims in this namespace. Each of the six prototype sites references one of two asset roots, with its Finish choice set by VariLyr. Shared materials remain inside/referenced by those asset packages.
 
 ```mermaid
-%%{init: {"flowchart": {"htmlLabels": false, "wrappingWidth": 250, "nodeSpacing": 48, "rankSpacing": 34}}}%%
+%%{init: {"htmlLabels": true, "flowchart": {"htmlLabels": true, "wrappingWidth": 250, "nodeSpacing": 48, "rankSpacing": 34}}}%%
 flowchart LR
     accTitle: MotionGraphics composed USD prim namespace
     accDescr: The root composes a World containing the motion cloner, overview camera and DATA control declaration. The cloner has one PointInstancer with stable IDs 0 to 1023 and six prototype reference sites. Those sites reuse only a Cube and Cone asset root; VariLyr supplies their Size and Finish selections.
@@ -309,7 +309,7 @@ There are **six prototype configurations**, but only **two source assets** and *
 #### Runtime and lifecycle flow
 
 ```mermaid
-%%{init: {"flowchart": {"htmlLabels": false, "wrappingWidth": 260, "nodeSpacing": 24, "rankSpacing": 32}}}%%
+%%{init: {"htmlLabels": true, "flowchart": {"htmlLabels": true, "wrappingWidth": 260, "nodeSpacing": 24, "rankSpacing": 32}}}%%
 flowchart LR
     accTitle: MotionGraphics runtime lifecycle and failure boundaries
     accDescr: The helper attaches to the target stage, validates the DATA declaration and JSON file, evaluates controls at timeline time, writes a temporary Session sublayer and checks the composed USD and Fabric values. Invalid input retains prior valid data. Current limitation: the values can change while the viewport remains stale until the stage or application is reloaded.
@@ -445,7 +445,7 @@ Manual published asset selections; the standard demonstration.
 **Goal:** understand the basic ownership pattern. Start on the right with Cube, Cone and DisplayPair; GeoLyr references them into the scene. In the middle, TransLyr places occurrences and VariLyr selects their published Size, Finish and Palette controls. The root on the left composes these sibling layers. In the reuse graph, follow several occurrence arrows back to one source: reuse preserves a single authored implementation.
 
 ```mermaid
-%%{init: {"htmlLabels": false, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": false, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%
+%%{init: {"htmlLabels": true, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": true, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%
 flowchart LR
     subgraph ENTRY["ROOT · left"]
         direction TB
@@ -508,7 +508,7 @@ Same stack and defaults as Example, with its own direct root. No nested scene ro
 **Goal:** work with explicit choices for individual occurrences. Follow the same source-to-GeoLyr-to-root route as Example; this separate entrypoint uses the same work layers and saved defaults, so it is not an independent project copy. Change selections through the rightful scene layer rather than editing reusable source definitions. There is no scene Layout switch here.
 
 ```mermaid
-%%{init: {"htmlLabels": false, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": false, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%
+%%{init: {"htmlLabels": true, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": true, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%
 flowchart LR
     subgraph ENTRY["ROOT · left"]
         direction TB
@@ -571,7 +571,7 @@ VariLyr_Scenarios owns /World Layout: Normal or Exploded. Scenario adjustments s
 **Goal:** switch coordinated scene arrangements. Follow GeoLyr to the shared assets, then locate VariLyr_Scenarios in the middle stack. Its /World Layout branches select asset controls and author scenario-relative adjustments on Adjustment prims; TransLyr retains ordinary placement on their parents. The paradigm is to keep conditional edits inside their owning branch while reusing the same asset packages.
 
 ```mermaid
-%%{init: {"htmlLabels": false, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": false, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%
+%%{init: {"htmlLabels": true, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": true, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%
 flowchart LR
     subgraph ENTRY["ROOT · left"]
         direction TB
@@ -634,7 +634,7 @@ ReviewLyr authors local Cube02/Adjustment/Asset scale=(1,1,1), masking the asset
 **Goal:** recognise a deliberately broken variant result. Follow Cube02 to its shared Cube source, where Size=Tall defines scale. Then look at ReviewLyr in the scene stack: its unconditional scale on the same asset prim masks that variant value. Tall may remain selected while the cube resolves to unit scale. This demonstrates why layer order alone cannot resolve local-versus-variant conflicts.
 
 ```mermaid
-%%{init: {"htmlLabels": false, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": false, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%
+%%{init: {"htmlLabels": true, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": true, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%
 flowchart LR
     subgraph ENTRY["ROOT · left"]
         direction TB
@@ -699,7 +699,7 @@ ReviewLyr authors Cube01/Adjustment/Asset Finish=Blue locally, masking the selec
 **Goal:** distinguish a variant selection from the branch that tries to drive it. Follow the scene Layout controls in VariLyr_Scenarios, then the stronger local Finish=Blue selection in ReviewLyr at Cube01/Adjustment/Asset. The local selection masks the branch selection, so the intended Layout-driven colour does not win. The asset material definitions remain shared; the conflict concerns who controls the selection.
 
 ```mermaid
-%%{init: {"htmlLabels": false, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": false, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%
+%%{init: {"htmlLabels": true, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": true, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%
 flowchart LR
     subgraph ENTRY["ROOT · left"]
         direction TB
@@ -764,7 +764,7 @@ Independent starter Opinion, placement, variant and data layers; shared reusable
 **Goal:** begin a project with useful roles already available. Follow the shared assets on the right into the starter GeoLyr, then upward through its placement, variants, data and Opinion work layers. Extra role slots reserve places for later work; empty slots do not activate simulation or other systems. The root also supplies the visible environment and render baseline. Keep the roles you need and remove or disable the rest; the starter work layers are independent of the demo layers, while asset sources are still shared.
 
 ```mermaid
-%%{init: {"htmlLabels": false, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": false, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%
+%%{init: {"htmlLabels": true, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": true, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%
 flowchart LR
     subgraph ENTRY["ROOT · left"]
         direction TB
@@ -847,7 +847,7 @@ Five shapes with lightweight public variant declarations above asset and assembl
 **Goal:** inspect asset controls without loading their implementation. Follow GeoLyr to the CubeLofted, ConeLofted and DisplayPairLofted interfaces. Each interface lists variant names and defaults; a payload leads to ContentsLyr, which composes the original role files. Empty interface branches advertise choices; values stay in the source VariLyr. Unloading Pair also hides its child occurrences, while its own Palette remains discoverable. This scene keeps the five-shape layout, with all shapes Blue/Normal for a simple comparison. It adds independent Opinion/Trans/Vari/Geo layers, and shares the original data and asset implementations.
 
 ```mermaid
-%%{init: {"htmlLabels": false, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": false, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%
+%%{init: {"htmlLabels": true, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": true, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%
 flowchart LR
     subgraph ENTRY["ROOT · left"]
         direction TB
@@ -916,7 +916,7 @@ Native-instancing stress scene: 1,024 extra grid shapes plus the five teaching s
 **Goal:** exercise extensive native reuse. Start at /World/InstanceGrid: a 32 by 32 grid adds 512 cubes and 512 cones. Including the teaching objects, there are 515 cube and 514 cone occurrence sites, each marked instanceable. GeoLyr links the same lofted packages; TransLyr positions occurrence parents, and VariLyr chooses matching Blue/Normal configurations. Compatible occurrences can share USD prototypes. DisplayPair stays non-instanceable so its child placement hierarchy remains editable. Select InstanceGrid and frame the selection in the viewport to see the full grid; the standard startup camera and ground cover only the original example area. No speed or memory gain has been benchmarked. To edit inside a shared shape, change its source, use its published variants, or deliberately make that occurrence non-instanceable first.
 
 ```mermaid
-%%{init: {"htmlLabels": false, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": false, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%
+%%{init: {"htmlLabels": true, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": true, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%
 flowchart LR
     subgraph ENTRY["ROOT · left"]
         direction TB
@@ -985,7 +985,7 @@ A signal-driven wave using all nine Size/Finish combinations on two shared shape
 **Goal:** use incoming information to steer a wave formation without copying geometry. The driver reads 1,024 normalized JSON values. Each value selects one of nine Size/Finish combinations and controls height and heading; the selected formation determines horizontal placement. Follow the signal into TransLyr for placement and VariLyr for selections, then through the shared GeoLyr to payloaded instanceable assets. There are 512 grid cubes and 512 grid cones, plus the five teaching objects. This scene owns its generated role layers and Opinion; other formations are unchanged. Select /World/InstanceGrid and frame it to see the layout. These are deterministic static snapshots, not live telemetry, animation, physics or a performance benchmark. The reuse graph groups the 1,024 sites by source; each group contains mixed Size/Finish selections. Run the Python command in the driver section to change the input or regenerate this formation.
 
 ```mermaid
-%%{init: {"htmlLabels": false, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": false, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%
+%%{init: {"htmlLabels": true, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": true, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%
 flowchart LR
     subgraph ENTRY["ROOT · left"]
         direction TB
@@ -1054,7 +1054,7 @@ The same signal and shared sources arranged along a rising spiral.
 **Goal:** use incoming information to steer a spiral formation without copying geometry. The driver reads 1,024 normalized JSON values. Each value selects one of nine Size/Finish combinations and controls height and heading; the selected formation determines horizontal placement. Follow the signal into TransLyr for placement and VariLyr for selections, then through the shared GeoLyr to payloaded instanceable assets. There are 512 grid cubes and 512 grid cones, plus the five teaching objects. This scene owns its generated role layers and Opinion; other formations are unchanged. Select /World/InstanceGrid and frame it to see the layout. These are deterministic static snapshots, not live telemetry, animation, physics or a performance benchmark. The reuse graph groups the 1,024 sites by source; each group contains mixed Size/Finish selections. Run the Python command in the driver section to change the input or regenerate this formation.
 
 ```mermaid
-%%{init: {"htmlLabels": false, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": false, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%
+%%{init: {"htmlLabels": true, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": true, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%
 flowchart LR
     subgraph ENTRY["ROOT · left"]
         direction TB
@@ -1123,7 +1123,7 @@ The same signal and shared sources distributed across concentric rings.
 **Goal:** use incoming information to steer a rings formation without copying geometry. The driver reads 1,024 normalized JSON values. Each value selects one of nine Size/Finish combinations and controls height and heading; the selected formation determines horizontal placement. Follow the signal into TransLyr for placement and VariLyr for selections, then through the shared GeoLyr to payloaded instanceable assets. There are 512 grid cubes and 512 grid cones, plus the five teaching objects. This scene owns its generated role layers and Opinion; other formations are unchanged. Select /World/InstanceGrid and frame it to see the layout. These are deterministic static snapshots, not live telemetry, animation, physics or a performance benchmark. The reuse graph groups the 1,024 sites by source; each group contains mixed Size/Finish selections. Run the Python command in the driver section to change the input or regenerate this formation.
 
 ```mermaid
-%%{init: {"htmlLabels": false, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": false, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%
+%%{init: {"htmlLabels": true, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": true, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%
 flowchart LR
     subgraph ENTRY["ROOT · left"]
         direction TB
@@ -1192,7 +1192,7 @@ Animated MoGraph-style cloner: 1,024 points, six configurations and live JSON co
 **Goal:** animate a large clone field from a small, explicit control surface. Follow the two sources on the right through six prototype reference sites (Cube/Cone × Red/Blue/Yellow, Size=Normal) into one PointInstancer. GeoLyr owns its topology and stable IDs; VariLyr configures the prototypes. AnimLyr stores an eight-second clip of positions, rotations, scales and prototype indices, so Play works from the saved scene. DataLyr declares the JSON input and target. With the MotionGraphics launcher, a Python model reads that declaration and writes a temporary RUNTIME layer under Session; it overrides the baked arrays while keeping Opinion as the user authoring target. Saving JSON changes updates the live result. Turning live_preview off removes that contribution and reveals the baked clip. The lower graph shows six configurations converging on only two source assets and three shared materials. Point instances are array elements, not 1,024 individually editable prims; their colours switch through protoIndices, not per-point variant edits. Choose /World/MotionOverview as the viewport camera if the host does not restore it automatically.
 
 ```mermaid
-%%{init: {"htmlLabels": false, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": false, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%
+%%{init: {"htmlLabels": true, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": true, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%
 flowchart LR
     subgraph ENTRY["ROOT · left"]
         direction TB
@@ -1235,7 +1235,7 @@ flowchart LR
     ENTRY -->|root sublayers| STACK
     STACK -->|GeoLyr references three configurations of each shape| SRC
     STACK -.->|DATA declares JSON; VariLyr selects public controls| SRC
-    SRC -.->|optional Python model writes Session runtime arrays| ENTRY
+    ENTRY <-.-|optional Python model writes Session runtime arrays| SRC
     classDef ccRoot fill:#fde8df,stroke:#d99b84,color:#17212b
     classDef layer fill:#dceef9,stroke:#91bfd8,color:#17212b
     class R ccRoot

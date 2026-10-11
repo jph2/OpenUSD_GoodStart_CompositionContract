@@ -1,0 +1,4 @@
+interface:
+  display_name: "OpenUSD Composition Contract"
+  short_description: "Apply composition ownership and digital twin rules"
+  default_prompt: "Use $openusd-composition-contract to apply the contract to this USD task, citing relevant CC rules and separating observed results from planned acceptance."

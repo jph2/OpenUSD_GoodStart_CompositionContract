@@ -1,5 +1,200 @@
 # Resume state
 
+## 2026-10-11 — User-authorized commit and push scope
+
+Jan requested committing and pushing the completed work on main: contract 0.2.0
+and NVIDIA/identity evidence, the reusable composition skill and synchronization
+workflow, and the LayeredScene Mermaid rendering fix. The selected set contains
+16 files, enumerated with sizes before staging. Origin/main matched HEAD after
+fetching; skill synchronization reported zero drift for the repository and the
+personal installation. No additional rule or skill-guidance change was needed.
+
+The pre-existing motion_graphics.json control edits, deletion of the Essentials
+defaultscene.usda and untracked direct_root_kit.log are outside this commit scope
+and remain local. Historical acceptance limits remain unchanged. Commit identity
+and publication state are recorded by Git; no tests were run for this operation.
+
+## 2026-10-11 — LayeredScene README Mermaid preview fix
+
+Jan supplied a Markdown preview screenshot showing Mermaid 11.12.2's
+`splitLineToFitWidth does not support newlines in the line` error and repeated
+syntax-error panels. Updated all 15 inline Mermaid blocks in
+`examples/01_LayeredScene/README.md` to use HTML labels at both root and flowchart
+configuration scope. The MotionGraphics runtime feedback edge retains its arrow
+toward ENTRY but is declared ENTRY-to-SRC to preserve root/layers/sources ordering.
+
+Updated `tools/document_scene_graphs.py` to emit the same inline configuration and
+feedback edge on regeneration. Existing reuse SVGs and their export configuration
+were preserved. No USD scene or runtime adapter changed.
+
+Actual document preview: rendered all 15 inline diagrams successfully with the
+exact Mermaid 11.12.2 browser bundle; visually inspected the motion data-flow and
+final MotionGraphics composition diagrams. Temporary SVG/PNG previews are outside
+the repository. The user's VS Code preview was not directly controlled; reopening
+it may be necessary to clear error panels from the previous failed render. No USD
+acceptance tests or repository test suite ran.
+
+Skill impact review: this fixes Markdown presentation and its generator; CC rules,
+profiles and reusable skill guidance are unchanged. Contract and skill remain 0.2.0.
+Refreshed the managed skill installation and checked synchronization with no drift.
+
+## 2026-10-11 — Reusable composition skill and required synchronization
+
+Jan requested a skill derived from the composition contract and an AGENTS.md rule
+requiring skill maintenance when this repository changes, with matching versions.
+
+Created `skills/openusd-composition-contract/SKILL.md` and `agents/openai.yaml` as
+the maintained package. The skill routes tasks to the relevant CC sections and
+preserves ownership/context rules, Opinion and host exceptions, conditional values,
+instancing boundaries, imported packages, early ERP/PLM identity, composable bindings,
+readiness evidence and authoring/deployment separation. Its normal discovery mode
+is enabled by default. It adds guidance, not USD enforcement.
+
+`tools/sync_composition_skill.py` derives the version from the main paper, generates
+the full reference with portable companion links and records normalized source/file
+hashes plus all 33 CC definitions in `references/source.json`. It supports read-only
+`--check` and bounded `--install`; it preserves unrelated files and refuses to
+overwrite a foreign or locally modified managed installation. Human review of
+semantic skill changes remains required; regeneration cannot perform that review.
+
+Installed the four package files in
+`C:/Users/jan/.codex/skills/openusd-composition-contract` at version **0.2.0**, equal
+to the contract. The source contract's requirements and version were unchanged by
+this task. This host uses the `.codex/skills` catalog; `--skills-root` supports other
+configured locations without editing application configuration.
+
+AGENTS.md and WORKFLOW.md now require skill impact review on every repository change,
+instruction updates where affected, reference/version refresh on every contract
+edit, personal-installation sync and a recorded outcome. README documents invocation
+and maintenance; DISCUSSION and SOURCES record the decision and packaging provenance.
+
+Actual checks: skill-creator's static metadata validator passed; the sync helper's
+read-only comparison found zero stale repository/installed files. Whitespace diff
+review passed. No behavioral eval, USD test, scene repair, commit or publication was
+performed. Prior unrelated edits and historical example evidence remain untouched.
+Future contract changes must use this synchronization workflow; runtime and industrial
+acceptance work remains as recorded below.
+
+## 2026-10-11 — NVIDIA findings and early identity adopted in draft 0.2.0
+
+Jan requested the NVIDIA architecture conclusion and nesting/performance explanation
+in README.md with evidence links, and the remaining assessment in CompositionContract.md.
+He additionally required stronger emphasis on stable unique identifiers, introduced
+as early as possible from governing ERP/PLM or equivalent systems, and Composable Bindings.
+
+Actual documentation changes:
+
+- README now cites both VFI guides, explains modular authoring and deployment, and
+  foregrounds early authoritative identity as a foundation of dependable digital twins.
+- CompositionContract.md is draft 0.2.0 with existing CC-01–28 IDs preserved. Section 21
+  records NVIDIA alignment, specific SimReady packaging/units/geometry gaps, robotics
+  and industrial-schema requirements, evidence limits and a bounded industrial pilot.
+  CC-12 adds versioned profile/results requirements; CC-24/25/26 distinguish maintained
+  authoring conventions from traceable generated target packages and measured deployment.
+- CC-27 requires identity at intake/first authoring, authority and uniqueness scope,
+  separate type/occurrence/physical-instance identity, repeated-import continuity,
+  controlled local allocation when external identity is absent, and reconciliation.
+  CC-28 resolves bindings through those identities and blocks unresolved affected targets.
+  Direct links to Aaron Luk's draft and the Composable Bindings PDF accompany the policy.
+- DISCUSSION.md records the adopted decisions; ROADMAP.md reflects early identity,
+  the industrial pilot and deployment work; SOURCES.md records the review boundaries.
+  A stale README starter-guide anchor discovered during link review was corrected.
+
+Documentation review covered local Markdown destinations/heading anchors, unchanged
+CC rule definitions and whitespace diffs. No scene changes, generator execution,
+validator, runtime acceptance or test suite were part of this documentation update.
+Existing motion-control edits, deleted Essentials source and untracked Kit log were
+preserved. No sibling repository edits, commit, push or publication occurred.
+
+The earlier assessment below remains historical evidence; its recommended policies
+are now adopted only to the extent specified in the 0.2.0 text. Existing 0.1.1 sample
+profiles, starter copies, inventories and recorded hashes retain their original
+baseline and have not acquired 0.2.0 acceptance. Remaining work: define machine-readable
+identity/profile/result schemas, preserve source IDs in fixtures, implement binding
+resolution and validation, then evaluate the proposed industrial/deployment pilot
+under a separate implementation or verification request.
+
+## 2026-10-11 — NVIDIA industrial twin and robotics alignment review
+
+Jan requested a repository assessment against NVIDIA guidance, using the executive
+summary links in USD_GoodStart/WIP_Docs/LAYER_ORDER_REFERENCES_RESEARCH.md (1.12.0).
+Reviewed the current CC text, entry docs, roadmap, tooling requirements, example
+profile, selected asset/layer sources and existing evidence limitations. Project
+README is labelled 0.2.0; the contract and example profile remain 0.1.1, and the
+profile's rule range stops at CC-26 although the prose includes CC-27/28.
+
+Assessment: recursive ownership, public interfaces, preservation of imported
+packages, conditional authoring and separate asset/assembly acceptance provide a
+credible composition foundation. Universal readiness and NVIDIA conformance are
+not demonstrated. Recommendations below are review findings, not adopted changes
+to CC rules or authorization to implement a migration.
+
+Followed the research's public NVIDIA routes: Isaac Asset Structure, SimReady
+Foundation, DSX and its Generic CDU source, and VFI. The supplied Isaac 6.0.1 URL
+was inaccessible through the web tool; used the accessible official
+[6.0.0 asset structure page](https://docs.isaacsim.omniverse.nvidia.com/6.0.0/robot_setup/asset_structure.html)
+and its tuning tutorial. SimReady requirement comparisons use the accessible
+[2026.08.0 documentation](https://nvidia.github.io/simready-foundation/2026.08.0/),
+including FET_001_STANDARD 1.0.1, Robot-Body, ISA.001, RV.011, NP.002/003/005,
+non-visual materials and AIF-Entity. These are retrieved documentation baselines,
+not installed or executed validator versions. Robot-Body documentation itself
+notes a composition-document/validator naming disagreement; pin the actual
+manifests and implementation before any conformance decision.
+
+Concrete findings and proposed next work:
+
+- Example Cube/Cone assets and SceneROOT_Example use approximately 0.01 metres
+  per unit. The selected minimal SimReady feature requires UN.007 (1.0), and
+  VG.MESH.001 requires mesh geometry; the asset examples use native Cube/Cone.
+  These are demonstrated data differences against selected requirements, not a
+  validator execution or a defect in their declared teaching scope. Use a
+  separate simulation publication profile with deliberate dimensional conversion.
+- CC-25 preserves incoming NVIDIA packages appropriately. For locally authored
+  outgoing assets, explicitly resolve CC-26 naming/layout and role conventions
+  against selected packaging features. NP.005 defines a particular asset folder
+  layout; ISA.001 selects base-layer arcs/layouts. Our generic layer layout does
+  not itself establish compliance. Keep authoring and delivery contracts distinct.
+- CC-12/24/25 already require readiness evidence. Materialize the checklist into
+  versioned profiles, selected upstream requirement/feature IDs, supported
+  configurations and per-requirement results. No general inspector or SimReady
+  validation integration exists; PhysicsLyr_Starter is an empty authoring slot.
+- Define robotics acceptance for placement/attachment frames, articulation and
+  collision behavior, units/mass/time, runtime isolation, sensors and applicable
+  semantic/non-visual materials. CC-05b/21/23 provide ownership boundaries; their
+  implementation and composed runtime behavior require a real robot fixture.
+- DSX Properties/Ports/Connections roles can carry domain data, but domain schemas
+  and consumer behavior remain unspecified. AIF-Entity versions even differ in
+  connection-point representation; preserve the selected version explicitly.
+- Add a generated deployment contract under CC-24, with source/output mapping,
+  preserved composition behavior and measured cold/warm load, memory and runtime
+  performance. [VFI deployment guidance](https://docs.omniverse.nvidia.com/vfi/latest/guide/asset-structure-optimizations-and-tradeoffs.html)
+  distinguishes modular authoring from runtime packaging. Existing instance counts
+  are not a factory-scale benchmark.
+- CC-27/28 specify identity/binding continuity, but example occurrence IDs and the
+  mock MoGraph adapter do not demonstrate industrial integration. Include repeated
+  assemblies, rename/reparent, source updates and binding invalidation in acceptance.
+
+Proposed bounded pilot: one pinned robot plus gripper/sensor/fixture, two independently
+configured occurrences, a reusable workcell repeated in a line, and a small DSX/AIF
+equipment case for a second domain. Pin target runtimes and profiles first. Evaluate
+asset rules and composed behavior separately, including change impact and generated
+deployment equivalence. Define measurable tolerances and performance budgets before
+running. This pilot remains proposed.
+
+Actual inspection: read-only Usd.Stage/Sdf-backed opening of Cube, Cone and
+SceneROOT_Example with usd-core 26.8, LoadNone, saved default selections. All three
+reported zero composition errors; metrics and geometry types are recorded with 28
+input hashes in [the inventory](evidence/nvidia_alignment_inventory_2026-10-11.json).
+This does not cover renderer resources, variants, physics, persistence or throughput.
+No SimReady validator, Isaac/Kit runtime, benchmark or test suite ran. GoodStart
+authority lookup searched spec, manual and full for `instancing` and `metersPerUnit`;
+matches establish occurrence, with the physics units discussion supporting explicit
+conversion. No formal universal layer-order definition or absence claim was inferred.
+
+Only this review record and its JSON evidence were added. Existing README, motion
+controls, deleted Essentials source and untracked Kit log changes were preserved.
+No scene repair, contract revision, sibling-repository edit, commit or push.
+
 ## 2026-10-11 - repository identity renamed
 
 GitHub repository rename completed through authenticated gh CLI:

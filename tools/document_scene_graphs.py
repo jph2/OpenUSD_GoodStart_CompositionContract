@@ -8,6 +8,9 @@ PACKAGE = Path(__file__).resolve().parents[1] / 'examples/01_LayeredScene'
 START = '<!-- BEGIN EXACT SCENE GRAPHS -->'
 END = '<!-- END EXACT SCENE GRAPHS -->'
 MERMAID_LAYOUT = '%%{init: {"htmlLabels": false, "themeVariables": {"fontFamily": "Arial, sans-serif"}, "flowchart": {"htmlLabels": false, "padding": 20, "nodeSpacing": 200, "rankSpacing": 35, "diagramPadding": 20}}}%%'
+# Mermaid 11.12.x can reject <br/> newlines in its SVG-label wrapping path.
+# Use HTML labels inline; retain the SVG-export layout for rendered reuse views.
+MERMAID_INLINE_LAYOUT = MERMAID_LAYOUT.replace('"htmlLabels": false', '"htmlLabels": true')
 SCENES = {
     'Example': 'Manual published asset selections; the standard demonstration.',
     'Manual': 'Same stack and defaults as Example, with its own direct root. No nested scene root.',
@@ -72,7 +75,7 @@ def diagram(root):
     if Path(root.realPath).stem == 'SceneROOT_MotionGraphics':
         return motion_diagram(root)
     scalable = Path(root.realPath).stem == 'SceneROOT_Lofted' or Path(root.realPath).stem.startswith('SceneROOT_Instanced')
-    lines = ['```mermaid', MERMAID_LAYOUT, 'flowchart LR',
+    lines = ['```mermaid', MERMAID_INLINE_LAYOUT, 'flowchart LR',
              '    subgraph ENTRY["ROOT · left"]', '        direction TB',
              f'        R["{label(Path(root.realPath).name)}<br/>/World · cm · Z-up · 60 fps"]',
              '        B["Authored in this root<br/>/Environment: Sky, DistantLight, Looks/Grid, ground, groundCollider<br/>/Render: viewport product, settings and LdrColor<br/>/OmniverseKit_Persp, Front, Right, Top"]',
@@ -129,7 +132,7 @@ def diagram(root):
 
 
 def motion_diagram(root):
-    lines = ['```mermaid', MERMAID_LAYOUT, 'flowchart LR',
+    lines = ['```mermaid', MERMAID_INLINE_LAYOUT, 'flowchart LR',
         '    subgraph ENTRY["ROOT · left"]', '        direction TB',
         '        SESSION["Optional Session sublayer<br/>CC_MotionGraphics_Runtime · anonymous<br/>Generated arrays override saved animation<br/>Not the user authoring target"]',
         '        R["SceneROOT_MotionGraphics.usda<br/>Z-up · cm · 60 fps · time codes 0–480<br/>Standard environment/render baseline"]',
@@ -161,7 +164,7 @@ def motion_diagram(root):
         '    ENTRY -->|root sublayers| STACK',
         '    STACK -->|GeoLyr references three configurations of each shape| SRC',
         '    STACK -.->|DATA declares JSON; VariLyr selects public controls| SRC',
-        '    SRC -.->|optional Python model writes Session runtime arrays| ENTRY',
+        '    ENTRY <-.-|optional Python model writes Session runtime arrays| SRC',
         '    classDef ccRoot fill:#fde8df,stroke:#d99b84,color:#17212b',
         '    classDef layer fill:#dceef9,stroke:#91bfd8,color:#17212b',
         '    class R ccRoot', '    class '+','.join(f'L{i}' for i in range(len(root.subLayerPaths)))+' layer', '```'])
