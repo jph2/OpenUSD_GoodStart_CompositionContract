@@ -1,0 +1,22 @@
+#usda 1.0
+( defaultPrim = "Palette" )
+def Scope "Palette" {
+    def Material "Red" {
+        token outputs:surface.connect = </Palette/Red/Surface.outputs:surface>
+        def Shader "Surface" {
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor = (0.8, 0.08, 0.06)
+            float inputs:roughness = 0.45
+            token outputs:surface
+        }
+    }
+    def Material "Blue" {
+        token outputs:surface.connect = </Palette/Blue/Surface.outputs:surface>
+        def Shader "Surface" {
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor = (0.04, 0.22, 0.8)
+            float inputs:roughness = 0.45
+            token outputs:surface
+        }
+    }
+}

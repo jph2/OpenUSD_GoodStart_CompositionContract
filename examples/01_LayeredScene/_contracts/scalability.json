@@ -3,15 +3,15 @@
   "status": "authored; acceptance pending",
   "entrypoints_strongest_first": {
     "SceneROOT_Lofted.usda": [
-      "./050_REVIEW/Lofted/OpinLYR_default.usda",
-      "./040_DATA_LYRs/DataLyr.usda",
+      "./050_REVIEW_LYR/Lofted/OpinLYR_default.usda",
+      "./040_DATA_LYR/DataLyr.usda",
       "./020_BASE_LYR/TransLyr_Lofted.usda",
       "./020_BASE_LYR/VariLyr_Lofted.usda",
       "./020_BASE_LYR/GeoLyr_Lofted.usda"
     ],
     "SceneROOT_Instanced.usda": [
-      "./050_REVIEW/Instanced/OpinLYR_default.usda",
-      "./040_DATA_LYRs/DataLyr.usda",
+      "./050_REVIEW_LYR/Instanced/OpinLYR_default.usda",
+      "./040_DATA_LYR/DataLyr.usda",
       "./020_BASE_LYR/TransLyr_Instanced.usda",
       "./020_BASE_LYR/VariLyr_Instanced.usda",
       "./020_BASE_LYR/GeoLyr_Instanced.usda"
@@ -52,7 +52,7 @@
       "cc:role": "Root"
     },
     {
-      "file": "010_ASS_USD/USD_Wrappers/CubeLofted/050_REVIEW/OpinLYR_default.usda",
+      "file": "010_ASS_USD/USD_Wrappers/CubeLofted/050_REVIEW_LYR/OpinLYR_default.usda",
       "cc:context": "empty experiments; promote explicitly",
       "cc:owner": "asset:CubeLofted@1",
       "cc:role": "Opinion"
@@ -70,7 +70,7 @@
       "cc:role": "Root"
     },
     {
-      "file": "010_ASS_USD/USD_Wrappers/ConeLofted/050_REVIEW/OpinLYR_default.usda",
+      "file": "010_ASS_USD/USD_Wrappers/ConeLofted/050_REVIEW_LYR/OpinLYR_default.usda",
       "cc:context": "empty experiments; promote explicitly",
       "cc:owner": "asset:ConeLofted@1",
       "cc:role": "Opinion"
@@ -88,7 +88,7 @@
       "cc:role": "Root"
     },
     {
-      "file": "010_ASS_USD/Assemblies/DisplayPairLofted/050_REVIEW/OpinLYR_default.usda",
+      "file": "010_ASS_USD/Assemblies/DisplayPairLofted/050_REVIEW_LYR/OpinLYR_default.usda",
       "cc:context": "empty experiments; promote explicitly",
       "cc:owner": "assembly:DisplayPairLofted@1",
       "cc:role": "Opinion"
@@ -105,7 +105,7 @@
       "cc:role": "GeoLyr"
     },
     {
-      "file": "050_REVIEW/Lofted/OpinLYR_default.usda",
+      "file": "050_REVIEW_LYR/Lofted/OpinLYR_default.usda",
       "cc:context": "unconditional",
       "cc:owner": "scene:Lofted@1",
       "cc:role": "Opinion"
@@ -132,7 +132,7 @@
       "cc:role": "Root"
     },
     {
-      "file": "050_REVIEW/Instanced/OpinLYR_default.usda",
+      "file": "050_REVIEW_LYR/Instanced/OpinLYR_default.usda",
       "cc:context": "unconditional",
       "cc:owner": "scene:Instanced@1",
       "cc:role": "Opinion"
@@ -167,13 +167,13 @@
       "configurations": "2 shape types x 3 sizes x 3 finishes; generated selections use all 18",
       "snapshot": "offline; no live telemetry or animation",
       "layers": [
-        "050_REVIEW/Instanced_Wave/OpinLYR_default.usda",
+        "050_REVIEW_LYR/Instanced_Wave/OpinLYR_default.usda",
         "020_BASE_LYR/TransLyr_Instanced_Wave.usda",
         "020_BASE_LYR/VariLyr_Instanced_Wave.usda"
       ],
       "shared": [
         "020_BASE_LYR/GeoLyr_Instanced.usda",
-        "040_DATA_LYRs/DataLyr.usda",
+        "040_DATA_LYR/DataLyr.usda",
         "lofted source interfaces"
       ]
     },
@@ -184,13 +184,13 @@
       "configurations": "2 shape types x 3 sizes x 3 finishes; generated selections use all 18",
       "snapshot": "offline; no live telemetry or animation",
       "layers": [
-        "050_REVIEW/Instanced_Spiral/OpinLYR_default.usda",
+        "050_REVIEW_LYR/Instanced_Spiral/OpinLYR_default.usda",
         "020_BASE_LYR/TransLyr_Instanced_Spiral.usda",
         "020_BASE_LYR/VariLyr_Instanced_Spiral.usda"
       ],
       "shared": [
         "020_BASE_LYR/GeoLyr_Instanced.usda",
-        "040_DATA_LYRs/DataLyr.usda",
+        "040_DATA_LYR/DataLyr.usda",
         "lofted source interfaces"
       ]
     },
@@ -201,13 +201,13 @@
       "configurations": "2 shape types x 3 sizes x 3 finishes; generated selections use all 18",
       "snapshot": "offline; no live telemetry or animation",
       "layers": [
-        "050_REVIEW/Instanced_Rings/OpinLYR_default.usda",
+        "050_REVIEW_LYR/Instanced_Rings/OpinLYR_default.usda",
         "020_BASE_LYR/TransLyr_Instanced_Rings.usda",
         "020_BASE_LYR/VariLyr_Instanced_Rings.usda"
       ],
       "shared": [
         "020_BASE_LYR/GeoLyr_Instanced.usda",
-        "040_DATA_LYRs/DataLyr.usda",
+        "040_DATA_LYR/DataLyr.usda",
         "lofted source interfaces"
       ]
     }

@@ -17,13 +17,23 @@ def main():
         if not path.is_file():
             continue
         relative = path.relative_to(SOURCE).as_posix()
-        if relative.startswith('_pipeline_reports/') or '__pycache__' in path.parts:
+        # A Windows-locked legacy folder may remain locally; never ship it.
+        if relative.startswith(('_pipeline_reports/', '040_DATA_LYRs/')) or '__pycache__' in path.parts:
             continue
         files[relative] = path.read_bytes()
+    # Essentials is a standalone sibling in the repo and a portable subpackage here.
+    essentials = REPO / 'examples/02_USDEssentials_Minimal'
+    for path in sorted(essentials.rglob('*')):
+        if path.is_file() and '__pycache__' not in path.parts:
+            relative = path.relative_to(essentials).as_posix()
+            if not relative.startswith('_pipeline_reports/'):
+                files['USDEssentials_Minimal/' + relative] = path.read_bytes()
+    files['README.md'] = files['README.md'].replace(
+        b'../02_USDEssentials_Minimal/', b'USDEssentials_Minimal/')
     # The portable bundle opens the generous master by default.
     files['Open_In_Kit.ps1'] = files['Open_In_Kit.ps1'].replace(
         b"[string]$Scene = 'Standard'", b"[string]$Scene = 'STARTER'")
-    for name in ('CompositionContracts.md', 'PROJECT_STRUCTURE.md'):
+    for name in ('CompositionContract.md', 'PROJECT_STRUCTURE.md'):
         files['_contracts/reference/' + name] = (REPO / name).read_bytes()
     files['_pipeline_reports/README.md'] = (
         '# Preset provenance\n\nThis bundle copies authored files; packaging is not USD or Kit acceptance. '

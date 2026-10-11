@@ -1,44 +1,44 @@
 {
   "composition": "Original roots: references without native instancing. CC-SCALE-01 additions: payload interfaces; Instanced roots use native instancing. See scalability.json.",
-  "contract": "CompositionContracts.md 0.1.1; CC-01 through CC-26",
+  "contract": "CompositionContract.md 0.1.1; CC-01 through CC-26",
   "default_session": "Opinion layer is the default editable authoring target; persistent work/source layers locked",
   "dependencies": "bundled assets, Palette_v001 and two Kit template textures; OmniPBR.mdl and OmniRtx schemas require compatible Omniverse",
   "entrypoints_strongest_first": {
     "SceneROOT_Example.usda": [
-      "./050_REVIEW/OpinLYR_default.usda",
-      "./040_DATA_LYRs/DataLyr.usda",
+      "./050_REVIEW_LYR/OpinLYR_default.usda",
+      "./040_DATA_LYR/DataLyr.usda",
       "./020_BASE_LYR/TransLyr.usda",
       "./020_BASE_LYR/VariLyr.usda",
       "./020_BASE_LYR/GeoLyr.usda"
     ],
     "SceneROOT_Manual.usda": [
-      "./050_REVIEW/OpinLYR_default.usda",
-      "./040_DATA_LYRs/DataLyr.usda",
+      "./050_REVIEW_LYR/OpinLYR_default.usda",
+      "./040_DATA_LYR/DataLyr.usda",
       "./020_BASE_LYR/TransLyr.usda",
       "./020_BASE_LYR/VariLyr.usda",
       "./020_BASE_LYR/GeoLyr.usda"
     ],
     "SceneROOT_MaskedSelection.usda": [
-      "./050_REVIEW/OpinLYR_default.usda",
-      "./050_REVIEW/MaskedSelection/ReviewLyr.usda",
-      "./040_DATA_LYRs/DataLyr.usda",
+      "./050_REVIEW_LYR/OpinLYR_default.usda",
+      "./050_REVIEW_LYR/MaskedSelection/ReviewLyr.usda",
+      "./040_DATA_LYR/DataLyr.usda",
       "./020_BASE_LYR/TransLyr.usda",
       "./020_BASE_LYR/VariLyr_Scenarios.usda",
       "./020_BASE_LYR/GeoLyr.usda"
     ],
     "SceneROOT_MaskedSize.usda": [
-      "./050_REVIEW/OpinLYR_default.usda",
-      "./050_REVIEW/MaskedSize/ReviewLyr.usda",
-      "./040_DATA_LYRs/DataLyr.usda",
+      "./050_REVIEW_LYR/OpinLYR_default.usda",
+      "./050_REVIEW_LYR/MaskedSize/ReviewLyr.usda",
+      "./040_DATA_LYR/DataLyr.usda",
       "./020_BASE_LYR/TransLyr.usda",
       "./020_BASE_LYR/VariLyr.usda",
       "./020_BASE_LYR/GeoLyr.usda"
     ],
     "SceneROOT_STARTER.usda": [
-      "./050_REVIEW/Starter/OpinLYR_default.usda",
+      "./050_REVIEW_LYR/Starter/OpinLYR_default.usda",
       "./035_RUNTIME_LYR/Starter/RuntimeLyr.usda",
       "./030_SIM_LYR/Starter/SimLyr.usda",
-      "./040_DATA_LYRs/Starter/DataLyr.usda",
+      "./040_DATA_LYR/Starter/DataLyr.usda",
       "./020_BASE_LYR/EnvLyr_Starter.usda",
       "./020_BASE_LYR/LightLyr_Starter.usda",
       "./020_BASE_LYR/CamLyr_Starter.usda",
@@ -52,8 +52,8 @@
       "./020_BASE_LYR/GeoLyr_Starter.usda"
     ],
     "SceneROOT_Scenarios.usda": [
-      "./050_REVIEW/OpinLYR_default.usda",
-      "./040_DATA_LYRs/DataLyr.usda",
+      "./050_REVIEW_LYR/OpinLYR_default.usda",
+      "./040_DATA_LYR/DataLyr.usda",
       "./020_BASE_LYR/TransLyr.usda",
       "./020_BASE_LYR/VariLyr_Scenarios.usda",
       "./020_BASE_LYR/GeoLyr.usda"
@@ -202,19 +202,19 @@
     },
     {
       "context": "unconditional",
-      "file": "040_DATA_LYRs/Data/IdentityLyr.usda",
+      "file": "040_DATA_LYR/Data/IdentityLyr.usda",
       "owner": "scene:LayeredScene@1",
       "role": "DataLyr"
     },
     {
       "context": "unconditional",
-      "file": "040_DATA_LYRs/Data/ContextLyr.usda",
+      "file": "040_DATA_LYR/Data/ContextLyr.usda",
       "owner": "scene:LayeredScene@1",
       "role": "DataLyr"
     },
     {
       "context": "unconditional",
-      "file": "040_DATA_LYRs/DataLyr.usda",
+      "file": "040_DATA_LYR/DataLyr.usda",
       "owner": "scene:LayeredScene@1",
       "role": "DataLyr"
     },
@@ -238,13 +238,13 @@
     },
     {
       "context": "intentional masking demonstration",
-      "file": "050_REVIEW/MaskedSize/ReviewLyr.usda",
+      "file": "050_REVIEW_LYR/MaskedSize/ReviewLyr.usda",
       "owner": "scene:LayeredScene@1",
       "role": "ReviewLyr"
     },
     {
       "context": "intentional masking demonstration",
-      "file": "050_REVIEW/MaskedSelection/ReviewLyr.usda",
+      "file": "050_REVIEW_LYR/MaskedSelection/ReviewLyr.usda",
       "owner": "scene:LayeredScene@1",
       "role": "ReviewLyr"
     },
@@ -262,13 +262,13 @@
     },
     {
       "context": "explicit temporary experiments",
-      "file": "050_REVIEW/OpinLYR_default.usda",
+      "file": "050_REVIEW_LYR/OpinLYR_default.usda",
       "owner": "scene:LayeredScene@1",
       "role": "OpinionLyr"
     },
     {
       "context": "explicit temporary experiments",
-      "file": "050_REVIEW/Starter/OpinLYR_default.usda",
+      "file": "050_REVIEW_LYR/Starter/OpinLYR_default.usda",
       "owner": "scene:Starter@1",
       "role": "OpinionLyr"
     },
@@ -286,19 +286,19 @@
     },
     {
       "context": "unconditional",
-      "file": "040_DATA_LYRs/Starter/DataLyr.usda",
+      "file": "040_DATA_LYR/Starter/DataLyr.usda",
       "owner": "scene:Starter@1",
       "role": "DataLyr"
     },
     {
       "context": "unconditional",
-      "file": "040_DATA_LYRs/Starter/IdentityLyr.usda",
+      "file": "040_DATA_LYR/Starter/IdentityLyr.usda",
       "owner": "scene:Starter@1",
       "role": "IdentityLyr"
     },
     {
       "context": "unconditional",
-      "file": "040_DATA_LYRs/Starter/ContextLyr.usda",
+      "file": "040_DATA_LYR/Starter/ContextLyr.usda",
       "owner": "scene:Starter@1",
       "role": "ContextLyr"
     },
@@ -376,19 +376,19 @@
     },
     {
       "context": "explicit temporary experiments",
-      "file": "010_ASS_USD/USD_Wrappers/Cube/050_REVIEW/OpinLYR_default.usda",
+      "file": "010_ASS_USD/USD_Wrappers/Cube/050_REVIEW_LYR/OpinLYR_default.usda",
       "owner": "asset:Cube@1",
       "role": "OpinionLyr"
     },
     {
       "context": "explicit temporary experiments",
-      "file": "010_ASS_USD/USD_Wrappers/Cone/050_REVIEW/OpinLYR_default.usda",
+      "file": "010_ASS_USD/USD_Wrappers/Cone/050_REVIEW_LYR/OpinLYR_default.usda",
       "owner": "asset:Cone@1",
       "role": "OpinionLyr"
     },
     {
       "context": "explicit temporary experiments",
-      "file": "010_ASS_USD/Assemblies/DisplayPair/050_REVIEW/OpinLYR_default.usda",
+      "file": "010_ASS_USD/Assemblies/DisplayPair/050_REVIEW_LYR/OpinLYR_default.usda",
       "owner": "assembly:DisplayPair@1",
       "role": "OpinionLyr"
     }

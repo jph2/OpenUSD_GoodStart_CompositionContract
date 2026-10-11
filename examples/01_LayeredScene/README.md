@@ -1,5 +1,7 @@
 # Layered scene examples
 
+**Folder convention:** layer classes use singular `_LYR`, including `040_DATA_LYR` and `050_REVIEW_LYR`, at scene and asset scope. Role filenames retain their existing casing (`DataLyr.usda`, `OpinLYR_default.usda`). Folder numbering does not set composition strength.
+
 **Version 0.1.1 · centimetres · Z-up · 60 fps.** Reusable assets, layered scene edits and variant scenarios for Omniverse.
 
 ## Start with a scene
@@ -49,61 +51,15 @@ Developed with AI assistance, including OpenAI Codex. Human review and verificat
 
 ## USD Essentials Minimal
 
-Open [USDEssentials_Minimal/SceneROOT_USDEssentials.usda](USDEssentials_Minimal/SceneROOT_USDEssentials.usda)
-through **File > Open** in USD Composer. Frame `/World` to see one red cube and
-one blue cone. Open the same folder's USDA files in your text editor alongside
-Composer. The [short tutorial](USDEssentials_Minimal/README.md) walks through the
-Stage tree, Layer panel and viewport and explains which authored opinion creates
-each result.
+The standalone [Essentials package](../02_USDEssentials_Minimal/README.md) contains one cube, one cone and two colors. Open `SceneROOT_USDEssentials.usda` from that folder, or use its own `Open_In_Kit.ps1`. It follows the same numbered folders, SceneROOT/AssetROOT naming, role ownership and Opinion-authoring policy. Z-up, centimetres, 60 fps.
 
-**Goal:** learn how one composed scene emerges from small, readable files.
-GeoLyr references the two reusable shapes; TransLyr positions their occurrences;
-MatLyr references a two-color palette and binds its materials. The root assembles
-those three sibling layers, strongest first. A material binding is a relationship;
-the palette and geometry imports are reference arcs.
-
-```mermaid
-flowchart LR
-    R["SceneROOT_USDEssentials.usda"]
-    subgraph STACK["Scene sublayers · strongest first"]
-        direction TB
-        M["1 · MatLyr · palette reference and bindings"]
-        T["2 · TransLyr · occurrence placement"]
-        G["3 · GeoLyr · asset references"]
-        M ~~~ T
-        T ~~~ G
-    end
-    subgraph SOURCES["Reusable sources"]
-        direction TB
-        P["Palette.usda · Red and Blue"]
-        C["Cube.usda · one Cube geometry"]
-        N["Cone.usda · one Cone geometry"]
-    end
-    R -->|sublayers| STACK
-    STACK -->|MatLyr references| P
-    STACK -->|GeoLyr references| C
-    STACK -->|GeoLyr references| N
-```
-
-Use a copy to experiment: explicitly select TransLyr before moving a shape, or
-MatLyr before changing a binding, then inspect the saved USDA. This teaching
-profile uses **Y-up, centimetres and 24 fps** and has no Opinion layer, locking
-helper, environment, variants or animation. Open it directly as its own stage;
-the parent `Open_In_Kit.ps1 -Scene ...` menu is for the larger examples. Keep the
-minimal folder together when copying it. Its simplified layer and folder choices
-are documented in its README; it is an introductory subset of the contracts.
+**Goal:** follow GeoLyr asset references, TransLyr placement and MatLyr bindings from USDA text to the composed viewport. Its root directly assembles sibling layers. The [walkthrough and diagram](../02_USDEssentials_Minimal/README.md#fixed-materials) explain the graph.
 
 ## USD Essentials Color Variants
 
-Open [SceneROOT_USDEssentials_ColorVariants.usda](USDEssentials_Minimal/SceneROOT_USDEssentials_ColorVariants.usda)
-for the second Essentials lesson: one cube, one cone, two shared colors, and an
-independent `Color` choice on each shape. Select `Layers/VariLyr_ColorVariants.usda`
-as the edit target, select Cube01 or Cone01, and switch Red/Blue in the variant UI.
-The [walkthrough and composition diagram](USDEssentials_Minimal/README_ColorVariants.md)
-show the asset-owned definitions, scene selections, and why the first lesson's
-fixed material-binding layer is excluded. Geometry, placement and palette files
-are shared with the first lesson. Y-up, centimetres, 24 fps; direct open and manual
-authoring targets, with the same introductory-profile limitations.
+Open `SceneROOT_USDEssentials_ColorVariants.usda` in the same package. Each asset publishes Red/Blue Color variants; the scene selects them on `/World/Cube01/Adjustment/Asset` and `/World/Cone01/Adjustment/Asset`. Geometry, transforms and palette are reused.
+
+**Goal:** distinguish asset-owned alternatives from scene selections. This root excludes the fixed scene binding layer so it cannot mask the asset variants. The [color lesson](../02_USDEssentials_Minimal/README_ColorVariants.md) explains the layers and how to author in its independent Opinion layer.
 
 ## Play and control the MoGraph scene
 
@@ -117,7 +73,7 @@ authoring targets, with the same introductory-profile limitations.
 .\Open_In_Kit.ps1 -Scene MotionGraphics
 ```
 
-This opens the **Motion Graphics Controls** panel and starts the JSON watcher. Change controls, click **Apply & Save JSON**, then **Play**. Or edit [motion_graphics.json](040_DATA_LYRs/Controls/motion_graphics.json) in your IDE and save. The helper checks the file about every 250 ms; accepted changes also update the pose while paused. Opening the USDA alone plays the bake without starting the panel or watcher. If the preview values update but the viewport stays visually still, reload the scene (or restart Kit and reopen it); that currently observed recovery means the render refresh/rebind path is still under development.
+This opens the **Motion Graphics Controls** panel and starts the JSON watcher. Change controls, click **Apply & Save JSON**, then **Play**. Or edit [motion_graphics.json](040_DATA_LYR/Controls/motion_graphics.json) in your IDE and save. The helper checks the file about every 250 ms; accepted changes also update the pose while paused. Opening the USDA alone plays the bake without starting the panel or watcher. If the preview values update but the viewport stays visually still, reload the scene (or restart Kit and reopen it); that currently observed recovery means the render refresh/rebind path is still under development.
 
 **Already opened the scene in Kit?** Enable live controls in that existing window:
 open **Window > Script Editor** (the menu location may vary by app), and run this
@@ -451,9 +407,9 @@ Project/
 |                               # flat files; purpose suffixes per scene
 |-- 030_SIM_LYR/                 # simulation contributions
 |-- 035_RUNTIME_LYR/             # runtime contributions
-|-- 040_DATA_LYRs/               # identity, context and input declarations
+|-- 040_DATA_LYR/               # identity, context and input declarations
 |   `-- Controls/               # live MoGraph JSON and IDE schema
-|-- 050_REVIEW/                  # Opinion and conflict demonstrations
+|-- 050_REVIEW_LYR/                  # Opinion and conflict demonstrations
 |-- _contracts/                 # ownership and expected outcomes
 |-- _workflows/                 # Kit helper, instance driver and JSON inputs
 |-- _pipeline_reports/          # evidence and inventory notes
@@ -499,8 +455,8 @@ flowchart LR
     end
     subgraph STACK["DIRECT SCENE SUBLAYERS · strongest at top"]
         direction TB
-        L0["1. 050_REVIEW/OpinLYR_default.usda<br/>Default authoring target · empty initially"]
-        L1["2. 040_DATA_LYRs/DataLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./Data/IdentityLyr.usda<br/>2. ./Data/ContextLyr.usda"]
+        L0["1. 050_REVIEW_LYR/OpinLYR_default.usda<br/>Default authoring target · empty initially"]
+        L1["2. 040_DATA_LYR/DataLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./Data/IdentityLyr.usda<br/>2. ./Data/ContextLyr.usda"]
         L0 ~~~ L1
         L2["3. 020_BASE_LYR/TransLyr.usda"]
         L1 ~~~ L2
@@ -511,9 +467,9 @@ flowchart LR
     end
     subgraph SOURCES["REFERENCED PACKAGES · right"]
         direction TB
-        PAIR["010_ASS_USD/Assemblies/DisplayPair/AssetROOT_DisplayPair.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/TransLyr.usda<br/>4. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Palette: Warm / Cool"]
-        CUBE["010_ASS_USD/USD_Wrappers/Cube/AssetROOT_Cube.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/MatLyr.usda<br/>4. ./020_BASE_LYR/TransLyr.usda<br/>5. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
-        CONE["010_ASS_USD/USD_Wrappers/Cone/AssetROOT_Cone.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/MatLyr.usda<br/>4. ./020_BASE_LYR/TransLyr.usda<br/>5. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
+        PAIR["010_ASS_USD/Assemblies/DisplayPair/AssetROOT_DisplayPair.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/TransLyr.usda<br/>4. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Palette: Warm / Cool"]
+        CUBE["010_ASS_USD/USD_Wrappers/Cube/AssetROOT_Cube.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/MatLyr.usda<br/>4. ./020_BASE_LYR/TransLyr.usda<br/>5. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
+        CONE["010_ASS_USD/USD_Wrappers/Cone/AssetROOT_Cone.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/MatLyr.usda<br/>4. ./020_BASE_LYR/TransLyr.usda<br/>5. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
         MAT["010_ASS_USD/MatLib/Palette_v001.usda<br/>/Materials/Red, Blue, Yellow, Ground<br/>Each material owns Surface shader"]
         RES["Baseline resources<br/>010_ASS_USD/Envs/OmniverseStandard/Resources/<br/>CarLight_512x256.hdr · ov_uv_grids_basecolor_1024.png<br/>OmniPBR.mdl: external MDL search identifier"]
         PAIR -->|"GeoLyr: CubePart/Adjustment/Asset"| CUBE
@@ -562,8 +518,8 @@ flowchart LR
     end
     subgraph STACK["DIRECT SCENE SUBLAYERS · strongest at top"]
         direction TB
-        L0["1. 050_REVIEW/OpinLYR_default.usda<br/>Default authoring target · empty initially"]
-        L1["2. 040_DATA_LYRs/DataLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./Data/IdentityLyr.usda<br/>2. ./Data/ContextLyr.usda"]
+        L0["1. 050_REVIEW_LYR/OpinLYR_default.usda<br/>Default authoring target · empty initially"]
+        L1["2. 040_DATA_LYR/DataLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./Data/IdentityLyr.usda<br/>2. ./Data/ContextLyr.usda"]
         L0 ~~~ L1
         L2["3. 020_BASE_LYR/TransLyr.usda"]
         L1 ~~~ L2
@@ -574,9 +530,9 @@ flowchart LR
     end
     subgraph SOURCES["REFERENCED PACKAGES · right"]
         direction TB
-        PAIR["010_ASS_USD/Assemblies/DisplayPair/AssetROOT_DisplayPair.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/TransLyr.usda<br/>4. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Palette: Warm / Cool"]
-        CUBE["010_ASS_USD/USD_Wrappers/Cube/AssetROOT_Cube.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/MatLyr.usda<br/>4. ./020_BASE_LYR/TransLyr.usda<br/>5. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
-        CONE["010_ASS_USD/USD_Wrappers/Cone/AssetROOT_Cone.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/MatLyr.usda<br/>4. ./020_BASE_LYR/TransLyr.usda<br/>5. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
+        PAIR["010_ASS_USD/Assemblies/DisplayPair/AssetROOT_DisplayPair.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/TransLyr.usda<br/>4. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Palette: Warm / Cool"]
+        CUBE["010_ASS_USD/USD_Wrappers/Cube/AssetROOT_Cube.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/MatLyr.usda<br/>4. ./020_BASE_LYR/TransLyr.usda<br/>5. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
+        CONE["010_ASS_USD/USD_Wrappers/Cone/AssetROOT_Cone.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/MatLyr.usda<br/>4. ./020_BASE_LYR/TransLyr.usda<br/>5. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
         MAT["010_ASS_USD/MatLib/Palette_v001.usda<br/>/Materials/Red, Blue, Yellow, Ground<br/>Each material owns Surface shader"]
         RES["Baseline resources<br/>010_ASS_USD/Envs/OmniverseStandard/Resources/<br/>CarLight_512x256.hdr · ov_uv_grids_basecolor_1024.png<br/>OmniPBR.mdl: external MDL search identifier"]
         PAIR -->|"GeoLyr: CubePart/Adjustment/Asset"| CUBE
@@ -625,8 +581,8 @@ flowchart LR
     end
     subgraph STACK["DIRECT SCENE SUBLAYERS · strongest at top"]
         direction TB
-        L0["1. 050_REVIEW/OpinLYR_default.usda<br/>Default authoring target · empty initially"]
-        L1["2. 040_DATA_LYRs/DataLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./Data/IdentityLyr.usda<br/>2. ./Data/ContextLyr.usda"]
+        L0["1. 050_REVIEW_LYR/OpinLYR_default.usda<br/>Default authoring target · empty initially"]
+        L1["2. 040_DATA_LYR/DataLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./Data/IdentityLyr.usda<br/>2. ./Data/ContextLyr.usda"]
         L0 ~~~ L1
         L2["3. 020_BASE_LYR/TransLyr.usda"]
         L1 ~~~ L2
@@ -637,9 +593,9 @@ flowchart LR
     end
     subgraph SOURCES["REFERENCED PACKAGES · right"]
         direction TB
-        PAIR["010_ASS_USD/Assemblies/DisplayPair/AssetROOT_DisplayPair.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/TransLyr.usda<br/>4. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Palette: Warm / Cool"]
-        CUBE["010_ASS_USD/USD_Wrappers/Cube/AssetROOT_Cube.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/MatLyr.usda<br/>4. ./020_BASE_LYR/TransLyr.usda<br/>5. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
-        CONE["010_ASS_USD/USD_Wrappers/Cone/AssetROOT_Cone.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/MatLyr.usda<br/>4. ./020_BASE_LYR/TransLyr.usda<br/>5. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
+        PAIR["010_ASS_USD/Assemblies/DisplayPair/AssetROOT_DisplayPair.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/TransLyr.usda<br/>4. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Palette: Warm / Cool"]
+        CUBE["010_ASS_USD/USD_Wrappers/Cube/AssetROOT_Cube.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/MatLyr.usda<br/>4. ./020_BASE_LYR/TransLyr.usda<br/>5. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
+        CONE["010_ASS_USD/USD_Wrappers/Cone/AssetROOT_Cone.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/MatLyr.usda<br/>4. ./020_BASE_LYR/TransLyr.usda<br/>5. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
         MAT["010_ASS_USD/MatLib/Palette_v001.usda<br/>/Materials/Red, Blue, Yellow, Ground<br/>Each material owns Surface shader"]
         RES["Baseline resources<br/>010_ASS_USD/Envs/OmniverseStandard/Resources/<br/>CarLight_512x256.hdr · ov_uv_grids_basecolor_1024.png<br/>OmniPBR.mdl: external MDL search identifier"]
         PAIR -->|"GeoLyr: CubePart/Adjustment/Asset"| CUBE
@@ -688,10 +644,10 @@ flowchart LR
     end
     subgraph STACK["DIRECT SCENE SUBLAYERS · strongest at top"]
         direction TB
-        L0["1. 050_REVIEW/OpinLYR_default.usda<br/>Default authoring target · empty initially"]
-        L1["2. 050_REVIEW/MaskedSize/ReviewLyr.usda"]
+        L0["1. 050_REVIEW_LYR/OpinLYR_default.usda<br/>Default authoring target · empty initially"]
+        L1["2. 050_REVIEW_LYR/MaskedSize/ReviewLyr.usda"]
         L0 ~~~ L1
-        L2["3. 040_DATA_LYRs/DataLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./Data/IdentityLyr.usda<br/>2. ./Data/ContextLyr.usda"]
+        L2["3. 040_DATA_LYR/DataLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./Data/IdentityLyr.usda<br/>2. ./Data/ContextLyr.usda"]
         L1 ~~~ L2
         L3["4. 020_BASE_LYR/TransLyr.usda"]
         L2 ~~~ L3
@@ -702,9 +658,9 @@ flowchart LR
     end
     subgraph SOURCES["REFERENCED PACKAGES · right"]
         direction TB
-        PAIR["010_ASS_USD/Assemblies/DisplayPair/AssetROOT_DisplayPair.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/TransLyr.usda<br/>4. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Palette: Warm / Cool"]
-        CUBE["010_ASS_USD/USD_Wrappers/Cube/AssetROOT_Cube.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/MatLyr.usda<br/>4. ./020_BASE_LYR/TransLyr.usda<br/>5. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
-        CONE["010_ASS_USD/USD_Wrappers/Cone/AssetROOT_Cone.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/MatLyr.usda<br/>4. ./020_BASE_LYR/TransLyr.usda<br/>5. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
+        PAIR["010_ASS_USD/Assemblies/DisplayPair/AssetROOT_DisplayPair.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/TransLyr.usda<br/>4. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Palette: Warm / Cool"]
+        CUBE["010_ASS_USD/USD_Wrappers/Cube/AssetROOT_Cube.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/MatLyr.usda<br/>4. ./020_BASE_LYR/TransLyr.usda<br/>5. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
+        CONE["010_ASS_USD/USD_Wrappers/Cone/AssetROOT_Cone.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/MatLyr.usda<br/>4. ./020_BASE_LYR/TransLyr.usda<br/>5. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
         MAT["010_ASS_USD/MatLib/Palette_v001.usda<br/>/Materials/Red, Blue, Yellow, Ground<br/>Each material owns Surface shader"]
         RES["Baseline resources<br/>010_ASS_USD/Envs/OmniverseStandard/Resources/<br/>CarLight_512x256.hdr · ov_uv_grids_basecolor_1024.png<br/>OmniPBR.mdl: external MDL search identifier"]
         PAIR -->|"GeoLyr: CubePart/Adjustment/Asset"| CUBE
@@ -753,10 +709,10 @@ flowchart LR
     end
     subgraph STACK["DIRECT SCENE SUBLAYERS · strongest at top"]
         direction TB
-        L0["1. 050_REVIEW/OpinLYR_default.usda<br/>Default authoring target · empty initially"]
-        L1["2. 050_REVIEW/MaskedSelection/ReviewLyr.usda"]
+        L0["1. 050_REVIEW_LYR/OpinLYR_default.usda<br/>Default authoring target · empty initially"]
+        L1["2. 050_REVIEW_LYR/MaskedSelection/ReviewLyr.usda"]
         L0 ~~~ L1
-        L2["3. 040_DATA_LYRs/DataLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./Data/IdentityLyr.usda<br/>2. ./Data/ContextLyr.usda"]
+        L2["3. 040_DATA_LYR/DataLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./Data/IdentityLyr.usda<br/>2. ./Data/ContextLyr.usda"]
         L1 ~~~ L2
         L3["4. 020_BASE_LYR/TransLyr.usda"]
         L2 ~~~ L3
@@ -767,9 +723,9 @@ flowchart LR
     end
     subgraph SOURCES["REFERENCED PACKAGES · right"]
         direction TB
-        PAIR["010_ASS_USD/Assemblies/DisplayPair/AssetROOT_DisplayPair.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/TransLyr.usda<br/>4. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Palette: Warm / Cool"]
-        CUBE["010_ASS_USD/USD_Wrappers/Cube/AssetROOT_Cube.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/MatLyr.usda<br/>4. ./020_BASE_LYR/TransLyr.usda<br/>5. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
-        CONE["010_ASS_USD/USD_Wrappers/Cone/AssetROOT_Cone.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/MatLyr.usda<br/>4. ./020_BASE_LYR/TransLyr.usda<br/>5. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
+        PAIR["010_ASS_USD/Assemblies/DisplayPair/AssetROOT_DisplayPair.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/TransLyr.usda<br/>4. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Palette: Warm / Cool"]
+        CUBE["010_ASS_USD/USD_Wrappers/Cube/AssetROOT_Cube.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/MatLyr.usda<br/>4. ./020_BASE_LYR/TransLyr.usda<br/>5. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
+        CONE["010_ASS_USD/USD_Wrappers/Cone/AssetROOT_Cone.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/MatLyr.usda<br/>4. ./020_BASE_LYR/TransLyr.usda<br/>5. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
         MAT["010_ASS_USD/MatLib/Palette_v001.usda<br/>/Materials/Red, Blue, Yellow, Ground<br/>Each material owns Surface shader"]
         RES["Baseline resources<br/>010_ASS_USD/Envs/OmniverseStandard/Resources/<br/>CarLight_512x256.hdr · ov_uv_grids_basecolor_1024.png<br/>OmniPBR.mdl: external MDL search identifier"]
         PAIR -->|"GeoLyr: CubePart/Adjustment/Asset"| CUBE
@@ -818,12 +774,12 @@ flowchart LR
     end
     subgraph STACK["DIRECT SCENE SUBLAYERS · strongest at top"]
         direction TB
-        L0["1. 050_REVIEW/Starter/OpinLYR_default.usda<br/>Default authoring target · empty initially"]
+        L0["1. 050_REVIEW_LYR/Starter/OpinLYR_default.usda<br/>Default authoring target · empty initially"]
         L1["2. 035_RUNTIME_LYR/Starter/RuntimeLyr.usda"]
         L0 ~~~ L1
         L2["3. 030_SIM_LYR/Starter/SimLyr.usda"]
         L1 ~~~ L2
-        L3["4. 040_DATA_LYRs/Starter/DataLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./IdentityLyr.usda<br/>2. ./ContextLyr.usda"]
+        L3["4. 040_DATA_LYR/Starter/DataLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./IdentityLyr.usda<br/>2. ./ContextLyr.usda"]
         L2 ~~~ L3
         L4["5. 020_BASE_LYR/EnvLyr_Starter.usda<br/>Empty optional slot"]
         L3 ~~~ L4
@@ -850,9 +806,9 @@ flowchart LR
     end
     subgraph SOURCES["REFERENCED PACKAGES · right"]
         direction TB
-        PAIR["010_ASS_USD/Assemblies/DisplayPair/AssetROOT_DisplayPair.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/TransLyr.usda<br/>4. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Palette: Warm / Cool"]
-        CUBE["010_ASS_USD/USD_Wrappers/Cube/AssetROOT_Cube.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/MatLyr.usda<br/>4. ./020_BASE_LYR/TransLyr.usda<br/>5. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
-        CONE["010_ASS_USD/USD_Wrappers/Cone/AssetROOT_Cone.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/MatLyr.usda<br/>4. ./020_BASE_LYR/TransLyr.usda<br/>5. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
+        PAIR["010_ASS_USD/Assemblies/DisplayPair/AssetROOT_DisplayPair.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/TransLyr.usda<br/>4. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Palette: Warm / Cool"]
+        CUBE["010_ASS_USD/USD_Wrappers/Cube/AssetROOT_Cube.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/MatLyr.usda<br/>4. ./020_BASE_LYR/TransLyr.usda<br/>5. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
+        CONE["010_ASS_USD/USD_Wrappers/Cone/AssetROOT_Cone.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>2. ./020_BASE_LYR/VariLyr.usda<br/>3. ./020_BASE_LYR/MatLyr.usda<br/>4. ./020_BASE_LYR/TransLyr.usda<br/>5. ./020_BASE_LYR/GeoLyr.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
         MAT["010_ASS_USD/MatLib/Palette_v001.usda<br/>/Materials/Red, Blue, Yellow, Ground<br/>Each material owns Surface shader"]
         RES["Baseline resources<br/>010_ASS_USD/Envs/OmniverseStandard/Resources/<br/>CarLight_512x256.hdr · ov_uv_grids_basecolor_1024.png<br/>OmniPBR.mdl: external MDL search identifier"]
         PAIR -->|"GeoLyr: CubePart/Adjustment/Asset"| CUBE
@@ -901,8 +857,8 @@ flowchart LR
     end
     subgraph STACK["DIRECT SCENE SUBLAYERS · strongest at top"]
         direction TB
-        L0["1. 050_REVIEW/Lofted/OpinLYR_default.usda<br/>Default authoring target · empty initially"]
-        L1["2. 040_DATA_LYRs/DataLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./Data/IdentityLyr.usda<br/>2. ./Data/ContextLyr.usda"]
+        L0["1. 050_REVIEW_LYR/Lofted/OpinLYR_default.usda<br/>Default authoring target · empty initially"]
+        L1["2. 040_DATA_LYR/DataLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./Data/IdentityLyr.usda<br/>2. ./Data/ContextLyr.usda"]
         L0 ~~~ L1
         L2["3. 020_BASE_LYR/TransLyr_Lofted.usda"]
         L1 ~~~ L2
@@ -913,13 +869,13 @@ flowchart LR
     end
     subgraph SOURCES["REFERENCED PACKAGES · right"]
         direction TB
-        PAIR["010_ASS_USD/Assemblies/DisplayPairLofted/AssetROOT_DisplayPairLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>Public controls: Palette: Warm / Cool"]
+        PAIR["010_ASS_USD/Assemblies/DisplayPairLofted/AssetROOT_DisplayPairLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>Public controls: Palette: Warm / Cool"]
         PAIRC["010_ASS_USD/Assemblies/DisplayPairLofted/020_BASE_LYR/ContentsLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./../../DisplayPair/020_BASE_LYR/VariLyr.usda<br/>2. ./../../DisplayPair/020_BASE_LYR/TransLyr.usda<br/>3. ./GeoLyr.usda"]
         PAIR -->|"payload; empty interface variants above this boundary"| PAIRC
-        CUBE["010_ASS_USD/USD_Wrappers/CubeLofted/AssetROOT_CubeLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
+        CUBE["010_ASS_USD/USD_Wrappers/CubeLofted/AssetROOT_CubeLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
         CUBEC["010_ASS_USD/USD_Wrappers/CubeLofted/020_BASE_LYR/ContentsLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./../../Cube/020_BASE_LYR/VariLyr.usda<br/>2. ./../../Cube/020_BASE_LYR/MatLyr.usda<br/>3. ./../../Cube/020_BASE_LYR/TransLyr.usda<br/>4. ./../../Cube/020_BASE_LYR/GeoLyr.usda"]
         CUBE -->|"payload; empty interface variants above this boundary"| CUBEC
-        CONE["010_ASS_USD/USD_Wrappers/ConeLofted/AssetROOT_ConeLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
+        CONE["010_ASS_USD/USD_Wrappers/ConeLofted/AssetROOT_ConeLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
         CONEC["010_ASS_USD/USD_Wrappers/ConeLofted/020_BASE_LYR/ContentsLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./../../Cone/020_BASE_LYR/VariLyr.usda<br/>2. ./../../Cone/020_BASE_LYR/MatLyr.usda<br/>3. ./../../Cone/020_BASE_LYR/TransLyr.usda<br/>4. ./../../Cone/020_BASE_LYR/GeoLyr.usda"]
         CONE -->|"payload; empty interface variants above this boundary"| CONEC
         MAT["010_ASS_USD/MatLib/Palette_v001.usda<br/>/Materials/Red, Blue, Yellow, Ground<br/>Each material owns Surface shader"]
@@ -970,8 +926,8 @@ flowchart LR
     end
     subgraph STACK["DIRECT SCENE SUBLAYERS · strongest at top"]
         direction TB
-        L0["1. 050_REVIEW/Instanced/OpinLYR_default.usda<br/>Default authoring target · empty initially"]
-        L1["2. 040_DATA_LYRs/DataLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./Data/IdentityLyr.usda<br/>2. ./Data/ContextLyr.usda"]
+        L0["1. 050_REVIEW_LYR/Instanced/OpinLYR_default.usda<br/>Default authoring target · empty initially"]
+        L1["2. 040_DATA_LYR/DataLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./Data/IdentityLyr.usda<br/>2. ./Data/ContextLyr.usda"]
         L0 ~~~ L1
         L2["3. 020_BASE_LYR/TransLyr_Instanced.usda"]
         L1 ~~~ L2
@@ -982,13 +938,13 @@ flowchart LR
     end
     subgraph SOURCES["REFERENCED PACKAGES · right"]
         direction TB
-        PAIR["010_ASS_USD/Assemblies/DisplayPairLofted/AssetROOT_DisplayPairLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>Public controls: Palette: Warm / Cool"]
+        PAIR["010_ASS_USD/Assemblies/DisplayPairLofted/AssetROOT_DisplayPairLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>Public controls: Palette: Warm / Cool"]
         PAIRC["010_ASS_USD/Assemblies/DisplayPairLofted/020_BASE_LYR/ContentsLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./../../DisplayPair/020_BASE_LYR/VariLyr.usda<br/>2. ./../../DisplayPair/020_BASE_LYR/TransLyr.usda<br/>3. ./GeoLyr.usda"]
         PAIR -->|"payload; empty interface variants above this boundary"| PAIRC
-        CUBE["010_ASS_USD/USD_Wrappers/CubeLofted/AssetROOT_CubeLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
+        CUBE["010_ASS_USD/USD_Wrappers/CubeLofted/AssetROOT_CubeLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
         CUBEC["010_ASS_USD/USD_Wrappers/CubeLofted/020_BASE_LYR/ContentsLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./../../Cube/020_BASE_LYR/VariLyr.usda<br/>2. ./../../Cube/020_BASE_LYR/MatLyr.usda<br/>3. ./../../Cube/020_BASE_LYR/TransLyr.usda<br/>4. ./../../Cube/020_BASE_LYR/GeoLyr.usda"]
         CUBE -->|"payload; empty interface variants above this boundary"| CUBEC
-        CONE["010_ASS_USD/USD_Wrappers/ConeLofted/AssetROOT_ConeLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
+        CONE["010_ASS_USD/USD_Wrappers/ConeLofted/AssetROOT_ConeLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
         CONEC["010_ASS_USD/USD_Wrappers/ConeLofted/020_BASE_LYR/ContentsLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./../../Cone/020_BASE_LYR/VariLyr.usda<br/>2. ./../../Cone/020_BASE_LYR/MatLyr.usda<br/>3. ./../../Cone/020_BASE_LYR/TransLyr.usda<br/>4. ./../../Cone/020_BASE_LYR/GeoLyr.usda"]
         CONE -->|"payload; empty interface variants above this boundary"| CONEC
         MAT["010_ASS_USD/MatLib/Palette_v001.usda<br/>/Materials/Red, Blue, Yellow, Ground<br/>Each material owns Surface shader"]
@@ -1039,8 +995,8 @@ flowchart LR
     end
     subgraph STACK["DIRECT SCENE SUBLAYERS · strongest at top"]
         direction TB
-        L0["1. 050_REVIEW/Instanced_Wave/OpinLYR_default.usda<br/>Default authoring target · empty initially"]
-        L1["2. 040_DATA_LYRs/DataLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./Data/IdentityLyr.usda<br/>2. ./Data/ContextLyr.usda"]
+        L0["1. 050_REVIEW_LYR/Instanced_Wave/OpinLYR_default.usda<br/>Default authoring target · empty initially"]
+        L1["2. 040_DATA_LYR/DataLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./Data/IdentityLyr.usda<br/>2. ./Data/ContextLyr.usda"]
         L0 ~~~ L1
         L2["3. 020_BASE_LYR/TransLyr_Instanced_Wave.usda"]
         L1 ~~~ L2
@@ -1051,13 +1007,13 @@ flowchart LR
     end
     subgraph SOURCES["REFERENCED PACKAGES · right"]
         direction TB
-        PAIR["010_ASS_USD/Assemblies/DisplayPairLofted/AssetROOT_DisplayPairLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>Public controls: Palette: Warm / Cool"]
+        PAIR["010_ASS_USD/Assemblies/DisplayPairLofted/AssetROOT_DisplayPairLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>Public controls: Palette: Warm / Cool"]
         PAIRC["010_ASS_USD/Assemblies/DisplayPairLofted/020_BASE_LYR/ContentsLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./../../DisplayPair/020_BASE_LYR/VariLyr.usda<br/>2. ./../../DisplayPair/020_BASE_LYR/TransLyr.usda<br/>3. ./GeoLyr.usda"]
         PAIR -->|"payload; empty interface variants above this boundary"| PAIRC
-        CUBE["010_ASS_USD/USD_Wrappers/CubeLofted/AssetROOT_CubeLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
+        CUBE["010_ASS_USD/USD_Wrappers/CubeLofted/AssetROOT_CubeLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
         CUBEC["010_ASS_USD/USD_Wrappers/CubeLofted/020_BASE_LYR/ContentsLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./../../Cube/020_BASE_LYR/VariLyr.usda<br/>2. ./../../Cube/020_BASE_LYR/MatLyr.usda<br/>3. ./../../Cube/020_BASE_LYR/TransLyr.usda<br/>4. ./../../Cube/020_BASE_LYR/GeoLyr.usda"]
         CUBE -->|"payload; empty interface variants above this boundary"| CUBEC
-        CONE["010_ASS_USD/USD_Wrappers/ConeLofted/AssetROOT_ConeLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
+        CONE["010_ASS_USD/USD_Wrappers/ConeLofted/AssetROOT_ConeLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
         CONEC["010_ASS_USD/USD_Wrappers/ConeLofted/020_BASE_LYR/ContentsLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./../../Cone/020_BASE_LYR/VariLyr.usda<br/>2. ./../../Cone/020_BASE_LYR/MatLyr.usda<br/>3. ./../../Cone/020_BASE_LYR/TransLyr.usda<br/>4. ./../../Cone/020_BASE_LYR/GeoLyr.usda"]
         CONE -->|"payload; empty interface variants above this boundary"| CONEC
         MAT["010_ASS_USD/MatLib/Palette_v001.usda<br/>/Materials/Red, Blue, Yellow, Ground<br/>Each material owns Surface shader"]
@@ -1108,8 +1064,8 @@ flowchart LR
     end
     subgraph STACK["DIRECT SCENE SUBLAYERS · strongest at top"]
         direction TB
-        L0["1. 050_REVIEW/Instanced_Spiral/OpinLYR_default.usda<br/>Default authoring target · empty initially"]
-        L1["2. 040_DATA_LYRs/DataLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./Data/IdentityLyr.usda<br/>2. ./Data/ContextLyr.usda"]
+        L0["1. 050_REVIEW_LYR/Instanced_Spiral/OpinLYR_default.usda<br/>Default authoring target · empty initially"]
+        L1["2. 040_DATA_LYR/DataLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./Data/IdentityLyr.usda<br/>2. ./Data/ContextLyr.usda"]
         L0 ~~~ L1
         L2["3. 020_BASE_LYR/TransLyr_Instanced_Spiral.usda"]
         L1 ~~~ L2
@@ -1120,13 +1076,13 @@ flowchart LR
     end
     subgraph SOURCES["REFERENCED PACKAGES · right"]
         direction TB
-        PAIR["010_ASS_USD/Assemblies/DisplayPairLofted/AssetROOT_DisplayPairLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>Public controls: Palette: Warm / Cool"]
+        PAIR["010_ASS_USD/Assemblies/DisplayPairLofted/AssetROOT_DisplayPairLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>Public controls: Palette: Warm / Cool"]
         PAIRC["010_ASS_USD/Assemblies/DisplayPairLofted/020_BASE_LYR/ContentsLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./../../DisplayPair/020_BASE_LYR/VariLyr.usda<br/>2. ./../../DisplayPair/020_BASE_LYR/TransLyr.usda<br/>3. ./GeoLyr.usda"]
         PAIR -->|"payload; empty interface variants above this boundary"| PAIRC
-        CUBE["010_ASS_USD/USD_Wrappers/CubeLofted/AssetROOT_CubeLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
+        CUBE["010_ASS_USD/USD_Wrappers/CubeLofted/AssetROOT_CubeLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
         CUBEC["010_ASS_USD/USD_Wrappers/CubeLofted/020_BASE_LYR/ContentsLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./../../Cube/020_BASE_LYR/VariLyr.usda<br/>2. ./../../Cube/020_BASE_LYR/MatLyr.usda<br/>3. ./../../Cube/020_BASE_LYR/TransLyr.usda<br/>4. ./../../Cube/020_BASE_LYR/GeoLyr.usda"]
         CUBE -->|"payload; empty interface variants above this boundary"| CUBEC
-        CONE["010_ASS_USD/USD_Wrappers/ConeLofted/AssetROOT_ConeLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
+        CONE["010_ASS_USD/USD_Wrappers/ConeLofted/AssetROOT_ConeLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
         CONEC["010_ASS_USD/USD_Wrappers/ConeLofted/020_BASE_LYR/ContentsLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./../../Cone/020_BASE_LYR/VariLyr.usda<br/>2. ./../../Cone/020_BASE_LYR/MatLyr.usda<br/>3. ./../../Cone/020_BASE_LYR/TransLyr.usda<br/>4. ./../../Cone/020_BASE_LYR/GeoLyr.usda"]
         CONE -->|"payload; empty interface variants above this boundary"| CONEC
         MAT["010_ASS_USD/MatLib/Palette_v001.usda<br/>/Materials/Red, Blue, Yellow, Ground<br/>Each material owns Surface shader"]
@@ -1177,8 +1133,8 @@ flowchart LR
     end
     subgraph STACK["DIRECT SCENE SUBLAYERS · strongest at top"]
         direction TB
-        L0["1. 050_REVIEW/Instanced_Rings/OpinLYR_default.usda<br/>Default authoring target · empty initially"]
-        L1["2. 040_DATA_LYRs/DataLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./Data/IdentityLyr.usda<br/>2. ./Data/ContextLyr.usda"]
+        L0["1. 050_REVIEW_LYR/Instanced_Rings/OpinLYR_default.usda<br/>Default authoring target · empty initially"]
+        L1["2. 040_DATA_LYR/DataLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./Data/IdentityLyr.usda<br/>2. ./Data/ContextLyr.usda"]
         L0 ~~~ L1
         L2["3. 020_BASE_LYR/TransLyr_Instanced_Rings.usda"]
         L1 ~~~ L2
@@ -1189,13 +1145,13 @@ flowchart LR
     end
     subgraph SOURCES["REFERENCED PACKAGES · right"]
         direction TB
-        PAIR["010_ASS_USD/Assemblies/DisplayPairLofted/AssetROOT_DisplayPairLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>Public controls: Palette: Warm / Cool"]
+        PAIR["010_ASS_USD/Assemblies/DisplayPairLofted/AssetROOT_DisplayPairLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>Public controls: Palette: Warm / Cool"]
         PAIRC["010_ASS_USD/Assemblies/DisplayPairLofted/020_BASE_LYR/ContentsLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./../../DisplayPair/020_BASE_LYR/VariLyr.usda<br/>2. ./../../DisplayPair/020_BASE_LYR/TransLyr.usda<br/>3. ./GeoLyr.usda"]
         PAIR -->|"payload; empty interface variants above this boundary"| PAIRC
-        CUBE["010_ASS_USD/USD_Wrappers/CubeLofted/AssetROOT_CubeLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
+        CUBE["010_ASS_USD/USD_Wrappers/CubeLofted/AssetROOT_CubeLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
         CUBEC["010_ASS_USD/USD_Wrappers/CubeLofted/020_BASE_LYR/ContentsLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./../../Cube/020_BASE_LYR/VariLyr.usda<br/>2. ./../../Cube/020_BASE_LYR/MatLyr.usda<br/>3. ./../../Cube/020_BASE_LYR/TransLyr.usda<br/>4. ./../../Cube/020_BASE_LYR/GeoLyr.usda"]
         CUBE -->|"payload; empty interface variants above this boundary"| CUBEC
-        CONE["010_ASS_USD/USD_Wrappers/ConeLofted/AssetROOT_ConeLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
+        CONE["010_ASS_USD/USD_Wrappers/ConeLofted/AssetROOT_ConeLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>Public controls: Size: Normal / Large / Tall · Finish: Red / Blue / Yellow"]
         CONEC["010_ASS_USD/USD_Wrappers/ConeLofted/020_BASE_LYR/ContentsLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./../../Cone/020_BASE_LYR/VariLyr.usda<br/>2. ./../../Cone/020_BASE_LYR/MatLyr.usda<br/>3. ./../../Cone/020_BASE_LYR/TransLyr.usda<br/>4. ./../../Cone/020_BASE_LYR/GeoLyr.usda"]
         CONE -->|"payload; empty interface variants above this boundary"| CONEC
         MAT["010_ASS_USD/MatLib/Palette_v001.usda<br/>/Materials/Red, Blue, Yellow, Ground<br/>Each material owns Surface shader"]
@@ -1246,8 +1202,8 @@ flowchart LR
     end
     subgraph STACK["DIRECT SUBLAYERS · strongest at top"]
         direction TB
-        L0["1. 050_REVIEW/MotionGraphics/OpinLYR_default.usda<br/>Default authoring target"]
-        L1["2. 040_DATA_LYRs/DataLyr_MotionGraphics.usda<br/>/World/MotionGraphControls · input and target declaration"]
+        L0["1. 050_REVIEW_LYR/MotionGraphics/OpinLYR_default.usda<br/>Default authoring target"]
+        L1["2. 040_DATA_LYR/DataLyr_MotionGraphics.usda<br/>/World/MotionGraphControls · input and target declaration"]
         L0 ~~~ L1
         L2["3. 020_BASE_LYR/AnimLyr_MotionGraphics.usdc<br/>241 samples · positions / orientations / scales / protoIndices / extent"]
         L1 ~~~ L2
@@ -1262,16 +1218,16 @@ flowchart LR
     end
     subgraph SRC["REUSABLE SOURCES + CONTROL INPUT · right"]
         direction TB
-        Cube["010_ASS_USD/USD_Wrappers/CubeLofted/AssetROOT_CubeLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>Public Size / Finish interface"]
+        Cube["010_ASS_USD/USD_Wrappers/CubeLofted/AssetROOT_CubeLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>Public Size / Finish interface"]
         CubeC["010_ASS_USD/USD_Wrappers/CubeLofted/020_BASE_LYR/ContentsLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./../../Cube/020_BASE_LYR/VariLyr.usda<br/>2. ./../../Cube/020_BASE_LYR/MatLyr.usda<br/>3. ./../../Cube/020_BASE_LYR/TransLyr.usda<br/>4. ./../../Cube/020_BASE_LYR/GeoLyr.usda"]
         Cube -->|payload| CubeC
-        Cone["010_ASS_USD/USD_Wrappers/ConeLofted/AssetROOT_ConeLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW/OpinLYR_default.usda<br/>Public Size / Finish interface"]
+        Cone["010_ASS_USD/USD_Wrappers/ConeLofted/AssetROOT_ConeLofted.usda<br/>Own sublayers, strongest first:<br/>1. ./050_REVIEW_LYR/OpinLYR_default.usda<br/>Public Size / Finish interface"]
         ConeC["010_ASS_USD/USD_Wrappers/ConeLofted/020_BASE_LYR/ContentsLyr.usda<br/>Own sublayers, strongest first:<br/>1. ./../../Cone/020_BASE_LYR/VariLyr.usda<br/>2. ./../../Cone/020_BASE_LYR/MatLyr.usda<br/>3. ./../../Cone/020_BASE_LYR/TransLyr.usda<br/>4. ./../../Cone/020_BASE_LYR/GeoLyr.usda"]
         Cone -->|payload| ConeC
         MAT["010_ASS_USD/MatLib/Palette_v001.usda<br/>One definition each: Red / Blue / Yellow<br/>Ground unused by these sources"]
         CubeC -->|MatLyr references| MAT
         ConeC -->|MatLyr references| MAT
-        JSON["040_DATA_LYRs/Controls/motion_graphics.json<br/>layout · wave · scale · rotation · falloff · colour"]
+        JSON["040_DATA_LYR/Controls/motion_graphics.json<br/>layout · wave · scale · rotation · falloff · colour"]
         RES["Baseline: bundled HDR and grid texture<br/>OmniPBR.mdl from Kit"]
         MAT ~~~ JSON
         JSON ~~~ RES
@@ -1317,4 +1273,4 @@ From the repository root, with `uv` installed:
 uv run --no-project --with usd-core==26.8 python tools/build_example.py --output examples/MyLayeredScene
 ```
 
-The destination must be new or empty. See the [composition contracts](../../CompositionContracts.md) for ownership and authoring rules.
+The destination must be new or empty. See the [composition contracts](../../CompositionContract.md) for ownership and authoring rules.

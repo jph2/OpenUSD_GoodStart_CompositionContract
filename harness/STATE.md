@@ -1,5 +1,100 @@
 # Resume state
 
+## 2026-10-11 - repository identity renamed
+
+GitHub repository rename completed through authenticated gh CLI:
+jph2/OpenUSD_Composition_Contracts -> jph2/OpenUSD_GoodStart_CompositionContract.
+Verified GitHub reports the new public repository URL. Local origin fetch/push
+URLs now point to the new slug; fetch completed and main tracks origin/main.
+Renamed authoritative document to CompositionContract.md and updated active
+repo/docs/scripts/archive references and display titles. Starter ZIP now contains
+_contracts/reference/CompositionContract.md and refreshed inventory. Historical
+evidence retains the name in effect when captured.
+
+Jan manually renamed the local checkout to
+E:/SynologyDrive/9999_LocalRepo/OpenUSD_GoodStart_CompositionContract and reopened
+it here. Verified that the new path exists, the old path is absent, the Git root
+resolves to the new directory, and origin fetch/push both use the renamed GitHub
+repository. No commit/push of accumulated working-tree changes was requested.
+
+
+## 2026-10-11 - naming convention made explicit in CC-26
+
+Documented exact class-directory names and singular _LYR under existing CC-26,
+including canonical 040_DATA_LYR and 050_REVIEW_LYR. Clarified recursive scope,
+unchanged role filenames, explicit sublayer strength, coordinated path/metadata
+updates, and imported/historical evidence exceptions. Updated project structure,
+root README and both example guides. Synced shipped Markdown and ZIP inventory.
+Documentation/package update only; no new scene edits or tests. Prior retained
+legacy DATA folder exception remains recorded below. No commit/push requested.
+
+
+## 2026-10-11 — DATA and REVIEW folder naming standardized
+
+Adopted 040_DATA_LYR and 050_REVIEW_LYR throughout active contract/layout docs,
+scene/asset roots, profiles, workflow scripts, generators and diagram labels.
+Renamed role directories in both examples and nested asset packages; Essentials
+scene-level directories had already been renamed by the user. Updated starter ZIP
+entry names and text references and regenerated its hash inventory. Existing
+archived motion control values preserved; local user controls copied intact.
+Historical reports/raw logs and older STATE entries retain their original paths.
+
+Exception: Windows denied renaming examples/01_LayeredScene/040_DATA_LYRs.
+Automatic approval review blocked the follow-up move/remove command (no specific
+reason supplied beyond policy). Copied its contents to 040_DATA_LYR instead;
+all current scene/script references use the new directory. The old directory is
+retained as a redundant copy; starter builder explicitly excludes it. Remove it
+later after releasing its lock, with user authorization. Reload open Kit scenes
+and rerun helpers before editing so in-memory stages stop using old paths.
+No tests or Kit acceptance executed. No commit or push requested.
+
+
+## 2026-10-11 — Essentials uses supplied Omniverse default scene
+
+User renamed the package to examples/02_USDEssentials_Minimal and supplied
+its defaultscene.usda. Rebuilt both SceneROOTs by copying that baseline's
+root specs/metadata and merging each lesson's direct sublayer list plus Opinion
+policy. No nested defaultscene sublayer/reference. Environment, ground, lights,
+render settings and viewport-camera settings retained under CC-01. Original
+source file unchanged. HDR/grid texture copied from its referenced Kit template
+resources into the package and root asset paths made relative; OmniPBR.mdl still
+requires Omniverse's shader search path. Role layers and Opinions preserved.
+Builder now uses this template on future regeneration and supports --roots-only.
+Updated new-location links, READMEs/diagrams/profile and portable starter ZIP.
+Unrelated motion controls and raw Kit log remain untouched. USD parsing/export
+performed during authoring; no tests or Kit viewport acceptance performed.
+No commit/push requested.
+
+
+## 2026-10-11 — Essentials rebuilt at standalone location
+
+User moved the teaching package to examples/USDEssentials_Minimal and requested
+contract-aligned structure. Replaced legacy Assets/Layers with numbered role
+categories, recursive Cube/Cone packages and AssetROOT entrypoints. Plain and
+ColorVariants asset roots share GeoLyr/TransLyr; only color roots compose asset
+MatLyr/VariLyr. Scene roots directly compose sibling roles and independent
+Opinions; GeoLyr remains weakest. Stage metrics are Z-up/cm/60 fps. Scene
+placement uses occurrence parents; intrinsic centering belongs to asset TransLyr.
+Reserved SOURCE/SIM/RUNTIME/DATA categories contain notes, no empty USD roles.
+
+Added portable Kit launcher and existing session_defaults helper, ownership/stack
+profile, two updated teaching guides and diagrams, and bounded USD author
+tools/build_essentials.py (explicit replacement flag, existing Opinions retained).
+Updated larger example links, contract teaching profile and project structure.
+Starter builder now includes sibling Essentials as a portable subpackage and
+rewrites its README links. Refreshed archive Essentials/docs/inventory selectively
+so unrelated user motion_graphics.json changes are not silently packaged.
+Legacy moved files were removed only after comparing their bytes with HEAD.
+TutorialBuilder and PowerPoint were not changed.
+
+Actual readback with usd-core 26.8: both roots load with Z/cm/60 fps; each composes
+one Cube and one Cone with resolved Red/Blue bindings at the intended sites.
+USDA parsed during authoring; git diff --check clean. No test suite, variant sweep,
+Mermaid rendering or Kit UI/viewport acceptance ran. Opinion helper behavior is
+reused, not newly observed in this package. No commit/push requested this turn.
+Unrelated motion JSON edit and harness/evidence/direct_root_kit.log remain intact.
+
+
 ## 2026-10-11 — second Essentials lesson: color variants
 
 Added SceneROOT_USDEssentials_ColorVariants under USDEssentials_Minimal with
@@ -45,7 +140,7 @@ Packaging and diff checks only; no new Kit execution or runtime acceptance.
 Added the self-contained TutorialBuilder USDEssentials_Minimal scene under
 examples/01_LayeredScene, preserving all seven USDA files byte-for-byte. Added
 README navigation, a composition Mermaid and opening/editing walkthrough, plus
-a declared teaching profile in CompositionContracts.md. Explicitly documents
+a declared teaching profile in CompositionContract.md. Explicitly documents
 Y-up/24 fps, manual edit targets, no automatic locks or Opinion layer, and the
 simplified Assets/Layers folders. The tutorial source and slides are untouched.
 Updated the portable ZIP and its inventory with these files and documentation;
@@ -61,13 +156,13 @@ Updated the existing local draft in `USD_GoodStart/WIP_Docs/LAYER_ORDER_REFERENC
 from its pre-existing uncommitted 1.10.0 draft to 1.11.0, preserving the 1.10.0
 profiles/composition-contracts edits. Added Section 21 with a quick comparison table
 for the locally inspected Kitchen Set, NVIDIA DSX, Isaac Sim Asset Structure 3.0,
-and the OpenUSD Composition Contracts project/sample set labelled 0.2.0. The table
+and the OpenUSD GoodStart Composition Contract project/sample set labelled 0.2.0. The table
 compares scope, composition center, specialization/benefit, and fit/boundary; the
 follow-up explains how the patterns can compose instead of treating them as rival
 universal structures.
 
 Important version finding: the Composition Contracts project README says 0.2.0,
-while `CompositionContracts.md` still labels its normative working text 0.1.1.
+while `CompositionContract.md` still labels its normative working text 0.1.1.
 The research therefore describes 0.2.0 as the current project/example state, not
 as a released 0.2.0 contract specification. Kitchen evidence is attributed to a
 bounded read-only local audit (425 reference sites, 76 packages, 425 instanceable
@@ -570,7 +665,7 @@ Jan requested a simpler version of the paradigm in README.md. A new section near
 
 ## Current version and stack clarification
 
-Jan corrected the current version to **0.1.1** and confirmed the root-plus-stack paradigm: GeoLyr is the bottom (weakest) scene sublayer, with other scene contributions above it. Jan then clarified that the overall diagram must remain left-to-right and retain the original explanatory detail. The Mermaid charts in CompositionContracts.md and PROJECT_STRUCTURE.md now show three columns: root/authoring, vertical scene stack, and reusable sources. They restore asset geometry/intrinsic transforms/materials/variants, assembly-owned child choices, material-library links, optional work roles, review exceptions and owner/variant-context guidance. The existing DataLyr → TransLyr → VariLyr → GeoLyr order is numbered; optional and review roles use dashed rows. CC-23 records the bottom-GeoLyr convention; the profile still declares the relative order above it.
+Jan corrected the current version to **0.1.1** and confirmed the root-plus-stack paradigm: GeoLyr is the bottom (weakest) scene sublayer, with other scene contributions above it. Jan then clarified that the overall diagram must remain left-to-right and retain the original explanatory detail. The Mermaid charts in CompositionContract.md and PROJECT_STRUCTURE.md now show three columns: root/authoring, vertical scene stack, and reusable sources. They restore asset geometry/intrinsic transforms/materials/variants, assembly-owned child choices, material-library links, optional work roles, review exceptions and owner/variant-context guidance. The existing DataLyr → TransLyr → VariLyr → GeoLyr order is numbered; optional and review roles use dashed rows. CC-23 records the bottom-GeoLyr convention; the profile still declares the relative order above it.
 
 The SVG memory chart is exported from the detailed Mermaid source. A headless Mermaid 11.4.1 render was visually inspected: root left, vertical stack middle with GeoLyr lowest, reusable sources right, and all column titles and role descriptions visible. Edges connect the column subgraphs to preserve their independent vertical layout; their labels name the actual contributing layer. This is diagram preview evidence, not USD or Kit acceptance.
 
@@ -598,7 +693,7 @@ Actual follow-up checks: the Python helper/generator and PowerShell launcher par
 
 ## Exists
 
-- CompositionContracts.md moved here as the authoritative draft, with CC-01 through CC-23 preserved.
+- CompositionContract.md moved here as the authoritative draft, with CC-01 through CC-23 preserved.
 - README, AGENTS, governance, workflow, tooling requirements, source routes, roadmap and review agenda.
 - HANDOVER.md records the brief history and working decisions; AGENTS.md routes incoming agents to it. Added at Jan's request after bootstrap.
 - TutorialBuilder source location replaced by a forwarding note; variant scene folders left in place.

@@ -1,0 +1,46 @@
+{
+  "id": "CC-ESSENTIALS-02",
+  "metrics": {
+    "upAxis": "Z",
+    "metersPerUnit": 0.01,
+    "framesPerSecond": 60
+  },
+  "authoring": "Each root declares its own Opinion target; run the supplied Kit helper to apply permissions.",
+  "ownership": {
+    "scene GeoLyr": "Occurrence hierarchy and asset references",
+    "scene TransLyr": "Placement on Cube01/Cone01",
+    "scene MatLyr": "Fixed lesson bindings only",
+    "scene VariLyr_ColorVariants": "Select asset Color, no binding definitions",
+    "asset GeoLyr": "Single geometry definition per shape",
+    "asset TransLyr": "Intrinsic geometry centering 50 cm above base",
+    "asset MatLyr": "Reference shared palette",
+    "asset VariLyr": "Red/Blue binding definitions inside Color branches",
+    "palette": "Two shared shader/material definitions"
+  },
+  "entrypoints": {
+    "SceneROOT_USDEssentials.usda": [
+      "050_REVIEW_LYR/OpinLYR_default.usda",
+      "020_BASE_LYR/MatLyr.usda",
+      "020_BASE_LYR/TransLyr.usda",
+      "020_BASE_LYR/GeoLyr.usda"
+    ],
+    "SceneROOT_USDEssentials_ColorVariants.usda": [
+      "050_REVIEW_LYR/OpinLYR_ColorVariants.usda",
+      "020_BASE_LYR/TransLyr.usda",
+      "020_BASE_LYR/VariLyr_ColorVariants.usda",
+      "020_BASE_LYR/GeoLyr_ColorVariants.usda"
+    ]
+  },
+  "limits": [
+    "No animation, instancing, payloads or live data in this introductory profile; supplied Omniverse environment/render/camera baseline is retained directly in the root (CC-01).",
+    "Reserved category folders do not imply strength or mandatory layers.",
+    "Asset color and plain entrypoints share GeoLyr and TransLyr; no duplicate geometry.",
+    "Active Kit root remains writable for host metadata; source/work layers protected."
+  ],
+  "baseline": {
+    "source": "defaultscene.usda",
+    "composition": "Copied into each SceneROOT; not a sublayer or reference",
+    "resources": "010_ASS_USD/Envs/OmniverseStandard/Resources",
+    "externalShader": "OmniPBR.mdl provided by Omniverse"
+  }
+}

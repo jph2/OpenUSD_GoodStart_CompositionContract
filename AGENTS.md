@@ -1,6 +1,6 @@
-# Agent entry — OpenUSD Composition Contracts
+# Agent entry — OpenUSD GoodStart Composition Contract
 
-Read README.md, harness/GOVERNANCE.md, harness/WORKFLOW.md and harness/STATE.md first. Then load the relevant CC rules from CompositionContracts.md and task-specific evidence from harness/SOURCES.md. For tooling work also read harness/TOOLING_REQUIREMENTS.md. Do not recursively load sibling repositories.
+Read README.md, harness/GOVERNANCE.md, harness/WORKFLOW.md and harness/STATE.md first. Then load the relevant CC rules from CompositionContract.md and task-specific evidence from harness/SOURCES.md. For tooling work also read harness/TOOLING_REQUIREMENTS.md. Do not recursively load sibling repositories.
 
 ## Context for the next agent
 

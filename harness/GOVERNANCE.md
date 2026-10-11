@@ -8,7 +8,7 @@ Keep three evidence classes distinct: OpenUSD mechanics supported by precise ups
 
 ## Ownership and dependencies
 
-CompositionContracts.md is the single prose owner of the CC rules. Tooling requirements define planned execution obligations. Future machine-readable profiles must identify their contract revision and rule IDs; neither implementation nor a successful example silently redefines the contract.
+CompositionContract.md is the single prose owner of the CC rules. Tooling requirements define planned execution obligations. Future machine-readable profiles must identify their contract revision and rule IDs; neither implementation nor a successful example silently redefines the contract.
 
 Sibling projects provide routed references, not inherited governance or permission to edit. The private pipeline-nodes project is optional and unassessed. No private implementation content is included here.
 

@@ -3,15 +3,15 @@
   "status": "authored; Kit acceptance pending",
   "root": "SceneROOT_MotionGraphics.usda",
   "direct_sublayers_strongest_first": [
-    "050_REVIEW/MotionGraphics/OpinLYR_default.usda",
-    "040_DATA_LYRs/DataLyr_MotionGraphics.usda",
+    "050_REVIEW_LYR/MotionGraphics/OpinLYR_default.usda",
+    "040_DATA_LYR/DataLyr_MotionGraphics.usda",
     "020_BASE_LYR/AnimLyr_MotionGraphics.usdc",
     "020_BASE_LYR/CamLyr_MotionGraphics.usda",
     "020_BASE_LYR/TransLyr_MotionGraphics.usda",
     "020_BASE_LYR/VariLyr_MotionGraphics.usda",
     "020_BASE_LYR/GeoLyr_MotionGraphics.usda"
   ],
-  "controls": "040_DATA_LYRs/Controls/motion_graphics.json",
+  "controls": "040_DATA_LYR/Controls/motion_graphics.json",
   "control_panel": {
     "name": "Motion Graphics Controls",
     "bootstrap": "_workflows/kit/motion_graphics.py",

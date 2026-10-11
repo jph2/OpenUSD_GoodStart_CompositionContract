@@ -52,7 +52,7 @@ def main():
         folder = original + 'Lofted'
         root_path = f'{folder}/AssetROOT_{name}Lofted.usda'
         contents_path = f'{folder}/020_BASE_LYR/ContentsLyr.usda'
-        opinion_path = f'{folder}/050_REVIEW/OpinLYR_default.usda'
+        opinion_path = f'{folder}/050_REVIEW_LYR/OpinLYR_default.usda'
         root = layer(root_path, owner, 'Root', 'public interface above payload')
         settings(root, name)
         layer(opinion_path, owner, 'Opinion', 'empty experiments; promote explicitly')
@@ -94,7 +94,7 @@ def main():
     new_entries = {}
     for purpose in ('Lofted', 'Instanced'):
         owner = f'scene:{purpose}@1'
-        opinion_path = f'050_REVIEW/{purpose}/OpinLYR_default.usda'
+        opinion_path = f'050_REVIEW_LYR/{purpose}/OpinLYR_default.usda'
         layer(opinion_path, owner, 'Opinion')
         for role in ('TransLyr', 'VariLyr', 'GeoLyr'):
             path = f'020_BASE_LYR/{role}_{purpose}.usda'
@@ -139,7 +139,7 @@ def main():
         root_path = f'SceneROOT_{purpose}.usda'
         root = layer(root_path, owner, 'Root')
         root.TransferContent(source('SceneROOT_Example.usda'))
-        root.subLayerPaths = ['./' + opinion_path, './040_DATA_LYRs/DataLyr.usda'] + [
+        root.subLayerPaths = ['./' + opinion_path, './040_DATA_LYR/DataLyr.usda'] + [
             f'./020_BASE_LYR/{role}_{purpose}.usda' for role in ('TransLyr', 'VariLyr', 'GeoLyr')]
         data = dict(root.customLayerData)
         data.update({'cc:owner': owner, 'cc:profile': 'CC-SCALE-01/0.1.1', 'cc:opinionLayer': './' + opinion_path})
@@ -180,10 +180,10 @@ def main():
                 'grid_occurrences': 1024,
                 'configurations': '2 shape types x 3 sizes x 3 finishes; generated selections use all 18',
                 'snapshot': 'offline; no live telemetry or animation',
-                'layers': [f'050_REVIEW/Instanced_{name}/OpinLYR_default.usda',
+                'layers': [f'050_REVIEW_LYR/Instanced_{name}/OpinLYR_default.usda',
                            f'020_BASE_LYR/TransLyr_Instanced_{name}.usda',
                            f'020_BASE_LYR/VariLyr_Instanced_{name}.usda'],
-                'shared': ['020_BASE_LYR/GeoLyr_Instanced.usda', '040_DATA_LYRs/DataLyr.usda', 'lofted source interfaces'],
+                'shared': ['020_BASE_LYR/GeoLyr_Instanced.usda', '040_DATA_LYR/DataLyr.usda', 'lofted source interfaces'],
             } for name in ('Wave', 'Spiral', 'Rings')
         },
         'limitations': ['no benchmark', 'no physics or robot readiness', 'no cached extentsHint', 'no live binding implementation', 'Kit lock/edit-target and load/unload acceptance pending'],

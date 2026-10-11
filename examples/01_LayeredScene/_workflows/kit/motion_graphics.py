@@ -296,7 +296,7 @@ class MotionGraphics:
         path = Path(resolved).resolve()
         # This bounded example accepts only its package-owned data file.
         package = Path(stage.GetRootLayer().realPath).resolve().parent
-        if path != (package / '040_DATA_LYRs/Controls/motion_graphics.json').resolve():
+        if path != (package / '040_DATA_LYR/Controls/motion_graphics.json').resolve():
             raise RuntimeError('Controls must resolve to this package\'s motion_graphics.json.')
         self.path = path
         self.clock_changed_at = time.monotonic()

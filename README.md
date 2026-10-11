@@ -1,4 +1,4 @@
-# OpenUSD Composition Contracts
+# OpenUSD GoodStart Composition Contract
 
 **Version 0.2.0 — independent work-in-progress proposal and local example · 2026-10-11**
 
@@ -10,13 +10,13 @@ The goal is a scalable, ascending USD composition structure: assets form assembl
 
 Industrial digital twins and physical AI bring important requirements to this work: identifiers must remain meaningful as structures change, responsibilities must stay clear across systems, and integrations must remain stable throughout development. We are exploring how to incorporate Aaron Luk's [Separation of Concerns for Identifiers in USD](https://github.com/PixarAnimationStudios/OpenUSD-proposals/pull/105) proposal and the Microsoft/NVIDIA [Composable Bindings](https://aka.ms/ComposableBindings) concepts, with contributors Christoph Berlin and Aaron Luk, into our contracts.
 
-These ideas help us specify identity continuity and adaptable connections between systems, then evaluate whether a composition preserves them through change. Their integration into this project is ongoing; see [CC-27/28](CompositionContracts.md#23-identity-and-composable-bindings) for the current requirements and implementation boundaries.
+These ideas help us specify identity continuity and adaptable connections between systems, then evaluate whether a composition preserves them through change. Their integration into this project is ongoing; see [CC-27/28](CompositionContract.md#23-identity-and-composable-bindings) for the current requirements and implementation boundaries.
 
 ### Industry requirements and reusable assets
 
 A robot packaged using NVIDIA's [Asset Structure 3.0](https://docs.isaacsim.omniverse.nvidia.com/6.0.0/openusd_tuning_tutorials/tutorial_02_asset_structure.html) enters our composition **as a reusable asset**. Its internal geometry, materials and physics configuration stay with that package. Our focus is the larger digital twin: robot → workcell → production line → facility, with clear interfaces and control at each level.
 
-[SimReady Foundation](https://github.com/NVIDIA/simready-foundation) supplies use-case requirements for incoming simulation assets. Our [asset-interface checklist](CompositionContracts.md#asset-interface-checklist) now requires purpose, entrypoint, coordinates, dependencies, public controls and evidence, including selected simulation profiles where applicable. [Asset and assembly acceptance](CompositionContracts.md#asset-and-assembly-acceptance) evaluates both incoming packages and their composed use. Asset readiness alone does not establish workcell readiness; automated integration remains planned.
+[SimReady Foundation](https://github.com/NVIDIA/simready-foundation) supplies use-case requirements for incoming simulation assets. Our [asset-interface checklist](CompositionContract.md#asset-interface-checklist) now requires purpose, entrypoint, coordinates, dependencies, public controls and evidence, including selected simulation profiles where applicable. [Asset and assembly acceptance](CompositionContract.md#asset-and-assembly-acceptance) evaluates both incoming packages and their composed use. Asset readiness alone does not establish workcell readiness; automated integration remains planned.
 
 We also track [OpenUSD proposals](https://github.com/PixarAnimationStudios/OpenUSD-proposals/tree/main/proposals), especially validation, profiles/capabilities, namespace editing, LOD and spline animation. Their practical implications and adoption gates are in the [roadmap](ROADMAP.md#upstream-integration-priorities).
 
@@ -39,7 +39,7 @@ When the purpose or requirements change, revise the contract explicitly and eval
 ```mermaid
 %%{init: {"flowchart": {"wrappingWidth": 280, "nodeSpacing": 20, "rankSpacing": 24}}}%%
 flowchart LR
-    accTitle: OpenUSD Composition Contracts 0.2.0 - The paradigm
+    accTitle: OpenUSD GoodStart Composition Contract 0.2.0 - The paradigm
     accDescr: Root on the left, vertical scene layers in the middle with GeoLyr at the bottom, and reusable assemblies, assets and materials on the right.
     R["SceneROOT_Example.usda<br/>Combines the scene layers"]
 
@@ -84,13 +84,13 @@ Read **left to right**. Four class boxes list their layer types; they do not int
 **Work in Opinion by default**, with persistent work/source layers locked, using the [Kit launcher](examples/01_LayeredScene/Open_In_Kit.ps1). Saving Opinion retains experiments; promote accepted fields to their rightful owner and variant branch, then retire superseded opinions.
 
 The active root remains writable for Kit's camera and authoring-target metadata;
-it is not the default editing destination. See the [CC-01 host exception](CompositionContracts.md#3-file-ownership-contract).
+it is not the default editing destination. See the [CC-01 host exception](CompositionContract.md#3-file-ownership-contract).
 
-See the [detailed ownership diagram](CompositionContracts.md#composition-memory-chart) and [project structure](PROJECT_STRUCTURE.md) for the full responsibilities and example setup.
+See the [detailed ownership diagram](CompositionContract.md#composition-memory-chart) and [project structure](PROJECT_STRUCTURE.md) for the full responsibilities and example setup.
 
 ## Requirements and evaluation
 
-Our entrypoint term is **Root** (`SceneROOT_<Purpose>.usda`); **scene** means its composed result. All active scene entrypoints now follow this convention (CC-26). The diagrams use the same classes as storage: **ASSET USD** for reusable packages, **BASE** for authored setup, **SIM** for simulation results, **RUNTIME** for live state/snapshots, **DATA** for identity/context, and **REVIEW** for experiments. Inside those classes, role names remain `GeoLyr`, `TransLyr`, `VariLyr`, etc. Class labels add no layers and impose no strength order. See the [classification table](CompositionContracts.md#naming-and-classification).
+Our entrypoint term is **Root** (`SceneROOT_<Purpose>.usda`); **scene** means its composed result. All active scene entrypoints now follow this convention (CC-26). The diagrams use the same classes as storage: **ASSET USD** for reusable packages, **BASE** for authored setup, **SIM** for simulation results, **RUNTIME** for live state/snapshots, **DATA** for identity/context, and **REVIEW** for experiments. Inside those classes, role names remain `GeoLyr`, `TransLyr`, `VariLyr`, etc. Class labels add no layers and impose no strength order. See the [classification table](CompositionContract.md#naming-and-classification). Use the exact directory names `040_DATA_LYR` for DATA and `050_REVIEW_LYR` for REVIEW. All layer-class folders use singular `_LYR`; this convention repeats inside locally authored assets and assemblies and in starter packages.
 
 The current concept supports this direction through recursive ownership, published interfaces, explicit layer responsibilities and recorded expected behavior. These are the connections we need to evaluate:
 
@@ -104,11 +104,11 @@ The current concept supports this direction through recursive ownership, publish
 
 Each evaluation case needs named inputs, the applicable contract/profile revision, the expected outcome and a clear pass/fail criterion. Scalability also needs agreed nesting depths, asset counts, load states and performance limits for the intended applications. These criteria turn the shared contract into something people can review and tools can check repeatedly.
 
-**The design fits this purpose; broad validation remains open.** The current example supplies a small nested assembly, independent asset occurrences, expected outcomes and deliberate conflicts. Its recorded observations cover saved defaults. Complete variant and persistence evaluation, larger nesting/scale cases, other operating profiles and repeatable automated evaluation remain to be established. See [sample acceptance](CompositionContracts.md#9-harness-and-sample-acceptance) and the [expected outcomes](examples/01_LayeredScene/_contracts/expected.json).
+**The design fits this purpose; broad validation remains open.** The current example supplies a small nested assembly, independent asset occurrences, expected outcomes and deliberate conflicts. Its recorded observations cover saved defaults. Complete variant and persistence evaluation, larger nesting/scale cases, other operating profiles and repeatable automated evaluation remain to be established. See [sample acceptance](CompositionContract.md#9-harness-and-sample-acceptance) and the [expected outcomes](examples/01_LayeredScene/_contracts/expected.json).
 
 ## Working with agents
 
-**Identity and integration:** IdentityLyr records who an occurrence represents, usually on its placement prim rather than every mesh. Asset source IDs, assembly/scene occurrence IDs and physical-instance IDs have different owners and scopes. Composable bindings use those identities to map external data to explicit USD properties and authoring contexts. See [CC-27/28](CompositionContracts.md#23-identity-and-composable-bindings) for placement guidance, examples and planned evaluation; no binding engine or standardized identifier schema is implemented here.
+**Identity and integration:** IdentityLyr records who an occurrence represents, usually on its placement prim rather than every mesh. Asset source IDs, assembly/scene occurrence IDs and physical-instance IDs have different owners and scopes. Composable bindings use those identities to map external data to explicit USD properties and authoring contexts. See [CC-27/28](CompositionContract.md#23-identity-and-composable-bindings) for placement guidance, examples and planned evaluation; no binding engine or standardized identifier schema is implemented here.
 
 The same contract gives different agents and human contributors a common basis for work across tasks, projects and repositories. Each task can identify its purpose, applicable profile, permitted scope, required outputs and evaluation criteria. The result carries evidence that another agent or person can review, and work continues until the applicable criteria are satisfied.
 
@@ -116,7 +116,7 @@ The intended workflow combines model interpretation with deterministic USD-aware
 
 ## Start here
 
-- [Composition contracts](CompositionContracts.md): the evolving proposal and stable CC rule IDs.
+- [Composition contracts](CompositionContract.md): the evolving proposal and stable CC rule IDs.
 - [Open the example guide](examples/01_LayeredScene/README.md): manual configuration, scene scenarios and two deliberate conflicts.
 - [Animated MoGraph proof of concept](examples/01_LayeredScene/README.md#play-and-control-the-mograph-scene): under development. Follow the Mermaid data/runtime/USD/render flow, saved-clip fallback and current reload limitation; JSON is a local mock source for a future incoming-data adapter.
 - [Project structure and diagram](PROJECT_STRUCTURE.md): the revised paradigm, storage layout and edit destinations.
@@ -131,7 +131,7 @@ The intended workflow combines model interpretation with deterministic USD-aware
 
 ## Starter master preset
 
-The same package layout repeats inside locally authored assets and assemblies. Open `AssetROOT_Cube.usda`, `AssetROOT_Cone.usda` or `AssetROOT_DisplayPair.usda` to work at that owner's scope: BASE roles remain in `020_BASE_LYR`, and each package has its own Opinion in `050_REVIEW`. A building used in a city is also an asset; object type does not change the root naming rule. Working scenes use `SceneROOT_<Purpose>.usda`. See [recursive package rules](CompositionContracts.md#recursive-package-layout).
+The same package layout repeats inside locally authored assets and assemblies. Open `AssetROOT_Cube.usda`, `AssetROOT_Cone.usda` or `AssetROOT_DisplayPair.usda` to work at that owner's scope: BASE roles remain in `020_BASE_LYR`, and each package has its own Opinion in `050_REVIEW_LYR`. A building used in a city is also an asset; object type does not change the root naming rule. Working scenes use `SceneROOT_<Purpose>.usda`. See [recursive package rules](CompositionContract.md#recursive-package-layout).
 
 **Copy-and-run setup:** copy the entire [portable setup folder](starter/Composition_Starter_0.1.1/README_SETUP.md) into your destination and double-click `Create_Composition_Project.bat`. It expands the bundled scenes, assets, layers and launch helper into that folder. Windows PowerShell is sufficient; setup needs no Python or network access. Existing files are never overwritten. Omniverse remains a separately installed prerequisite for the Kit launcher.
 

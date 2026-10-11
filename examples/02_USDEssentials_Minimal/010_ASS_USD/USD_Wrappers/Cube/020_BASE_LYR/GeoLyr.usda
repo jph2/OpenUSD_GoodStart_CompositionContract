@@ -1,0 +1,14 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "cc:owner" = "asset:Cube"
+        string "cc:role" = "GeoLyr"
+        string "cc:context" = "unconditional"
+    }
+)
+
+def Xform "Asset" {
+    def Cube "Geometry" {
+        double size = 100
+    }
+}

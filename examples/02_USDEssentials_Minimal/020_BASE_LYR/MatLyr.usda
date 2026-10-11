@@ -1,0 +1,30 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "cc:owner" = "scene:USDEssentials"
+        string "cc:role" = "MatLyr"
+        string "cc:context" = "unconditional"
+    }
+)
+
+over "World" {
+    def Scope "Looks" (prepend references = @../010_ASS_USD/MatLib/Palette_v001.usda@) {}
+    over "Cube01" {
+        over "Adjustment" {
+            over "Asset" {
+                over "Geometry" (prepend apiSchemas = ["MaterialBindingAPI"]) {
+                    rel material:binding = </World/Looks/Red>
+                }
+            }
+        }
+    }
+    over "Cone01" {
+        over "Adjustment" {
+            over "Asset" {
+                over "Geometry" (prepend apiSchemas = ["MaterialBindingAPI"]) {
+                    rel material:binding = </World/Looks/Blue>
+                }
+            }
+        }
+    }
+}

@@ -9,8 +9,8 @@ package = repo / 'examples/01_LayeredScene'
 archive = repo / 'harness/evidence/before_direct_scene_roots'
 mapping = {
     'World_Manual.usda': ('ROOT_example.usda', []),
-    'World_MaskedSize.usda': ('ROOT_example.usda', ['./050_REVIEW/MaskedSize/ReviewLyr.usda']),
-    'World_MaskedSelection.usda': ('World_Scenarios.usda', ['./050_REVIEW/MaskedSelection/ReviewLyr.usda']),
+    'World_MaskedSize.usda': ('ROOT_example.usda', ['./050_REVIEW_LYR/MaskedSize/ReviewLyr.usda']),
+    'World_MaskedSelection.usda': ('World_Scenarios.usda', ['./050_REVIEW_LYR/MaskedSelection/ReviewLyr.usda']),
 }
 if archive.exists():
     raise RuntimeError('Migration evidence already exists; inspect before repeating.')

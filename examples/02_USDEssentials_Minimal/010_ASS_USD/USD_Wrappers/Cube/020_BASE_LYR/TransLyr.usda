@@ -1,0 +1,15 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "cc:owner" = "asset:Cube"
+        string "cc:role" = "TransLyr"
+        string "cc:context" = "unconditional"
+    }
+)
+
+over "Asset" {
+    over "Geometry" {
+        double3 xformOp:translate = (0, 0, 50)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+}

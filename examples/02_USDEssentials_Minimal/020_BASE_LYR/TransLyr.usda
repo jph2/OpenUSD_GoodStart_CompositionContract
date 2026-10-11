@@ -1,0 +1,19 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "cc:owner" = "scene:USDEssentials"
+        string "cc:role" = "TransLyr"
+        string "cc:context" = "unconditional"
+    }
+)
+
+over "World" {
+    over "Cube01" {
+        double3 xformOp:translate = (-75, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+    over "Cone01" {
+        double3 xformOp:translate = (75, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+}

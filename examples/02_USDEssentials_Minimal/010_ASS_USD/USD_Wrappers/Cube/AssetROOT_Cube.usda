@@ -1,0 +1,24 @@
+#usda 1.0
+(
+    defaultPrim = "Asset"
+    metersPerUnit = 0.01
+    upAxis = "Z"
+    timeCodesPerSecond = 60
+    framesPerSecond = 60
+    subLayers = [
+        @./050_REVIEW_LYR/OpinLYR_default.usda@,
+        @./020_BASE_LYR/TransLyr.usda@,
+        @./020_BASE_LYR/GeoLyr.usda@
+    ]
+    customLayerData = {
+        string "cc:owner" = "asset:Cube"
+        string "cc:role" = "Root"
+        string "cc:context" = "unconditional"
+        string "cc:defaultAuthoring" = "opinion"
+        bool "cc:lockPersistentLayers" = 1
+        string "cc:opinionLayer" = "./050_REVIEW_LYR/OpinLYR_default.usda"
+        dictionary omni_layer = {
+            string authoring_layer = "./050_REVIEW_LYR/OpinLYR_default.usda"
+        }
+    }
+)

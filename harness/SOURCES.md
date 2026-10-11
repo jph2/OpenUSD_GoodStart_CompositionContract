@@ -50,9 +50,9 @@ Project adaptations: layer provenance belongs in customLayerData; quarantine req
 
 ## Imported owner
 
-On 2026-10-10 CompositionContracts.md moved from TutorialBuilder:
+On 2026-10-10 CompositionContract.md moved from TutorialBuilder:
 
-`020_Tutorials/SoftServe_NVIDIA_Upskill_Omniverse_Stream/1.x_OpenUSD/1.1_Omniverse_USD_Essentials/010_SourceFiles/examples/VariantSetups/CompositionContracts.md`
+`020_Tutorials/SoftServe_NVIDIA_Upskill_Omniverse_Stream/1.x_OpenUSD/1.1_Omniverse_USD_Essentials/010_SourceFiles/examples/VariantSetups/CompositionContract.md`
 
 The old location now holds a forwarding note. The neighboring VariantSetups.md and A–H scene folders remain in TutorialBuilder, unchanged by this move. They are historical experiments and are not certified against this contract. Their availability is optional for reviewing this repository; no cross-repository link is a portable shipped example.
 
@@ -64,7 +64,7 @@ The old location now holds a forwarding note. The neighboring VariantSetups.md a
 | [Controlled workflows](https://haluszka.com/ai-harness-quickstart/guide/agents-skills-workflows.html) | Boundary between model judgment, fixed routines and observed outcomes. |
 | [Local harness starter](https://haluszka.com/ai-harness-quickstart/guide/lab/index.html) | Small local project harness and explicit evaluation loop. |
 | [GoodStart layer-order research](https://github.com/jph2/USD_GoodStart/blob/main/WIP_Docs/LAYER_ORDER_REFERENCES_RESEARCH.md) | Prior contract research, especially sections 8 and 18; proposals distinguished from USD mechanics. |
-| [OpenUSD documentation](https://openusd.org/release/index.html) | Follow the precise API/tutorial citations in CompositionContracts.md for individual technical claims. No whole-site review is claimed. |
+| [OpenUSD documentation](https://openusd.org/release/index.html) | Follow the precise API/tutorial citations in CompositionContract.md for individual technical claims. No whole-site review is claimed. |
 
 ## Related projects
 

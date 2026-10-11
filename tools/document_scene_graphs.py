@@ -155,7 +155,7 @@ def motion_diagram(root):
     lines.extend([
         '        MAT["010_ASS_USD/MatLib/Palette_v001.usda<br/>One definition each: Red / Blue / Yellow<br/>Ground unused by these sources"]',
         '        CubeC -->|MatLyr references| MAT', '        ConeC -->|MatLyr references| MAT',
-        '        JSON["040_DATA_LYRs/Controls/motion_graphics.json<br/>layout · wave · scale · rotation · falloff · colour"]',
+        '        JSON["040_DATA_LYR/Controls/motion_graphics.json<br/>layout · wave · scale · rotation · falloff · colour"]',
         '        RES["Baseline: bundled HDR and grid texture<br/>OmniPBR.mdl from Kit"]',
         '        MAT ~~~ JSON', '        JSON ~~~ RES', '    end',
         '    ENTRY -->|root sublayers| STACK',

@@ -14,7 +14,7 @@ We initially considered a section inside OpenUSD-GoodStart. Jan instead chose th
 
 ## Working decisions to preserve
 
-- **One contract owner:** CompositionContracts.md here, preserving CC-01 through CC-23. Its former TutorialBuilder location is a forwarding note.
+- **One contract owner:** CompositionContract.md here, preserving CC-01 through CC-23. Its former TutorialBuilder location is a forwarding note.
 - **Geometry versus placement:** GeoLyr owns hierarchy/asset references, not transform operations or variants. Ordinary transforms belong in the rightful owner's TransLyr; create it when needed.
 - **Semantic exceptions matter:** variant-dependent transforms remain in their variant context; animation, rig bind/rest data, physics frames and solver/runtime poses follow CC-21. Do not route every matrix into TransLyr.
 - **Asset-owned alternatives:** define reusable variants at their rightful asset/assembly level. Publish their interface, lofting above payloads when appropriate. Scene VariLyr selects published choices or defines scene scenarios; it does not copy asset implementations.

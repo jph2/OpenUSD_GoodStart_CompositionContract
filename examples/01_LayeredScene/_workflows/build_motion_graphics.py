@@ -16,11 +16,11 @@ from motion_graphics_core import (CLONER, CONTROL_PRIM, PROFILE, control_schema,
                                  default_document, evaluate, read_controls, usd_values, validate)
 
 PACKAGE = Path(__file__).resolve().parents[1]
-CONTROL = '040_DATA_LYRs/Controls/motion_graphics.json'
+CONTROL = '040_DATA_LYR/Controls/motion_graphics.json'
 ANIMATION = '020_BASE_LYR/AnimLyr_MotionGraphics.usdc'
 ROOT = 'SceneROOT_MotionGraphics.usda'
-OPINION = '050_REVIEW/MotionGraphics/OpinLYR_default.usda'
-ROLES = [OPINION, '040_DATA_LYRs/DataLyr_MotionGraphics.usda', ANIMATION,
+OPINION = '050_REVIEW_LYR/MotionGraphics/OpinLYR_default.usda'
+ROLES = [OPINION, '040_DATA_LYR/DataLyr_MotionGraphics.usda', ANIMATION,
          '020_BASE_LYR/CamLyr_MotionGraphics.usda',
          '020_BASE_LYR/TransLyr_MotionGraphics.usda',
          '020_BASE_LYR/VariLyr_MotionGraphics.usda',
@@ -100,7 +100,7 @@ def main():
         print(f'Rebaked {ANIMATION}; previous clip and input retained in {backup}.')
         return
 
-    paths = [ROOT, *ROLES, CONTROL, '040_DATA_LYRs/Controls/motion_graphics.schema.json',
+    paths = [ROOT, *ROLES, CONTROL, '040_DATA_LYR/Controls/motion_graphics.schema.json',
              '_contracts/motion_graphics.json']
     for relative in paths:
         if (PACKAGE / relative).exists():
@@ -163,7 +163,7 @@ def main():
         ('cc:writer', Sdf.ValueTypeNames.String, 'baked AnimLyr OR temporary runtime overlay'),
     ]:
         Sdf.AttributeSpec(spec, name, kind, declaresCustom=True).default = value
-    pending['040_DATA_LYRs/DataLyr_MotionGraphics.usda'] = data
+    pending['040_DATA_LYR/DataLyr_MotionGraphics.usda'] = data
 
     root = new_layer('Root')
     original = Sdf.Layer.FindOrOpen(str(PACKAGE / 'SceneROOT_Example.usda'))

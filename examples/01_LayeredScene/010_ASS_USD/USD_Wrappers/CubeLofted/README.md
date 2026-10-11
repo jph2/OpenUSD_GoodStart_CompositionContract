@@ -9,7 +9,7 @@ DisplayPair's lofted form substitutes its own GeoLyr to link lofted child shapes
 Defaults and variant names were derived from the source VariLyr by the authoring tool;
 source interface changes require republishing these declarations.
 
-`050_REVIEW/OpinLYR_default.usda` is the package's own experimental authoring layer.
+`050_REVIEW_LYR/OpinLYR_default.usda` is the package's own experimental authoring layer.
 It is above the payload. Original demo asset Opinions are excluded from ContentsLyr.
 Changes to shared source role files affect every consumer. Scene placement belongs
 on an occurrence parent; instancing policy is declared by the consuming scene.

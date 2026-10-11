@@ -56,7 +56,7 @@ def main():
     purpose = 'Instanced_' + args.shape.title()
     owner = f'scene:{purpose}@1'
     targets = [PACKAGE / f'020_BASE_LYR/{role}_{purpose}.usda' for role in ('TransLyr', 'VariLyr')]
-    targets += [PACKAGE / f'SceneROOT_{purpose}.usda', PACKAGE / f'050_REVIEW/{purpose}/OpinLYR_default.usda']
+    targets += [PACKAGE / f'SceneROOT_{purpose}.usda', PACKAGE / f'050_REVIEW_LYR/{purpose}/OpinLYR_default.usda']
     originals = [path.read_bytes() if path.exists() else None for path in targets]
     layers = []
     for path in targets[:2]:
@@ -96,7 +96,7 @@ def main():
     root = Sdf.Layer.CreateAnonymous('.usda')
     root.TransferContent(Sdf.Layer.FindOrOpen(str(targets[2] if targets[2].exists() else PACKAGE / 'SceneROOT_Instanced.usda')))
     opinion_path = './' + targets[3].relative_to(PACKAGE).as_posix()
-    root.subLayerPaths = [opinion_path, './040_DATA_LYRs/DataLyr.usda',
+    root.subLayerPaths = [opinion_path, './040_DATA_LYR/DataLyr.usda',
                          './' + targets[0].relative_to(PACKAGE).as_posix(),
                          './' + targets[1].relative_to(PACKAGE).as_posix(),
                          './020_BASE_LYR/GeoLyr_Instanced.usda']

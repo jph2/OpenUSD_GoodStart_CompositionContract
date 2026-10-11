@@ -23,19 +23,19 @@
         string "cc:context" = "unconditional"
         string "cc:defaultAuthoring" = "opinion"
         bool "cc:lockPersistentLayers" = 1
-        string "cc:opinionLayer" = "./050_REVIEW/Instanced/OpinLYR_default.usda"
+        string "cc:opinionLayer" = "./050_REVIEW_LYR/Instanced/OpinLYR_default.usda"
         string "cc:owner" = "scene:Instanced@1"
         string "cc:profile" = "CC-SCALE-01/0.1.1"
         string "cc:role" = "Root"
         string "cc:startupTemplate" = "ROOT_example supplied by Jan"
         dictionary omni_layer = {
-            string authoring_layer = "./050_REVIEW/Instanced/OpinLYR_default.usda"
+            string authoring_layer = "./050_REVIEW_LYR/Instanced/OpinLYR_default.usda"
             dictionary locked = {
                 bool "./020_BASE_LYR/GeoLyr_Instanced.usda" = 1
                 bool "./020_BASE_LYR/TransLyr_Instanced.usda" = 1
                 bool "./020_BASE_LYR/VariLyr_Instanced.usda" = 1
-                bool "./040_DATA_LYRs/DataLyr.usda" = 1
-                bool "./050_REVIEW/Instanced/OpinLYR_default.usda" = 0
+                bool "./040_DATA_LYR/DataLyr.usda" = 1
+                bool "./050_REVIEW_LYR/Instanced/OpinLYR_default.usda" = 0
             }
         }
         dictionary renderSettings = {
@@ -48,8 +48,8 @@
     metersPerUnit = 0.009999999776482582
     startTimeCode = 0
     subLayers = [
-        @./050_REVIEW/Instanced/OpinLYR_default.usda@,
-        @./040_DATA_LYRs/DataLyr.usda@,
+        @./050_REVIEW_LYR/Instanced/OpinLYR_default.usda@,
+        @./040_DATA_LYR/DataLyr.usda@,
         @./020_BASE_LYR/TransLyr_Instanced.usda@,
         @./020_BASE_LYR/VariLyr_Instanced.usda@,
         @./020_BASE_LYR/GeoLyr_Instanced.usda@

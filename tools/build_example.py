@@ -115,10 +115,10 @@ def material_library(a):
 
 
 def recursive_package_notes(a, prefix, owner):
-    opinion_layer(a, f"{prefix}/050_REVIEW/OpinLYR_default.usda", owner)
-    for lane in ("000_SOURCE", "010_ASS_USD", "030_SIM_LYR", "035_RUNTIME_LYR", "040_DATA_LYRs", "_contracts"):
+    opinion_layer(a, f"{prefix}/050_REVIEW_LYR/OpinLYR_default.usda", owner)
+    for lane in ("000_SOURCE", "010_ASS_USD", "030_SIM_LYR", "035_RUNTIME_LYR", "040_DATA_LYR", "_contracts"):
         a.text(f"{prefix}/{lane}/README.md", f"# {lane}\n\nReserved at {owner} scope. Add content only when required; a folder does not create a composed layer.")
-    a.text(f"{prefix}/README.md", f"# {owner}\n\nOpen AssetROOT_<Name>.usda. 020_BASE_LYR holds owned roles; 050_REVIEW holds Opinion experiments. Package edits affect all consumers. Scene experiments belong in the scene Opinion. Other class directories are reserved. External asset/material dependencies retain relative links.")
+    a.text(f"{prefix}/README.md", f"# {owner}\n\nOpen AssetROOT_<Name>.usda. 020_BASE_LYR holds owned roles; 050_REVIEW_LYR holds Opinion experiments. Package edits affect all consumers. Scene experiments belong in the scene Opinion. Other class directories are reserved. External asset/material dependencies retain relative links.")
 
 
 def shape_asset(a, name):
@@ -176,7 +176,7 @@ def shape_asset(a, name):
 
     recursive_package_notes(a, prefix, owner)
     a.root_layer(f"{prefix}/AssetROOT_{name}.usda", name,
-                 ["./050_REVIEW/OpinLYR_default.usda", "./020_BASE_LYR/VariLyr.usda", "./020_BASE_LYR/MatLyr.usda",
+                 ["./050_REVIEW_LYR/OpinLYR_default.usda", "./020_BASE_LYR/VariLyr.usda", "./020_BASE_LYR/MatLyr.usda",
                   "./020_BASE_LYR/TransLyr.usda", "./020_BASE_LYR/GeoLyr.usda"], owner)
 
 
@@ -208,7 +208,7 @@ def assembly(a):
     save(stage)
     recursive_package_notes(a, prefix, owner)
     a.root_layer(f"{prefix}/AssetROOT_DisplayPair.usda", "DisplayPair",
-                 ["./050_REVIEW/OpinLYR_default.usda", "./020_BASE_LYR/VariLyr.usda", "./020_BASE_LYR/TransLyr.usda", "./020_BASE_LYR/GeoLyr.usda"], owner)
+                 ["./050_REVIEW_LYR/OpinLYR_default.usda", "./020_BASE_LYR/VariLyr.usda", "./020_BASE_LYR/TransLyr.usda", "./020_BASE_LYR/GeoLyr.usda"], owner)
 
 
 def standard_root(a, name, sublayers, include_template_prims=True):
@@ -282,17 +282,17 @@ def scene(a):
 
 def project_data(a):
     owner = "scene:LayeredScene@1"
-    stage = a.layer("040_DATA_LYRs/Data/IdentityLyr.usda", "DataLyr", owner)
+    stage = a.layer("040_DATA_LYR/Data/IdentityLyr.usda", "DataLyr", owner)
     for name in INSTANCES:
         stage.OverridePrim(f"/World/{name}").CreateAttribute(
             "cc:occurrenceId", Sdf.ValueTypeNames.String).Set(f"example-01/{name}")
     save(stage)
-    stage = a.layer("040_DATA_LYRs/Data/ContextLyr.usda", "DataLyr", owner)
+    stage = a.layer("040_DATA_LYR/Data/ContextLyr.usda", "DataLyr", owner)
     prim = stage.OverridePrim("/World")
     prim.CreateAttribute("cc:projectId", Sdf.ValueTypeNames.String).Set("CC-EXAMPLE-01")
     prim.CreateAttribute("cc:purpose", Sdf.ValueTypeNames.String).Set("Composition ownership demonstration")
     save(stage)
-    stage = a.layer("040_DATA_LYRs/DataLyr.usda", "DataLyr", owner)
+    stage = a.layer("040_DATA_LYR/DataLyr.usda", "DataLyr", owner)
     stage.GetRootLayer().subLayerPaths = ["./Data/IdentityLyr.usda", "./Data/ContextLyr.usda"]
     save(stage)
 
@@ -309,14 +309,14 @@ def opinion_layer(a, relative, owner):
 
 def starter(a):
     owner = "scene:Starter@1"
-    opinion = "050_REVIEW/Starter/OpinLYR_default.usda"
+    opinion = "050_REVIEW_LYR/Starter/OpinLYR_default.usda"
     opinion_layer(a, opinion, owner)
     layers = ["./" + opinion]
     # Ready-to-use examples plus explicit optional slots; preserve source assets.
     for relative, role in (
         ("035_RUNTIME_LYR/Starter/RuntimeLyr.usda", "RuntimeLyr"),
         ("030_SIM_LYR/Starter/SimLyr.usda", "SimLyr"),
-        ("040_DATA_LYRs/Starter/DataLyr.usda", "DataLyr"),
+        ("040_DATA_LYR/Starter/DataLyr.usda", "DataLyr"),
         *((f"020_BASE_LYR/{role}_Starter.usda", role) for role in (
             "EnvLyr", "LightLyr", "CamLyr", "RenderLyr", "AnimLyr",
             "PhysicsLyr", "RigLyr", "MatLyr")),
@@ -336,10 +336,10 @@ def starter(a):
             layer.customLayerData = metadata
         elif role == "DataLyr":
             for data_role in ("IdentityLyr", "ContextLyr"):
-                child = a.layer(f"040_DATA_LYRs/Starter/{data_role}.usda", data_role, owner)
+                child = a.layer(f"040_DATA_LYR/Starter/{data_role}.usda", data_role, owner)
                 child_data = dict(child.GetRootLayer().customLayerData)
                 child.GetRootLayer().TransferContent(Sdf.Layer.FindOrOpen(str(
-                    a.root / f"040_DATA_LYRs/Data/{data_role}.usda")))
+                    a.root / f"040_DATA_LYR/Data/{data_role}.usda")))
                 child.GetRootLayer().customLayerData = child_data
                 save(child)
             layer.subLayerPaths = ["./IdentityLyr.usda", "./ContextLyr.usda"]
@@ -362,10 +362,10 @@ def starter(a):
 
 def entrypoints(a):
     owner = "scene:LayeredScene@1"
-    opinion_layer(a, "050_REVIEW/OpinLYR_default.usda", owner)
+    opinion_layer(a, "050_REVIEW_LYR/OpinLYR_default.usda", owner)
     stacks = {}
     for name, variant_layer in (("SceneROOT_Example.usda", "VariLyr.usda"), ("SceneROOT_Scenarios.usda", "VariLyr_Scenarios.usda")):
-        layers = ["./050_REVIEW/OpinLYR_default.usda", "./040_DATA_LYRs/DataLyr.usda"] + [f"./020_BASE_LYR/{name}" for name in (
+        layers = ["./050_REVIEW_LYR/OpinLYR_default.usda", "./040_DATA_LYR/DataLyr.usda"] + [f"./020_BASE_LYR/{name}" for name in (
             "TransLyr.usda", variant_layer, "GeoLyr.usda")]
         standard_root(a, name, layers)
         stacks[name] = layers
@@ -373,11 +373,11 @@ def entrypoints(a):
     standard_root(a, "SceneROOT_Manual.usda", stacks["SceneROOT_Example.usda"])
     stacks["SceneROOT_Manual.usda"] = list(stacks["SceneROOT_Example.usda"])
 
-    stage = a.layer("050_REVIEW/MaskedSize/ReviewLyr.usda", "ReviewLyr", owner, "intentional masking demonstration")
+    stage = a.layer("050_REVIEW_LYR/MaskedSize/ReviewLyr.usda", "ReviewLyr", owner, "intentional masking demonstration")
     stage.OverridePrim("/World/Cube02/Adjustment/Asset").CreateAttribute(
         "xformOp:scale", Sdf.ValueTypeNames.Double3, custom=False).Set(Gf.Vec3d(1, 1, 1))
     save(stage)
-    stage = a.layer("050_REVIEW/MaskedSelection/ReviewLyr.usda", "ReviewLyr", owner, "intentional masking demonstration")
+    stage = a.layer("050_REVIEW_LYR/MaskedSelection/ReviewLyr.usda", "ReviewLyr", owner, "intentional masking demonstration")
     select(stage, "/World/Cube01/Adjustment/Asset", {"Finish": "Blue"})
     save(stage)
     for mode, review, baseline in (
@@ -385,7 +385,7 @@ def entrypoints(a):
         ("MaskedSelection", "MaskedSelection", "SceneROOT_Scenarios.usda"),
     ):
         name = f"SceneROOT_{mode}.usda"
-        layers = [stacks[baseline][0], f"./050_REVIEW/{review}/ReviewLyr.usda", *stacks[baseline][1:]]
+        layers = [stacks[baseline][0], f"./050_REVIEW_LYR/{review}/ReviewLyr.usda", *stacks[baseline][1:]]
         standard_root(a, name, layers)
         stacks[name] = layers
     stacks["SceneROOT_STARTER.usda"] = starter(a)
@@ -396,14 +396,14 @@ def contracts(a, stacks):
     template = Sdf.Layer.FindOrOpen(str(TEMPLATE))
     a.json("_contracts/profile.json", {
         "schema": "cc-example-profile/0.1", "profile": PROFILE,
-        "contract": "CompositionContracts.md 0.1.1; CC-01 through CC-26",
+        "contract": "CompositionContract.md 0.1.1; CC-01 through CC-26",
         "status": "authored example; acceptance pending", "usd_authoring_version": "26.08",
         "units": {"metersPerUnit": template.pseudoRoot.GetInfo("metersPerUnit"), "upAxis": "Z"},
         "timeline": {"startTimeCode": 0, "endTimeCode": 100, "timeCodesPerSecond": 60},
         "standard_scene": "SceneROOT_Example.usda; user-supplied Omniverse starting scene",
         "manual_entrypoint": "SceneROOT_Manual.usda; independent root with direct scene sublayers",
         "starter_entrypoint": "SceneROOT_STARTER.usda; demo assets and independent work layers with optional authoring slots",
-        "opinion_policy": "Samples share 050_REVIEW/OpinLYR_default.usda; Starter has its own. Strongest work sublayer, editable by default; Opinion is the authoring target. Promote reviewed fields then retire superseded opinions.",
+        "opinion_policy": "Samples share 050_REVIEW_LYR/OpinLYR_default.usda; Starter has its own. Strongest work sublayer, editable by default; Opinion is the authoring target. Promote reviewed fields then retire superseded opinions.",
         "resolver": "ArDefaultResolver; relative package paths; no search path required",
         "composition": "references; no payloads; no native instancing; default time",
         "entrypoints_strongest_first": stacks,
@@ -464,10 +464,10 @@ def contracts(a, stacks):
              "override": "named ReviewLyr exceptions only; remove its sublayer to restore baseline"},
         ],
         "review_exceptions": [
-            {"file": "050_REVIEW/MaskedSize/ReviewLyr.usda", "reason": "reproduce original local-versus-variant failure",
+            {"file": "050_REVIEW_LYR/MaskedSize/ReviewLyr.usda", "reason": "reproduce original local-versus-variant failure",
              "target": "/World/Cube02/Adjustment/Asset.xformOp:scale", "supersedes": "Size=Tall scale",
              "disposition": "teaching fixture only; exclude from normal root"},
-            {"file": "050_REVIEW/MaskedSelection/ReviewLyr.usda", "reason": "show direct child selection masking scene scenario",
+            {"file": "050_REVIEW_LYR/MaskedSelection/ReviewLyr.usda", "reason": "show direct child selection masking scene scenario",
              "target": "/World/Cube01/Adjustment/Asset Finish selection", "supersedes": "Layout branch Finish",
              "disposition": "teaching fixture only; exclude from normal root"},
         ],
@@ -502,11 +502,11 @@ def folder_notes(a):
         "010_ASS_USD/tex/README.md": "# Shared textures\n\nShared textures belong here; asset-specific textures can travel inside their package. This example uses texture-free UsdPreviewSurface materials.",
         "030_SIM_LYR/README.md": "# Published simulation results\n\nReserved for explicit, versioned solver results with provenance and time semantics. No simulation result or SimLyr is present or composed in this static profile.",
         "035_RUNTIME_LYR/README.md": "# Runtime snapshots\n\nReserved for deliberately saved operational snapshots. Live measurements normally stay in session/runtime/external storage. No connector, credentials, runtime writer or RuntimeLyr is present.",
-        "040_DATA_LYRs/README.md": "# Project data\n\nDataLyr aggregates IdentityLyr and ContextLyr. These demo custom cc attributes describe scene occurrences and project purpose. They are not a standardized schema or an external system integration.",
-        "050_REVIEW/README.md": "# Review demonstrations\n\nEach exception has an owner, reason, affected field and removal route in _contracts/ownership.json. Only the SceneROOT_MaskedSize and SceneROOT_MaskedSelection entrypoints compose these files. Baseline roots exclude them.",
+        "040_DATA_LYR/README.md": "# Project data\n\nDataLyr aggregates IdentityLyr and ContextLyr. These demo custom cc attributes describe scene occurrences and project purpose. They are not a standardized schema or an external system integration.",
+        "050_REVIEW_LYR/README.md": "# Review demonstrations\n\nEach exception has an owner, reason, affected field and removal route in _contracts/ownership.json. Only the SceneROOT_MaskedSize and SceneROOT_MaskedSelection entrypoints compose these files. Baseline roots exclude them.",
         "_workflows/README.md": "# Reproduction and workflow files\n\nReproduction uses the parent repository's tools/build_example.py. kit/session_defaults.py is the scoped Kit startup helper used by Open_In_Kit.ps1: persistent work/source layers are protected and Opinion becomes the edit target. It does not route or persist edits. Optional pipeline or ComfyUI definitions can be added here when needed; none is installed.",
         "_pipeline_reports/README.md": "# Evidence\n\nbuild_manifest.json records runtime, file identities and the saved defaults of SceneROOT_Example plus four companion entrypoints. It includes stage metrics, the World matrix, camera choice and cube opinions. This is not a conformance verdict or a variant-matrix test. Expected outcomes live in _contracts/expected.json. Kit UI and rendering acceptance are pending.",
-        "_contracts/README.md": "# Example contracts\n\nprofile.json declares package roles and actual scene orders. ownership.json declares public interfaces, writer scope and review exceptions. expected.json states intended outcomes. These versioned example-specific JSON documents are design inputs; no generic validator or accepted contract schema exists yet. The parent repository's CompositionContracts.md owns CC semantics.",
+        "_contracts/README.md": "# Example contracts\n\nprofile.json declares package roles and actual scene orders. ownership.json declares public interfaces, writer scope and review exceptions. expected.json states intended outcomes. These versioned example-specific JSON documents are design inputs; no generic validator or accepted contract schema exists yet. The parent repository's CompositionContract.md owns CC semantics.",
     }
     for name, note in notes.items():
         a.text(name, note)
@@ -583,7 +583,7 @@ def record_build(a, stacks):
     a.json("_pipeline_reports/build_manifest.json", {
         "schema": "cc-example-build/0.1", "profile": PROFILE,
         "generator": "tools/build_example.py", "generator_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
-        "contract_sha256": hashlib.sha256((Path(__file__).resolve().parents[1] / "CompositionContracts.md").read_bytes()).hexdigest(),
+        "contract_sha256": hashlib.sha256((Path(__file__).resolve().parents[1] / "CompositionContract.md").read_bytes()).hexdigest(),
         "startup_template_sha256": hashlib.sha256(TEMPLATE.read_bytes()).hexdigest(),
         "python": platform.python_version(), "usd": list(Usd.GetVersion()),
         "scope": "authoring and default-entrypoint read-back only; no acceptance tests run",

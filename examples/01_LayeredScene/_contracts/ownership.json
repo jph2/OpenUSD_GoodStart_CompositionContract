@@ -123,14 +123,14 @@
   "review_exceptions": [
     {
       "disposition": "teaching fixture only; exclude from normal root",
-      "file": "050_REVIEW/MaskedSize/ReviewLyr.usda",
+      "file": "050_REVIEW_LYR/MaskedSize/ReviewLyr.usda",
       "reason": "reproduce original local-versus-variant failure",
       "supersedes": "Size=Tall scale",
       "target": "/World/Cube02/Adjustment/Asset.xformOp:scale"
     },
     {
       "disposition": "teaching fixture only; exclude from normal root",
-      "file": "050_REVIEW/MaskedSelection/ReviewLyr.usda",
+      "file": "050_REVIEW_LYR/MaskedSelection/ReviewLyr.usda",
       "reason": "show direct child selection masking scene scenario",
       "supersedes": "Layout branch Finish",
       "target": "/World/Cube01/Adjustment/Asset Finish selection"
