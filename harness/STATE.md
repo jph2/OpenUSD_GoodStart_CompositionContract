@@ -1,5 +1,21 @@
 # Resume state
 
+## 2026-10-11 — Example source and TutorialBuilder copy relationship
+
+Jan requested provenance and synchronization guidance in both repositories. Added
+`examples/README.md` here to establish `examples/01_LayeredScene` and
+`examples/02_USDEssentials_Minimal` as the canonical composition-arc examples in
+this repository and identify the matching TutorialBuilder packages. Updated the
+LearnMat index there to state that its packages are redundant teaching copies that
+can drift, and that cross-repository reconciliation is manual. No USD scenes or
+example profiles changed. This documentation does not create an automated sync
+or change acceptance status.
+
+Skill impact review: this records provenance and manual maintenance only; contract
+0.2.0 and reusable skill guidance are unchanged. The installed skill refresh and
+read-only synchronization check found zero updated and zero stale files in both
+the repository package and personal installation. No tests were requested or run.
+
 ## 2026-10-11 — User-authorized commit and push scope
 
 Jan requested committing and pushing the completed work on main: contract 0.2.0
