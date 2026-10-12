@@ -13,7 +13,7 @@ over "World" {
         over "Adjustment" {
             over "Asset" {
                 over "Geometry" (prepend apiSchemas = ["MaterialBindingAPI"]) {
-                    rel material:binding = </World/Looks/Red>
+                    rel material:binding = </World/Looks/Yellow>
                 }
             }
         }
@@ -22,7 +22,7 @@ over "World" {
         over "Adjustment" {
             over "Asset" {
                 over "Geometry" (prepend apiSchemas = ["MaterialBindingAPI"]) {
-                    rel material:binding = </World/Looks/Blue>
+                    rel material:binding = </World/Looks/Green>
                 }
             }
         }

@@ -30,6 +30,24 @@
         dictionary omni_layer = {
             string authoring_layer = "./050_REVIEW_LYR/OpinLYR_ColorVariants.usda"
             dictionary locked = {
+                bool "010_ASS_USD/Envs/OmniverseStandard/Environment.usda" = 1
+                bool "010_ASS_USD/MatLib/Palette_v001.usda" = 1
+                bool "010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/GeoLyr.usda" = 1
+                bool "010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/MatLyr.usda" = 1
+                bool "010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/TransLyr.usda" = 1
+                bool "010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/VariLyr.usda" = 1
+                bool "010_ASS_USD/USD_Wrappers/Cone/050_REVIEW_LYR/OpinLYR_ColorVariants.usda" = 1
+                bool "010_ASS_USD/USD_Wrappers/Cone/AssetROOT_Cone_ColorVariants.usda" = 1
+                bool "010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/GeoLyr.usda" = 1
+                bool "010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/MatLyr.usda" = 1
+                bool "010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/TransLyr.usda" = 1
+                bool "010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/VariLyr.usda" = 1
+                bool "010_ASS_USD/USD_Wrappers/Cube/050_REVIEW_LYR/OpinLYR_ColorVariants.usda" = 1
+                bool "010_ASS_USD/USD_Wrappers/Cube/AssetROOT_Cube_ColorVariants.usda" = 1
+                bool "020_BASE_LYR/GeoLyr_ColorVariants.usda" = 1
+                bool "020_BASE_LYR/TransLyr.usda" = 1
+                bool "020_BASE_LYR/VariLyr_ColorVariants.usda" = 1
+                bool "050_REVIEW_LYR/OpinLYR_ColorVariants.usda" = 0
             }
             dictionary muteness = {
             }

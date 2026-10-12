@@ -5,7 +5,7 @@
     "metersPerUnit": 0.01,
     "framesPerSecond": 60
   },
-  "authoring": "Each root declares its own Opinion target; run the supplied Kit helper to apply permissions.",
+  "authoring": "Each SceneROOT/AssetROOT declares its own Opinion target and a saved omni_layer.locked map for all other composed persistent layers. The Kit helper selects Opinion, disables automatic authoring and enforces locks in memory. The Kit root remains writable for host metadata per CC-01.",
   "ownership": {
     "scene GeoLyr": "Occurrence hierarchy and asset references",
     "scene TransLyr": "Placement on Cube01/Cone01",
@@ -15,7 +15,7 @@
     "asset TransLyr": "Intrinsic geometry centering 50 cm above base",
     "asset MatLyr": "Reference shared palette",
     "asset VariLyr": "Red/Blue binding definitions inside Color branches",
-    "palette": "Two shared shader/material definitions"
+    "palette": "Four shared shader/material definitions: Yellow/Green for fixed scene bindings; Red/Blue for Color variants"
   },
   "entrypoints": {
     "SceneROOT_USDEssentials.usda": [

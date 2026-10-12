@@ -1,6 +1,6 @@
 # USD Essentials — asset Color variants
 
-Open `SceneROOT_USDEssentials_ColorVariants.usda`, or use the [launcher and authoring instructions](README.md#open-and-author). One cube and one cone share two material definitions. The scene starts with Cube **Red** and Cone **Blue**.
+Open `SceneROOT_USDEssentials_ColorVariants.usda`, or use the [launcher and authoring instructions](README.md#open-and-author). One cube and one cone choose between the shared **Red** and **Blue** material definitions. The scene starts with Cube **Red** and Cone **Blue**.
 
 ## Try it
 
@@ -11,7 +11,7 @@ Open `SceneROOT_USDEssentials_ColorVariants.usda`, or use the [launcher and auth
 
 ## Follow the graph
 
-Read left to right: the root composes its four sibling layers. Scene GeoLyr references each color-capable asset entrypoint. Those roots share the plain lesson's asset GeoLyr and TransLyr, and add MatLyr (palette reference) and VariLyr (Color definitions). Scene VariLyr selects the published control. There are still only **two geometry definitions and two material definitions**.
+Read left to right: the root composes its four sibling layers. Scene GeoLyr references each color-capable asset entrypoint. Those roots share the plain lesson's asset GeoLyr and TransLyr, and add MatLyr (palette reference) and VariLyr (Color definitions). Scene VariLyr selects the published control. There are still only **two geometry definitions**. The shared palette now has four materials: Yellow and Green serve the fixed-material lesson; these variants use Red and Blue.
 
 ```mermaid
 flowchart LR
@@ -34,7 +34,7 @@ flowchart LR
         C --> ROLES
         N --> ROLES
     end
-    P["Palette_v001 — shared Red and Blue"]
+    P["Palette_v001 — shared Yellow, Green, Red and Blue"]
     B["Root baseline: ground, lights, render and viewport cameras"]
     R --- B
     R -->|sublayers| STACK

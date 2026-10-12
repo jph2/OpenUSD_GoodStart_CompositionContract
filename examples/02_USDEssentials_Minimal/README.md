@@ -4,6 +4,24 @@
 
 Two small scenes use the same folder, ownership and naming rules as the composition contracts. **Z-up · centimetres · 60 fps.** Keep this entire folder together when copying it.
 
+## Coordinates and environment ownership
+
+Both `SceneROOT_` entrypoints and all four Cube/Cone asset entrypoints declare
+Z-up and nominal centimetre units (`metersPerUnit = 0.01`). The composed Cone
+also declares its geometric axis as Z. The two scene roots contain the supplied
+Omniverse `Environment` (ground, lighting, render settings and viewport cameras)
+under the CC-01 template exception.
+
+All four Cube and Cone asset roots also compose the shared `Environment.usda`
+sublayer at the stage root, alongside the `/Asset` default prim. This makes the
+supplied ground and lighting visible when any asset entrypoint is opened
+directly. Scene GeoLyr references each asset's `/Asset` default prim, so that
+sibling `/Environment` is not imported into the scene. The SceneROOT continues
+to own its own Omniverse environment under the CC-01 template exception. No
+Y-to-Z conversion is needed for these current files. This remains a
+centimetre-based teaching profile, not metre-based SimReady or general
+production acceptance.
+
 ## Choose a lesson
 
 1. **[Fixed materials](#fixed-materials):** open `SceneROOT_USDEssentials.usda`. Learn sublayers, references, transforms and material bindings.
@@ -21,7 +39,7 @@ For the full Opinion-authoring policy, launch your installed Kit application wit
 .\Open_In_Kit.ps1 -Scene USDEssentials_ColorVariants
 ```
 
-The launcher starts a new Kit process. It detects a running Kit application's paths, or accepts `-KitExe` and `-AppConfig`. It runs `_workflows/kit/session_defaults.py`, selects the scene's **Opinion layer**, and locks persistent work/source layers in memory. The active root stays writable for Kit's camera and authoring metadata. It installs nothing, changes no Windows permissions or execution policy, and does not save USD files. Kit may write its normal logs, caches and preferences.
+Each scene and asset root stores its own Opinion authoring target and `omni_layer.locked` map. The map locks every composed persistent layer except that root's declared Opinion layer. The Kit root remains writable for Kit's camera and authoring metadata, as required by CC-01. The launcher starts a new Kit process, detects an installed application's paths or accepts `-KitExe` and `-AppConfig`, then runs `_workflows/kit/session_defaults.py` to select the scene's Opinion layer, disable automatic authoring and enforce the persistent-layer locks in memory. It installs nothing, changes no Windows permissions or execution policy, and does not save USD files. Kit may write its normal logs, caches and preferences.
 
 If you already opened the scene, run this in Kit's Script Editor, substituting your copied folder's path:
 
@@ -30,7 +48,7 @@ import runpy
 runpy.run_path(r"E:/your/project/02_USDEssentials_Minimal/_workflows/kit/session_defaults.py")
 ```
 
-Directly opening a USDA does not execute Python. Its metadata declares the authoring target; use the helper to apply the full protection policy. Experiment in Opinion. To deliberately teach a saved role edit, unlock that layer and select it explicitly, then return to Opinion. Promote accepted edits to their rightful owner and remove the superseded Opinion values.
+Directly opening a USDA does not execute Python. Its root metadata declares the authoring target and saved lock map; run the helper in Kit to select Opinion, disable automatic authoring and enforce the lock policy for the current session. Experiment in Opinion. To deliberately teach a saved role edit, unlock that layer and select it explicitly, then return to Opinion. Promote accepted edits to their rightful owner and remove the superseded Opinion values.
 
 ## Folder and layer plan
 
@@ -41,8 +59,10 @@ Directly opening a USDA does not execute Python. Its metadata declares the autho
 |-- SceneROOT_USDEssentials_ColorVariants.usda
 |-- 000_SOURCE/                         retained inputs (unused)
 |-- 010_ASS_USD/
-|   |-- Envs/OmniverseStandard/Resources/  portable HDR and grid texture
-|   |-- MatLib/Palette_v001.usda         Red + Blue, defined once
+|   |-- Envs/OmniverseStandard/
+|   |   |-- Environment.usda           direct-open asset preview environment
+|   |   `-- Resources/                 portable HDR and grid texture
+|   |-- MatLib/Palette_v001.usda         shared Yellow, Green, Red and Blue
 |   `-- USD_Wrappers/
 |       |-- Cube/
 |       |   |-- AssetROOT_Cube.usda
@@ -81,7 +101,7 @@ The numbered folders classify roles; **the root's `subLayers` list sets strength
 
 ## Fixed materials
 
-**Goal:** trace readable USDA opinions into one composed result. Start on the right: GeoLyr references the Cube and Cone packages. Scene TransLyr places their occurrence parents; asset TransLyr centers each shape above its local base. Scene MatLyr references the shared palette and binds Cube red and Cone blue. The root combines these sibling layers, with GeoLyr weakest. Opinion is the strongest experimental layer.
+**Goal:** trace readable USDA opinions into one composed result. Start on the right: GeoLyr references the Cube and Cone packages. Scene TransLyr places their occurrence parents; asset TransLyr centers each shape above its local base. Scene MatLyr references the shared palette and binds the Cube yellow and Cone green. The root combines these sibling layers, with GeoLyr weakest. Opinion is the strongest experimental layer.
 
 ```mermaid
 flowchart LR
@@ -100,7 +120,7 @@ flowchart LR
         direction TB
         C["AssetROOT_Cube — Opinion / Trans / Geo"]
         N["AssetROOT_Cone — Opinion / Trans / Geo"]
-        P["Palette_v001 — Red and Blue"]
+        P["Palette_v001 — Yellow, Green, Red and Blue"]
     end
     B["Root baseline: ground, lights, render and viewport cameras"]
     R --- B
@@ -130,11 +150,13 @@ flowchart LR
 |       `-- Asset              reference to AssetROOT_Cone
 |           `-- Geometry       Cone
 `-- Looks                      palette reference (scene MatLyr)
+    |-- Yellow
+    |-- Green
     |-- Red
     `-- Blue
 ```
 
-A sublayer combines opinions in the same namespace. A reference brings an asset's default prim under a scene reference site. A material binding is a **relationship**, not another composition arc. The scene root contains stage metadata, its sublayer list and the supplied Omniverse environment/render/camera baseline under the CC-01 template exception. It does not nest another scene root. The two teaching shapes remain in their role layers. The baseline ground has its own Grid material; Red and Blue are the two teaching materials.
+A sublayer combines opinions in the same namespace. A reference brings an asset's default prim under a scene reference site. A material binding is a **relationship**, not another composition arc. The scene root contains stage metadata, its sublayer list and the supplied Omniverse environment/render/camera baseline under the CC-01 template exception. It does not nest another scene root. Each asset root has a separate direct-open `/Environment` preview sibling; referencing its `/Asset` default prim does not bring that sibling into the scene. The two teaching shapes remain in their role layers. The baseline ground has its own Grid material; the fixed-material lesson uses Yellow and Green, while the Color variant lesson keeps Red and Blue.
 
 ### Small exercises
 

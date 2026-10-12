@@ -1,26 +1,38 @@
 #usda 1.0
 (
+    customLayerData = {
+        string "cc:context" = "unconditional"
+        string "cc:defaultAuthoring" = "opinion"
+        bool "cc:lockPersistentLayers" = 1
+        string "cc:opinionLayer" = "./050_REVIEW_LYR/OpinLYR_ColorVariants.usda"
+        string "cc:owner" = "asset:Cube"
+        string "cc:role" = "Root"
+        dictionary omni_layer = {
+            string authoring_layer = "./050_REVIEW_LYR/OpinLYR_ColorVariants.usda"
+            dictionary locked = {
+                bool "../../Envs/OmniverseStandard/Environment.usda" = 1
+                bool "../../MatLib/Palette_v001.usda" = 1
+                bool "020_BASE_LYR/GeoLyr.usda" = 1
+                bool "020_BASE_LYR/MatLyr.usda" = 1
+                bool "020_BASE_LYR/TransLyr.usda" = 1
+                bool "020_BASE_LYR/VariLyr.usda" = 1
+                bool "050_REVIEW_LYR/OpinLYR_ColorVariants.usda" = 0
+            }
+            dictionary muteness = {
+            }
+        }
+    }
     defaultPrim = "Asset"
-    metersPerUnit = 0.01
-    upAxis = "Z"
-    timeCodesPerSecond = 60
     framesPerSecond = 60
+    metersPerUnit = 0.01
     subLayers = [
         @./050_REVIEW_LYR/OpinLYR_ColorVariants.usda@,
         @./020_BASE_LYR/VariLyr.usda@,
         @./020_BASE_LYR/MatLyr.usda@,
         @./020_BASE_LYR/TransLyr.usda@,
-        @./020_BASE_LYR/GeoLyr.usda@
+        @./020_BASE_LYR/GeoLyr.usda@,
+        @../../Envs/OmniverseStandard/Environment.usda@
     ]
-    customLayerData = {
-        string "cc:owner" = "asset:Cube"
-        string "cc:role" = "Root"
-        string "cc:context" = "unconditional"
-        string "cc:defaultAuthoring" = "opinion"
-        bool "cc:lockPersistentLayers" = 1
-        string "cc:opinionLayer" = "./050_REVIEW_LYR/OpinLYR_ColorVariants.usda"
-        dictionary omni_layer = {
-            string authoring_layer = "./050_REVIEW_LYR/OpinLYR_ColorVariants.usda"
-        }
-    }
+    timeCodesPerSecond = 60
+    upAxis = "Z"
 )

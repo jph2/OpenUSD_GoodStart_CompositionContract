@@ -19,4 +19,22 @@ def Scope "Palette" {
             token outputs:surface
         }
     }
+    def Material "Yellow" {
+        token outputs:surface.connect = </Palette/Yellow/Surface.outputs:surface>
+        def Shader "Surface" {
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor = (0.9, 0.72, 0.03)
+            float inputs:roughness = 0.45
+            token outputs:surface
+        }
+    }
+    def Material "Green" {
+        token outputs:surface.connect = </Palette/Green/Surface.outputs:surface>
+        def Shader "Surface" {
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor = (0.08, 0.55, 0.12)
+            float inputs:roughness = 0.45
+            token outputs:surface
+        }
+    }
 }
