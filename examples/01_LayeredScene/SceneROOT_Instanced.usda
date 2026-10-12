@@ -31,11 +31,36 @@
         dictionary omni_layer = {
             string authoring_layer = "./050_REVIEW_LYR/Instanced/OpinLYR_default.usda"
             dictionary locked = {
-                bool "./020_BASE_LYR/GeoLyr_Instanced.usda" = 1
-                bool "./020_BASE_LYR/TransLyr_Instanced.usda" = 1
-                bool "./020_BASE_LYR/VariLyr_Instanced.usda" = 1
-                bool "./040_DATA_LYR/DataLyr.usda" = 1
-                bool "./050_REVIEW_LYR/Instanced/OpinLYR_default.usda" = 0
+                bool "010_ASS_USD/Assemblies/DisplayPair/020_BASE_LYR/TransLyr.usda" = 1
+                bool "010_ASS_USD/Assemblies/DisplayPair/020_BASE_LYR/VariLyr.usda" = 1
+                bool "010_ASS_USD/Assemblies/DisplayPairLofted/020_BASE_LYR/ContentsLyr.usda" = 1
+                bool "010_ASS_USD/Assemblies/DisplayPairLofted/020_BASE_LYR/GeoLyr.usda" = 1
+                bool "010_ASS_USD/Assemblies/DisplayPairLofted/050_REVIEW_LYR/OpinLYR_default.usda" = 1
+                bool "010_ASS_USD/Assemblies/DisplayPairLofted/AssetROOT_DisplayPairLofted.usda" = 1
+                bool "010_ASS_USD/MatLib/Palette_v001.usda" = 1
+                bool "010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/GeoLyr.usda" = 1
+                bool "010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/MatLyr.usda" = 1
+                bool "010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/TransLyr.usda" = 1
+                bool "010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/VariLyr.usda" = 1
+                bool "010_ASS_USD/USD_Wrappers/ConeLofted/020_BASE_LYR/ContentsLyr.usda" = 1
+                bool "010_ASS_USD/USD_Wrappers/ConeLofted/050_REVIEW_LYR/OpinLYR_default.usda" = 1
+                bool "010_ASS_USD/USD_Wrappers/ConeLofted/AssetROOT_ConeLofted.usda" = 1
+                bool "010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/GeoLyr.usda" = 1
+                bool "010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/MatLyr.usda" = 1
+                bool "010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/TransLyr.usda" = 1
+                bool "010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/VariLyr.usda" = 1
+                bool "010_ASS_USD/USD_Wrappers/CubeLofted/020_BASE_LYR/ContentsLyr.usda" = 1
+                bool "010_ASS_USD/USD_Wrappers/CubeLofted/050_REVIEW_LYR/OpinLYR_default.usda" = 1
+                bool "010_ASS_USD/USD_Wrappers/CubeLofted/AssetROOT_CubeLofted.usda" = 1
+                bool "020_BASE_LYR/GeoLyr_Instanced.usda" = 1
+                bool "020_BASE_LYR/TransLyr_Instanced.usda" = 1
+                bool "020_BASE_LYR/VariLyr_Instanced.usda" = 1
+                bool "040_DATA_LYR/Data/ContextLyr.usda" = 1
+                bool "040_DATA_LYR/Data/IdentityLyr.usda" = 1
+                bool "040_DATA_LYR/DataLyr.usda" = 1
+                bool "050_REVIEW_LYR/Instanced/OpinLYR_default.usda" = 0
+            }
+            dictionary muteness = {
             }
         }
         dictionary renderSettings = {

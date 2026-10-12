@@ -11,8 +11,28 @@
         dictionary omni_layer = {
             string authoring_layer = "./050_REVIEW_LYR/OpinLYR_default.usda"
             dictionary locked = {
-                bool "./020_BASE_LYR/ContentsLyr.usda" = 1
-                bool "./050_REVIEW_LYR/OpinLYR_default.usda" = 0
+                bool "../../MatLib/Palette_v001.usda" = 1
+                bool "../../USD_Wrappers/Cone/020_BASE_LYR/GeoLyr.usda" = 1
+                bool "../../USD_Wrappers/Cone/020_BASE_LYR/MatLyr.usda" = 1
+                bool "../../USD_Wrappers/Cone/020_BASE_LYR/TransLyr.usda" = 1
+                bool "../../USD_Wrappers/Cone/020_BASE_LYR/VariLyr.usda" = 1
+                bool "../../USD_Wrappers/ConeLofted/020_BASE_LYR/ContentsLyr.usda" = 1
+                bool "../../USD_Wrappers/ConeLofted/050_REVIEW_LYR/OpinLYR_default.usda" = 1
+                bool "../../USD_Wrappers/ConeLofted/AssetROOT_ConeLofted.usda" = 1
+                bool "../../USD_Wrappers/Cube/020_BASE_LYR/GeoLyr.usda" = 1
+                bool "../../USD_Wrappers/Cube/020_BASE_LYR/MatLyr.usda" = 1
+                bool "../../USD_Wrappers/Cube/020_BASE_LYR/TransLyr.usda" = 1
+                bool "../../USD_Wrappers/Cube/020_BASE_LYR/VariLyr.usda" = 1
+                bool "../../USD_Wrappers/CubeLofted/020_BASE_LYR/ContentsLyr.usda" = 1
+                bool "../../USD_Wrappers/CubeLofted/050_REVIEW_LYR/OpinLYR_default.usda" = 1
+                bool "../../USD_Wrappers/CubeLofted/AssetROOT_CubeLofted.usda" = 1
+                bool "../DisplayPair/020_BASE_LYR/TransLyr.usda" = 1
+                bool "../DisplayPair/020_BASE_LYR/VariLyr.usda" = 1
+                bool "020_BASE_LYR/ContentsLyr.usda" = 1
+                bool "020_BASE_LYR/GeoLyr.usda" = 1
+                bool "050_REVIEW_LYR/OpinLYR_default.usda" = 0
+            }
+            dictionary muteness = {
             }
         }
     }
