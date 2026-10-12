@@ -35,8 +35,8 @@
                 bool "010_ASS_USD/Assemblies/DisplayPair/020_BASE_LYR/TransLyr.usda" = 1
                 bool "010_ASS_USD/Assemblies/DisplayPair/020_BASE_LYR/VariLyr.usda" = 1
                 bool "010_ASS_USD/Assemblies/DisplayPair/AssetROOT_DisplayPair.usda" = 1
-                bool "010_ASS_USD/AssetROOT_Cone.usda" = 1
-                bool "010_ASS_USD/AssetROOT_Cube.usda" = 1
+                bool "010_ASS_USD/Cone.usda" = 1
+                bool "010_ASS_USD/Cube.usda" = 1
                 bool "010_ASS_USD/Envs/OmniverseStandard/Environment.usda" = 1
                 bool "020_BASE_LYR/GeoLyr_Starter.usda" = 1
                 bool "020_BASE_LYR/TransLyr_Starter.usda" = 1

@@ -15,7 +15,7 @@ def Xform "World"
         def Xform "Adjustment"
         {
             def Xform "Asset" (
-                prepend references = @../010_ASS_USD/AssetROOT_Cube.usda@
+                prepend references = @../010_ASS_USD/Cube.usda@
             )
             {
             }
@@ -27,7 +27,7 @@ def Xform "World"
         def Xform "Adjustment"
         {
             def Xform "Asset" (
-                prepend references = @../010_ASS_USD/AssetROOT_Cube.usda@
+                prepend references = @../010_ASS_USD/Cube.usda@
             )
             {
             }
@@ -39,7 +39,7 @@ def Xform "World"
         def Xform "Adjustment"
         {
             def Xform "Asset" (
-                prepend references = @../010_ASS_USD/AssetROOT_Cone.usda@
+                prepend references = @../010_ASS_USD/Cone.usda@
             )
             {
             }

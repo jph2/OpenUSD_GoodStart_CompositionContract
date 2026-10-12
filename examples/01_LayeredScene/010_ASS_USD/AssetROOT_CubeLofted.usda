@@ -41,7 +41,7 @@ def Xform "Cube" (
         string name = "CubeLofted"
     }
     kind = "component"
-    prepend payload = @AssetROOT_Cube.usda@</Cube>
+    prepend payload = @Cube.usda@</Cube>
     variants = {
         string Finish = "Red"
         string Size = "Normal"

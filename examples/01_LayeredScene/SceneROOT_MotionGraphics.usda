@@ -31,10 +31,10 @@
         dictionary omni_layer = {
             string authoring_layer = "050_OPINION_LYR/OpinLYR_SceneMotionGraphics.usda"
             dictionary locked = {
-                bool "010_ASS_USD/AssetROOT_Cone.usda" = 1
                 bool "010_ASS_USD/AssetROOT_ConeLofted.usda" = 1
-                bool "010_ASS_USD/AssetROOT_Cube.usda" = 1
                 bool "010_ASS_USD/AssetROOT_CubeLofted.usda" = 1
+                bool "010_ASS_USD/Cone.usda" = 1
+                bool "010_ASS_USD/Cube.usda" = 1
                 bool "020_BASE_LYR/AnimLyr_MotionGraphics.usdc" = 1
                 bool "020_BASE_LYR/CamLyr_MotionGraphics.usda" = 1
                 bool "020_BASE_LYR/ConfigLyr_MotionGraphics.usda" = 1

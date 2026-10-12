@@ -10,7 +10,7 @@ Session remains available for temporary previews.
 
 ## Current leaf preview reference
 
-The four AssetROOT leaves now use the Environment, Render and viewport-camera
+The four direct-named Cube/Cone leaf files use the Environment, Render and viewport-camera
 setup from `010_ASS_USD/geoANDenvEXAMPLE.usda`, authored directly in each file
 outside `/Asset`. Existing geometry, Color variants and default asset paths remain.
 This replaces the earlier texture-free preview described below. The supplied
@@ -21,10 +21,9 @@ is preserved. Kit visual matching remains pending.
 
 ## Self-contained leaves
 
-The four files directly in `010_ASS_USD` are independent leaf assets: geometry,
+The four files directly in `010_ASS_USD` are independent, directly named leaf assets: geometry,
 optional inline Color materials/variants, and an inline `/Environment` beside the
-`/Asset` default prim. There are no leaf sublayers, external textures or material
-library dependencies. The MatLib and Envs folders have been removed. Fixed-scene
+`/Asset` default prim. There are no leaf sublayers or material-library dependencies; the inline Omniverse preview uses its declared Kit resources. The MatLib and Envs folders have been removed. Fixed-scene
 materials live directly in scene MatLyr. The scene roots and leaves now use basic
 texture-free dome/key lighting and a plain ground material; the previous HDR/grid
 preview is intentionally replaced. Earlier shared-preview folder descriptions
@@ -32,21 +31,14 @@ below are historical and superseded by this layout. No Kit visual evaluation
 has been performed for the new lighting.
 
 
-## Current structure — contract 0.2.3
+## Historical walkthrough — superseded by the current leaf structure
 
-Cube and Cone are self-contained leaf assets. Their entrypoints contain geometry,
-intrinsic centering, and (where offered) inline materials and variants. They have
-no internal role stack, external palette dependency or Opinion layer. Each entrypoint loads shared preview lighting outside the default asset prim.
-Edit a leaf file directly; scene-level experiments still belong in scene Opinion.
-The scene retains its environment and layered composition. Assemblies use only
-needed work layers. Lofted wrappers in the layered example retain their payload
-boundary and load the standalone leaf implementation through ContentsLyr.
-
-The complete numbered folder catalogue at scene scope is a teaching scaffold.
-Unused folders/roles may be removed in a real project after removing dependencies.
-Leaf packages have no redundant scaffold. Older walkthroughs of leaf role stacks
-below describe the previous version and are superseded by this structure.
-No new Omniverse runtime acceptance is claimed for this update.
+This section records an earlier teaching layout and is retained as historical context.
+It predates the current directly named `Cube.usda`, `Cone.usda`, and
+`*_ColorVariants.usda` leaf files and their inline content. Do not use the old
+per-leaf layer stack described below as the current package structure. The active
+files and the current naming rule are described above; no new Omniverse runtime
+acceptance is claimed by this naming update.
 
 
 **Folder convention:** layer classes use singular `_LYR`, including `040_DATA_LYR` and `050_OPINION_LYR`, at scene and asset scope. Role filenames retain their existing casing (`DataLyr.usda`, `OpinLYR_SceneDefault.usda`). Folder numbering does not set composition strength.
@@ -55,13 +47,13 @@ Two small scenes use the same folder, ownership and naming rules as the composit
 
 ## Coordinates and environment ownership
 
-Both `SceneROOT_` entrypoints and all four Cube/Cone asset entrypoints declare
+Both `SceneROOT_` entrypoints and all four direct-named Cube/Cone leaf files declare
 Z-up and nominal centimetre units (`metersPerUnit = 0.01`). The composed Cone
 also declares its geometric axis as Z. The two scene roots contain the supplied
 Omniverse `Environment` (ground, lighting, render settings and viewport cameras)
 under the CC-01 template exception.
 
-The four leaf entrypoints load shared preview lighting from `Envs/OmniverseStandard/Environment.usda`. `/Environment` is outside `/Asset`, so scene references bring in only the asset content.
+Each leaf file is named for its asset and contains its preview environment inline beside `/Asset`; there is no generic AssetROOT wrapper or environment dependency.
 
 ## Choose a lesson
 
@@ -104,10 +96,10 @@ Directly opening a USDA does not execute Python. Its root metadata declares the 
 |   |   |-- Environment.usda           shared direct-open preview lighting
 |   |   `-- Resources/                 portable HDR and grid texture
 |   |-- MatLib/Palette_v001.usda         shared Yellow, Green, Red and Blue
-|   |-- AssetROOT_Cube.usda
-|   |-- AssetROOT_Cube_ColorVariants.usda
-|   |-- AssetROOT_Cone.usda
-|   `-- AssetROOT_Cone_ColorVariants.usda
+|   |-- Cube.usda
+|   |-- Cube_ColorVariants.usda
+|   |-- Cone.usda
+|   `-- Cone_ColorVariants.usda
 |-- 020_BASE_LYR/
 |       |   |   |-- GeoLyr.usda         one Cube geometry
 |       |   |   |-- TransLyr.usda       intrinsic centering
@@ -135,7 +127,7 @@ Directly opening a USDA does not execute Python. Its root metadata declares the 
 `-- Open_In_Kit.ps1
 ```
 
-The numbered folders classify roles; **the root's `subLayers` list sets strength**. Unused categories contain notes, not empty composed layers. Scene and asset roots repeat the same organization. A plain asset root composes Opinion → Trans → Geo; its color entrypoint composes Opinion → Vari → Mat → Trans → Geo. Both reuse the same geometry and intrinsic transform files.
+The numbered folders classify roles; **the root's `subLayers` list sets strength**. Unused categories contain notes, not empty composed layers. Only the scene entrypoints use the scene role-layer organization. Cube/Cone files are simple leaves with inline content; their direct filenames identify them. No `AssetROOT` entrypoint is needed for a single leaf.
 
 ## Fixed materials
 
@@ -156,16 +148,14 @@ flowchart LR
     end
     subgraph SOURCES["Reusable sources"]
         direction TB
-        C["AssetROOT_Cube — Opinion / Trans / Geo"]
-        N["AssetROOT_Cone — Opinion / Trans / Geo"]
-        P["Palette_v001 — Yellow, Green, Red and Blue"]
+        C["Cube.usda — direct-named leaf"]
+        N["Cone.usda — direct-named leaf"]
     end
     B["Root baseline: ground, lights, render and viewport cameras"]
     R --- B
     R -->|sublayers| STACK
     STACK -->|GeoLyr references| C
     STACK -->|GeoLyr references| N
-    STACK -->|MatLyr references| P
 ```
 
 ### Same USD data, different views
@@ -181,11 +171,11 @@ flowchart LR
 /World
 |-- Cube01                     scene placement (TransLyr)
 |   `-- Adjustment             reserved contextual adjustment boundary
-|       `-- Asset              reference to AssetROOT_Cube
+|       `-- Asset              reference to Cube
 |           `-- Geometry       Cube (leaf geometry + intrinsic TransLyr)
 |-- Cone01
 |   `-- Adjustment
-|       `-- Asset              reference to AssetROOT_Cone
+|       `-- Asset              reference to Cone
 |           `-- Geometry       Cone
 `-- Looks                      palette reference (scene MatLyr)
     |-- Yellow

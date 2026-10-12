@@ -1,6 +1,6 @@
 # LayeredScene — composition without unnecessary nesting
 
-**Layout convention 0.2.9 · Omniverse/Kit · Z-up · centimetres.**
+**Layout convention 0.2.11 · Omniverse/Kit · Z-up · centimetres.**
 Simple leaves keep their asset content inline. Assemblies keep meaningful work
 layers. Each scene owns a named Opinion file; an identifier is optional and uses
 `OpinLYR_SceneExample.name.usda` when needed.
@@ -34,8 +34,8 @@ for instancing scripts, motion controls and their known runtime limitations.
 
 ```text
 010_ASS_USD/
-  AssetROOT_Cube.usda
-  AssetROOT_Cone.usda
+  Cube.usda
+  Cone.usda
   AssetROOT_CubeLofted.usda
   AssetROOT_ConeLofted.usda
   Assemblies/
@@ -44,8 +44,10 @@ for instancing scripts, motion controls and their known runtime limitations.
   Envs/                  shared preview resources for scenes/assemblies
 ```
 
-Cube and Cone contain geometry, intrinsic centering, materials and Size/Finish
-variants. Each shape file also contains the selected Omniverse environment,
+The simple `Cube.usda` and `Cone.usda` leaves contain geometry, any needed intrinsic
+centering, materials and Size/Finish variants. Their filenames identify the leaf;
+`AssetROOT` is reserved for composed entrypoints such as the lofted wrappers and
+DisplayPair assemblies. Each shape file also contains the selected Omniverse environment,
 render and viewport-camera preview outside its default asset prim. That preview
 uses installed Kit texture/shader resources; these are not portable,
 dependency-free deliveries. The two lofted interfaces directly payload their

@@ -80,7 +80,7 @@
       "owner": "assembly:DisplayPairLofted@1"
     },
     {
-      "file": "010_ASS_USD/AssetROOT_Cone.usda",
+      "file": "010_ASS_USD/Cone.usda",
       "role": "Leaf",
       "owner": "declared by containing asset"
     },
@@ -90,7 +90,7 @@
       "owner": "asset:ConeLofted@1"
     },
     {
-      "file": "010_ASS_USD/AssetROOT_Cube.usda",
+      "file": "010_ASS_USD/Cube.usda",
       "role": "Leaf",
       "owner": "declared by containing asset"
     },

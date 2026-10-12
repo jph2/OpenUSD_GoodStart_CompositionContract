@@ -36,10 +36,10 @@
                 bool "010_ASS_USD/Assemblies/DisplayPairLofted/020_BASE_LYR/ContentsLyr.usda" = 1
                 bool "010_ASS_USD/Assemblies/DisplayPairLofted/020_BASE_LYR/GeoLyr.usda" = 1
                 bool "010_ASS_USD/Assemblies/DisplayPairLofted/AssetROOT_DisplayPairLofted.usda" = 1
-                bool "010_ASS_USD/AssetROOT_Cone.usda" = 1
                 bool "010_ASS_USD/AssetROOT_ConeLofted.usda" = 1
-                bool "010_ASS_USD/AssetROOT_Cube.usda" = 1
                 bool "010_ASS_USD/AssetROOT_CubeLofted.usda" = 1
+                bool "010_ASS_USD/Cone.usda" = 1
+                bool "010_ASS_USD/Cube.usda" = 1
                 bool "010_ASS_USD/Envs/OmniverseStandard/Environment.usda" = 1
                 bool "020_BASE_LYR/ConfigLyr_Instanced_Rings.usda" = 1
                 bool "020_BASE_LYR/GeoLyr_Instanced.usda" = 1

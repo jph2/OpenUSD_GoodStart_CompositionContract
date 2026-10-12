@@ -1458,3 +1458,106 @@ to the existing ConfigLyr/inline-material layout. Original guides backed up at
 C:\Users\jan\AppData\Local\Temp\motion-guide-merge-20261012-144918.
 Documentation only; no scene/runtime changes or tests. Skill guidance unchanged
 (version 0.2.9); no new workflow capability or contract rule. Commit/push paused.
+
+## 2026-10-12 — Contract consistency review (0.2.9)
+
+Read-only audit of CompositionContract.md after the simple-leaf / minimum-structure
+revision. Found wording conflicts or unresolved scope interactions to resolve in a
+future authorized contract edit:
+
+- CC-20 says its roles apply recursively to assets and that TransLyr remains
+  mandatory when ordinary transforms are needed (line 431), while CC-00 and
+  CC-03 allow leaf transforms inline and CC-02 scopes layer separation to composed
+  packages. Clarify that the mandatory TransLyr rule applies to composed scopes,
+  not intrinsic transforms in self-contained leaves.
+- CC-00a requires a direct-open environment for every asset entrypoint (line 143),
+  while CC-25 allows imported packages to remain behind an owned interface without
+  certification against our role conventions (line 644). State whether preview
+  lighting is a maintained-local-asset requirement or also an intake/adoption gate
+  for opaque third-party packages, and how exceptions are recorded.
+- The Essentials profile says numbered role folders, sibling stacks and Opinion
+  authoring apply at scene and asset scope (line 101); its later minimal profile
+  explicitly gives leaf files no work-layer stack or Opinion layer (lines 157-160).
+  Scope the earlier sentence to scenes and composed assets.
+- Opinion naming is prescribed as scene-specific or purpose-shared at line 187,
+  but the recursive scaffold names `OpinLYR_default.usda` as the default target at
+  line 650. Align the sample name or explicitly mark it as a placeholder/profile
+  exception.
+- The overview diagram labels Cube/Cone as a “self-contained leaf file” while
+  showing an external shared material-library dependency (lines 57-61). CC-00c
+  distinguishes self-contained asset content from dependency-complete delivery;
+  use that terminology in the diagram too.
+- The minimum-structure principle says only justified boundaries should remain,
+  but directs composed packages to start with the full scaffold and remove unused
+  folders/layers later (lines 3-6, 180). If the scaffold is a discovery checklist
+  rather than a required creation step, state that directly to avoid encouraging
+  unnecessary transient structure.
+- CC-26 says to use the class-directory names throughout and “Retain” both
+  `000_SOURCE` and `010_ASS_USD` (line 604), while CC-00/CC-25 exempt simple leaves
+  from the full scaffold and allow asset grouping to be chosen by purpose. Clarify
+  that names apply when a directory/category is present; source lanes are needed
+  only when retained source inputs exist.
+
+No contract or skill files changed and no tests were run. Skill 0.2.9 remains
+version-aligned; this review found no new operational guidance requiring a skill
+change. Kit rendering, imported-package sampling and profile-wide acceptance were
+outside this text-only consistency review.
+
+## 2026-10-12 — Composition simplicity clarifications (0.2.10)
+
+Applied Jan's decisions from the consistency review:
+
+- Leaves have no transform ops by default. Add a necessary intrinsic/pivot
+  correction inline; ordinary transforms in scenes and composed packages use the
+  owning TransLyr.
+- Essentials folder/layer and Opinion workflow summary is scoped to scene roots;
+  simple Cube/Cone leaves remain inline without work-layer stacks.
+- New Opinion names express scene or purpose scope. OpinLYR_default.usda is
+  explicitly retained only as an older convention, not a new scaffold default.
+- The overview now presents Cube/Cone as leaf entrypoints with owned material
+  choices and declared dependencies rather than calling them self-contained files
+  while diagramming a shared library dependency.
+- Owned direct-open assets default to an inline Environment sibling outside the
+  default asset prim. An external shared environment remains optional when reuse
+  justifies it. Opaque imported originals are not edited only to add previews;
+  use an owned adapter or record the limitation when readiness is required.
+- Every composed scene/asset starter provides the full scaffold; owners tailor the
+  finished package. Class-directory names are exact when those directories are
+  used. Source and asset lanes are not required for every leaf/project.
+
+Updated CompositionContract.md to 0.2.10, README.md, PROJECT_STRUCTURE.md and
+DT-05 in TOOLING_REQUIREMENTS.md. Updated semantic skill guidance and synchronized
+the generated reference, manifest and personal installation with
+`python tools/sync_composition_skill.py --install`; follow-up
+`--check --install` reported zero stale files in both locations. No USD files or
+examples were migrated, no tests or Kit visual checks were run, and no
+commit/push was requested. Historical/profile-specific conventions remain where
+identified; full scaffold generation tooling is still future work.
+
+
+## 2026-10-12 — Direct names for simple leaf assets (0.2.11)
+
+Applied Jan's naming distinction: `ROOT` identifies a composed entrypoint, not a
+single leaf. Renamed the six Cube/Cone leaf entrypoints in examples 01 and 02 to
+direct asset names (`Cube.usda`, `Cone.usda`, and `_ColorVariants` variants),
+then updated USD references and Kit `omni_layer.locked` maps. Composed
+`AssetROOT_CubeLofted`, `AssetROOT_ConeLofted` and DisplayPair entrypoints keep
+their prefix; scene entries remain `SceneROOT_<Purpose>`.
+
+Clarified CC-26, project layout, active example docs, and the skill naming rule.
+Bumped the contract and synchronized skill version to 0.2.11. A USD-aware LoadAll readback opened all 14 scene entrypoints in examples 01 and 02
+with zero composition errors. `sync_composition_skill.py --check --install`
+reported zero stale files in the repository skill package and personal installation;
+`git diff --check` passed. No tests, Kit render
+review, commit or push were requested. Historical cleanup evidence retains old
+filenames by design.
+
+
+## 2026-10-12 — README opening tightened
+
+Shortened the README opening to retain the composition principle, concise NVIDIA
+Omniverse scope, and independent-proposal status. Moved Opinion naming, selection,
+folder/resource grouping, preview and USDZ guidance to a compact Practical
+authoring conventions section after the paradigm. No contract rule changed; the
+composition skill was reviewed and needs no guidance change. The README's version
+remains aligned with contract and skill 0.2.11.

@@ -30,8 +30,8 @@
         dictionary omni_layer = {
             string authoring_layer = "./050_OPINION_LYR/OpinLYR_SceneColorVariants.usda"
             dictionary locked = {
-                bool "010_ASS_USD/AssetROOT_Cone_ColorVariants.usda" = 1
-                bool "010_ASS_USD/AssetROOT_Cube_ColorVariants.usda" = 1
+                bool "010_ASS_USD/Cone_ColorVariants.usda" = 1
+                bool "010_ASS_USD/Cube_ColorVariants.usda" = 1
                 bool "020_BASE_LYR/GeoLyr_ColorVariants.usda" = 1
                 bool "020_BASE_LYR/TransLyr.usda" = 1
                 bool "050_OPINION_LYR/OpinLYR_SceneColorVariants.usda" = 0

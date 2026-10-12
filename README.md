@@ -1,23 +1,10 @@
 # OpenUSD GoodStart Composition Contract
 
-> **Principle: use only the structure you need.**
-> Keep leaf assets self-contained, with their geometry, materials, transforms and variants in one file when no independent composition boundary is needed.
-> Use the conventional folders and role layers for scenes and composed assets only where ownership, reuse, editing or loading requires them, at every level of nesting.
-> Start composed packages with the full scaffold, then remove unused folders and layers safely; our teaching scenes retain the folder catalogue to show the available structure.
+> **Principle: use only the structure you need.** Keep leaf assets self-contained. Add composition boundaries where ownership, reuse, editing or loading requires them. Start composed scenes and assets with the full scaffold, then keep only what serves the purpose.
 
-**Primary platform: NVIDIA Omniverse.** This repository develops practical OpenUSD composition conventions for NVIDIA Omniverse and Omniverse Kit. Its definitions, rules, example files and code snippets intentionally include Omniverse-specific behavior: RTX render settings, viewport cameras, environment setup, Kit layer/authoring metadata, materials and extension APIs. These application details are part of the intended workflow; keep their required runtime dependencies explicit. Distinguish general OpenUSD composition mechanics, this project's conventions and Omniverse implementation details; portability to another application requires a separate assessment, and this independent proposal does not imply NVIDIA or AOUSD endorsement.
+**Primary platform: NVIDIA Omniverse.** This proposal targets Omniverse and Kit, including their RTX, viewport, environment and authoring features. It distinguishes OpenUSD mechanics, project conventions and Kit behavior; other targets need separate assessment. This is an independent proposal, not an NVIDIA or AOUSD standard.
 
-**Opinion names:** `OpinLYR_Scene<SceneName>.usda` belongs to one scene; `OpinLYR_<Purpose>.usda` intentionally serves multiple scenes, with consumers documented.
-
-**Scene choices:** save variant selections in the existing Opinion layer. Add `ConfigLyr.usda` (or `ConfigLyr_<Purpose>.usda`) only when independent reuse, ownership, versioning or switching justifies it. `VariLyr` describes variant definitions and scenario contents.
-
-**Folder grouping is a team choice:** independent asset files may share a directory. Add asset folders when dependencies, ownership, versioning or navigation justify them.
-
-**Shared resources and delivery:** USDZ may identify a self-contained, single-file delivery package once dependency completeness and target compatibility are confirmed; the extension alone is not proof. assets may share material and texture libraries. Keep editable sources; use ordinary ZIP for transport or a supported USDZ package for delivery, with dependency and runtime compatibility considered.
-
-**Ready to view:** every asset, including a simple leaf, loads basic preview environment lighting when opened directly. Keep it outside the default asset prim so referencing the asset does not import its preview setup.
-
-**Version 0.2.9 — independent work-in-progress proposal and local example · 2026-10-11**
+**Version 0.2.11 — independent work-in-progress proposal and local example · 2026-10-12**
 
 This project grew out of my journey into OpenUSD. I have spent a lot of time thinking about asset structures, how they compose, and what makes them useful. That led me to a more precise starting point: **a structure needs a purpose, requirements and an evaluation standard before we can judge how well it works.**
 
@@ -39,7 +26,7 @@ A robot packaged using NVIDIA's [Asset Structure 3.0](https://docs.isaacsim.omni
 
 [SimReady Foundation](https://github.com/NVIDIA/simready-foundation) supplies use-case requirements for incoming simulation assets. Our [asset-interface checklist](CompositionContract.md#asset-interface-checklist) now requires purpose, entrypoint, coordinates, dependencies, public controls and evidence, including selected simulation profiles where applicable. [Asset and assembly acceptance](CompositionContract.md#asset-and-assembly-acceptance) evaluates both incoming packages and their composed use. Asset readiness alone does not establish readiness for larger structures such as a workcell; automated integration remains planned.
 
-We define broad applicability through **common ownership and interface rules across explicitly supported domain profiles**. The contract's [NVIDIA alignment and readiness requirements](CompositionContract.md#21-nvidia-alignment-and-readiness-requirements) explain the remaining work: target publication formats, units and geometry preparation, robotics and sensor acceptance, identity continuity, executable validation and measured deployment. The contract draft is now 0.2.9; existing example profiles and their evidence retain their declared 0.1.1 baseline until re-evaluated.
+We define broad applicability through **common ownership and interface rules across explicitly supported domain profiles**. The contract's [NVIDIA alignment and readiness requirements](CompositionContract.md#21-nvidia-alignment-and-readiness-requirements) explain the remaining work: target publication formats, units and geometry preparation, robotics and sensor acceptance, identity continuity, executable validation and measured deployment. The contract draft is now 0.2.11; existing example profiles and their evidence retain their declared 0.1.1 baseline until re-evaluated.
 
 We also track [OpenUSD proposals](https://github.com/PixarAnimationStudios/OpenUSD-proposals/tree/main/proposals), especially validation, profiles/capabilities, namespace editing, LOD and spline animation. Their practical implications and adoption gates are in the [roadmap](ROADMAP.md#upstream-integration-priorities).
 
@@ -66,7 +53,7 @@ When the purpose or requirements change, revise the contract explicitly and eval
 ```mermaid
 %%{init: {"flowchart": {"wrappingWidth": 280, "nodeSpacing": 20, "rankSpacing": 24}}}%%
 flowchart LR
-    accTitle: OpenUSD GoodStart Composition Contract 0.2.9 - The paradigm
+    accTitle: OpenUSD GoodStart Composition Contract 0.2.11 - The paradigm
     accDescr: Root on the left, vertical scene layers in the middle with GeoLyr at the bottom, and reusable assemblies, assets and materials on the right.
     R["SceneROOT_Example.usda<br/>Combines the scene layers"]
 
@@ -115,6 +102,12 @@ it is not the default editing destination. See the [CC-01 host exception](Compos
 
 See the [detailed ownership diagram](CompositionContract.md#composition-memory-chart) and [project structure](PROJECT_STRUCTURE.md) for the full responsibilities and example setup.
 
+## Practical authoring conventions
+
+- **Opinion and choices:** use `OpinLYR_Scene<SceneName>.usda` per scene, or `OpinLYR_<Purpose>.usda` when a documented purpose is intentionally shared. Save selections in Opinion; add a ConfigLyr only when independent reuse, ownership, versioning or switching warrants it. VariLyr holds variant definitions and scenario contents.
+- **Folders and resources:** group independent assets as the team needs; add folders or shared material/texture libraries when reuse or ownership benefits. Keep editable sources.
+- **Preview and delivery:** direct-open assets that claim preview readiness include basic lighting outside the default prim, inline by default. Use a shared environment when reuse justifies it. Do not modify imported originals just to add previews; use an owned adapter or record the limitation. USDZ is a single-file delivery only after dependencies and target compatibility are confirmed; the extension alone proves neither.
+
 ## Requirements and evaluation
 
 Our entrypoint term is **Root** (`SceneROOT_<Purpose>.usda`); **scene** means its composed result. All active scene entrypoints now follow this convention (CC-26). The diagrams use the same classes as storage: **ASSET USD** for reusable packages, **BASE** for authored setup, **SIM** for simulation results, **RUNTIME** for live state/snapshots, **DATA** for identity/context, and **REVIEW** for experiments. Inside those classes, role names remain `GeoLyr`, `TransLyr`, `VariLyr`, etc. Class labels add no layers and impose no strength order. See the [classification table](CompositionContract.md#naming-and-classification). Use the exact directory names `040_DATA_LYR` for DATA and `050_OPINION_LYR` for REVIEW. All layer-class folders use singular `_LYR`; this convention repeats inside locally authored assets and assemblies and in starter packages.
@@ -136,7 +129,7 @@ Each evaluation case needs named inputs, the applicable contract/profile revisio
 
 ## Working with agents
 
-Use **`$openusd-composition-contract`** to apply this proposal when designing, reviewing or changing USD assets, assemblies and digital twins. The maintained [skill](skills/openusd-composition-contract/SKILL.md) includes operational guidance and a generated contract reference with the paper's version and source hash. Its version currently matches contract **0.2.9**; the skill supplies guidance, while general enforcement and runtime acceptance remain planned.
+Use **`$openusd-composition-contract`** to apply this proposal when designing, reviewing or changing USD assets, assemblies and digital twins. The maintained [skill](skills/openusd-composition-contract/SKILL.md) includes operational guidance and a generated contract reference with the paper's version and source hash. Its version matches contract **0.2.11**; the skill supplies guidance, while general enforcement and runtime acceptance remain planned.
 
 After reviewing the skill for affected rule/workflow changes, refresh it from the repository root with `python tools/sync_composition_skill.py --install`. Use `python tools/sync_composition_skill.py --check --install` to compare the generated files and personal installation without writing. The default personal location follows this host's `$CODEX_HOME/skills` (or `~/.codex/skills`); `--skills-root` supports another configured location. [AGENTS.md](AGENTS.md#keep-the-contract-skill-synchronized) requires this maintenance whenever the repository changes, with the main paper remaining the rule owner.
 
@@ -163,7 +156,7 @@ The intended workflow combines model interpretation with deterministic USD-aware
 
 ## Starter master preset
 
-The same package layout repeats inside locally authored assets and assemblies. Open `AssetROOT_Cube.usda`, `AssetROOT_Cone.usda` or `AssetROOT_DisplayPair.usda` to work at that owner's scope: BASE roles remain in `020_BASE_LYR`, and each package has its own Opinion in `050_OPINION_LYR`. A building used in a city is also an asset; object type does not change the root naming rule. Working scenes use `SceneROOT_<Purpose>.usda`. See [recursive package rules](CompositionContract.md#recursive-package-layout).
+Simple leaves use direct filenames such as `Cube.usda` and `Cone.usda`; they do not need an AssetROOT layer stack. Open composed packages such as `AssetROOT_DisplayPair.usda` to work at that owner's scope: its owned roles remain in `020_BASE_LYR`, and a package uses Opinion only when that workflow is needed. A building used in a city is an asset, but `AssetROOT` is reserved for the composed entrypoint rather than every asset file. Working scenes use `SceneROOT_<Purpose>.usda`. See [recursive package rules](CompositionContract.md#recursive-package-layout).
 
 **Copy-and-run setup:** copy the entire [portable setup folder](starter/Composition_Starter_0.1.1/README_SETUP.md) into your destination and double-click `Create_Composition_Project.bat`. It expands the bundled scenes, assets, layers and launch helper into that folder. Windows PowerShell is sufficient; setup needs no Python or network access. Existing files are never overwritten. Omniverse remains a separately installed prerequisite for the Kit launcher.
 

@@ -41,7 +41,7 @@ def Xform "Cone" (
         string name = "ConeLofted"
     }
     kind = "component"
-    prepend payload = @AssetROOT_Cone.usda@</Cone>
+    prepend payload = @Cone.usda@</Cone>
     variants = {
         string Finish = "Yellow"
         string Size = "Normal"

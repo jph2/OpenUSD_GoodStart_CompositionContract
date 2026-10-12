@@ -17,7 +17,7 @@
       "fields": "geometry; intrinsic placement; branch scale/order; branch material binding",
       "id": "asset:Cube@1",
       "override": "downstream selects public variants; private edits only in explicit review fixture",
-      "package": "010_ASS_USD/AssetROOT_Cube.usda",
+      "package": "010_ASS_USD/Cube.usda",
       "pivot": "base center; Z-up; 100 cm height in Normal",
       "private": [
         "/Cube/Geometry",
@@ -46,7 +46,7 @@
       "fields": "geometry; intrinsic placement; branch scale/order; branch material binding",
       "id": "asset:Cone@1",
       "override": "downstream selects public variants; private edits only in explicit review fixture",
-      "package": "010_ASS_USD/AssetROOT_Cone.usda",
+      "package": "010_ASS_USD/Cone.usda",
       "pivot": "base center; Z-up; 100 cm height in Normal",
       "private": [
         "/Cone/Geometry",

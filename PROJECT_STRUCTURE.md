@@ -19,17 +19,17 @@ or migrate those files automatically.
 
 **Asset grouping (CC-00b):** a team may store independent asset entrypoints beside each other. Essentials uses four files directly in `010_ASS_USD`. Use separate folders when resources, ownership, revision/publication or navigation benefit; no fixed threshold applies.
 
-**Preview requirement (CC-00a):** all asset entrypoints load basic environment lighting for direct inspection, including leaves. A shared preview layer places `/Environment` beside the default asset prim; it introduces no asset-internal role stack. Scene references target only the asset prim. Package preview resources with portable paths.
+**Preview requirement (CC-00a):** locally authored or owned-published asset entrypoints that claim direct-open readiness load basic environment lighting, including leaves. The simple default is to author `/Environment` inline in the same USD file, beside and outside the default asset prim. A shared preview layer is optional when deliberate reuse across assets justifies the dependency. Scene references target only the asset prim. Do not rewrite imported originals just to add a preview; use an owned adapter or record the limitation when direct-open readiness is required.
 
-## Scaffold and stopping rule (contract 0.2.1)
+## Scaffold and stopping rule (contract 0.2.11)
 
-Self-contained leaves need only their asset file, including any intrinsic transforms, materials and variants. Composed assets/scenes start from the full conventional folder and role-layer scaffold; remove unused categories and contributions after tailoring it. Clear incoming arcs and stale authoring/lock metadata before removing a layer. Teaching examples keep the full folder catalogue at scene scope. Nested compositions use only their needed categories. Cube and Cone now end recursion in standalone files; DisplayPair keeps its assembly layers, and lofted wrappers retain their purposeful payload boundary. Older role diagrams below describe the available catalogue, not required leaf internals.
+Self-contained leaves need only their asset file, including materials and variants; author an intrinsic transform inline only when the asset needs one, such as correcting an off-origin pivot. Do not add a TransLyr to an ordinary leaf by default. Every composed-asset or scene starter begins with the full conventional folder and role-layer scaffold; a script or skill may generate it. The owner then decides what is needed and can remove unused categories and contributions, clearing incoming arcs and stale authoring/lock metadata safely. The full scaffold is a starter, not a required final layout. Teaching examples may keep the full folder catalogue at scene scope. Nested compositions are tailored at each scope. Cube and Cone now end recursion in standalone files; DisplayPair keeps its assembly layers, and lofted wrappers retain their purposeful payload boundary. Older role diagrams below describe the available catalogue, not required leaf internals.
 
 **Draft 0.1.1 · 2026-10-10.** This design develops Jan's scene-layer schematic, TutorialBuilder's VariantSetups exploration and the inspected `USD_GoodStart/_Generated_Test` folder. [CompositionContract.md](CompositionContract.md) owns the rules. The [local example](examples/01_LayeredScene/README.md) implements a bounded static profile; acceptance remains pending.
 
 ## Directory naming convention
 
-Use these exact class folders at scene, asset and assembly scope:
+When a package needs these class folders, use their exact names. The full scaffold provides all of them for composed-package starters; a finished package may omit categories that its owner does not need. `000_SOURCE` is used when source inputs are retained, and `010_ASS_USD` when a reusable-USD storage lane is useful:
 
 ```text
 000_SOURCE/
@@ -41,7 +41,7 @@ Use these exact class folders at scene, asset and assembly scope:
 050_OPINION_LYR/
 ```
 
-The `_LYR` suffix is singular for every layer class. DATA uses `040_DATA_LYR`; OPINION uses `050_OPINION_LYR`. Keep role filenames such as `DataLyr.usda` and `OpinLYR_default.usda` unchanged. Folder numbers classify storage; each root's `subLayers` list declares strength. These names also apply to generators, relative paths, authoring-target metadata and starter packages. [CC-26](CompositionContract.md#naming-and-classification) owns this convention.
+The `_LYR` suffix is singular for every layer class. DATA uses `040_DATA_LYR`; OPINION uses `050_OPINION_LYR`. Keep role filenames such as `DataLyr.usda`; name Opinion files by owner scope (`OpinLYR_Scene<SceneName>.usda` or `OpinLYR_<Purpose>.usda`). `OpinLYR_default.usda` is an older generic convention, not the name for new work. Folder numbers classify storage; each root's `subLayers` list declares strength. These names also apply to generators, relative paths, authoring-target metadata and starter packages. [CC-26](CompositionContract.md#naming-and-classification) owns this convention.
 
 ## The authoring model
 
@@ -132,7 +132,7 @@ The inspected setup script and its generated output are separate evidence. Scrip
 
 ## Storage layout
 
-Use Root for entrypoint naming (`SceneROOT_<Purpose>.usda`) and scene for the composed result. All active scene entrypoints follow CC-26. Diagram class labels map to the [contract classification table](CompositionContract.md#naming-and-classification): ASSET USD, BASE, SIM, RUNTIME, DATA and REVIEW. These classify package/layer purpose; mixed-case names inside them identify technical roles. No additional aggregate layers are implied.
+Use `SceneROOT_<Purpose>.usda` for a scene entrypoint, and call its composed result the scene. Name self-contained leaves directly (`Cube.usda`); reserve `AssetROOT_<Name>.usda` for composed reusable assets and assemblies. All active scene entrypoints follow CC-26. Diagram class labels map to the [contract classification table](CompositionContract.md#naming-and-classification): ASSET USD, BASE, SIM, RUNTIME, DATA and REVIEW. These classify package/layer purpose; mixed-case names inside them identify technical roles. No additional aggregate layers are implied.
 
 The example folder is the portable unit. The complete folder includes all USD dependencies; moving an individual root does not preserve its relative dependencies. Numeric prefixes organize storage and carry **no USD strength semantics**.
 
@@ -147,11 +147,10 @@ examples/01_LayeredScene/
   000_SOURCE/                      retained CAD/DCC originals; unused here
   010_ASS_USD/
     USD_Startpoint/                retained imported USD; unused here
-    USD_Wrappers/
-      Cube/AssetROOT_Cube.usda               published asset entrypoint
-        020_BASE_LYR/{Geo,Trans,Mat,Vari}Lyr.usda
-      Cone/AssetROOT_Cone.usda
-        020_BASE_LYR/{Geo,Trans,Mat,Vari}Lyr.usda
+    Cube.usda                         self-contained leaf; inline content
+    Cone.usda                         self-contained leaf; inline content
+    AssetROOT_CubeLofted.usda         composed payload/interface wrapper
+    AssetROOT_ConeLofted.usda         composed payload/interface wrapper
     Assemblies/
       DisplayPair/AssetROOT_DisplayPair.usda
         020_BASE_LYR/{Geo,Trans,Vari}Lyr.usda
@@ -184,10 +183,10 @@ Reserved directories contain a short README explaining their use. Empty USD cont
 ```text
 /World/Cube02                         scene TransLyr: base placement
   /Adjustment                        scene Layout branch: relative offset
-    /Asset                           scene GeoLyr: reference to AssetROOT_Cube.usda
-      [Size, Finish public controls] asset VariLyr: intrinsic alternatives
-      /Geometry                      asset GeoLyr: cube; TransLyr: center at z=50
-      /Looks                         asset MatLyr: references to shared materials
+    /Asset                           scene GeoLyr: reference to Cube.usda
+      [Size, Finish public controls] leaf asset: intrinsic alternatives
+      /Geometry                      leaf asset: cube; inline centering only if needed
+      /Looks                         leaf asset: owned material choices/dependencies
 ```
 
 The cube's Size branch owns scale and its complete operation order on Asset. Its fixed geometry-centering transform belongs to the cube's TransLyr. Scene placement and adjustment affect different prims, so they combine through hierarchy. A direct scale on Asset would compete with Size even if placed in a differently named scene layer.
@@ -207,7 +206,7 @@ Both baseline scene roots list, strongest first:
 
 The supplied root's environment/render/viewport specs remain local root content by the explicit CC-01 application-template exception. They do not author transforms on `/World` or the example occurrences. The earlier presentation layers and Ground package were archived outside the active example. Every scene entrypoint owns its startup content and directly lists its work layers. Manual and review entrypoints never sublayer another scene root; review layers sit directly above the baseline work layers.
 
-Most contributions own different fields. GeoLyr at the bottom is this project's scene convention; the profile declares the order above it. Asset roots likewise list VariLyr, MatLyr where needed, TransLyr where needed, then GeoLyr. Review entrypoints compose their exception above the corresponding baseline work layers.
+Most contributions own different fields. GeoLyr at the bottom is this project's scene convention; the profile declares the order above it. Composed `AssetROOT` packages likewise compose only the role layers their ownership and interfaces need (for example VariLyr, MatLyr, TransLyr and GeoLyr). Simple leaves such as Cube and Cone are directly named files with no generic Asset/ROOT wrapper. Review entrypoints compose their exception above the corresponding baseline work layers.
 
 | Intended edit | Destination | Context |
 |---|---|---|
@@ -232,7 +231,7 @@ The JSON contracts are example-specific drafts. They make owner, role, context, 
 
 Keep scene `020_BASE_LYR` flat: use role filenames with `_Starter` or `_Scenarios` purpose suffixes for alternative contributions. These filenames distinguish independent work layers without nesting class folders further. Sublayer lists still declare actual strength.
 
-Cube, Cone and DisplayPair repeat the same numbered class folders as the scene. Each has an AssetROOT_<Name>.usda, owned roles in 020_BASE_LYR and its own Opinion in 050_OPINION_LYR. Other classes are reserved with notes. See CC-25/26 for the distinction between scene entrypoints, reusable packages and preserved third-party imports. Object type does not change this convention: a building used in a city is an asset.
+Cube and Cone are self-contained leaf files named `Cube.usda` and `Cone.usda`; they do not repeat the scene's folder scaffold or use AssetROOT filenames. DisplayPair and the lofted wrappers are composed packages, so their published interfaces use `AssetROOT_<Name>.usda` and their owned role layers. Use Opinion within a package only when its authoring workflow needs it. See CC-25/26 for the distinction between leaf entrypoints, composed reusable packages and preserved third-party imports. A building used in a city is an asset, but the `AssetROOT` prefix applies only when the published entrypoint composes structure.
 
 ## Scalability samples
 

@@ -1,21 +1,35 @@
 #usda 1.0
 (
     customLayerData = {
+        string "cc:context" = "unconditional"
         string "cc:owner" = "scene:USDEssentials"
         string "cc:role" = "GeoLyr"
-        string "cc:context" = "unconditional"
     }
 )
 
-def Xform "World" {
-    def Xform "Cube01" {
-        def Xform "Adjustment" {
-            def Xform "Asset" (prepend references = @../010_ASS_USD/AssetROOT_Cube_ColorVariants.usda@) {}
+def Xform "World"
+{
+    def Xform "Cube01"
+    {
+        def Xform "Adjustment"
+        {
+            def Xform "Asset" (
+                prepend references = @../010_ASS_USD/Cube_ColorVariants.usda@
+            )
+            {
+            }
         }
     }
-    def Xform "Cone01" {
-        def Xform "Adjustment" {
-            def Xform "Asset" (prepend references = @../010_ASS_USD/AssetROOT_Cone_ColorVariants.usda@) {}
+
+    def Xform "Cone01"
+    {
+        def Xform "Adjustment"
+        {
+            def Xform "Asset" (
+                prepend references = @../010_ASS_USD/Cone_ColorVariants.usda@
+            )
+            {
+            }
         }
     }
 }

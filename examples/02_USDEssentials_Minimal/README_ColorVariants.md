@@ -2,7 +2,7 @@
 
 ## Self-contained leaves
 
-The four files directly in `010_ASS_USD` are independent leaf assets: geometry,
+The four files directly in `010_ASS_USD` are independent, directly named leaf assets: geometry,
 optional inline Color materials/variants, and an inline `/Environment` beside the
 `/Asset` default prim. There are no leaf sublayers, external textures or material
 library dependencies. The MatLib and Envs folders have been removed. Fixed-scene
@@ -24,7 +24,7 @@ Open `SceneROOT_USDEssentials_ColorVariants.usda`, or use the [launcher and auth
 
 ## Follow the graph
 
-The scene root composes three sibling layers. GeoLyr references standalone Cube/Cone color assets; each file contains geometry, intrinsic centering, materials and Color variants. Scene Opinion stores the selected choices. The plain and color entrypoints intentionally repeat the small shape definition to remain self-contained.
+The scene root composes three sibling layers. GeoLyr references `Cube_ColorVariants.usda` and `Cone_ColorVariants.usda`; each file contains geometry, intrinsic centering, materials and Color variants. Scene Opinion stores the selected choices. The plain and color entrypoints intentionally repeat the small shape definition to remain self-contained.
 
 ```mermaid
 flowchart LR
@@ -39,8 +39,8 @@ flowchart LR
     end
     subgraph ASSETS["Reusable asset entrypoints"]
         direction TB
-        C["AssetROOT_Cube_ColorVariants"]
-        N["AssetROOT_Cone_ColorVariants"]
+        C["Cube_ColorVariants"]
+        N["Cone_ColorVariants"]
         ROLES["Each leaf: geometry + materials + Color variants inline"]
         C --> ROLES
         N --> ROLES
