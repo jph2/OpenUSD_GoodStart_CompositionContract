@@ -1,5 +1,30 @@
 # Project structure and the revised scene paradigm
 
+## Selection and configuration naming
+
+Store saved scene selections in the existing `050_OPINION_LYR/OpinLYR_Scene<SceneName>.usda`
+by default. Use `OpinLYR_SceneDefault.usda` and
+`OpinLYR_SceneColorVariants.usda` for the Essentials scenes. For intentionally
+shared Opinion layers omit `Scene`, use `OpinLYR_<Purpose>.usda`, and document
+their consumers.
+Session is for transient previews. Add `020_BASE_LYR/ConfigLyr.usda` only for
+independent reuse, ownership, versioning or switching; use `ConfigLyr_<Purpose>.usda`
+when naming several configurations. Keep the extension lowercase. Author/team identifiers are optional and omitted by default. When used, append `.name.usda`, for example `OpinLYR_SceneDefault.jph2.usda`. ConfigLyr
+selects existing asset variants; VariLyr defines variants/scenarios and their
+conditional contents. Saved Opinion selections do not require promotion.
+Existing examples using VariLyr for direct selections are legacy layouts, not a
+requirement to create that layer in new scenes. This rule update does not rename
+or migrate those files automatically.
+
+
+**Asset grouping (CC-00b):** a team may store independent asset entrypoints beside each other. Essentials uses four files directly in `010_ASS_USD`. Use separate folders when resources, ownership, revision/publication or navigation benefit; no fixed threshold applies.
+
+**Preview requirement (CC-00a):** all asset entrypoints load basic environment lighting for direct inspection, including leaves. A shared preview layer places `/Environment` beside the default asset prim; it introduces no asset-internal role stack. Scene references target only the asset prim. Package preview resources with portable paths.
+
+## Scaffold and stopping rule (contract 0.2.1)
+
+Self-contained leaves need only their asset file, including any intrinsic transforms, materials and variants. Composed assets/scenes start from the full conventional folder and role-layer scaffold; remove unused categories and contributions after tailoring it. Clear incoming arcs and stale authoring/lock metadata before removing a layer. Teaching examples keep the full folder catalogue at scene scope. Nested compositions use only their needed categories. Cube and Cone now end recursion in standalone files; DisplayPair keeps its assembly layers, and lofted wrappers retain their purposeful payload boundary. Older role diagrams below describe the available catalogue, not required leaf internals.
+
 **Draft 0.1.1 · 2026-10-10.** This design develops Jan's scene-layer schematic, TutorialBuilder's VariantSetups exploration and the inspected `USD_GoodStart/_Generated_Test` folder. [CompositionContract.md](CompositionContract.md) owns the rules. The [local example](examples/01_LayeredScene/README.md) implements a bounded static profile; acceptance remains pending.
 
 ## Directory naming convention
@@ -13,10 +38,10 @@ Use these exact class folders at scene, asset and assembly scope:
 030_SIM_LYR/
 035_RUNTIME_LYR/
 040_DATA_LYR/
-050_REVIEW_LYR/
+050_OPINION_LYR/
 ```
 
-The `_LYR` suffix is singular for every layer class. DATA uses `040_DATA_LYR`; REVIEW uses `050_REVIEW_LYR`. Keep role filenames such as `DataLyr.usda` and `OpinLYR_default.usda` unchanged. Folder numbers classify storage; each root's `subLayers` list declares strength. These names also apply to generators, relative paths, authoring-target metadata and starter packages. [CC-26](CompositionContract.md#naming-and-classification) owns this convention.
+The `_LYR` suffix is singular for every layer class. DATA uses `040_DATA_LYR`; OPINION uses `050_OPINION_LYR`. Keep role filenames such as `DataLyr.usda` and `OpinLYR_default.usda` unchanged. Folder numbers classify storage; each root's `subLayers` list declares strength. These names also apply to generators, relative paths, authoring-target metadata and starter packages. [CC-26](CompositionContract.md#naming-and-classification) owns this convention.
 
 ## The authoring model
 
@@ -35,7 +60,7 @@ flowchart LR
         Startup["Supplied Omniverse baseline in the root<br/>Environment · Render · viewport cameras<br/>Z-up · centimetres · identity World · 60 fps"]
         Session ~~~ R
         R ~~~ Startup
-        Review["Optional REVIEW · 050_REVIEW_LYR<br/>ReviewLyr · explicit experiments above the base stack<br/>Declare owner, purpose and removal route"]
+        Review["Optional OPINION · 050_OPINION_LYR<br/>ReviewLyr · explicit experiments above the base stack<br/>Declare owner, purpose and removal route"]
         Startup ~~~ Review
     end
 
@@ -44,7 +69,7 @@ flowchart LR
         RT["RUNTIME LAYER · 035_RUNTIME_LYR<br/>RuntimeLyr · deliberate operational snapshots<br/>Live values may remain in session / external storage<br/>Declare writer authority and persistence"]
         S["SIM LAYER · 030_SIM_LYR<br/>SimLyr · published solver results<br/>Record scenario, solver, time and provenance"]
         D["DATA LAYERS · 040_DATA_LYR<br/>DataLyr · project identity and context<br/>IdentityLyr · scoped occurrence / external IDs<br/>ContextLyr · installation context<br/>Bindings resolve identities to explicit targets<br/>UNSMappingLyr · optional integration mappings"]
-        BASE["BASE LAYER · 020_BASE_LYR<br/>MatLyr · scene resources and assignments; respect asset Finish<br/>TransLyr · ordinary placement on occurrence parents<br/>VariLyr · published selections OR Layout scenarios<br/>Relative adjustments stay in their scenario branch<br/>Optional: EnvLyr · LightLyr · CamLyr · RenderLyr<br/>AnimLyr · PhysicsLyr · RigLyr as the profile requires<br/>GeoLyr · hierarchy and asset references · BOTTOM / WEAKEST<br/>Linked packages retain their own implementation"]
+        BASE["BASE LAYER · 020_BASE_LYR<br/>MatLyr · scene resources and assignments; respect asset Finish<br/>TransLyr · ordinary placement on occurrence parents<br/>Opinion · saved selections<br/>ConfigLyr · optional managed selections<br/>VariLyr · Layout scenarios<br/>Relative adjustments stay in their scenario branch<br/>Optional: EnvLyr · LightLyr · CamLyr · RenderLyr<br/>AnimLyr · PhysicsLyr · RigLyr as the profile requires<br/>GeoLyr · hierarchy and asset references · BOTTOM / WEAKEST<br/>Linked packages retain their own implementation"]
         RT ~~~ S
         S ~~~ D
         D ~~~ BASE
@@ -83,7 +108,7 @@ flowchart LR
 
 Read the diagram **left to right**: the root assembles the scene layer stack, which uses reusable assets, assemblies and materials. Inside the middle column, **GeoLyr is at the bottom**, beneath the other scene contributions. Numbered solid rows give the active standard-scene order: DataLyr → TransLyr → VariLyr → GeoLyr. Dashed rows retain the optional work roles and the explicit Review role; the profile declares their order when included.
 
-The root's sublayers are siblings. GeoLyr references Cube, Cone and DisplayPair; TransLyr places occurrences; VariLyr selects published controls and keeps scenario-relative adjustments in their branches. DisplayPair's own GeoLyr references Cube and Cone, and its Palette variants coordinate child Finish choices. Cube/Cone keep their geometry, intrinsic transforms, materials and Size/Finish implementations in their own package. Their MatLyr contributions reference Palette_v001. The supplied environment/render/camera content stays in the root under CC-01. See the [composition contract](CompositionContract.md#composition-memory-chart) for the corresponding ownership and persistence guidance.
+The root's sublayers are siblings. GeoLyr references Cube, Cone and DisplayPair; TransLyr places occurrences; VariLyr selects published controls and keeps scenario-relative adjustments in their branches. DisplayPair's own GeoLyr references Cube and Cone, and its Palette variants coordinate child Finish choices. Cube/Cone keep their geometry, intrinsic transforms, materials and Size/Finish implementations in their own package. Their simple material definitions are inline; scene/assembly material libraries may still be shared. The supplied environment/render/camera content stays in the root under CC-01. See the [composition contract](CompositionContract.md#composition-memory-chart) for the corresponding ownership and persistence guidance.
 
 ## Changes from the two predecessors
 
@@ -144,7 +169,7 @@ examples/01_LayeredScene/
     DataLyr.usda                   thin data aggregate
     Data/IdentityLyr.usda
     Data/ContextLyr.usda
-  050_REVIEW_LYR/
+  050_OPINION_LYR/
     MaskedSize/ReviewLyr.usda
     MaskedSelection/ReviewLyr.usda
   _contracts/                     profile, ownership and expected outcomes
@@ -190,7 +215,7 @@ Most contributions own different fields. GeoLyr at the bottom is this project's 
 | Choose Cube02 Finish in manual mode | Scene VariLyr, `/World/Cube02/Adjustment/Asset` | Direct selection metadata |
 | Choose a scene Layout | Scenarios/VariLyr, `/World` | Layout selection metadata |
 | Change the Exploded offset | Scenarios/VariLyr, Cube02/Adjustment | Inside Layout=Exploded |
-| Change what Tall means for every cube | Cube package VariLyr | Inside Size=Tall; asset revision decision |
+| Change what Tall means for every cube | Cube leaf entrypoint, Size variant | Inside Size=Tall; asset revision decision |
 | Change distance between pair components | DisplayPair TransLyr | Assembly-owned placement |
 | Change the shared Blue shader | Material-library revision | Library-owned definition |
 | Add a temporary masked-scale experiment | Dedicated ReviewLyr | Declared exception with removal route |
@@ -207,11 +232,11 @@ The JSON contracts are example-specific drafts. They make owner, role, context, 
 
 Keep scene `020_BASE_LYR` flat: use role filenames with `_Starter` or `_Scenarios` purpose suffixes for alternative contributions. These filenames distinguish independent work layers without nesting class folders further. Sublayer lists still declare actual strength.
 
-Cube, Cone and DisplayPair repeat the same numbered class folders as the scene. Each has an AssetROOT_<Name>.usda, owned roles in 020_BASE_LYR and its own Opinion in 050_REVIEW_LYR. Other classes are reserved with notes. See CC-25/26 for the distinction between scene entrypoints, reusable packages and preserved third-party imports. Object type does not change this convention: a building used in a city is an asset.
+Cube, Cone and DisplayPair repeat the same numbered class folders as the scene. Each has an AssetROOT_<Name>.usda, owned roles in 020_BASE_LYR and its own Opinion in 050_OPINION_LYR. Other classes are reserved with notes. See CC-25/26 for the distinction between scene entrypoints, reusable packages and preserved third-party imports. Object type does not change this convention: a building used in a city is an asset.
 
 ## Scalability samples
 
-`SceneROOT_Lofted.usda` and the four `SceneROOT_Instanced*.usda` roots directly compose scene role layers. `CubeLofted`, `ConeLofted` and `DisplayPairLofted` packages repeat the BASE/REVIEW structure for their active roles. Their `AssetROOT_*Lofted.usda` files expose empty variant declarations and payload `020_BASE_LYR/ContentsLyr.usda`. ContentsLyr aggregates original role files, preserving one geometry/material implementation. DisplayPairLofted's own GeoLyr links the lofted shapes; its original placement and Palette definitions remain shared. Source demo Opinion layers are excluded behind these payloads; each published interface has its own Opinion above the payload.
+`SceneROOT_Lofted.usda` and the four `SceneROOT_Instanced*.usda` roots directly compose scene role layers. `CubeLofted`, `ConeLofted` and `DisplayPairLofted` packages repeat the BASE/REVIEW structure for their active roles. Their `AssetROOT_*Lofted.usda` files expose empty variant declarations and payload `020_BASE_LYR/ContentsLyr.usda`. Each shape ContentsLyr loads its standalone leaf entrypoint, preserving one geometry/material/variant implementation. DisplayPairLofted's own GeoLyr links the lofted shapes; its original placement and Palette definitions remain shared. Source demo Opinion layers are excluded behind these payloads; each published interface has its own Opinion above the payload.
 
 The `_workflows/arrange_instances.py` driver maps a normalized JSON signal to independently saved Wave/Spiral/Rings scenes. Only instance placement and public selection metadata vary. Prototype counts depend on composed configurations, not just source-file counts. See the sample README and `_contracts/scalability.json` for scope and acceptance requirements.
 
@@ -241,3 +266,14 @@ remain pending.
 ## Standalone Essentials package
 
 `examples/02_USDEssentials_Minimal/` repeats this layout at scene and asset scope with only one cube, one cone and two colors. Its two roots demonstrate fixed scene bindings and asset-owned Color variants. See its README and `_contracts/profile.json`. Reserved categories do not require empty composed layers. The portable starter bundles this self-contained package as `USDEssentials_Minimal/`.
+
+## Shared resources and optional archives
+
+CC-00c/00d permit adjacent asset files sharing MatLib and tex/textures folders.
+Private resources may stay with their asset. Cleanup inventories all relevant
+variants, payloads and consumers before re-anchoring dependencies and removing
+unused files. Ordinary ZIP is an unpack-before-use transport; USDZ is optional
+runtime delivery, requiring supported dependencies and consumer compatibility.
+Retain editable originals. Packaging each leaf independently may duplicate shared
+resources; teams decide the delivery boundary. No packaging or performance result
+is implied by the convention.

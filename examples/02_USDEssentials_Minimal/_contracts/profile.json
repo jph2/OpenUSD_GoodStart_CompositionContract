@@ -5,42 +5,48 @@
     "metersPerUnit": 0.01,
     "framesPerSecond": 60
   },
-  "authoring": "Each SceneROOT/AssetROOT declares its own Opinion target and a saved omni_layer.locked map for all other composed persistent layers. The Kit helper selects Opinion, disables automatic authoring and enforces locks in memory. The Kit root remains writable for host metadata per CC-01.",
+  "authoring": "Scene roots use Opinion; self-contained Cube/Cone roots are edited directly.",
   "ownership": {
     "scene GeoLyr": "Occurrence hierarchy and asset references",
     "scene TransLyr": "Placement on Cube01/Cone01",
     "scene MatLyr": "Fixed lesson bindings only",
-    "scene VariLyr_ColorVariants": "Select asset Color, no binding definitions",
-    "asset GeoLyr": "Single geometry definition per shape",
-    "asset TransLyr": "Intrinsic geometry centering 50 cm above base",
-    "asset MatLyr": "Reference shared palette",
-    "asset VariLyr": "Red/Blue binding definitions inside Color branches",
-    "palette": "Four shared shader/material definitions: Yellow/Green for fixed scene bindings; Red/Blue for Color variants"
+    "palette": "Fixed-scene materials defined directly in scene MatLyr; leaf variants own inline materials.",
+    "leaf assets": "Inline geometry, centering and optional Color variants/materials in each entrypoint.",
+    "scene Opinion": "Default persistent scene selections and working overrides; Color definitions remain in asset leaves."
   },
   "entrypoints": {
     "SceneROOT_USDEssentials.usda": [
-      "050_REVIEW_LYR/OpinLYR_default.usda",
+      "050_OPINION_LYR/OpinLYR_SceneDefault.usda",
       "020_BASE_LYR/MatLyr.usda",
       "020_BASE_LYR/TransLyr.usda",
       "020_BASE_LYR/GeoLyr.usda"
     ],
     "SceneROOT_USDEssentials_ColorVariants.usda": [
-      "050_REVIEW_LYR/OpinLYR_ColorVariants.usda",
+      "050_OPINION_LYR/OpinLYR_SceneColorVariants.usda",
       "020_BASE_LYR/TransLyr.usda",
-      "020_BASE_LYR/VariLyr_ColorVariants.usda",
       "020_BASE_LYR/GeoLyr_ColorVariants.usda"
     ]
   },
   "limits": [
     "No animation, instancing, payloads or live data in this introductory profile; supplied Omniverse environment/render/camera baseline is retained directly in the root (CC-01).",
     "Reserved category folders do not imply strength or mandatory layers.",
-    "Asset color and plain entrypoints share GeoLyr and TransLyr; no duplicate geometry.",
-    "Active Kit root remains writable for host metadata; source/work layers protected."
+    "Active Kit root remains writable for host metadata; source/work layers protected.",
+    "Both shapes use standalone leaf files; plain and variant entrypoints intentionally repeat simple geometry."
   ],
   "baseline": {
     "source": "defaultscene.usda",
     "composition": "Copied into each SceneROOT; not a sublayer or reference",
-    "resources": "010_ASS_USD/Envs/OmniverseStandard/Resources",
-    "externalShader": "OmniPBR.mdl provided by Omniverse"
+    "resources": "Installed Kit resource paths as authored in geoANDenvEXAMPLE.usda",
+    "externalShader": "OmniPBR.mdl"
+  },
+  "structurePolicy": {
+    "contract": "0.2.6",
+    "leaves": "Inline geometry and optional Color materials/variants; no USD sublayers. Preview has declared external Kit resources.",
+    "compositions": "Scene and assembly role layers only where needed. Lofted wrappers retain payload boundaries for the loading lesson.",
+    "scaffold": "Full numbered category folders at example scene scope are instructional; unused folders and unreferenced layers may be removed.",
+    "acceptance": "Structural adaptation only; previous runtime evidence is historical. No new runtime acceptance claimed.",
+    "preview": "Inline Environment, Render and OmniverseKit cameras copied from geoANDenvEXAMPLE.usda; outside Asset. Preview uses installed Kit HDR/grid resources and OmniPBR, so standalone portability is not claimed.",
+    "grouping": "Team choice: independent files may share a directory. Essentials keeps four shape entrypoints directly in 010_ASS_USD; LayeredScene retains named packages for the assembly/payload lessons.",
+    "selections": "Stored in existing scene Opinion; no separate ConfigLyr needed for this minimal example."
   }
 }

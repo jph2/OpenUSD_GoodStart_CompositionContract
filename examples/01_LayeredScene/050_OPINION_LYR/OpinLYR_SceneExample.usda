@@ -1,0 +1,74 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "cc:context" = "saved scene selections and working overrides"
+        string "cc:owner" = "scene:LayeredScene@1"
+        string "cc:profile" = "CC-EXAMPLE-01/0.1.1"
+        string "cc:role" = "OpinionLyr"
+        string "cc:scene" = "Example"
+    }
+    doc = "Persistent selections and working edits for this scene. Accepted scene choices may remain here; preserve conditional scenario ownership."
+)
+
+over "World"
+{
+    over "Cube01"
+    {
+        over "Adjustment"
+        {
+            over "Asset" (
+                variants = {
+                    string Finish = "Red"
+                    string Size = "Normal"
+                }
+            )
+            {
+            }
+        }
+    }
+
+    over "Cube02"
+    {
+        over "Adjustment"
+        {
+            over "Asset" (
+                variants = {
+                    string Finish = "Blue"
+                    string Size = "Tall"
+                }
+            )
+            {
+            }
+        }
+    }
+
+    over "Cone01"
+    {
+        over "Adjustment"
+        {
+            over "Asset" (
+                variants = {
+                    string Finish = "Yellow"
+                    string Size = "Normal"
+                }
+            )
+            {
+            }
+        }
+    }
+
+    over "Pair01"
+    {
+        over "Adjustment"
+        {
+            over "Asset" (
+                variants = {
+                    string Palette = "Cool"
+                }
+            )
+            {
+            }
+        }
+    }
+}
+

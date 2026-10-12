@@ -1,0 +1,68 @@
+{
+  "backup": "C:\\Users\\jan\\AppData\\Local\\Temp\\layered-cleanup-20261012-143533",
+  "moves": {
+    "010_ASS_USD/USD_Wrappers/AssetROOT_Cube.usda": "010_ASS_USD/AssetROOT_Cube.usda",
+    "010_ASS_USD/USD_Wrappers/CubeLofted/AssetROOT_CubeLofted.usda": "010_ASS_USD/AssetROOT_CubeLofted.usda",
+    "010_ASS_USD/USD_Wrappers/AssetROOT_Cone.usda": "010_ASS_USD/AssetROOT_Cone.usda",
+    "010_ASS_USD/USD_Wrappers/ConeLofted/AssetROOT_ConeLofted.usda": "010_ASS_USD/AssetROOT_ConeLofted.usda",
+    "020_BASE_LYR/VariLyr_Instanced.usda": "020_BASE_LYR/ConfigLyr_Instanced.usda",
+    "020_BASE_LYR/VariLyr_Instanced_Rings.usda": "020_BASE_LYR/ConfigLyr_Instanced_Rings.usda",
+    "020_BASE_LYR/VariLyr_Instanced_Spiral.usda": "020_BASE_LYR/ConfigLyr_Instanced_Spiral.usda",
+    "020_BASE_LYR/VariLyr_Instanced_Wave.usda": "020_BASE_LYR/ConfigLyr_Instanced_Wave.usda",
+    "020_BASE_LYR/VariLyr_MotionGraphics.usda": "020_BASE_LYR/ConfigLyr_MotionGraphics.usda",
+    "050_OPINION_LYR/MaskedSize/ReviewLyr.usda": "050_OPINION_LYR/ReviewLyr_SceneMaskedSize.usda",
+    "050_OPINION_LYR/MaskedSelection/ReviewLyr.usda": "050_OPINION_LYR/ReviewLyr_SceneMaskedSelection.usda"
+  },
+  "removed": [
+    "010_ASS_USD\\Assemblies\\DisplayPair\\050_OPINION_LYR\\OpinLYR_default.usda",
+    "010_ASS_USD\\Assemblies\\DisplayPairLofted\\050_OPINION_LYR\\OpinLYR_default.usda",
+    "010_ASS_USD\\USD_Wrappers\\ConeLofted\\050_OPINION_LYR\\OpinLYR_default.usda",
+    "020_BASE_LYR\\AnimLyr_Starter.usda",
+    "020_BASE_LYR\\CamLyr_Starter.usda",
+    "020_BASE_LYR\\EnvLyr_Starter.usda",
+    "020_BASE_LYR\\LightLyr_Starter.usda",
+    "020_BASE_LYR\\MatLyr_Starter.usda",
+    "020_BASE_LYR\\PhysicsLyr_Starter.usda",
+    "020_BASE_LYR\\RenderLyr_Starter.usda",
+    "020_BASE_LYR\\RigLyr_Starter.usda",
+    "020_BASE_LYR\\VariLyr.usda",
+    "020_BASE_LYR\\VariLyr_Lofted.usda",
+    "020_BASE_LYR\\VariLyr_Starter.usda",
+    "030_SIM_LYR\\Starter\\SimLyr.usda",
+    "035_RUNTIME_LYR\\Starter\\RuntimeLyr.usda",
+    "050_OPINION_LYR\\Instanced\\OpinLYR_default.usda",
+    "050_OPINION_LYR\\Instanced_Rings\\OpinLYR_default.usda",
+    "050_OPINION_LYR\\Instanced_Spiral\\OpinLYR_default.usda",
+    "050_OPINION_LYR\\Instanced_Wave\\OpinLYR_default.usda",
+    "050_OPINION_LYR\\Lofted\\OpinLYR_default.usda",
+    "050_OPINION_LYR\\MotionGraphics\\OpinLYR_default.usda",
+    "050_OPINION_LYR\\OpinLYR_default.usda",
+    "050_OPINION_LYR\\Starter\\OpinLYR_default.usda",
+    "010_ASS_USD\\MatLib\\Palette_v001.usda"
+  ],
+  "created": [
+    "050_OPINION_LYR\\OpinLYR_SceneExample.usda",
+    "050_OPINION_LYR\\OpinLYR_SceneInstanced.usda",
+    "050_OPINION_LYR\\OpinLYR_SceneInstanced_Rings.usda",
+    "050_OPINION_LYR\\OpinLYR_SceneInstanced_Spiral.usda",
+    "050_OPINION_LYR\\OpinLYR_SceneInstanced_Wave.usda",
+    "050_OPINION_LYR\\OpinLYR_SceneLofted.usda",
+    "050_OPINION_LYR\\OpinLYR_SceneManual.usda",
+    "050_OPINION_LYR\\OpinLYR_SceneMaskedSelection.usda",
+    "050_OPINION_LYR\\OpinLYR_SceneMaskedSize.usda",
+    "050_OPINION_LYR\\OpinLYR_SceneMotionGraphics.usda",
+    "050_OPINION_LYR\\OpinLYR_SceneScenarios.usda",
+    "050_OPINION_LYR\\OpinLYR_SceneStarter.usda"
+  ],
+  "counts_excluding_historical_reports": {
+    "before": {
+      "files": 147,
+      "folders": 54
+    },
+    "after": {
+      "files": 128,
+      "folders": 27
+    }
+  },
+  "coverage": "USD-aware authored migration and stage dependency inspection; no tests, generator execution, Kit visual review or performance measurements."
+}

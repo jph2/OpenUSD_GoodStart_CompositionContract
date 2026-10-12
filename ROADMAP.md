@@ -132,6 +132,18 @@ Define before implementation:
 
 **Acceptance to define:** open a layer in the docked panel, navigate to a variant/property, edit valid USDA, apply it to the intended in-memory layer, save and reopen with the expected result. Cover invalid text, locked layers, stale buffers, undo, anonymous layers, binary representations and concurrent external/UI edits. No script execution is part of this feature.
 
+### CW-04a — Clean leaf assets and shared resources
+
+**Status: planned; not implemented as a reusable cleanup tool.** The composition skill already defines the workflow under “Clean up asset structures and resource ownership”; this roadmap item tracks building the reusable execution support (CC-00–00d, CC-18/19; DT-01–09).
+
+**User outcome:** ask an agent to “clean up this asset folder using our conventions,” or use a future workbench action. Users should not need to type terminal commands. Agent, script and eventual UI entrypoints use the same bounded implementation.
+
+**First delivery:** inspect selected local asset entrypoints and produce a readable proposed layout and dependency/move report without changing files. Then support recoverable application of that plan: place independent leaves together where appropriate, reuse compatible shared MatLib and texture resources, retain private resources when justified, remove redundant folder nesting, and update references, resource paths and authoring/lock metadata. Preserve direct-open preview environments outside default asset prims. Do not remove the deliberately retained teaching scaffold without a cleanup request.
+
+**Acceptance:** cover variants, unloaded payloads and preview dependencies; preserve asset interfaces, bindings and resource interpretation; report unknown consumers; reject stale/conflicting plans; keep rollback data; repeated application must not introduce further changes. Require visual/runtime evaluation only as explicitly selected acceptance work, and report missing coverage. Do not merge resources based on filenames or visual similarity alone.
+
+**Later optional delivery:** dependency-complete USDZ export for a declared supported consumer, preserving editable sources and authored alternatives. Ordinary ZIP remains an unpack-before-use transport option. Packaging and performance evaluation are separate from the first cleanup delivery.
+
 ### Reusable cleanup scripts and decision checkpoints
 
 Bulk execution is a primary delivery surface for CW-04. Build a versioned catalogue of bounded USD-aware cleanup scripts/recipes against the composition contract, usable from the command line, agents and the workbench. Initial candidates are distributing a mixed Opinion/Session layer by declared ownership, relocating ordinary transforms, routing material bindings, promoting selected properties into scenarios, and retiring only superseded source opinions. Executable commands and script filenames remain to be defined during implementation.

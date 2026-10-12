@@ -1,0 +1,75 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "cc:owner" = "scene:MotionGraphics@1"
+        string "cc:profile" = "CC-MOTION-01/0.1.1"
+        string "cc:role" = "ConfigLyr"
+    }
+)
+
+over "World"
+{
+    over "MotionGraphics"
+    {
+        over "Cloner"
+        {
+            over "Prototypes"
+            {
+                over "CubeRed" (
+                    variants = {
+                        string Finish = "Red"
+                        string Size = "Normal"
+                    }
+                )
+                {
+                }
+
+                over "CubeBlue" (
+                    variants = {
+                        string Finish = "Blue"
+                        string Size = "Normal"
+                    }
+                )
+                {
+                }
+
+                over "CubeYellow" (
+                    variants = {
+                        string Finish = "Yellow"
+                        string Size = "Normal"
+                    }
+                )
+                {
+                }
+
+                over "ConeRed" (
+                    variants = {
+                        string Finish = "Red"
+                        string Size = "Normal"
+                    }
+                )
+                {
+                }
+
+                over "ConeBlue" (
+                    variants = {
+                        string Finish = "Blue"
+                        string Size = "Normal"
+                    }
+                )
+                {
+                }
+
+                over "ConeYellow" (
+                    variants = {
+                        string Finish = "Yellow"
+                        string Size = "Normal"
+                    }
+                )
+                {
+                }
+            }
+        }
+    }
+}
+

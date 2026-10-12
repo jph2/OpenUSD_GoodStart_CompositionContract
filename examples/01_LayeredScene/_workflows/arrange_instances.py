@@ -55,8 +55,8 @@ def main():
         raise ValueError('Input must contain values: exactly 1024 finite numbers in [0, 1], in row-major order.')
     purpose = 'Instanced_' + args.shape.title()
     owner = f'scene:{purpose}@1'
-    targets = [PACKAGE / f'020_BASE_LYR/{role}_{purpose}.usda' for role in ('TransLyr', 'VariLyr')]
-    targets += [PACKAGE / f'SceneROOT_{purpose}.usda', PACKAGE / f'050_REVIEW_LYR/{purpose}/OpinLYR_default.usda']
+    targets = [PACKAGE / f'020_BASE_LYR/{role}_{purpose}.usda' for role in ('TransLyr', 'ConfigLyr')]
+    targets += [PACKAGE / f'SceneROOT_{purpose}.usda', PACKAGE / f'050_OPINION_LYR/OpinLYR_Scene{purpose}.usda']
     originals = [path.read_bytes() if path.exists() else None for path in targets]
     layers = []
     for path in targets[:2]:

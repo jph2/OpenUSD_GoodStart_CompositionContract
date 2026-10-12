@@ -1,0 +1,74 @@
+#usda 1.0
+(
+    customLayerData = {
+        string "cc:context" = "saved scene selections and working overrides"
+        string "cc:owner" = "scene:Lofted@1"
+        string "cc:profile" = "CC-SCALE-01/0.1.1"
+        string "cc:role" = "Opinion"
+        string "cc:scene" = "Lofted"
+    }
+    doc = "Persistent selections and working edits for this scene. Accepted scene choices may remain here; preserve conditional scenario ownership."
+)
+
+over "World"
+{
+    over "Cube01"
+    {
+        over "Adjustment"
+        {
+            over "Asset" (
+                variants = {
+                    string Finish = "Blue"
+                    string Size = "Normal"
+                }
+            )
+            {
+            }
+        }
+    }
+
+    over "Cube02"
+    {
+        over "Adjustment"
+        {
+            over "Asset" (
+                variants = {
+                    string Finish = "Blue"
+                    string Size = "Normal"
+                }
+            )
+            {
+            }
+        }
+    }
+
+    over "Cone01"
+    {
+        over "Adjustment"
+        {
+            over "Asset" (
+                variants = {
+                    string Finish = "Blue"
+                    string Size = "Normal"
+                }
+            )
+            {
+            }
+        }
+    }
+
+    over "Pair01"
+    {
+        over "Adjustment"
+        {
+            over "Asset" (
+                variants = {
+                    string Palette = "Cool"
+                }
+            )
+            {
+            }
+        }
+    }
+}
+

@@ -8,7 +8,7 @@ from build_example import Author, opinion_layer, starter, session_defaults
 def main():
     package = Path(__file__).resolve().parents[1] / "examples/01_LayeredScene"
     a = Author(package)
-    opinion = "050_REVIEW_LYR/OpinLYR_default.usda"
+    opinion = "050_OPINION_LYR/OpinLYR_default.usda"
     if (package / opinion).exists() or (package / "SceneROOT_STARTER.usda").exists():
         raise RuntimeError("Opinion/starter already exists; refusing to overwrite authored work.")
     profile_path = package / "_contracts/profile.json"
@@ -43,7 +43,7 @@ def main():
     session_defaults(a)
     profile["default_session"] = "Opinion is the default authoring target; persistent work/source layers locked"
     profile["starter_entrypoint"] = "SceneROOT_STARTER.usda; demo assets and independent work layers with optional authoring slots"
-    profile["opinion_policy"] = "Samples share 050_REVIEW_LYR/OpinLYR_default.usda; Starter has its own. Strongest work sublayer, editable by default; Opinion is the authoring target. Promote reviewed fields then retire superseded opinions."
+    profile["opinion_policy"] = "Samples share 050_OPINION_LYR/OpinLYR_default.usda; Starter has its own. Strongest work sublayer, editable by default; Opinion is the authoring target. Promote reviewed fields then retire superseded opinions."
     a.json("_contracts/profile.json", profile)
     expected = json.loads((package / "_contracts/expected.json").read_text(encoding="utf-8"))
     expected["SceneROOT_STARTER.usda"] = "Omniverse baseline and Manual demo configuration; independent work layers plus optional empty role slots; Opinion authoring through launcher; persistent work/source layers locked"

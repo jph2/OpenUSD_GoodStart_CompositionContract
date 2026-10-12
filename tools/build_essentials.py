@@ -38,7 +38,7 @@ for shape in ('Cube', 'Cone'):
     branches = '\n'.join(f'        "{color}" {{\n            over "Geometry" (prepend apiSchemas = ["MaterialBindingAPI"]) {{\n                rel material:binding = </Asset/Looks/{color}>\n            }}\n        }}' for color in ('Red','Blue'))
     layer(base+'020_BASE_LYR/VariLyr.usda', 'over "Asset" (\n    prepend variantSets = "Color"\n    variants = { string Color = "Red" }\n) {\n    variantSet "Color" = {\n'+branches+'\n    }\n}', owner=owner, role='VariLyr')
     for suffix in ('', '_ColorVariants'):
-        op = f'050_REVIEW_LYR/OpinLYR_{"default" if not suffix else "ColorVariants"}.usda'
+        op = f'050_OPINION_LYR/OpinLYR_{"default" if not suffix else "ColorVariants"}.usda'
         layer(base+op, owner=owner, role='Opinion')
         roles = (['020_BASE_LYR/VariLyr.usda','020_BASE_LYR/MatLyr.usda'] if suffix else []) + ['020_BASE_LYR/TransLyr.usda','020_BASE_LYR/GeoLyr.usda']
         layer(base+f'AssetROOT_{shape}{suffix}.usda', sublayers=[op]+roles, opinion=op, owner=owner, role='Root')
@@ -52,7 +52,7 @@ for suffix in ('', '_ColorVariants'):
     for shape in ('Cube','Cone'):
         geo += f'    def Xform "{shape}01" {{\n        def Xform "Adjustment" {{\n            def Xform "Asset" (prepend references = @../010_ASS_USD/USD_Wrappers/{shape}/AssetROOT_{shape}{suffix}.usda@) {{}}\n        }}\n    }}\n'
     layer('020_BASE_LYR/GeoLyr'+suffix+'.usda', geo+'}', role='GeoLyr')
-    op = '050_REVIEW_LYR/OpinLYR_'+('ColorVariants' if suffix else 'default')+'.usda'
+    op = '050_OPINION_LYR/OpinLYR_'+('ColorVariants' if suffix else 'default')+'.usda'
     layer(op, role='Opinion')
     roles = [op, '020_BASE_LYR/TransLyr.usda', '020_BASE_LYR/VariLyr_ColorVariants.usda','020_BASE_LYR/GeoLyr_ColorVariants.usda'] if suffix else [op,'020_BASE_LYR/MatLyr.usda','020_BASE_LYR/TransLyr.usda','020_BASE_LYR/GeoLyr.usda']
     layer('SceneROOT_USDEssentials'+suffix+'.usda', sublayers=roles, root=True, opinion=op, role='Root')
@@ -109,7 +109,7 @@ for name, content in FILES.items():
 for name, content in FILES.items():
     target = DEST / name
     target.parent.mkdir(parents=True, exist_ok=True)
-    if '050_REVIEW_LYR' in target.parts and target.exists():
+    if '050_OPINION_LYR' in target.parts and target.exists():
         continue  # Preserve authored experiments across rebuilds.
     target.write_bytes(content.encode('utf-8'))
 helper = DEST / '_workflows/kit/session_defaults.py'

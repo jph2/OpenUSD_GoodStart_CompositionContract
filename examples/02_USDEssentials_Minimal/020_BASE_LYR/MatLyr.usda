@@ -1,30 +1,99 @@
 #usda 1.0
 (
     customLayerData = {
+        string "cc:context" = "unconditional"
         string "cc:owner" = "scene:USDEssentials"
         string "cc:role" = "MatLyr"
-        string "cc:context" = "unconditional"
     }
 )
 
-over "World" {
-    def Scope "Looks" (prepend references = @../010_ASS_USD/MatLib/Palette_v001.usda@) {}
-    over "Cube01" {
-        over "Adjustment" {
-            over "Asset" {
-                over "Geometry" (prepend apiSchemas = ["MaterialBindingAPI"]) {
+over "World"
+{
+    def Scope "Looks"
+    {
+        def Material "Red"
+        {
+            token outputs:surface.connect = </World/Looks/Red/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.8, 0.08, 0.06)
+                float inputs:roughness = 0.45
+                token outputs:surface
+            }
+        }
+
+        def Material "Blue"
+        {
+            token outputs:surface.connect = </World/Looks/Blue/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.04, 0.22, 0.8)
+                float inputs:roughness = 0.45
+                token outputs:surface
+            }
+        }
+
+        def Material "Yellow"
+        {
+            token outputs:surface.connect = </World/Looks/Yellow/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.9, 0.72, 0.03)
+                float inputs:roughness = 0.45
+                token outputs:surface
+            }
+        }
+
+        def Material "Green"
+        {
+            token outputs:surface.connect = </World/Looks/Green/Surface.outputs:surface>
+
+            def Shader "Surface"
+            {
+                uniform token info:id = "UsdPreviewSurface"
+                color3f inputs:diffuseColor = (0.08, 0.55, 0.12)
+                float inputs:roughness = 0.45
+                token outputs:surface
+            }
+        }
+    }
+
+    over "Cube01"
+    {
+        over "Adjustment"
+        {
+            over "Asset"
+            {
+                over "Geometry" (
+                    prepend apiSchemas = ["MaterialBindingAPI"]
+                )
+                {
                     rel material:binding = </World/Looks/Yellow>
                 }
             }
         }
     }
-    over "Cone01" {
-        over "Adjustment" {
-            over "Asset" {
-                over "Geometry" (prepend apiSchemas = ["MaterialBindingAPI"]) {
+
+    over "Cone01"
+    {
+        over "Adjustment"
+        {
+            over "Asset"
+            {
+                over "Geometry" (
+                    prepend apiSchemas = ["MaterialBindingAPI"]
+                )
+                {
                     rel material:binding = </World/Looks/Green>
                 }
             }
         }
     }
 }
+

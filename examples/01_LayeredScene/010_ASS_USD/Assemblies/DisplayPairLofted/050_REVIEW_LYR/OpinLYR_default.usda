@@ -1,9 +1,0 @@
-#usda 1.0
-(
-    customLayerData = {
-        string "cc:context" = "empty experiments; promote explicitly"
-        string "cc:owner" = "assembly:DisplayPairLofted@1"
-        string "cc:profile" = "CC-SCALE-01/0.1.1"
-        string "cc:role" = "Opinion"
-    }
-)

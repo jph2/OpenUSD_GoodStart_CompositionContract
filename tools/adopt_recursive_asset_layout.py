@@ -48,11 +48,11 @@ def main():
     a = Author(PACKAGE)
     for folder, name, owner in packages:
         base = PACKAGE / '010_ASS_USD' / folder
-        relative = (base / '050_REVIEW_LYR/OpinLYR_default.usda').relative_to(PACKAGE).as_posix()
+        relative = (base / '050_OPINION_LYR/OpinLYR_default.usda').relative_to(PACKAGE).as_posix()
         opinion_layer(a, relative, owner)
         new_root = base / f'AssetROOT_{name}.usda'
         layer = next(layer for dest, layer in candidates if dest == new_root)
-        opinion = './050_REVIEW_LYR/OpinLYR_default.usda'
+        opinion = './050_OPINION_LYR/OpinLYR_default.usda'
         layer.subLayerPaths = [opinion, *layer.subLayerPaths]
         data = dict(layer.customLayerData)
         data.update({'cc:defaultAuthoring': 'opinion', 'cc:opinionLayer': opinion,
@@ -69,7 +69,7 @@ def main():
                f'# {name} reusable package\n\nOpen AssetROOT_{name}.usda. Opinion is the default authoring layer '
                'when opened directly in compatible Kit; other layers are protected. '
                '020_BASE_LYR contains this package\'s geometry, transforms and controls. '
-               '050_REVIEW_LYR contains package-owned experiments; saving them affects every consumer. '
+               '050_OPINION_LYR contains package-owned experiments; saving them affects every consumer. '
                'When used inside a scene, author scene experiments in the scene Opinion instead. '
                'Other class directories are reserved, not empty USD layers. '
                'A building or workcell follows the same AssetROOT convention when reused in a larger scene.')

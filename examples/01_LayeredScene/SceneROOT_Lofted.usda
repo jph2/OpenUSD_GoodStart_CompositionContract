@@ -23,42 +23,30 @@
         string "cc:context" = "unconditional"
         string "cc:defaultAuthoring" = "opinion"
         bool "cc:lockPersistentLayers" = 1
-        string "cc:opinionLayer" = "./050_REVIEW_LYR/Lofted/OpinLYR_default.usda"
+        string "cc:opinionLayer" = "050_OPINION_LYR/OpinLYR_SceneLofted.usda"
         string "cc:owner" = "scene:Lofted@1"
         string "cc:profile" = "CC-SCALE-01/0.1.1"
         string "cc:role" = "Root"
         string "cc:startupTemplate" = "ROOT_example supplied by Jan"
         dictionary omni_layer = {
-            string authoring_layer = "./050_REVIEW_LYR/Lofted/OpinLYR_default.usda"
+            string authoring_layer = "050_OPINION_LYR/OpinLYR_SceneLofted.usda"
             dictionary locked = {
                 bool "010_ASS_USD/Assemblies/DisplayPair/020_BASE_LYR/TransLyr.usda" = 1
                 bool "010_ASS_USD/Assemblies/DisplayPair/020_BASE_LYR/VariLyr.usda" = 1
                 bool "010_ASS_USD/Assemblies/DisplayPairLofted/020_BASE_LYR/ContentsLyr.usda" = 1
                 bool "010_ASS_USD/Assemblies/DisplayPairLofted/020_BASE_LYR/GeoLyr.usda" = 1
-                bool "010_ASS_USD/Assemblies/DisplayPairLofted/050_REVIEW_LYR/OpinLYR_default.usda" = 1
                 bool "010_ASS_USD/Assemblies/DisplayPairLofted/AssetROOT_DisplayPairLofted.usda" = 1
-                bool "010_ASS_USD/MatLib/Palette_v001.usda" = 1
-                bool "010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/GeoLyr.usda" = 1
-                bool "010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/MatLyr.usda" = 1
-                bool "010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/TransLyr.usda" = 1
-                bool "010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/VariLyr.usda" = 1
-                bool "010_ASS_USD/USD_Wrappers/ConeLofted/020_BASE_LYR/ContentsLyr.usda" = 1
-                bool "010_ASS_USD/USD_Wrappers/ConeLofted/050_REVIEW_LYR/OpinLYR_default.usda" = 1
-                bool "010_ASS_USD/USD_Wrappers/ConeLofted/AssetROOT_ConeLofted.usda" = 1
-                bool "010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/GeoLyr.usda" = 1
-                bool "010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/MatLyr.usda" = 1
-                bool "010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/TransLyr.usda" = 1
-                bool "010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/VariLyr.usda" = 1
-                bool "010_ASS_USD/USD_Wrappers/CubeLofted/020_BASE_LYR/ContentsLyr.usda" = 1
-                bool "010_ASS_USD/USD_Wrappers/CubeLofted/050_REVIEW_LYR/OpinLYR_default.usda" = 1
-                bool "010_ASS_USD/USD_Wrappers/CubeLofted/AssetROOT_CubeLofted.usda" = 1
+                bool "010_ASS_USD/AssetROOT_Cone.usda" = 1
+                bool "010_ASS_USD/AssetROOT_ConeLofted.usda" = 1
+                bool "010_ASS_USD/AssetROOT_Cube.usda" = 1
+                bool "010_ASS_USD/AssetROOT_CubeLofted.usda" = 1
+                bool "010_ASS_USD/Envs/OmniverseStandard/Environment.usda" = 1
                 bool "020_BASE_LYR/GeoLyr_Lofted.usda" = 1
                 bool "020_BASE_LYR/TransLyr_Lofted.usda" = 1
-                bool "020_BASE_LYR/VariLyr_Lofted.usda" = 1
                 bool "040_DATA_LYR/Data/ContextLyr.usda" = 1
                 bool "040_DATA_LYR/Data/IdentityLyr.usda" = 1
                 bool "040_DATA_LYR/DataLyr.usda" = 1
-                bool "050_REVIEW_LYR/Lofted/OpinLYR_default.usda" = 0
+                bool "050_OPINION_LYR/OpinLYR_SceneLofted.usda" = 0
             }
             dictionary muteness = {
             }
@@ -73,10 +61,9 @@
     metersPerUnit = 0.009999999776482582
     startTimeCode = 0
     subLayers = [
-        @./050_REVIEW_LYR/Lofted/OpinLYR_default.usda@,
+        @050_OPINION_LYR/OpinLYR_SceneLofted.usda@,
         @./040_DATA_LYR/DataLyr.usda@,
         @./020_BASE_LYR/TransLyr_Lofted.usda@,
-        @./020_BASE_LYR/VariLyr_Lofted.usda@,
         @./020_BASE_LYR/GeoLyr_Lofted.usda@
     ]
     timeCodesPerSecond = 60
@@ -399,3 +386,4 @@ over "OmniverseKit_Top" (
     double3 xformOp:translate = (0, 0, 50000.00111758712)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
 }
+

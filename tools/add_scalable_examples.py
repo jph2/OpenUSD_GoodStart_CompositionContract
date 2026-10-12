@@ -52,11 +52,13 @@ def main():
         folder = original + 'Lofted'
         root_path = f'{folder}/AssetROOT_{name}Lofted.usda'
         contents_path = f'{folder}/020_BASE_LYR/ContentsLyr.usda'
-        opinion_path = f'{folder}/050_REVIEW_LYR/OpinLYR_default.usda'
+        opinion_path = f'{folder}/050_OPINION_LYR/OpinLYR_default.usda'
         root = layer(root_path, owner, 'Root', 'public interface above payload')
         settings(root, name)
-        layer(opinion_path, owner, 'Opinion', 'empty experiments; promote explicitly')
-        root.subLayerPaths = [link(root_path, opinion_path)]
+        if name != 'Cube':
+            layer(opinion_path, owner, 'Opinion', 'empty experiments; promote explicitly')
+            root.subLayerPaths = [link(root_path, opinion_path)]
+        root.subLayerPaths = list(root.subLayerPaths) + [link(root_path, '010_ASS_USD/Envs/OmniverseStandard/Environment.usda')]
         prim = Sdf.CreatePrimInLayer(root, '/' + name)
         prim.specifier = Sdf.SpecifierDef
         prim.typeName = 'Xform'
@@ -64,7 +66,9 @@ def main():
         prim.SetInfo('assetInfo', {'name': name + 'Lofted', 'identifier': Sdf.AssetPath('./' + Path(root_path).name)})
         prim.payloadList.prependedItems = [Sdf.Payload(link(root_path, contents_path), '/' + name)]
         # Publish names/defaults only; all branch values stay in the source VariLyr.
-        original_vari = source(f'{original}/020_BASE_LYR/VariLyr.usda').GetPrimAtPath('/' + name)
+        leaf_path = f'010_ASS_USD/USD_Wrappers/AssetROOT_{name}.usda'
+        variant_path = leaf_path if family == 'USD_Wrappers' else f'{original}/020_BASE_LYR/VariLyr.usda'
+        original_vari = source(variant_path).GetPrimAtPath('/' + name)
         prim.variantSetNameList.prependedItems = list(original_vari.variantSets.keys())
         for key, value in original_vari.variantSelections.items():
             prim.variantSelections[key] = value
@@ -72,10 +76,12 @@ def main():
             target_set = Sdf.VariantSetSpec(prim, key)
             for choice in variants.variants.keys():
                 Sdf.VariantSpec(target_set, choice)
-        contents = layer(contents_path, owner, 'PayloadContents', 'implementation aggregate; no copied variant values')
-        settings(contents, name)
-        roles = ['VariLyr', 'MatLyr', 'TransLyr', 'GeoLyr'] if family == 'USD_Wrappers' else ['VariLyr', 'TransLyr']
-        contents.subLayerPaths = [link(contents_path, f'{original}/020_BASE_LYR/{role}.usda') for role in roles]
+        if family == 'USD_Wrappers':
+            prim.payloadList.prependedItems = [Sdf.Payload(link(root_path, leaf_path), '/' + name)]
+        else:
+            contents = layer(contents_path, owner, 'PayloadContents', 'assembly contributions')
+            settings(contents, name)
+            contents.subLayerPaths = [link(contents_path, f'{original}/020_BASE_LYR/{role}.usda') for role in ('VariLyr', 'TransLyr')]
         if family == 'Assemblies':
             geo_path = f'{folder}/020_BASE_LYR/GeoLyr.usda'
             geo = layer(geo_path, owner, 'GeoLyr')
@@ -85,16 +91,17 @@ def main():
                 site = geo.GetPrimAtPath(f'/DisplayPair/{child}/Adjustment/Asset')
                 site.referenceList.prependedItems = [Sdf.Reference(link(geo_path, interfaces[shape]))]
             contents.subLayerPaths = list(contents.subLayerPaths) + [link(contents_path, geo_path)]
-        root.customLayerData = {**root.customLayerData, 'cc:defaultAuthoring': 'opinion',
-            'cc:lockPersistentLayers': True, 'cc:opinionLayer': link(root_path, opinion_path),
-            'omni_layer': {'authoring_layer': link(root_path, opinion_path),
-                          'locked': {link(root_path, opinion_path): False, link(root_path, contents_path): True}}}
+        if name != 'Cube':
+            root.customLayerData = {**root.customLayerData, 'cc:defaultAuthoring': 'opinion',
+                'cc:lockPersistentLayers': True, 'cc:opinionLayer': link(root_path, opinion_path),
+                'omni_layer': {'authoring_layer': link(root_path, opinion_path),
+                              'locked': {link(root_path, opinion_path): False, link(root_path, leaf_path if family == 'USD_Wrappers' else contents_path): True}}}
         interfaces[name] = root_path
 
     new_entries = {}
     for purpose in ('Lofted', 'Instanced'):
         owner = f'scene:{purpose}@1'
-        opinion_path = f'050_REVIEW_LYR/{purpose}/OpinLYR_default.usda'
+        opinion_path = f'050_OPINION_LYR/{purpose}/OpinLYR_default.usda'
         layer(opinion_path, owner, 'Opinion')
         for role in ('TransLyr', 'VariLyr', 'GeoLyr'):
             path = f'020_BASE_LYR/{role}_{purpose}.usda'
@@ -180,7 +187,7 @@ def main():
                 'grid_occurrences': 1024,
                 'configurations': '2 shape types x 3 sizes x 3 finishes; generated selections use all 18',
                 'snapshot': 'offline; no live telemetry or animation',
-                'layers': [f'050_REVIEW_LYR/Instanced_{name}/OpinLYR_default.usda',
+                'layers': [f'050_OPINION_LYR/Instanced_{name}/OpinLYR_default.usda',
                            f'020_BASE_LYR/TransLyr_Instanced_{name}.usda',
                            f'020_BASE_LYR/VariLyr_Instanced_{name}.usda'],
                 'shared': ['020_BASE_LYR/GeoLyr_Instanced.usda', '040_DATA_LYR/DataLyr.usda', 'lofted source interfaces'],

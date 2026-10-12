@@ -10,12 +10,12 @@
 def Xform "World" {
     def Xform "Cube01" {
         def Xform "Adjustment" {
-            def Xform "Asset" (prepend references = @../010_ASS_USD/USD_Wrappers/Cube/AssetROOT_Cube_ColorVariants.usda@) {}
+            def Xform "Asset" (prepend references = @../010_ASS_USD/AssetROOT_Cube_ColorVariants.usda@) {}
         }
     }
     def Xform "Cone01" {
         def Xform "Adjustment" {
-            def Xform "Asset" (prepend references = @../010_ASS_USD/USD_Wrappers/Cone/AssetROOT_Cone_ColorVariants.usda@) {}
+            def Xform "Asset" (prepend references = @../010_ASS_USD/AssetROOT_Cone_ColorVariants.usda@) {}
         }
     }
 }

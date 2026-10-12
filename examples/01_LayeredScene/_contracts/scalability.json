@@ -3,23 +3,22 @@
   "status": "authored; acceptance pending",
   "entrypoints_strongest_first": {
     "SceneROOT_Lofted.usda": [
-      "./050_REVIEW_LYR/Lofted/OpinLYR_default.usda",
+      "050_OPINION_LYR/OpinLYR_SceneLofted.usda",
       "./040_DATA_LYR/DataLyr.usda",
       "./020_BASE_LYR/TransLyr_Lofted.usda",
-      "./020_BASE_LYR/VariLyr_Lofted.usda",
       "./020_BASE_LYR/GeoLyr_Lofted.usda"
     ],
     "SceneROOT_Instanced.usda": [
-      "./050_REVIEW_LYR/Instanced/OpinLYR_default.usda",
+      "050_OPINION_LYR/OpinLYR_SceneInstanced.usda",
       "./040_DATA_LYR/DataLyr.usda",
       "./020_BASE_LYR/TransLyr_Instanced.usda",
-      "./020_BASE_LYR/VariLyr_Instanced.usda",
+      "020_BASE_LYR/ConfigLyr_Instanced.usda",
       "./020_BASE_LYR/GeoLyr_Instanced.usda"
     ]
   },
   "interfaces": {
-    "Cube": "010_ASS_USD/USD_Wrappers/CubeLofted/AssetROOT_CubeLofted.usda",
-    "Cone": "010_ASS_USD/USD_Wrappers/ConeLofted/AssetROOT_ConeLofted.usda",
+    "Cube": "010_ASS_USD/AssetROOT_CubeLofted.usda",
+    "Cone": "010_ASS_USD/AssetROOT_ConeLofted.usda",
     "DisplayPair": "010_ASS_USD/Assemblies/DisplayPairLofted/AssetROOT_DisplayPairLofted.usda"
   },
   "purpose": "five-shape payload interface example plus a native-instancing stress scene with 1024 extra occurrences",
@@ -27,9 +26,9 @@
     "LoadNone": "direct Size/Finish and assembly Palette names remain discoverable; payload geometry absent; local instanceability overs may be visible for nested children even before their definitions load",
     "LoadAll": "Lofted/base Instanced teaching shapes are Blue/Normal. Driven scenes retain them and vary all 1024 additional grid occurrences.",
     "Instanced": "1029 shape Asset sites instanceable (515 Cube, 514 Cone); Pair stays editable; 32 by 32 grid adds 1024 Blue Normal shapes; compatible occurrences may share prototypes",
-    "variant_context": "names/defaults above payload; values and bindings stay in owning source VariLyr branches"
+    "variant_context": "Names/defaults above payload; values/bindings remain in owning asset branches."
   },
-  "ownership": "independent scene Opinion/Trans/Vari/Geo; shared Data and source role files; asset Opinion above payload; source demo Opinions excluded",
+  "ownership": "Scene-specific Opinion; generated configurations in ConfigLyr; actual scenario definitions retain VariLyr. Lofted shape interfaces directly payload inline leaves; assembly ContentsLyr combines assembly contributions.",
   "limitations": [
     "no benchmark",
     "no physics or robot readiness",
@@ -46,117 +45,334 @@
   ],
   "roles": [
     {
-      "file": "010_ASS_USD/USD_Wrappers/CubeLofted/AssetROOT_CubeLofted.usda",
-      "cc:context": "public interface above payload",
-      "cc:owner": "asset:CubeLofted@1",
-      "cc:role": "Root"
+      "file": "010_ASS_USD/Assemblies/DisplayPair/020_BASE_LYR/GeoLyr.usda",
+      "role": "GeoLyr",
+      "owner": "assembly:DisplayPair@1"
     },
     {
-      "file": "010_ASS_USD/USD_Wrappers/CubeLofted/050_REVIEW_LYR/OpinLYR_default.usda",
-      "cc:context": "empty experiments; promote explicitly",
-      "cc:owner": "asset:CubeLofted@1",
-      "cc:role": "Opinion"
+      "file": "010_ASS_USD/Assemblies/DisplayPair/020_BASE_LYR/TransLyr.usda",
+      "role": "TransLyr",
+      "owner": "assembly:DisplayPair@1"
     },
     {
-      "file": "010_ASS_USD/USD_Wrappers/CubeLofted/020_BASE_LYR/ContentsLyr.usda",
-      "cc:context": "implementation aggregate; no copied variant values",
-      "cc:owner": "asset:CubeLofted@1",
-      "cc:role": "PayloadContents"
+      "file": "010_ASS_USD/Assemblies/DisplayPair/020_BASE_LYR/VariLyr.usda",
+      "role": "VariLyr",
+      "owner": "assembly:DisplayPair@1"
     },
     {
-      "file": "010_ASS_USD/USD_Wrappers/ConeLofted/AssetROOT_ConeLofted.usda",
-      "cc:context": "public interface above payload",
-      "cc:owner": "asset:ConeLofted@1",
-      "cc:role": "Root"
-    },
-    {
-      "file": "010_ASS_USD/USD_Wrappers/ConeLofted/050_REVIEW_LYR/OpinLYR_default.usda",
-      "cc:context": "empty experiments; promote explicitly",
-      "cc:owner": "asset:ConeLofted@1",
-      "cc:role": "Opinion"
-    },
-    {
-      "file": "010_ASS_USD/USD_Wrappers/ConeLofted/020_BASE_LYR/ContentsLyr.usda",
-      "cc:context": "implementation aggregate; no copied variant values",
-      "cc:owner": "asset:ConeLofted@1",
-      "cc:role": "PayloadContents"
-    },
-    {
-      "file": "010_ASS_USD/Assemblies/DisplayPairLofted/AssetROOT_DisplayPairLofted.usda",
-      "cc:context": "public interface above payload",
-      "cc:owner": "assembly:DisplayPairLofted@1",
-      "cc:role": "Root"
-    },
-    {
-      "file": "010_ASS_USD/Assemblies/DisplayPairLofted/050_REVIEW_LYR/OpinLYR_default.usda",
-      "cc:context": "empty experiments; promote explicitly",
-      "cc:owner": "assembly:DisplayPairLofted@1",
-      "cc:role": "Opinion"
+      "file": "010_ASS_USD/Assemblies/DisplayPair/AssetROOT_DisplayPair.usda",
+      "role": "Root",
+      "owner": "assembly:DisplayPair@1"
     },
     {
       "file": "010_ASS_USD/Assemblies/DisplayPairLofted/020_BASE_LYR/ContentsLyr.usda",
-      "cc:context": "implementation aggregate; no copied variant values",
-      "cc:owner": "assembly:DisplayPairLofted@1",
-      "cc:role": "PayloadContents"
+      "role": "PayloadContents",
+      "owner": "assembly:DisplayPairLofted@1"
     },
     {
       "file": "010_ASS_USD/Assemblies/DisplayPairLofted/020_BASE_LYR/GeoLyr.usda",
-      "cc:owner": "assembly:DisplayPairLofted@1",
-      "cc:role": "GeoLyr"
+      "role": "GeoLyr",
+      "owner": "assembly:DisplayPairLofted@1"
     },
     {
-      "file": "050_REVIEW_LYR/Lofted/OpinLYR_default.usda",
-      "cc:context": "unconditional",
-      "cc:owner": "scene:Lofted@1",
-      "cc:role": "Opinion"
+      "file": "010_ASS_USD/Assemblies/DisplayPairLofted/AssetROOT_DisplayPairLofted.usda",
+      "role": "Root",
+      "owner": "assembly:DisplayPairLofted@1"
     },
     {
-      "file": "020_BASE_LYR/TransLyr_Lofted.usda",
-      "cc:owner": "scene:Lofted@1",
-      "cc:role": "TransLyr"
+      "file": "010_ASS_USD/AssetROOT_Cone.usda",
+      "role": "Leaf",
+      "owner": "declared by containing asset"
     },
     {
-      "file": "020_BASE_LYR/VariLyr_Lofted.usda",
-      "cc:owner": "scene:Lofted@1",
-      "cc:role": "VariLyr"
+      "file": "010_ASS_USD/AssetROOT_ConeLofted.usda",
+      "role": "Root",
+      "owner": "asset:ConeLofted@1"
     },
     {
-      "file": "020_BASE_LYR/GeoLyr_Lofted.usda",
-      "cc:owner": "scene:Lofted@1",
-      "cc:role": "GeoLyr"
+      "file": "010_ASS_USD/AssetROOT_Cube.usda",
+      "role": "Leaf",
+      "owner": "declared by containing asset"
     },
     {
-      "file": "SceneROOT_Lofted.usda",
-      "cc:context": "unconditional",
-      "cc:owner": "scene:Lofted@1",
-      "cc:role": "Root"
+      "file": "010_ASS_USD/AssetROOT_CubeLofted.usda",
+      "role": "Root",
+      "owner": "asset:CubeLofted@1"
     },
     {
-      "file": "050_REVIEW_LYR/Instanced/OpinLYR_default.usda",
-      "cc:context": "unconditional",
-      "cc:owner": "scene:Instanced@1",
-      "cc:role": "Opinion"
+      "file": "010_ASS_USD/Envs/OmniverseStandard/Environment.usda",
+      "role": "Root",
+      "owner": "declared by containing asset"
     },
     {
-      "file": "020_BASE_LYR/TransLyr_Instanced.usda",
-      "cc:owner": "scene:Instanced@1",
-      "cc:role": "TransLyr"
+      "file": "020_BASE_LYR/AnimLyr_MotionGraphics.usdc",
+      "role": "AnimLyr",
+      "owner": "scene:MotionGraphics@1"
     },
     {
-      "file": "020_BASE_LYR/VariLyr_Instanced.usda",
-      "cc:owner": "scene:Instanced@1",
-      "cc:role": "VariLyr"
+      "file": "020_BASE_LYR/CamLyr_MotionGraphics.usda",
+      "role": "CamLyr",
+      "owner": "scene:MotionGraphics@1"
+    },
+    {
+      "file": "020_BASE_LYR/ConfigLyr_Instanced.usda",
+      "role": "ConfigLyr",
+      "owner": "scene:Instanced@1"
+    },
+    {
+      "file": "020_BASE_LYR/ConfigLyr_Instanced_Rings.usda",
+      "role": "ConfigLyr",
+      "owner": "scene:Instanced_Rings@1"
+    },
+    {
+      "file": "020_BASE_LYR/ConfigLyr_Instanced_Spiral.usda",
+      "role": "ConfigLyr",
+      "owner": "scene:Instanced_Spiral@1"
+    },
+    {
+      "file": "020_BASE_LYR/ConfigLyr_Instanced_Wave.usda",
+      "role": "ConfigLyr",
+      "owner": "scene:Instanced_Wave@1"
+    },
+    {
+      "file": "020_BASE_LYR/ConfigLyr_MotionGraphics.usda",
+      "role": "ConfigLyr",
+      "owner": "scene:MotionGraphics@1"
+    },
+    {
+      "file": "020_BASE_LYR/GeoLyr.usda",
+      "role": "GeoLyr",
+      "owner": "scene:LayeredScene@1"
     },
     {
       "file": "020_BASE_LYR/GeoLyr_Instanced.usda",
-      "cc:owner": "scene:Instanced@1",
-      "cc:role": "GeoLyr"
+      "role": "GeoLyr",
+      "owner": "scene:Instanced@1"
+    },
+    {
+      "file": "020_BASE_LYR/GeoLyr_Lofted.usda",
+      "role": "GeoLyr",
+      "owner": "scene:Lofted@1"
+    },
+    {
+      "file": "020_BASE_LYR/GeoLyr_MotionGraphics.usda",
+      "role": "GeoLyr",
+      "owner": "scene:MotionGraphics@1"
+    },
+    {
+      "file": "020_BASE_LYR/GeoLyr_Starter.usda",
+      "role": "GeoLyr",
+      "owner": "scene:Starter@1"
+    },
+    {
+      "file": "020_BASE_LYR/TransLyr.usda",
+      "role": "TransLyr",
+      "owner": "scene:LayeredScene@1"
+    },
+    {
+      "file": "020_BASE_LYR/TransLyr_Instanced.usda",
+      "role": "TransLyr",
+      "owner": "scene:Instanced@1"
+    },
+    {
+      "file": "020_BASE_LYR/TransLyr_Instanced_Rings.usda",
+      "role": "TransLyr",
+      "owner": "scene:Instanced_Rings@1"
+    },
+    {
+      "file": "020_BASE_LYR/TransLyr_Instanced_Spiral.usda",
+      "role": "TransLyr",
+      "owner": "scene:Instanced_Spiral@1"
+    },
+    {
+      "file": "020_BASE_LYR/TransLyr_Instanced_Wave.usda",
+      "role": "TransLyr",
+      "owner": "scene:Instanced_Wave@1"
+    },
+    {
+      "file": "020_BASE_LYR/TransLyr_Lofted.usda",
+      "role": "TransLyr",
+      "owner": "scene:Lofted@1"
+    },
+    {
+      "file": "020_BASE_LYR/TransLyr_MotionGraphics.usda",
+      "role": "TransLyr",
+      "owner": "scene:MotionGraphics@1"
+    },
+    {
+      "file": "020_BASE_LYR/TransLyr_Starter.usda",
+      "role": "TransLyr",
+      "owner": "scene:Starter@1"
+    },
+    {
+      "file": "020_BASE_LYR/VariLyr_Scenarios.usda",
+      "role": "VariLyr",
+      "owner": "scene:LayeredScene@1"
+    },
+    {
+      "file": "040_DATA_LYR/Data/ContextLyr.usda",
+      "role": "DataLyr",
+      "owner": "scene:LayeredScene@1"
+    },
+    {
+      "file": "040_DATA_LYR/Data/IdentityLyr.usda",
+      "role": "DataLyr",
+      "owner": "scene:LayeredScene@1"
+    },
+    {
+      "file": "040_DATA_LYR/DataLyr.usda",
+      "role": "DataLyr",
+      "owner": "scene:LayeredScene@1"
+    },
+    {
+      "file": "040_DATA_LYR/DataLyr_MotionGraphics.usda",
+      "role": "DataLyr",
+      "owner": "scene:MotionGraphics@1"
+    },
+    {
+      "file": "040_DATA_LYR/Starter/ContextLyr.usda",
+      "role": "ContextLyr",
+      "owner": "scene:Starter@1"
+    },
+    {
+      "file": "040_DATA_LYR/Starter/DataLyr.usda",
+      "role": "DataLyr",
+      "owner": "scene:Starter@1"
+    },
+    {
+      "file": "040_DATA_LYR/Starter/IdentityLyr.usda",
+      "role": "IdentityLyr",
+      "owner": "scene:Starter@1"
+    },
+    {
+      "file": "050_OPINION_LYR/OpinLYR_SceneExample.usda",
+      "role": "OpinionLyr",
+      "owner": "scene:LayeredScene@1"
+    },
+    {
+      "file": "050_OPINION_LYR/OpinLYR_SceneInstanced.usda",
+      "role": "Opinion",
+      "owner": "scene:Instanced@1"
+    },
+    {
+      "file": "050_OPINION_LYR/OpinLYR_SceneInstanced_Rings.usda",
+      "role": "Opinion",
+      "owner": "scene:Instanced_Rings@1"
+    },
+    {
+      "file": "050_OPINION_LYR/OpinLYR_SceneInstanced_Spiral.usda",
+      "role": "Opinion",
+      "owner": "scene:Instanced_Spiral@1"
+    },
+    {
+      "file": "050_OPINION_LYR/OpinLYR_SceneInstanced_Wave.usda",
+      "role": "Opinion",
+      "owner": "scene:Instanced_Wave@1"
+    },
+    {
+      "file": "050_OPINION_LYR/OpinLYR_SceneLofted.usda",
+      "role": "Opinion",
+      "owner": "scene:Lofted@1"
+    },
+    {
+      "file": "050_OPINION_LYR/OpinLYR_SceneManual.usda",
+      "role": "OpinionLyr",
+      "owner": "scene:LayeredScene@1"
+    },
+    {
+      "file": "050_OPINION_LYR/OpinLYR_SceneMaskedSelection.usda",
+      "role": "OpinionLyr",
+      "owner": "scene:LayeredScene@1"
+    },
+    {
+      "file": "050_OPINION_LYR/OpinLYR_SceneMaskedSize.usda",
+      "role": "OpinionLyr",
+      "owner": "scene:LayeredScene@1"
+    },
+    {
+      "file": "050_OPINION_LYR/OpinLYR_SceneMotionGraphics.usda",
+      "role": "Opinion",
+      "owner": "scene:MotionGraphics@1"
+    },
+    {
+      "file": "050_OPINION_LYR/OpinLYR_SceneScenarios.usda",
+      "role": "OpinionLyr",
+      "owner": "scene:LayeredScene@1"
+    },
+    {
+      "file": "050_OPINION_LYR/OpinLYR_SceneStarter.usda",
+      "role": "OpinionLyr",
+      "owner": "scene:Starter@1"
+    },
+    {
+      "file": "050_OPINION_LYR/ReviewLyr_SceneMaskedSelection.usda",
+      "role": "ReviewLyr",
+      "owner": "scene:LayeredScene@1"
+    },
+    {
+      "file": "050_OPINION_LYR/ReviewLyr_SceneMaskedSize.usda",
+      "role": "ReviewLyr",
+      "owner": "scene:LayeredScene@1"
+    },
+    {
+      "file": "SceneROOT_Example.usda",
+      "role": "Root",
+      "owner": "scene:LayeredScene@1"
     },
     {
       "file": "SceneROOT_Instanced.usda",
-      "cc:context": "unconditional",
-      "cc:owner": "scene:Instanced@1",
-      "cc:role": "Root"
+      "role": "Root",
+      "owner": "scene:Instanced@1"
+    },
+    {
+      "file": "SceneROOT_Instanced_Rings.usda",
+      "role": "Root",
+      "owner": "scene:Instanced_Rings@1"
+    },
+    {
+      "file": "SceneROOT_Instanced_Spiral.usda",
+      "role": "Root",
+      "owner": "scene:Instanced_Spiral@1"
+    },
+    {
+      "file": "SceneROOT_Instanced_Wave.usda",
+      "role": "Root",
+      "owner": "scene:Instanced_Wave@1"
+    },
+    {
+      "file": "SceneROOT_Lofted.usda",
+      "role": "Root",
+      "owner": "scene:Lofted@1"
+    },
+    {
+      "file": "SceneROOT_Manual.usda",
+      "role": "Root",
+      "owner": "scene:LayeredScene@1"
+    },
+    {
+      "file": "SceneROOT_MaskedSelection.usda",
+      "role": "Root",
+      "owner": "scene:LayeredScene@1"
+    },
+    {
+      "file": "SceneROOT_MaskedSize.usda",
+      "role": "Root",
+      "owner": "scene:LayeredScene@1"
+    },
+    {
+      "file": "SceneROOT_MotionGraphics.usda",
+      "role": "Root",
+      "owner": "scene:MotionGraphics@1"
+    },
+    {
+      "file": "SceneROOT_Scenarios.usda",
+      "role": "Root",
+      "owner": "scene:LayeredScene@1"
+    },
+    {
+      "file": "SceneROOT_STARTER.usda",
+      "role": "Root",
+      "owner": "scene:Starter@1"
     }
   ],
   "generated_formations": {
@@ -167,9 +383,9 @@
       "configurations": "2 shape types x 3 sizes x 3 finishes; generated selections use all 18",
       "snapshot": "offline; no live telemetry or animation",
       "layers": [
-        "050_REVIEW_LYR/Instanced_Wave/OpinLYR_default.usda",
+        "050_OPINION_LYR/OpinLYR_SceneInstanced_Wave.usda",
         "020_BASE_LYR/TransLyr_Instanced_Wave.usda",
-        "020_BASE_LYR/VariLyr_Instanced_Wave.usda"
+        "020_BASE_LYR/ConfigLyr_Instanced_Wave.usda"
       ],
       "shared": [
         "020_BASE_LYR/GeoLyr_Instanced.usda",
@@ -184,9 +400,9 @@
       "configurations": "2 shape types x 3 sizes x 3 finishes; generated selections use all 18",
       "snapshot": "offline; no live telemetry or animation",
       "layers": [
-        "050_REVIEW_LYR/Instanced_Spiral/OpinLYR_default.usda",
+        "050_OPINION_LYR/OpinLYR_SceneInstanced_Spiral.usda",
         "020_BASE_LYR/TransLyr_Instanced_Spiral.usda",
-        "020_BASE_LYR/VariLyr_Instanced_Spiral.usda"
+        "020_BASE_LYR/ConfigLyr_Instanced_Spiral.usda"
       ],
       "shared": [
         "020_BASE_LYR/GeoLyr_Instanced.usda",
@@ -201,9 +417,9 @@
       "configurations": "2 shape types x 3 sizes x 3 finishes; generated selections use all 18",
       "snapshot": "offline; no live telemetry or animation",
       "layers": [
-        "050_REVIEW_LYR/Instanced_Rings/OpinLYR_default.usda",
+        "050_OPINION_LYR/OpinLYR_SceneInstanced_Rings.usda",
         "020_BASE_LYR/TransLyr_Instanced_Rings.usda",
-        "020_BASE_LYR/VariLyr_Instanced_Rings.usda"
+        "020_BASE_LYR/ConfigLyr_Instanced_Rings.usda"
       ],
       "shared": [
         "020_BASE_LYR/GeoLyr_Instanced.usda",
@@ -211,5 +427,6 @@
         "lofted source interfaces"
       ]
     }
-  }
+  },
+  "layout_revision": "0.2.9"
 }

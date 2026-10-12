@@ -16,7 +16,7 @@ def Xform "DisplayPair" (
         def Xform "Adjustment"
         {
             def Xform "Asset" (
-                prepend references = @./../../../USD_Wrappers/CubeLofted/AssetROOT_CubeLofted.usda@
+                prepend references = @../../../AssetROOT_CubeLofted.usda@
             )
             {
             }
@@ -28,10 +28,11 @@ def Xform "DisplayPair" (
         def Xform "Adjustment"
         {
             def Xform "Asset" (
-                prepend references = @./../../../USD_Wrappers/ConeLofted/AssetROOT_ConeLofted.usda@
+                prepend references = @../../../AssetROOT_ConeLofted.usda@
             )
             {
             }
         }
     }
 }
+

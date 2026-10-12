@@ -2,6 +2,15 @@
 
 Read README.md, harness/GOVERNANCE.md, harness/WORKFLOW.md and harness/STATE.md first. Then load the relevant CC rules from CompositionContract.md and task-specific evidence from harness/SOURCES.md. For tooling work also read harness/TOOLING_REQUIREMENTS.md. Do not recursively load sibling repositories.
 
+## Primary application focus
+
+This repository targets NVIDIA Omniverse/Kit. Preserve intentional RTX settings,
+viewport/environment content, Kit authoring metadata and application-specific
+code snippets in the selected profiles. Identify runtime/version dependencies
+and distinguish OpenUSD mechanisms from local conventions and Kit behavior.
+Do not remove host-specific content merely to make an example generic; adaptations
+for other consumers require an explicit scope and separate acceptance evidence.
+
 ## Context for the next agent
 
 Read [harness/HANDOVER.md](harness/HANDOVER.md) on first entry. This project grew from TutorialBuilder experiments where direct local scale opinions masked variant values. The goal expanded into explicit ownership contracts for nested assets, assemblies and scenes, with deterministic inspection and eventual repair. Jan chose a separate project for focused discussion with Nandu, Dylan and the AOUSD IEDT group; integration into GoodStart or a workcell effort remains open.
@@ -34,7 +43,7 @@ The maintained reusable skill is [skills/openusd-composition-contract/SKILL.md](
 
 Use deterministic USD-aware scripts for repeatable inspection and transformations; keep interpretation and proposals with the model. tools/build_example.py is a bounded USD-aware example author with default-entrypoint read-back; general inspection and repair remain requirements only. Do not invent commands, passing tests, tool availability or conformance. Do not run tests unless requested. Report actual checks separately from proposed checks and human acceptance.
 
-Ordinary transforms belong in the rightful owner's TransLyr; create it when required. Respect the role/context exceptions in CC-21. Never move variant-dependent values out of their branch or infer ownership solely from filenames, prim depth, colour or property spelling.
+Apply CC-00 first: leaves keep intrinsic content inline. In composed packages, ordinary transforms belong in the rightful owner's TransLyr when that separation is needed. Respect the role/context exceptions in CC-21. Never move variant-dependent values out of their branch or infer ownership solely from filenames, prim depth, colour or property spelling.
 
 No scene migration is implied by a documentation task. Keep TutorialBuilder's VariantSetups scenes in their existing project unless explicitly requested otherwise. Do not edit other repositories, publish, commit, push or send messages without a corresponding request. A local inspection request authorizes no repair.
 

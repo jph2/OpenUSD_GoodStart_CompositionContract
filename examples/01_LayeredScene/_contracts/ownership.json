@@ -9,23 +9,15 @@
   },
   "owners": [
     {
-      "fields": "UsdPreviewSurface shader values",
-      "id": "library:Palette@1",
-      "override": "new reviewed library revision; no scene shader edits",
-      "package": "010_ASS_USD/MatLib/Palette_v001.usda",
-      "public": "/Materials/{Red,Blue,Yellow,Ground}",
-      "role": "MatLyr"
-    },
-    {
       "defaults": {
         "Finish": "Red",
         "Size": "Normal"
       },
-      "edit_targets": "020_BASE_LYR/GeoLyr, TransLyr, MatLyr, VariLyr.usda according to role",
+      "edit_targets": "Inline leaf entrypoint, preserving Size/Finish variant contexts.",
       "fields": "geometry; intrinsic placement; branch scale/order; branch material binding",
       "id": "asset:Cube@1",
       "override": "downstream selects public variants; private edits only in explicit review fixture",
-      "package": "010_ASS_USD/USD_Wrappers/Cube/AssetROOT_Cube.usda",
+      "package": "010_ASS_USD/AssetROOT_Cube.usda",
       "pivot": "base center; Z-up; 100 cm height in Normal",
       "private": [
         "/Cube/Geometry",
@@ -50,11 +42,11 @@
         "Finish": "Yellow",
         "Size": "Normal"
       },
-      "edit_targets": "020_BASE_LYR/GeoLyr, TransLyr, MatLyr, VariLyr.usda according to role",
+      "edit_targets": "Inline leaf entrypoint, preserving Size/Finish variant contexts.",
       "fields": "geometry; intrinsic placement; branch scale/order; branch material binding",
       "id": "asset:Cone@1",
       "override": "downstream selects public variants; private edits only in explicit review fixture",
-      "package": "010_ASS_USD/USD_Wrappers/Cone/AssetROOT_Cone.usda",
+      "package": "010_ASS_USD/AssetROOT_Cone.usda",
       "pivot": "base center; Z-up; 100 cm height in Normal",
       "private": [
         "/Cone/Geometry",
@@ -123,19 +115,20 @@
   "review_exceptions": [
     {
       "disposition": "teaching fixture only; exclude from normal root",
-      "file": "050_REVIEW_LYR/MaskedSize/ReviewLyr.usda",
+      "file": "050_OPINION_LYR/ReviewLyr_SceneMaskedSize.usda",
       "reason": "reproduce original local-versus-variant failure",
       "supersedes": "Size=Tall scale",
       "target": "/World/Cube02/Adjustment/Asset.xformOp:scale"
     },
     {
       "disposition": "teaching fixture only; exclude from normal root",
-      "file": "050_REVIEW_LYR/MaskedSelection/ReviewLyr.usda",
+      "file": "050_OPINION_LYR/ReviewLyr_SceneMaskedSelection.usda",
       "reason": "show direct child selection masking scene scenario",
       "supersedes": "Layout branch Finish",
       "target": "/World/Cube01/Adjustment/Asset Finish selection"
     }
   ],
   "schema": "cc-example-ownership/0.1",
-  "team": "Example maintainer (role placeholder; no external acceptance)"
+  "team": "Example maintainer (role placeholder; no external acceptance)",
+  "layout_revision": "0.2.9"
 }

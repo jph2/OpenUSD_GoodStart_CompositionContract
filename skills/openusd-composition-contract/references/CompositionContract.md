@@ -1,4 +1,4 @@
-> Generated reference for contract **0.2.0**. Edit the source repository's
+> Generated reference for contract **0.2.9**. Edit the source repository's
 > `CompositionContract.md`, then run `tools/sync_composition_skill.py`.
 > Companion-file links point to the repository's mutable main branch for navigation;
 > they may differ from this snapshot or await publication. The bundled text and
@@ -6,9 +6,16 @@
 
 # Scene composition contracts
 
-**Status:** version 0.2.0, independent work-in-progress proposal, 2026-10-11. This is the author's working baseline for collaborative review, not an AOUSD standard or group-approved specification. A local [reference example](https://github.com/jph2/OpenUSD_GoodStart_CompositionContract/blob/main/examples/01_LayeredScene/README.md) and [project layout](https://github.com/jph2/OpenUSD_GoodStart_CompositionContract/blob/main/PROJECT_STRUCTURE.md) now exist; full conformance and application acceptance remain pending. Automated enforcement is not implemented. Moved from TutorialBuilder on 2026-10-10; this project now owns the contract. It supersedes conflicting conventions in the earlier VariantSetups exploration; those A–H folders remain experimental evidence in TutorialBuilder. See [provenance and source routes](https://github.com/jph2/OpenUSD_GoodStart_CompositionContract/blob/main/harness/SOURCES.md).
+> **Principle: use only the structure you need.**
+> Keep leaf assets self-contained, with their geometry, materials, transforms and variants in one file when no independent composition boundary is needed.
+> Use the conventional folders and role layers for scenes and composed assets only where ownership, reuse, editing or loading requires them, at every level of nesting.
+> Start composed packages with the full scaffold, then remove unused folders and layers safely; our teaching scenes retain the folder catalogue to show the available structure.
 
-**Revision scope:** 0.2.0 retains CC-01–28 and extends their profile, acceptance and publication requirements with the [NVIDIA alignment review](#21-nvidia-alignment-and-readiness-requirements), plus early authoritative identity and composable-binding requirements under CC-27/28. Existing 0.1.1 example profiles, starter packages and recorded observations retain their own versions. They do not acquire 0.2.0 acceptance through this document update. New evidence must identify the contract revision and applicable rule IDs explicitly, including CC-27/28 when identity or bindings are in scope.
+**Primary platform: NVIDIA Omniverse.** This repository develops practical OpenUSD composition conventions for NVIDIA Omniverse and Omniverse Kit. Its definitions, rules, example files and code snippets intentionally include Omniverse-specific behavior: RTX render settings, viewport cameras, environment setup, Kit layer/authoring metadata, materials and extension APIs. These application details are part of the intended workflow; keep their required runtime dependencies explicit. Distinguish general OpenUSD composition mechanics, this project's conventions and Omniverse implementation details; portability to another application requires a separate assessment, and this independent proposal does not imply NVIDIA or AOUSD endorsement.
+
+**Status:** version 0.2.9, independent work-in-progress proposal, 2026-10-12. This is the author's working baseline for collaborative review, not an AOUSD standard or group-approved specification. A local [reference example](https://github.com/jph2/OpenUSD_GoodStart_CompositionContract/blob/main/examples/01_LayeredScene/README.md) and [project layout](https://github.com/jph2/OpenUSD_GoodStart_CompositionContract/blob/main/PROJECT_STRUCTURE.md) now exist; full conformance and application acceptance remain pending. Automated enforcement is not implemented. Moved from TutorialBuilder on 2026-10-10; this project now owns the contract. It supersedes conflicting conventions in the earlier VariantSetups exploration; those A–H folders remain experimental evidence in TutorialBuilder. See [provenance and source routes](https://github.com/jph2/OpenUSD_GoodStart_CompositionContract/blob/main/harness/SOURCES.md).
+
+**Revision scope:** 0.2.9 retains CC-01–28 and introduces CC-00: self-contained leaves are a normal supported form; compositions use only justified role boundaries. Naming remains conventional; full scaffolds are creation aids, not permanent requirements. CC-00a requires direct-open preview lighting for every asset, including leaves, outside the reusable asset prim. Earlier example acceptance remains historical and is not upgraded by this revision.
 
 ## 1. Purpose and scope
 
@@ -25,17 +32,17 @@ Read **left to right: root → scene layer stack → reusable source packages**.
 ```mermaid
 %%{init: {"flowchart": {"wrappingWidth": 380, "nodeSpacing": 22, "rankSpacing": 28}}}%%
 flowchart LR
-    accTitle: OpenUSD GoodStart Composition Contract 0.2.0 - Root, scene stack and reusable sources
+    accTitle: OpenUSD GoodStart Composition Contract 0.2.9 - Root, scene stack and reusable sources
     accDescr: Left to right, the root assembles a vertical scene layer stack with GeoLyr at the bottom. Reusable assets, assemblies and materials retain their own implementation and variant context.
     %% Connect the column subgraphs, keeping their internal TB layout intact.
-    subgraph ENTRY["ROOT + AUTHORING · 0.2.0"]
+    subgraph ENTRY["ROOT + AUTHORING · 0.2.9"]
         direction TB
         Session["Opinion Layer<br/>Default editable target<br/>Work/source layers start locked"]
         R["SceneROOT_Example.usda<br/>Stage metadata and sublayer assembly<br/>SceneROOT_Manual is an independent manual root"]
         Startup["Supplied Omniverse baseline in the root<br/>Environment · Render · viewport cameras<br/>Z-up · centimetres · identity World · 60 fps"]
         Session ~~~ R
         R ~~~ Startup
-        Review["Optional REVIEW · 050_REVIEW_LYR<br/>ReviewLyr · explicit experiments above the base stack<br/>Declare owner, purpose and removal route"]
+        Review["Optional OPINION · 050_OPINION_LYR<br/>ReviewLyr · explicit experiments above the base stack<br/>Declare owner, purpose and removal route"]
         Startup ~~~ Review
     end
 
@@ -44,7 +51,7 @@ flowchart LR
         RT["RUNTIME LAYER · 035_RUNTIME_LYR<br/>RuntimeLyr · deliberate operational snapshots<br/>Live values may remain in session / external storage<br/>Declare writer authority and persistence"]
         S["SIM LAYER · 030_SIM_LYR<br/>SimLyr · published solver results<br/>Record scenario, solver, time and provenance"]
         D["DATA LAYERS · 040_DATA_LYR<br/>DataLyr · project identity and context<br/>IdentityLyr · scoped occurrence / external IDs<br/>ContextLyr · installation context<br/>Bindings resolve identities to explicit targets<br/>UNSMappingLyr · optional integration mappings"]
-        BASE["BASE LAYER · 020_BASE_LYR<br/>MatLyr · scene resources and assignments; respect asset Finish<br/>TransLyr · ordinary placement on occurrence parents<br/>VariLyr · published selections OR Layout scenarios<br/>Relative adjustments stay in their scenario branch<br/>Optional: EnvLyr · LightLyr · CamLyr · RenderLyr<br/>AnimLyr · PhysicsLyr · RigLyr as the profile requires<br/>GeoLyr · hierarchy and asset references · BOTTOM / WEAKEST<br/>Linked packages retain their own implementation"]
+        BASE["BASE LAYER · 020_BASE_LYR<br/>MatLyr · scene resources and assignments; respect asset Finish<br/>TransLyr · ordinary placement on occurrence parents<br/>Opinion · saved selections<br/>ConfigLyr · optional managed selections<br/>VariLyr · Layout scenario definitions<br/>Relative adjustments stay in their scenario branch<br/>Optional: EnvLyr · LightLyr · CamLyr · RenderLyr<br/>AnimLyr · PhysicsLyr · RigLyr as the profile requires<br/>GeoLyr · hierarchy and asset references · BOTTOM / WEAKEST<br/>Linked packages retain their own implementation"]
         RT ~~~ S
         S ~~~ D
         D ~~~ BASE
@@ -53,7 +60,7 @@ flowchart LR
     subgraph SRC["ASSET USD · 010_ASS_USD"]
         direction TB
         B["Nested assembly interface · DisplayPair<br/>Own GeoLyr + TransLyr + VariLyr<br/>Palette variants coordinate child Finish selections<br/>Scene selects the assembly's public interface"]
-        A["Published asset interfaces · Cube and Cone<br/>Own GeoLyr + TransLyr + MatLyr + VariLyr<br/>Source identity belongs at the asset/component scope<br/>Asset-owned geometry, intrinsic transforms and materials<br/>Reusable Size / Finish definitions remain in the asset"]
+        A["Published asset interfaces · Cube and Cone<br/>Self-contained leaf file with intrinsic content and variants<br/>Source identity belongs at the asset/component scope<br/>Asset-owned geometry, intrinsic transforms and materials<br/>Reusable Size / Finish definitions remain in the asset"]
         Library["Shared material library · Palette_v001<br/>Reusable material definitions and shader values<br/>Asset MatLyr references the required materials<br/>Library revisions are adopted deliberately"]
         Context["Preserve owner and variant context<br/>Asset / assembly changes belong in that package<br/>Variant-dependent values stay in their owning branch<br/>Scene choices do not duplicate asset implementations"]
         B -->|"assembly GeoLyr references Cube and Cone"| A
@@ -63,7 +70,7 @@ flowchart LR
 
     ENTRY -->|"Root composes sibling sublayers"| STACK
     STACK -->|"GeoLyr references assets and assemblies"| SRC
-    STACK -.->|"VariLyr selects published controls"| SRC
+    STACK -.->|"Opinion / optional ConfigLyr selects published controls"| SRC
     STACK -.->|"Scene MatLyr links materials when needed"| SRC
 
     classDef root fill:#fde8df,stroke:#d99b84,color:#17212b,stroke-width:2px
@@ -83,9 +90,9 @@ flowchart LR
 
 **Reading the chart:** four boxes group layer types by class; they are not four additional USD aggregate layers. Runtime and simulation are optional, with their actual strength declared by the profile. The baseline sibling sublayers remain **DataLyr → TransLyr → VariLyr → GeoLyr**, strongest first. GeoLyr is at the bottom of BASE and the scene stack. Optional ReviewLyr sits above the baseline work layers.
 
-The labeled arrows between columns identify the responsible layer: GeoLyr references asset/assembly entrypoints, VariLyr selects their public controls, and a scene MatLyr can link materials for scene-owned assignments. These connections attach to the column boundaries so the middle stack remains vertical. The source packages have their own internal layer stacks and owners.
+The labeled arrows between columns identify the responsible layer: GeoLyr references asset/assembly entrypoints, Opinion or optional ConfigLyr selects their public controls, and a scene MatLyr can link materials for scene-owned assignments. These connections attach to the column boundaries so the middle stack remains vertical. Source packages retain their own owners; only composed packages need internal layer stacks.
 
-- **Scene placement:** TransLyr places occurrence parents. VariLyr stores manual selections or scene scenarios, including relative adjustments inside the scenario branch. It preserves the reusable asset's implementation.
+- **Scene placement:** TransLyr places occurrence parents. Opinion stores manual selections; optional ConfigLyr stores independently managed presets; VariLyr defines scene scenarios, including relative adjustments inside the scenario branch. It preserves the reusable asset's implementation.
 - **Assembly decisions:** DisplayPair owns its child placement and Palette variants. Its GeoLyr references Cube and Cone; its VariLyr coordinates their Finish selections. The scene selects Palette on the public assembly interface.
 - **Asset decisions:** Cube and Cone own their geometry, intrinsic transforms, material bindings and reusable Size/Finish definitions. A value that depends on a variant stays in its owning variant branch (CC-21).
 - **Shared materials:** the material library owns reusable shader definitions; each asset's MatLyr imports the materials it needs. Scene material overrides require an explicit responsibility and must respect asset-controlled Finish choices.
@@ -113,7 +120,7 @@ Distinguish three different authored contributions:
 
 “Local wins” concerns competing opinions for particular data. It does not mean a local variant selection suppresses all content of that variant. Selection chooses a branch; the branch's properties then participate in composition. [OpenUSD variant selection API](https://openusd.org/release/api/class_usd_variant_set.html)
 
-For example, VariLyr can contain this selection without copying the asset's variant implementation:
+For example, the scene Opinion (or an optional ConfigLyr) can contain this selection without copying the asset's variant implementation:
 
 ```usda
 #usda 1.0
@@ -137,7 +144,53 @@ If another scene opinion directly forces the controlled material or colour, the 
 
 ## 3. File ownership contract
 
-**CC-01 — Root assembly and default Opinion authoring.** The root establishes stage metadata and includes scene sublayers. Select the declared `OpinLYR_default.usda` as the default editable authoring target; protect the other persistent work layers and referenced assets. Opinion is the strongest scene work sublayer for explicit experiments and starts empty. Saving persists those experiments. Declare its owner, sharing scope and promotion/removal route. Promote accepted fields to their rightful layer and variant context, then retire only superseded opinions. Keep routine edits out of the root. Session remains available for transient previews and can mask Opinion; it is no longer the default target.
+**CC-00 — Minimum necessary composition.** Use the simplest structure that serves actual ownership, reuse, collaboration, independent editing/revision or loading needs. A **leaf asset** is an endpoint of the chosen composition: it may contain detailed geometry, intrinsic transforms, materials and variants together in one self-contained file. A cube or a finished plant can be a leaf. Visual complexity and variant count alone do not require a role stack. A **composed asset** assembles independently managed contributions or child assets; it can itself be referenced into another composition. At each scope, introduce only the boundaries that have a concrete purpose and stop at self-contained leaves. The same ownership and USD strength rules apply within one file.
+
+**CC-00a — Direct-open preview environment.** Every asset entrypoint, including a self-contained leaf, must load a basic environment and lighting setup when opened directly. Keep preview content outside the asset's default prim (for example, `/Environment` beside `/Asset`); consumers must reference or payload the declared asset prim so preview lights, ground and cameras do not enter the consuming scene. A shared, portable environment layer may be composed for this purpose without introducing an asset-internal Geo/Trans/Mat/Variant stack: self-contained describes the leaf's asset content, not the absence of a preview dependency. Declare and package that dependency with resolvable resource paths. The preview must not author asset geometry, transforms, material bindings or variant selections. A consuming scene owns its own lighting. Evaluate direct-open lighting and reference isolation separately; file presence alone is not visual acceptance.
+
+### Minimal Omniverse setup — selected preview baseline
+
+For `examples/02_USDEssentials_Minimal`, the user-supplied
+`010_ASS_USD/geoANDenvEXAMPLE.usda` is the selected preview reference. Each of the
+four Cube/Cone leaf entrypoints authors its geometry, optional Color materials
+and variants, plus the reference's Environment, Render and OmniverseKit viewport
+camera setup directly in the same USDA file. Preserve the reference's lighting,
+grid ground, viewing and renderer settings; do not substitute a generic or
+texture-free preview without a corresponding request.
+
+Keep `/Asset` as the leaf's default prim, with `/Environment`, `/Render` and
+`/OmniverseKit_*` as siblings outside it. Consumers reference the asset prim only.
+Store the four leaf files beside one another directly in `010_ASS_USD`; this
+minimal setup requires no leaf work-layer stack, Opinion layer, MatLib or Envs
+folder. The reference demonstrates the preview arrangement; its `/World` name
+and particular mesh do not replace each leaf's established interface or geometry.
+
+This is a declared **Omniverse runtime profile**: the preview depends on the Kit
+HDR/grid resources and `OmniPBR` shader used by the supplied reference. Record and
+resolve those dependencies; inline USD content is not proof of portable,
+dependency-free delivery. CC-00c/00d still require dependency-complete packaging
+before a self-contained delivery claim. The profile-specific preview takes
+precedence over generic texture-free suggestions. Visual matching in Kit is a
+separate evaluation and must not be claimed from copying the authored settings.
+
+**CC-00b — Asset grouping is a team decision.** Clearly distinguishable assets may be stored side by side in one directory; neither an asset identity nor an entrypoint requires its own folder. Use descriptive unique filenames and portable dependency paths. Introduce separate folders when asset-specific resources, independent ownership/versioning/publication, access boundaries or navigation make them useful. Teams choose and document the boundary; there is no universal file-count, geometry-size or hierarchy-depth threshold. The Essentials example puts its four plain/variant shape entrypoints directly in `010_ASS_USD`; complex assembly and payload examples may retain named packages. This is our project convention, consistent with NVIDIA's guidance that asset structure depends on usage and team needs, not a mandated OpenUSD disk layout. See [Why Is an Asset Structure Necessary?](https://docs.nvidia.com/learn-openusd/latest/asset-structure/asset-structure-principles/why-necessary.html).
+
+**CC-00c — Shared resources and cleanup.** **Containment takes precedence for leaf delivery:** a leaf described as self-contained must include its required geometry, materials, textures and preview content in its file/package. Simple procedural leaves keep preview lights and materials inline and need no MatLib or Envs folders. Shared-resource authoring below describes dependent assets/library workflows; it is not independent leaf containment. Leaf simplicity does not require duplicating common resources. Assets may share a containing folder and common `MatLib`, `tex`/`textures` or other team-named resource folders. Share only resources whose identity, shader/network semantics, color-space interpretation, intended usage and revision policy are compatible; equal filenames or similar appearance are insufficient. Asset-owned resources may remain private. A shared-resource library is an explicit dependency, not a reason to introduce a full asset role stack. “Self-contained asset content” means a simple owned implementation; “self-contained delivery package” additionally requires its transitive dependencies to be included or explicitly supplied by the declared runtime.
+
+Cleanup is an authorized, bounded migration: inventory all configured variants, payloads and resource dependencies; identify ownership and consumers; propose exact moves/merges/deletions; retain recoverable originals; then update arcs, shader asset paths, authoring metadata and dependency records coherently. Resolve relative paths from their authoring layers. Do not delete a file merely because the currently selected variant or loaded stage does not use it. Preserve variant contexts, material bindings and public entrypoints, or explicitly migrate their consumers. Report unassessed external consumers and runtime behavior. Perform tests only when requested.
+
+**CC-00d — Optional delivery archives.** **Self-contained delivery convention:** assets whose required file dependencies are fully contained and supported by the declared target application may be published as USDZ packages. Use USDZ to identify the single-file delivery package, which may contain multiple USD layers and resources; retain editable sources separately. Confirm dependency completeness across the supported configurations before labeling the package self-contained: the extension alone is not proof. This is optional for leaves, not a requirement for every asset.
+
+ Ordinary ZIP is suitable for transport/archive with an explicit unpack-before-use workflow. It is not a USDZ package and must not be substituted for a live USD dependency by renaming its extension. USDZ is an optional derived delivery format for supported consumers: an uncompressed, specially aligned ZIP-based package designed for direct access. Use USD-aware packaging, preserve editable source assets, and inspect transitive dependencies across supported variants/payloads and preview resources before claiming containment. File-format and shader/runtime support must be checked for the target; our existing HDR/OmniPBR preview cannot simply be assumed portable to a generic USDZ consumer. Do not silently flatten away variants to package an asset. Per-asset archives may duplicate shared textures; choose library sharing or independent delivery deliberately. Performance is measured for a declared workload and runtime, never inferred from the archive extension. [OpenUSD USDZ specification](https://openusd.org/release/spec_usdz.html).
+
+**Scaffold versus active composition.** The numbered folders and named role layers below are the convention whenever their categories are used. Creation of a composed asset or scene starts with the full conventional folder/work-layer scaffold to make available responsibilities discoverable. A self-contained leaf is created directly, without that scaffold. Users can and should remove unused folders and layers after tailoring the composition; remove incoming sublayer/reference/payload dependencies and stale authoring/lock metadata before deleting files. Empty template slots need not be composed. Our teaching examples retain the full category-folder scaffold at scene scope to demonstrate best practice, with only needed USD contributions active. A nested composed asset retains only what it needs, not a mandatory copy of every ancestor's folders.
+
+The role-separation, Root and Opinion requirements below govern composed packages. They do not require a leaf to externalize its geometry, transforms, materials, variants or authoring target. A standalone leaf is edited in its own file. An intentional payload wrapper remains appropriate for a loading/lofting requirement even when its source geometry is simple.
+
+
+**CC-01 — Root assembly and default Opinion authoring.** Opinion is an editing workflow, not a mandatory layer for every asset interface. A simple lofted wrapper such as CubeLofted may omit it; edit the interface directly when appropriate. Where Opinion is used, its canonical folder is `050_OPINION_LYR`. The root establishes stage metadata and includes scene sublayers. Select the scene’s declared Opinion file as the default editable authoring target; protect the other persistent work layers and referenced assets. Opinion is the default persistent home for scene selections and ordinary working overrides. It may start empty, but saved selections are intentional scene state and need not be promoted merely because they are accepted. Declare its owner and sharing scope. Move contributions only when ownership, reuse or configuration management requires it; retire only the superseded opinions. Keep routine edits out of the root. Session remains available for transient previews and can mask Opinion; it is no longer the default target.
+
+**Opinion filename scope.** Author/team identifiers are optional; omit them by default. When needed, append a dot-separated identifier before lowercase `.usda`: `<base>.name.usda`, for example `OpinLYR_SceneDefault.jph2.usda`. The identifier marks a contributor or working stream, not access control or asset identity. Do not invent an identifier. Name a scene-specific Opinion layer `OpinLYR_Scene<SceneName>.usda`, using the owning scene's recognizable name: `OpinLYR_SceneDefault.usda` and `OpinLYR_SceneColorVariants.usda` are the Essentials examples. This keeps ownership clear when layers for different scenes share `050_OPINION_LYR`. For an intentionally shared Opinion layer, omit the `Scene` marker and use `OpinLYR_<Purpose>.usda`; document its purpose and consumers because edits affect every scene composing it. Absence of the marker expresses intended shared scope, not automatic compatibility with every scene. Use additional scene identity when short names would collide. Update composition arcs and authoring/lock metadata whenever a file is renamed.
 
 **Kit root exception:** the active root remains API-writable because this Kit build saves camera settings and the authoring-layer identifier in root metadata. Hard-locking it prevents these host operations. USD layer edit permission does not restrict individual metadata fields, so this exception also leaves the root technically editable; selecting Opinion and disabling automatic authoring protects the normal workflow, not every possible root edit. Referenced asset roots remain protected. The helper never saves USD files, but Kit's explicit save operations may persist its root settings. Other applications must declare their own host requirements rather than assume this exception is universal.
 
@@ -149,15 +202,17 @@ This default is an application behavior. Roots declare `cc:defaultAuthoring = "o
 |---|---|---|
 | `GeoLyr.usda` | Define instance hierarchy and reference published asset entrypoints; asset-internal geometry layers may own native geometry | All authored transform operations/order; variant definitions/selections; copied asset geometry in scene layers |
 | `TransLyr.usda` at the owning scope | Ordinary transforms: scene placement, assembly placement or asset-internal transforms according to ownership | Transforms owned by another package; variant definitions; conditional transform values extracted from variants |
-| `VariLyr.usda` | Scene selections of asset variants; scene scenario definitions; relative scene adjustments inside those scenarios | Duplicated asset variant implementations; arbitrary edits to private asset properties |
+| `OpinLYR_Scene<SceneName>.usda` | Default saved scene selections and working overrides | Accidental masking of scenario-controlled choices |
+| `ConfigLyr.usda` / `ConfigLyr_<Purpose>.usda` | Optional independently managed selections of existing variants | Mandatory storage for every selection; duplicated asset variant implementations |
+| `VariLyr.usda` | Variant definitions and scene scenario contents; conditional selections/adjustments inside those branches | Duplicated asset variant implementations; arbitrary edits to private asset properties |
 | `MatLyr.usda`, when needed | Scene material resources and explicitly assigned scene material responsibilities | Unconditional binding or shader overrides that silently defeat asset finish variants |
 | Asset package | Geometry, intrinsic transforms, materials, reusable variants and their public interface, generally loaded as Payload/Reference                | Placement of a particular instance in a particular scene |
 
-**CC-02 — Mandatory transform separation.** GeoLyr contains no variant definitions, selections, or authored transform operations. Ordinary transforms belong in the rightful owner's TransLyr. If a transform needs authoring and that owner has no TransLyr, create it and include it in that owner's layer stack. Missing TransLyr is never permission to put transforms in GeoLyr. This includes operation values, time samples, pivots, `xformOpOrder` and reset-stack tokens. Defining an Xform prim or storing mesh points is not itself authoring transform operations. Variant-dependent transform contributions remain inside the rightful owner's variant context in VariLyr, as defined by CC-07/09; never extract them into unconditional TransLyr opinions. File names are conventions; future checks must inspect authored content.
+**CC-02 — Transform separation in composed packages.** GeoLyr contains no variant definitions, selections, or authored transform operations. Ordinary transforms belong in the rightful owner's TransLyr. If a transform needs authoring and that owner has no TransLyr, create it and include it in that owner's layer stack. Missing TransLyr is never permission to put transforms in GeoLyr. This includes operation values, time samples, pivots, `xformOpOrder` and reset-stack tokens. Defining an Xform prim or storing mesh points is not itself authoring transform operations. Variant-dependent transform contributions remain inside the rightful owner's variant context in VariLyr, as defined by CC-07/09; never extract them into unconditional TransLyr opinions. File names are conventions; future checks must inspect authored content.
 
 ## 4. Asset interface and lofting contract
 
-**CC-03 — Asset-owned alternatives.** A choice meaningful independently of a particular scene belongs in the asset: finish, detail, configuration or intrinsic articulation. Define it once in the asset package's variant layer at the hierarchy level that owns the choice. Assemblies are assets too: a robot-wide finish can belong to the robot assembly, while its hand or screw has separate intrinsic defaults. The scene selects a published choice rather than copying its implementation. Apply the role separation recursively within authored asset and assembly packages.
+**CC-03 — Asset-owned alternatives.** A choice meaningful independently of a particular scene belongs in the asset: finish, detail, configuration or intrinsic articulation. Define it once in the asset package's variant layer at the hierarchy level that owns the choice. Assemblies are assets too: a robot-wide finish can belong to the robot assembly, while its hand or screw has separate intrinsic defaults. The scene selects a published choice rather than copying its implementation. Apply role separation within composed asset and assembly packages where needed (CC-00); leaves keep their alternatives inline.
 
 **CC-04 — Public interface.** Publish stable entrypoint paths, variant-set names, available choices, defaults, supported parameters, units, up-axis and origin/pivot conventions. Identify private implementation paths. An asset's default values must not accidentally mask its own variants. Interface changes require an explicit compatibility decision.
 
@@ -171,7 +226,7 @@ Lofting is a publishing pattern, not a new composition arc and not automatic pro
 
 **CC-05c — Input-driven instance arrangement.** A profile declares input identity/schema, normalization, occurrence mapping, permitted outputs and writer authority. Generated ordinary placement goes to TransLyr; generated public variant selections go to VariLyr. Source geometry and variant implementations remain shared. Reject ambiguous or invalid input rather than infer ownership; show the intended destinations before applying and retain input provenance and recoverable prior outputs. Offline snapshots are distinct from live telemetry or animation. Sustained live operation additionally requires time, freshness, conflict and persistence rules under CC-21/28. More varied configurations may reduce prototype sharing; evaluate performance separately from correctness.
 
-**CC-05d — Animated point instancing and live controls.** A PointInstancer profile may replace individual occurrence prims with stable IDs and prototype-indexed arrays. Declare prototype order, ID scope/topology, units and time basis; IDs are not automatically physical-instance identities. GeoLyr owns topology, IDs and prototype references; VariLyr selects published controls on prototype sites. Ordinary whole-cloner placement remains in TransLyr. Authored time-varying point transforms and prototype indices belong in AnimLyr under CC-21, including their derived bounds. A point's prototype index is not a variant selection or an independently editable prim.
+**CC-05d — Animated point instancing and live controls.** A PointInstancer profile may replace individual occurrence prims with stable IDs and prototype-indexed arrays. Declare prototype order, ID scope/topology, units and time basis; IDs are not automatically physical-instance identities. GeoLyr owns topology, IDs and prototype references; Opinion / optional ConfigLyr selects published controls on prototype sites. Ordinary whole-cloner placement remains in TransLyr. Authored time-varying point transforms and prototype indices belong in AnimLyr under CC-21, including their derived bounds. A point's prototype index is not a variant selection or an independently editable prim.
 
 DATA declares the input and allowed target. An explicitly activated runtime adapter validates input and writes only its declared outputs into an owned temporary contribution. Define its strength against the baked animation, rejection/staleness behavior, lifecycle cleanup and persistence route. Keep the user's authoring target independent of the runtime writer. Disable/removal must expose the saved animation without changing asset sources or unrelated Session content; saving a new clip is an explicit bake with input provenance and prior-output recovery. Profiles must distinguish source variant choices from point-level scale/motion so conditional asset behavior is not moved or masked accidentally.
 
@@ -202,7 +257,8 @@ Normal and other scene adjustment presets must supply their intended adjustment 
 
 **CC-08 — Two explicit authoring modes.**
 
-- **Manual configuration:** VariLyr stores direct selection metadata on referenced asset instances. Selecting Finish=Red writes that selection, not a copy of Red's material values.
+- **Manual configuration:** store scene selections in the existing Opinion layer by default. Selecting Finish=Red writes selection metadata on the referenced asset instance, not a copy of Red's material values. Session is for transient previews; persistence from Session is explicit.
+- **Independent configuration:** introduce `ConfigLyr.usda` only when selections need independent reuse, ownership, versioning or switching. Use `ConfigLyr_<Purpose>.usda` for multiple named configurations. Store it under `020_BASE_LYR` when using the conventional folder layout; compose it only where needed and declare its strength. A ConfigLyr selects existing variants and does not require a new variant set. Opinion may deliberately override a configuration; expose those overrides when switching presets.
 - **Scene scenario:** VariLyr defines a scene-level variant whose contents select asset configurations and supply relative adjustments. The child selections belong inside that scenario's edit context.
 
 Do not leave a direct local selection on a child while expecting a scene scenario to control the same selection. Such a selection can mask the scenario's nested choice. Clear the competing selection opinion from its actual owning layer; do not equate clearing with writing an empty-string selection, which can block weaker selections. [UsdVariantSet selection and blocking](https://openusd.org/release/api/class_usd_variant_set.html)
@@ -237,12 +293,12 @@ A deliberate scene material override is a separate, labelled mode. State which f
 Required tool behavior:
 
 1. Identify whether the user is changing a direct asset selection, a scenario selection, or scenario contents.
-2. Route the change to VariLyr and the appropriate authoring context.
+2. Route ordinary saved selections to the scene Opinion; use ConfigLyr only for an explicitly managed configuration. Edit scenario contents in the owning variant branch, normally in VariLyr for composed packages.
 3. Preserve asset files and unrelated scene layers.
-4. Save VariLyr deliberately and report unsaved/session-only state.
+4. Save the selected destination deliberately and report unsaved/session-only state.
 5. Flag a stronger opinion that masks the intended configuration.
 
-CC-01 retains Session for optional transient previews; Opinion is the default experiment target. The destinations above apply when deliberately persisting a configuration. Tools must distinguish preview from persistence and must not silently merge the whole session into VariLyr.
+CC-01 retains Session for transient previews; Opinion is the default persistent selection target. Do not silently merge the whole session into Opinion or ConfigLyr. Persist only the intended fields.
 
 USD's selection API writes to the stage's current edit target. For a manual workflow, select the intended scene authoring layer and confirm the actual authored destination in the installed application. Guaranteed automatic routing requires a configured tool or adapter and acceptance evidence. The stock Presenter's precise write behavior in this installed Kit build has not been inspected here. No automatic routing or autosave is claimed as implemented.
 
@@ -551,9 +607,9 @@ The assessment supports retaining the core architecture while developing explici
 
 These naming and folder rules govern maintained authoring packages and their distributed authoring starters. A separately generated publication or deployment package may use the selected target's names, encodings and layout under the explicit [CC-24 deployment profile](#deployment-packaging-and-performance). Record its source mapping and acceptance evidence; it does not replace the maintained authoring source or acquire conformance merely through renaming.
 
-**Folder naming under CC-26.** Use the exact class-directory names in the table below throughout maintained scenes, locally authored assets and assemblies, generators, launchers, profiles, diagrams and distributed starter packages. Layer-class directories use a three-digit prefix, uppercase words separated by underscores, and the singular suffix `_LYR`: `020_BASE_LYR`, `030_SIM_LYR`, `035_RUNTIME_LYR`, `040_DATA_LYR`, `050_REVIEW_LYR`. Retain `000_SOURCE` and `010_ASS_USD` for source inputs and reusable USD packages.
+**Folder naming under CC-26.** Use the exact class-directory names in the table below throughout maintained scenes, locally authored assets and assemblies, generators, launchers, profiles, diagrams and distributed starter packages. Layer-class directories use a three-digit prefix, uppercase words separated by underscores, and the singular suffix `_LYR`: `020_BASE_LYR`, `030_SIM_LYR`, `035_RUNTIME_LYR`, `040_DATA_LYR`, `050_OPINION_LYR`. Retain `000_SOURCE` and `010_ASS_USD` for source inputs and reusable USD packages.
 
-`040_DATA_LYR` is the canonical DATA directory and `050_REVIEW_LYR` is the canonical REVIEW directory, even when they contain multiple layers. Apply these names recursively inside locally authored asset and assembly packages. Update relative paths and authoring-target metadata together when renaming a directory. Imported packages and immutable historical evidence retain their published/original names under CC-25.
+`040_DATA_LYR` is the canonical DATA directory and `050_OPINION_LYR` is the canonical OPINION directory, even when they contain multiple layers. Apply these names recursively inside locally authored asset and assembly packages. Update relative paths and authoring-target metadata together when renaming a directory. Imported packages and immutable historical evidence retain their published/original names under CC-25.
 
 Classify contributions by lifecycle/container and technical role separately. Individual role files retain their established casing, such as `GeoLyr.usda`, `TransLyr.usda`, `VariLyr.usda`, `DataLyr.usda` and `OpinLYR_default.usda`. The folder suffix does not rename these files. Numeric prefixes classify storage; composition strength comes from the root's explicit `subLayers` order.
 
@@ -564,7 +620,7 @@ Classify contributions by lifecycle/container and technical role separately. Ind
 | SIM | `030_SIM_LYR` | Published simulation results, such as SimLyr; distinguish results from BASE physics configuration. |
 | RUNTIME | `035_RUNTIME_LYR` | Live/runtime contributions and deliberately retained snapshots, under declared writer authority. |
 | DATA | `040_DATA_LYR` | Identity and context contributions: DataLyr, IdentityLyr, ContextLyr. |
-| REVIEW | `050_REVIEW_LYR` | Explicit experiments and conflict demonstrations: OpinLYR_default, purpose-specific Opinion layers and ReviewLyr. |
+| OPINION | `050_OPINION_LYR` | Explicit experiments and conflict demonstrations: OpinLYR_default, purpose-specific Opinion layers and ReviewLyr. |
 
 The diagrams group layer types inside four class boxes while retaining the root–stack–sources layout. Class boxes do not add aggregate layers. Classification does not determine composition strength: GeoLyr remains the weakest scene sublayer; profiles declare the order and overlap of all other contributions. Retained `000_SOURCE` inputs and `_contracts`, `_pipeline_reports`, `_workflows` are supporting storage, not additional composed layer classes. Ownership and variant context remain separate from both class and role.
 
@@ -574,7 +630,7 @@ For external data, declare whether it is a live link, pinned revision, cache or 
 
 Folder names and numeric prefixes organize storage; only composition arcs and authored opinions determine USD composition. A reserved directory does not require an empty USD layer. Contracts, reports and workflow definitions stay outside the composed layer stack. Record actual sublayer lists and their strongest-to-weakest order per profile. Keep manual-selection and scenario contributions mutually exclusive where they would control the same selections. Temporary review entrypoints must identify the exception's owner, purpose, affected fields and removal route.
 
-The [project layout](https://github.com/jph2/OpenUSD_GoodStart_CompositionContract/blob/main/PROJECT_STRUCTURE.md) retains the generated GoodStart example's 000_SOURCE, 010_ASS_USD, 020_BASE_LYR, 030_SIM_LYR, 035_RUNTIME_LYR and 040_DATA_LYR storage lanes, adds 050_REVIEW_LYR, and generalizes workflow storage. These are this project's adopted conventions; a folder prefix is not a registered USD role or universal stack order.
+The [project layout](https://github.com/jph2/OpenUSD_GoodStart_CompositionContract/blob/main/PROJECT_STRUCTURE.md) retains the generated GoodStart example's 000_SOURCE, 010_ASS_USD, 020_BASE_LYR, 030_SIM_LYR, 035_RUNTIME_LYR and 040_DATA_LYR storage lanes, adds 050_OPINION_LYR, and generalizes workflow storage. These are this project's adopted conventions; a folder prefix is not a registered USD role or universal stack order.
 
 ### Deployment packaging and performance
 
@@ -591,13 +647,13 @@ Flattening or other consolidation needs an explicit preservation policy; removin
 
 ### Imported sources and owned publication
 
-**CC-25 — Preserve imported evidence and publish an owned interface.** Retain external CAD/DCC originals and imported USD as source evidence with provenance and revision. Publish an asset entrypoint or, when adaptation is needed, an owned wrapper that declares the intended public interface, units, up-axis, origin, dependencies and supported controls. New layers authored under this contract follow its ownership and role rules recursively. An imported package may retain its documented internal organization behind the declared boundary; importing it does not require an extra wrapper or certify its internals against our role conventions.
+**CC-25 — Preserve imported evidence and publish an owned interface.** Retain external CAD/DCC originals and imported USD as source evidence with provenance and revision. Publish an asset entrypoint or, when adaptation is needed, an owned wrapper that declares the intended public interface, units, up-axis, origin, dependencies and supported controls. New contributions follow ownership rules at every scope; role layers are introduced only for composed packages that need them (CC-00). An imported package may retain its documented internal organization behind the declared boundary; importing it does not require an extra wrapper or certify its internals against our role conventions.
 
 Maintained adaptation layers follow the authoring layout. A derived target package follows its declared CC-24 publication profile, preserves source provenance and carries the source-to-output mappings and acceptance results. Publication does not authorize rewriting retained originals or silently changing the supported interface.
 
 ### Recursive package layout
 
-Maintained locally authored asset and assembly packages repeat the scene class folders: `000_SOURCE`, `010_ASS_USD`, `020_BASE_LYR`, `030_SIM_LYR`, `035_RUNTIME_LYR`, `040_DATA_LYR`, `050_REVIEW_LYR`, with `_contracts` for their interface. Active role layers live inside the appropriate class; GeoLyr is the weakest work sublayer. Unused classes may remain reserved directories with explanatory notes; they do not require empty USD layers. A package-owned `050_REVIEW_LYR/OpinLYR_default.usda` is the default editable target when opening that package itself. When referenced into a scene, it is a protected dependency; edits there affect every consumer, while scene-specific experiments belong to the scene Opinion.
+The full creation scaffold for composed asset and scene packages offers: `000_SOURCE`, `010_ASS_USD`, `020_BASE_LYR`, `030_SIM_LYR`, `035_RUNTIME_LYR`, `040_DATA_LYR`, `050_OPINION_LYR`, with `_contracts` for their interface. Active role layers live inside the appropriate class; GeoLyr is the weakest work sublayer. Unused classes may remain reserved directories with explanatory notes; they do not require empty USD layers. For a composed package using an Opinion workflow, `050_OPINION_LYR/OpinLYR_default.usda` is its default editable target. Self-contained leaves use no Opinion layer. After scaffolding, retain only necessary folders and layers (CC-00). When referenced into a scene, it is a protected dependency; edits there affect every consumer, while scene-specific experiments belong to the scene Opinion.
 
 Names describe composition roles, not object taxonomy: a robot, building, workcell or city published for reuse uses AssetROOT_<Name>.usda. A working scene assembling them uses SceneROOT_<Purpose>.usda. A building does not require a new BuildingROOT convention. Publishing a working scene as an asset requires an explicit public interface, dependency boundary and review; changing the filename alone does not make it reusable. No extra root-within-root wrapper is implied.
 

@@ -1,6 +1,55 @@
 # USD Essentials — one cube, one cone, two colors
 
-**Folder convention:** layer classes use singular `_LYR`, including `040_DATA_LYR` and `050_REVIEW_LYR`, at scene and asset scope. Role filenames retain their existing casing (`DataLyr.usda`, `OpinLYR_default.usda`). Folder numbering does not set composition strength.
+## Saved selections
+
+The ColorVariants scene composes Opinion, TransLyr and GeoLyr only. Its existing
+`050_OPINION_LYR/OpinLYR_SceneColorVariants.usda` stores saved Color choices. Asset
+files define the alternatives. No separate VariLyr or ConfigLyr is needed here;
+Session remains available for temporary previews.
+
+
+## Current leaf preview reference
+
+The four AssetROOT leaves now use the Environment, Render and viewport-camera
+setup from `010_ASS_USD/geoANDenvEXAMPLE.usda`, authored directly in each file
+outside `/Asset`. Existing geometry, Color variants and default asset paths remain.
+This replaces the earlier texture-free preview described below. The supplied
+preview uses installed Kit HDR/grid textures and OmniPBR; there are no USD
+sublayers, but these are not dependency-free portable files. The reference file
+is preserved. Kit visual matching remains pending.
+
+
+## Self-contained leaves
+
+The four files directly in `010_ASS_USD` are independent leaf assets: geometry,
+optional inline Color materials/variants, and an inline `/Environment` beside the
+`/Asset` default prim. There are no leaf sublayers, external textures or material
+library dependencies. The MatLib and Envs folders have been removed. Fixed-scene
+materials live directly in scene MatLyr. The scene roots and leaves now use basic
+texture-free dome/key lighting and a plain ground material; the previous HDR/grid
+preview is intentionally replaced. Earlier shared-preview folder descriptions
+below are historical and superseded by this layout. No Kit visual evaluation
+has been performed for the new lighting.
+
+
+## Current structure — contract 0.2.3
+
+Cube and Cone are self-contained leaf assets. Their entrypoints contain geometry,
+intrinsic centering, and (where offered) inline materials and variants. They have
+no internal role stack, external palette dependency or Opinion layer. Each entrypoint loads shared preview lighting outside the default asset prim.
+Edit a leaf file directly; scene-level experiments still belong in scene Opinion.
+The scene retains its environment and layered composition. Assemblies use only
+needed work layers. Lofted wrappers in the layered example retain their payload
+boundary and load the standalone leaf implementation through ContentsLyr.
+
+The complete numbered folder catalogue at scene scope is a teaching scaffold.
+Unused folders/roles may be removed in a real project after removing dependencies.
+Leaf packages have no redundant scaffold. Older walkthroughs of leaf role stacks
+below describe the previous version and are superseded by this structure.
+No new Omniverse runtime acceptance is claimed for this update.
+
+
+**Folder convention:** layer classes use singular `_LYR`, including `040_DATA_LYR` and `050_OPINION_LYR`, at scene and asset scope. Role filenames retain their existing casing (`DataLyr.usda`, `OpinLYR_SceneDefault.usda`). Folder numbering does not set composition strength.
 
 Two small scenes use the same folder, ownership and naming rules as the composition contracts. **Z-up · centimetres · 60 fps.** Keep this entire folder together when copying it.
 
@@ -12,15 +61,7 @@ also declares its geometric axis as Z. The two scene roots contain the supplied
 Omniverse `Environment` (ground, lighting, render settings and viewport cameras)
 under the CC-01 template exception.
 
-All four Cube and Cone asset roots also compose the shared `Environment.usda`
-sublayer at the stage root, alongside the `/Asset` default prim. This makes the
-supplied ground and lighting visible when any asset entrypoint is opened
-directly. Scene GeoLyr references each asset's `/Asset` default prim, so that
-sibling `/Environment` is not imported into the scene. The SceneROOT continues
-to own its own Omniverse environment under the CC-01 template exception. No
-Y-to-Z conversion is needed for these current files. This remains a
-centimetre-based teaching profile, not metre-based SimReady or general
-production acceptance.
+The four leaf entrypoints load shared preview lighting from `Envs/OmniverseStandard/Environment.usda`. `/Environment` is outside `/Asset`, so scene references bring in only the asset content.
 
 ## Choose a lesson
 
@@ -39,7 +80,7 @@ For the full Opinion-authoring policy, launch your installed Kit application wit
 .\Open_In_Kit.ps1 -Scene USDEssentials_ColorVariants
 ```
 
-Each scene and asset root stores its own Opinion authoring target and `omni_layer.locked` map. The map locks every composed persistent layer except that root's declared Opinion layer. The Kit root remains writable for Kit's camera and authoring metadata, as required by CC-01. The launcher starts a new Kit process, detects an installed application's paths or accepts `-KitExe` and `-AppConfig`, then runs `_workflows/kit/session_defaults.py` to select the scene's Opinion layer, disable automatic authoring and enforce the persistent-layer locks in memory. It installs nothing, changes no Windows permissions or execution policy, and does not save USD files. Kit may write its normal logs, caches and preferences.
+Each scene root stores its own Opinion authoring target and `omni_layer.locked` map. The map locks every composed persistent layer except that root's declared Opinion layer. The Kit root remains writable for Kit's camera and authoring metadata, as required by CC-01. The launcher starts a new Kit process, detects an installed application's paths or accepts `-KitExe` and `-AppConfig`, then runs `_workflows/kit/session_defaults.py` to select the scene's Opinion layer, disable automatic authoring and enforce the persistent-layer locks in memory. It installs nothing, changes no Windows permissions or execution policy, and does not save USD files. Kit may write its normal logs, caches and preferences.
 
 If you already opened the scene, run this in Kit's Script Editor, substituting your copied folder's path:
 
@@ -60,16 +101,14 @@ Directly opening a USDA does not execute Python. Its root metadata declares the 
 |-- 000_SOURCE/                         retained inputs (unused)
 |-- 010_ASS_USD/
 |   |-- Envs/OmniverseStandard/
-|   |   |-- Environment.usda           direct-open asset preview environment
+|   |   |-- Environment.usda           shared direct-open preview lighting
 |   |   `-- Resources/                 portable HDR and grid texture
 |   |-- MatLib/Palette_v001.usda         shared Yellow, Green, Red and Blue
-|   `-- USD_Wrappers/
-|       |-- Cube/
-|       |   |-- AssetROOT_Cube.usda
-|       |   |-- AssetROOT_Cube_ColorVariants.usda
-|       |   |-- 000_SOURCE/             reserved
-|       |   |-- 010_ASS_USD/            reserved
-|       |   |-- 020_BASE_LYR/
+|   |-- AssetROOT_Cube.usda
+|   |-- AssetROOT_Cube_ColorVariants.usda
+|   |-- AssetROOT_Cone.usda
+|   `-- AssetROOT_Cone_ColorVariants.usda
+|-- 020_BASE_LYR/
 |       |   |   |-- GeoLyr.usda         one Cube geometry
 |       |   |   |-- TransLyr.usda       intrinsic centering
 |       |   |   |-- MatLyr.usda         palette reference
@@ -77,20 +116,19 @@ Directly opening a USDA does not execute Python. Its root metadata declares the 
 |       |   |-- 030_SIM_LYR/            reserved
 |       |   |-- 035_RUNTIME_LYR/        reserved
 |       |   |-- 040_DATA_LYR/          reserved
-|       |   `-- 050_REVIEW_LYR/             separate Opinion per entrypoint
+|       |   `-- 050_OPINION_LYR/             separate Opinion per entrypoint
 |       `-- Cone/                      repeats the Cube package structure
 |-- 020_BASE_LYR/
 |   |-- GeoLyr.usda                     plain asset references
 |   |-- GeoLyr_ColorVariants.usda       color asset references
 |   |-- TransLyr.usda                   occurrence placement, shared
 |   |-- MatLyr.usda                     fixed lesson bindings
-|   `-- VariLyr_ColorVariants.usda      scene Color selections
 |-- 030_SIM_LYR/                        reserved
 |-- 035_RUNTIME_LYR/                    reserved
 |-- 040_DATA_LYR/                      reserved
-|-- 050_REVIEW_LYR/
-|   |-- OpinLYR_default.usda
-|   `-- OpinLYR_ColorVariants.usda
+|-- 050_OPINION_LYR/
+|   |-- OpinLYR_SceneDefault.usda
+|   `-- OpinLYR_SceneColorVariants.usda
 |-- _contracts/profile.json             ownership + exact stack order
 |-- _pipeline_reports/                  inspection evidence location
 |-- _workflows/kit/session_defaults.py
@@ -101,7 +139,7 @@ The numbered folders classify roles; **the root's `subLayers` list sets strength
 
 ## Fixed materials
 
-**Goal:** trace readable USDA opinions into one composed result. Start on the right: GeoLyr references the Cube and Cone packages. Scene TransLyr places their occurrence parents; asset TransLyr centers each shape above its local base. Scene MatLyr references the shared palette and binds the Cube yellow and Cone green. The root combines these sibling layers, with GeoLyr weakest. Opinion is the strongest experimental layer.
+**Goal:** trace readable USDA opinions into one composed result. Start on the right: GeoLyr references the Cube and Cone packages. Scene TransLyr places their occurrence parents; inline intrinsic transforms centers each shape above its local base. Scene MatLyr references the shared palette and binds the Cube yellow and Cone green. The root combines these sibling layers, with GeoLyr weakest. Opinion is the strongest experimental layer.
 
 ```mermaid
 flowchart LR
@@ -144,7 +182,7 @@ flowchart LR
 |-- Cube01                     scene placement (TransLyr)
 |   `-- Adjustment             reserved contextual adjustment boundary
 |       `-- Asset              reference to AssetROOT_Cube
-|           `-- Geometry       Cube (asset GeoLyr + intrinsic TransLyr)
+|           `-- Geometry       Cube (leaf geometry + intrinsic TransLyr)
 |-- Cone01
 |   `-- Adjustment
 |       `-- Asset              reference to AssetROOT_Cone
@@ -168,3 +206,4 @@ A sublayer combines opinions in the same namespace. A reference brings an asset'
 No simulation, data mappings, payloads, instancing or animation are needed here. This is an introductory contract profile, not a claim of complete contract conformance or Kit acceptance. Developed with AI assistance; human review remains required.
 
 The bundled HDR and grid texture use relative paths. `OmniPBR.mdl` remains an Omniverse-provided shader dependency. Other USD viewers may not reproduce that ground material. `defaultscene.usda` retains its original resource paths as source evidence; open the `SceneROOT_` files for the portable lessons.
+

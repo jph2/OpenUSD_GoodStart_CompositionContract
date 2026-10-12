@@ -23,27 +23,19 @@
         string "cc:context" = "unconditional"
         string "cc:defaultAuthoring" = "opinion"
         bool "cc:lockPersistentLayers" = 1
-        string "cc:opinionLayer" = "./050_REVIEW_LYR/OpinLYR_default.usda"
+        string "cc:opinionLayer" = "./050_OPINION_LYR/OpinLYR_SceneDefault.usda"
         string "cc:owner" = "scene:USDEssentials"
         string "cc:role" = "Root"
         string "cc:startupTemplate" = "defaultscene.usda supplied Omniverse baseline"
         dictionary omni_layer = {
-            string authoring_layer = "./050_REVIEW_LYR/OpinLYR_default.usda"
+            string authoring_layer = "./050_OPINION_LYR/OpinLYR_SceneDefault.usda"
             dictionary locked = {
-                bool "010_ASS_USD/Envs/OmniverseStandard/Environment.usda" = 1
-                bool "010_ASS_USD/MatLib/Palette_v001.usda" = 1
-                bool "010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/GeoLyr.usda" = 1
-                bool "010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/TransLyr.usda" = 1
-                bool "010_ASS_USD/USD_Wrappers/Cone/050_REVIEW_LYR/OpinLYR_default.usda" = 1
-                bool "010_ASS_USD/USD_Wrappers/Cone/AssetROOT_Cone.usda" = 1
-                bool "010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/GeoLyr.usda" = 1
-                bool "010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/TransLyr.usda" = 1
-                bool "010_ASS_USD/USD_Wrappers/Cube/050_REVIEW_LYR/OpinLYR_default.usda" = 1
-                bool "010_ASS_USD/USD_Wrappers/Cube/AssetROOT_Cube.usda" = 1
+                bool "010_ASS_USD/AssetROOT_Cone.usda" = 1
+                bool "010_ASS_USD/AssetROOT_Cube.usda" = 1
                 bool "020_BASE_LYR/GeoLyr.usda" = 1
                 bool "020_BASE_LYR/MatLyr.usda" = 1
                 bool "020_BASE_LYR/TransLyr.usda" = 1
-                bool "050_REVIEW_LYR/OpinLYR_default.usda" = 0
+                bool "050_OPINION_LYR/OpinLYR_SceneDefault.usda" = 0
             }
             dictionary muteness = {
             }
@@ -58,7 +50,7 @@
     metersPerUnit = 0.009999999776482582
     startTimeCode = 0
     subLayers = [
-        @./050_REVIEW_LYR/OpinLYR_default.usda@,
+        @./050_OPINION_LYR/OpinLYR_SceneDefault.usda@,
         @./020_BASE_LYR/MatLyr.usda@,
         @./020_BASE_LYR/TransLyr.usda@,
         @./020_BASE_LYR/GeoLyr.usda@
@@ -93,34 +85,11 @@ def Xform "Environment"
         float inputs:shaping:focus
         color3f inputs:shaping:focusTint
         asset inputs:shaping:ies:file
-        asset inputs:texture:file = @./010_ASS_USD/Envs/OmniverseStandard/Resources/CarLight_512x256.hdr@
+        asset inputs:texture:file = @../../../../1005_OMNIVERSE/ov/data/exts/v2/omni.kit.stage_templates-03b05efb81763b32/data/CarLight_512x256.hdr@
         token inputs:texture:format = "latlong"
         custom int omni:rtx:usdluxVersion = 2505
         token visibility = "inherited"
         double3 xformOp:rotateXYZ = (90, 0, 270)
-        double3 xformOp:scale = (1, 1, 1)
-        double3 xformOp:translate = (0, 0, 305)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
-    }
-
-    def DistantLight "DistantLight" (
-        prepend apiSchemas = ["ShapingAPI"]
-    )
-    {
-        float inputs:angle = 2.5
-        float inputs:colorTemperature = 7250
-        bool inputs:enableColorTemperature = 1
-        float inputs:exposure = 10
-        float inputs:intensity = 3.1415927
-        bool inputs:normalize = 1
-        float inputs:shaping:cone:angle = 180
-        float inputs:shaping:cone:softness
-        float inputs:shaping:focus
-        color3f inputs:shaping:focusTint
-        asset inputs:shaping:ies:file
-        custom int omni:rtx:usdluxVersion = 2505
-        token visibility = "inherited"
-        double3 xformOp:rotateXYZ = (-15, 0, 0)
         double3 xformOp:scale = (1, 1, 1)
         double3 xformOp:translate = (0, 0, 305)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
@@ -142,7 +111,7 @@ def Xform "Environment"
                 float inputs:albedo_add = 0
                 float inputs:albedo_brightness = 0.52
                 float inputs:albedo_desaturation = 1
-                asset inputs:diffuse_texture = @./010_ASS_USD/Envs/OmniverseStandard/Resources/ov_uv_grids_basecolor_1024.png@ (
+                asset inputs:diffuse_texture = @../../../../1005_OMNIVERSE/ov/data/exts/v2/omni.kit.stage_templates-03b05efb81763b32/data/ov_uv_grids_basecolor_1024.png@ (
                     colorSpace = "sRGB"
                     customData = {
                         asset default = @@
@@ -175,6 +144,29 @@ def Xform "Environment"
                 )
             }
         }
+    }
+
+    def DistantLight "DistantLight" (
+        prepend apiSchemas = ["ShapingAPI"]
+    )
+    {
+        float inputs:angle = 2.5
+        float inputs:colorTemperature = 7250
+        bool inputs:enableColorTemperature = 1
+        float inputs:exposure = 10
+        float inputs:intensity = 3.1415927
+        bool inputs:normalize = 1
+        float inputs:shaping:cone:angle = 180
+        float inputs:shaping:cone:softness
+        float inputs:shaping:focus
+        color3f inputs:shaping:focusTint
+        asset inputs:shaping:ies:file
+        custom int omni:rtx:usdluxVersion = 2505
+        token visibility = "inherited"
+        double3 xformOp:rotateXYZ = (-15, 0, 0)
+        double3 xformOp:scale = (1, 1, 1)
+        double3 xformOp:translate = (0, 0, 305)
+        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
     }
 
     def Mesh "ground" (
@@ -383,3 +375,4 @@ over "OmniverseKit_Top" (
     double3 xformOp:translate = (0, 0, 50000.00111758712)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
 }
+

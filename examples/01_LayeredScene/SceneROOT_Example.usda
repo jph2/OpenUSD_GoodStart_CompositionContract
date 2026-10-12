@@ -23,39 +23,27 @@
         string "cc:context" = "unconditional"
         string "cc:defaultAuthoring" = "opinion"
         bool "cc:lockPersistentLayers" = 1
-        string "cc:opinionLayer" = "./050_REVIEW_LYR/OpinLYR_default.usda"
+        string "cc:opinionLayer" = "050_OPINION_LYR/OpinLYR_SceneExample.usda"
         string "cc:owner" = "scene:LayeredScene@1"
         string "cc:profile" = "CC-EXAMPLE-01/0.1.1"
         string "cc:role" = "Root"
         string "cc:startupTemplate" = "ROOT_example supplied by Jan"
         dictionary omni_layer = {
-            string authoring_layer = "./050_REVIEW_LYR/OpinLYR_default.usda"
+            string authoring_layer = "050_OPINION_LYR/OpinLYR_SceneExample.usda"
             dictionary locked = {
-                bool "./010_ASS_USD/Assemblies/DisplayPair/020_BASE_LYR/GeoLyr.usda" = 1
-                bool "./010_ASS_USD/Assemblies/DisplayPair/020_BASE_LYR/TransLyr.usda" = 1
-                bool "./010_ASS_USD/Assemblies/DisplayPair/020_BASE_LYR/VariLyr.usda" = 1
-                bool "./010_ASS_USD/Assemblies/DisplayPair/050_REVIEW_LYR/OpinLYR_default.usda" = 1
-                bool "./010_ASS_USD/Assemblies/DisplayPair/AssetROOT_DisplayPair.usda" = 1
-                bool "./010_ASS_USD/MatLib/Palette_v001.usda" = 1
-                bool "./010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/GeoLyr.usda" = 1
-                bool "./010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/MatLyr.usda" = 1
-                bool "./010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/TransLyr.usda" = 1
-                bool "./010_ASS_USD/USD_Wrappers/Cone/020_BASE_LYR/VariLyr.usda" = 1
-                bool "./010_ASS_USD/USD_Wrappers/Cone/050_REVIEW_LYR/OpinLYR_default.usda" = 1
-                bool "./010_ASS_USD/USD_Wrappers/Cone/AssetROOT_Cone.usda" = 1
-                bool "./010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/GeoLyr.usda" = 1
-                bool "./010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/MatLyr.usda" = 1
-                bool "./010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/TransLyr.usda" = 1
-                bool "./010_ASS_USD/USD_Wrappers/Cube/020_BASE_LYR/VariLyr.usda" = 1
-                bool "./010_ASS_USD/USD_Wrappers/Cube/050_REVIEW_LYR/OpinLYR_default.usda" = 1
-                bool "./010_ASS_USD/USD_Wrappers/Cube/AssetROOT_Cube.usda" = 1
-                bool "./020_BASE_LYR/GeoLyr.usda" = 1
-                bool "./020_BASE_LYR/TransLyr.usda" = 1
-                bool "./020_BASE_LYR/VariLyr.usda" = 1
-                bool "./040_DATA_LYR/Data/ContextLyr.usda" = 1
-                bool "./040_DATA_LYR/Data/IdentityLyr.usda" = 1
-                bool "./040_DATA_LYR/DataLyr.usda" = 1
-                bool "./050_REVIEW_LYR/OpinLYR_default.usda" = 0
+                bool "010_ASS_USD/Assemblies/DisplayPair/020_BASE_LYR/GeoLyr.usda" = 1
+                bool "010_ASS_USD/Assemblies/DisplayPair/020_BASE_LYR/TransLyr.usda" = 1
+                bool "010_ASS_USD/Assemblies/DisplayPair/020_BASE_LYR/VariLyr.usda" = 1
+                bool "010_ASS_USD/Assemblies/DisplayPair/AssetROOT_DisplayPair.usda" = 1
+                bool "010_ASS_USD/AssetROOT_Cone.usda" = 1
+                bool "010_ASS_USD/AssetROOT_Cube.usda" = 1
+                bool "010_ASS_USD/Envs/OmniverseStandard/Environment.usda" = 1
+                bool "020_BASE_LYR/GeoLyr.usda" = 1
+                bool "020_BASE_LYR/TransLyr.usda" = 1
+                bool "040_DATA_LYR/Data/ContextLyr.usda" = 1
+                bool "040_DATA_LYR/Data/IdentityLyr.usda" = 1
+                bool "040_DATA_LYR/DataLyr.usda" = 1
+                bool "050_OPINION_LYR/OpinLYR_SceneExample.usda" = 0
             }
             dictionary muteness = {
             }
@@ -70,10 +58,9 @@
     metersPerUnit = 0.009999999776482582
     startTimeCode = 0
     subLayers = [
-        @./050_REVIEW_LYR/OpinLYR_default.usda@,
+        @050_OPINION_LYR/OpinLYR_SceneExample.usda@,
         @./040_DATA_LYR/DataLyr.usda@,
         @./020_BASE_LYR/TransLyr.usda@,
-        @./020_BASE_LYR/VariLyr.usda@,
         @./020_BASE_LYR/GeoLyr.usda@
     ]
     timeCodesPerSecond = 60

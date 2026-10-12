@@ -26,37 +26,37 @@ def Xform "World"
             def Scope "Prototypes"
             {
                 def Xform "CubeRed" (
-                    prepend references = @../010_ASS_USD/USD_Wrappers/CubeLofted/AssetROOT_CubeLofted.usda@
+                    prepend references = @../010_ASS_USD/AssetROOT_CubeLofted.usda@
                 )
                 {
                 }
 
                 def Xform "CubeBlue" (
-                    prepend references = @../010_ASS_USD/USD_Wrappers/CubeLofted/AssetROOT_CubeLofted.usda@
+                    prepend references = @../010_ASS_USD/AssetROOT_CubeLofted.usda@
                 )
                 {
                 }
 
                 def Xform "CubeYellow" (
-                    prepend references = @../010_ASS_USD/USD_Wrappers/CubeLofted/AssetROOT_CubeLofted.usda@
+                    prepend references = @../010_ASS_USD/AssetROOT_CubeLofted.usda@
                 )
                 {
                 }
 
                 def Xform "ConeRed" (
-                    prepend references = @../010_ASS_USD/USD_Wrappers/ConeLofted/AssetROOT_ConeLofted.usda@
+                    prepend references = @../010_ASS_USD/AssetROOT_ConeLofted.usda@
                 )
                 {
                 }
 
                 def Xform "ConeBlue" (
-                    prepend references = @../010_ASS_USD/USD_Wrappers/ConeLofted/AssetROOT_ConeLofted.usda@
+                    prepend references = @../010_ASS_USD/AssetROOT_ConeLofted.usda@
                 )
                 {
                 }
 
                 def Xform "ConeYellow" (
-                    prepend references = @../010_ASS_USD/USD_Wrappers/ConeLofted/AssetROOT_ConeLofted.usda@
+                    prepend references = @../010_ASS_USD/AssetROOT_ConeLofted.usda@
                 )
                 {
                 }
@@ -64,3 +64,4 @@ def Xform "World"
         }
     }
 }
+

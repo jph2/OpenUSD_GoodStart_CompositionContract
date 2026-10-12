@@ -1,5 +1,113 @@
 # Resume state
 
+## 2026-10-12 — LayeredScene lock maps and coordinates
+
+Jan requested repairing the stale authoring lock maps and checking environments
+and world coordinates in `examples/01_LayeredScene`. Updated the saved
+`omni_layer.locked` maps in nine roots: Lofted, Instanced, Instanced Rings,
+Instanced Spiral, Instanced Wave, MotionGraphics, and the three Lofted asset
+roots (CubeLofted, ConeLofted, DisplayPairLofted). The maps now enumerate every
+persistent layer in each `LoadAll` dependency stack, locking all except that
+entrypoint's Opinion layer. Each active Kit root remains outside the lock map per
+CC-01.
+
+Audited all 18 SceneROOT/AssetROOT entrypoints with usd-core 26.8 and `LoadAll`.
+All 18 have valid Opinion targets, complete lock maps, Z-up and nominal
+centimetre units (`metersPerUnit` approximately 0.01), and zero composition
+errors. Each of the 12 SceneROOTs defaults to an identity `/World` and contains
+top-level `/Environment` with the teaching ground, DomeLight and DistantLight.
+The six reusable asset roots have no `/Environment`, as expected for asset
+packages; the scene owns the environment. No USD coordinate/environment edits
+were needed beyond lock metadata. `git diff --check` passed. The Kit viewport was
+not launched, so visual lighting and later payload-load lock behavior remain
+unverified. The skill guidance did not change; version 0.2.0 install sync updated
+zero files and `--check --install` found zero stale files in the repository
+package and personal installation.
+
+## 2026-10-12 — Essentials coordinate and environment review
+
+Jan requested aligning `examples/02_USDEssentials_Minimal` with the established
+Omniverse scene conventions. Read the applicable contract/skill rules and opened
+both scene entrypoints plus all four Cube/Cone asset entrypoints with usd-core
+26.08 in LoadNone. All six declare Z-up and nominal `metersPerUnit = 0.01`; the
+composed Cone declares axis Z. Both `SceneROOT_` stages compose `/Environment`
+with ground, lights and scene presentation content. All six stages opened with
+zero composition errors. The reported Y-up condition was not present in these
+files, so no coordinate conversion was made. The Cube entrypoint environment
+follow-up is recorded below.
+
+Clarified coordinate and environment ownership in the example README. The profile
+remains a centimetre-based introductory example, not SimReady metre-unit or general
+production acceptance. Kit viewport/render behavior was not evaluated. Skill impact
+review found no guidance change; contract and skill remain 0.2.0. Installed skill
+refresh updated zero files, and the read-only synchronization check found zero
+stale files in both the repository package and personal installation.
+
+## 2026-10-12 — Cube direct-open environment
+
+In response to Jan's correction that the two Cube asset entrypoints need an
+environment when opened directly, added
+`examples/02_USDEssentials_Minimal/010_ASS_USD/Envs/OmniverseStandard/Environment.usda`
+and composed it as the weakest root sublayer in `AssetROOT_Cube.usda` and
+`AssetROOT_Cube_ColorVariants.usda`. It provides the same Z-up teaching ground
+and lighting with resource paths relative to the shared Envs folder. The
+environment is a sibling of the `/Asset` default prim: USD readback confirms
+both Cube files open with `/Environment`, while the two consumer SceneROOTs keep
+their own environment and do not import the referenced asset's `/Environment`.
+At that point Cone entrypoints remained without this direct-open preview layer;
+the follow-up below supersedes that state. Updated the example README. The composition behavior was
+inspected using usd-core 26.8 and `LoadNone`; no Kit viewport evaluation or tests
+were requested. Skill review found no change to contract guidance; refresh and
+verify its generated and installed copies before completion.
+
+## 2026-10-12 — Cone direct-open environment
+
+Jan requested the same behavior for `AssetROOT_Cone.usda` and
+`AssetROOT_Cone_ColorVariants.usda`. Added the shared environment layer as the
+weakest root sublayer in both Cone entrypoints and updated the README to describe
+all four asset roots consistently. Verification with usd-core 26.8 and
+`LoadNone` confirms all four asset entrypoints open with `/Environment`, all four
+assets preserve the `/Asset` default prim, and both consumer scenes continue to
+contain only their scene-owned environment (the referenced asset sibling is not
+imported). All four asset and both scene stages open with zero composition
+errors; shared environment textures resolve. No Kit viewport evaluation or tests
+were requested. Skill guidance remains unaffected; `sync_composition_skill.py
+--install` updated zero files and `--check --install` found zero stale files in
+both the repository package and personal installation (version 0.2.0).
+
+## 2026-10-12 — Fixed-material color distinction
+
+Jan requested stronger color differentiation in the non-variant lesson. Added
+Yellow and Green shader definitions to the shared Palette_v001 material library
+and changed only the fixed scene MatLyr bindings: Cube → Yellow, Cone → Green.
+The separate ColorVariants lesson and its asset-owned Red/Blue branches remain
+unchanged. Updated both lesson READMEs, the example folder map and profile palette
+inventory. USD readback with usd-core 26.8 and `LoadNone` confirms the fixed
+scene's effective Cube/Yellow and Cone/Green bindings, and the ColorVariants
+scene's Cube/Red and Cone/Blue bindings; both opened with zero composition
+errors. Profile JSON parsed successfully. `git diff --check` passed. Composition
+skill guidance is unaffected; version remains 0.2.0, install sync updated zero
+files and `--check --install` found zero stale files in the repository package
+and personal installation. No Kit viewport evaluation or tests were requested.
+
+## 2026-10-12 — Essentials Opinion targets and saved layer locks
+
+Jan requested the Opinion authoring target and locked persistent layers across
+the Essentials package. Audited all six SceneROOT/AssetROOT entrypoints: each
+already declared `cc:defaultAuthoring`, `cc:opinionLayer` and
+`cc:lockPersistentLayers`, but lacked the saved per-layer `omni_layer.locked`
+map (scene-root maps were empty; asset roots had no map). Added a complete map to
+each entrypoint using its resolved `LoadNone` dependency stack: all 54 persistent
+layer entries across the six roots are locked except each entrypoint's own
+Opinion target. The active root is omitted and remains writable per CC-01's Kit
+metadata exception. Updated the package README and profile to state this behavior.
+USD readback confirms every map exactly matches each root's loaded persistent
+layers, its Opinion path is the declared target and is unlocked, all other listed
+layers are locked, and all six stages have zero composition errors. Profile JSON
+parses. `git diff --check` passes. Skill guidance did not change; version 0.2.0
+sync updated zero files and `--check --install` found zero stale files in the
+repository and personal installation. Runtime Kit UI behavior was not tested.
+
 ## 2026-10-11 — Example source and TutorialBuilder copy relationship
 
 Jan requested provenance and synchronization guidance in both repositories. Added
@@ -1037,3 +1145,316 @@ new-scene unloaded inspection or robotics validation ran. Scene placement extend
 beyond the standard camera/ground; frame /World/InstanceGrid in Kit. Prototype
 counts/performance are not claimed. Load/unload locks, source-interface sync,
 relative-path relocation and host authoring persistence remain acceptance work.
+
+## 2026-10-12 — Standalone Cube teaching assets
+
+At Jan's explicit request, replaced both Essentials Cube entrypoints with
+self-contained USDA: plain geometry, and the same geometry plus inline Red/Blue
+Color variants/materials. Preserved defaultPrim Asset, /Asset/Geometry, size 100,
+Z-up centimetres and the 50 cm intrinsic lift. Removed their dependency stacks,
+Opinion/lock metadata and preview environment/render content. Old Cube role files
+remain on disk, unused by these entrypoints. README and profile record the teaching
+exception; the general composition contract remains unchanged. Backed up the
+pre-edit files (including local Kit edits) to
+C:/Users/jan/AppData/Local/Temp/cube-before-simplification-20261012-111029.
+Skill review: no general guidance change needed; version 0.2.0 install sync updated
+zero files and synchronization check found zero stale files. No USD tests or Kit
+runtime evaluation were run. Changes are local; no commit/push requested this turn.
+
+## 2026-10-12 — CC-00 and minimum necessary composition (0.2.1)
+
+Jan approved self-contained leaves as a normal form, composed packages using only
+needed role boundaries, full creation scaffolds with deliberate cleanup, and a
+full scene-folder catalogue retained for teaching. Added CC-00, qualified the
+recursive role rules, and placed the same three-sentence principle immediately
+below the title in the contract and root README. Updated structure definitions,
+agent/skill guidance, example profiles and the bounded shape author.
+
+Both canonical example packages now use standalone Cube/Cone leaves. Essentials
+keeps plain and Color entrypoints; LayeredScene keeps Size/Finish in its leaves.
+DisplayPair retains assembly layers; lofted shape ContentsLyr now loads the leaf
+entrypoint to preserve the deliberate payload boundary. Rebuilt saved dependency
+lock maps from actual USD dependencies. Removed retired leaf role folders after
+backing up their complete pre-edit contents to
+C:/Users/jan/AppData/Local/Temp/composition-leaves-20261012-112148.
+Scene scaffolds and unrelated motion-graphics edits are retained.
+
+USD-aware layer-stack merging preserved variant specs; material definitions were
+copied inline with Sdf path remapping. Stage loading was used to construct dependency
+metadata, not as acceptance testing. No tests, generator run or Kit runtime review
+were performed. Skill 0.2.1 install sync and read-only synchronization check completed
+with zero stale files. Earlier acceptance/profile evidence remains historical.
+TutorialBuilder teaching copies have not been synchronized in this task. No commit
+or push was performed.
+
+## 2026-10-12 — Direct-open asset preview rule (0.2.2)
+
+Added CC-00a at Jan's request: all assets, including leaves, must load basic
+preview environment lighting on direct open, outside the default asset prim.
+A shared portable preview dependency is compatible with self-contained asset
+content; consumer references target only the asset prim. Preview content must
+not override asset properties. Updated root README, project structure and skill;
+contract/skill version 0.2.2. Install sync completed and check reported no stale
+files. This turn updates the rule only: the previously simplified leaves still
+need their preview dependencies restored in a subsequent scene-authoring change.
+No tests, scene edits, commit or push performed this turn.
+
+## 2026-10-12 — Preview implementation and adjacent asset files (0.2.3)
+
+Implemented CC-00a for all AssetROOT entrypoints in both canonical packages using
+shared package-local Envs/OmniverseStandard/Environment.usda. Preview content stays
+outside each default asset prim. Copied the existing portable environment layer
+into LayeredScene, using its existing Resources. Moved the four Essentials shape
+entrypoints directly into 010_ASS_USD; removed the now-empty Cube/Cone and
+USD_Wrappers directories. Updated scene reference arcs and dependency lock maps.
+Backups: C:/Users/jan/AppData/Local/Temp/preview-flat-assets-20261012-113830.
+
+Added CC-00b in contract 0.2.3: neighboring asset files are valid; separate folders
+are a team decision based on dependencies, ownership, revision/publication and
+navigation. Cited NVIDIA Learn OpenUSD's usage/team-dependent structure guidance.
+Updated README, project structure, example profiles/guides and bounded author so
+future generated asset entrypoints include the preview environment. Skill install
+sync completed; check found zero stale files. Stage loading was used to construct
+saved metadata; no tests, generator execution or Kit visual evaluation performed.
+TutorialBuilder copies remain unchanged. No commit/push performed.
+
+## 2026-10-12 — Cleanup workflow, shared resources and archives (0.2.4)
+
+Added CC-00c/00d and a six-step asset cleanup workflow to the reusable skill:
+discovery, ownership/resource classification, exact migration planning, bounded
+USD-aware execution with rollback, optional delivery packaging, and evidence-based
+reporting. Shared MatLib and texture folders are permitted; leaf simplicity does
+not require resource duplication. Distinguish ordinary transport ZIP from USDZ,
+retain editable sources and account for variants, payloads and preview resources.
+Consulted OpenUSD 26.08 USDZ specification for uncompressed/aligned package access
+and supported file types; current HDR/OmniPBR preview portability is not assumed.
+Contract/skill 0.2.4 synchronized; check reported zero stale files. No assets moved,
+archives created, tests or benchmarks run, or commit/push performed this turn.
+
+## 2026-10-12 — Clarified USDZ delivery convention
+
+Expanded CC-00d, README and skill: USDZ may signal a self-contained delivery
+artifact only after confirming contained file dependencies for supported
+configurations and target compatibility. A single package may contain multiple
+layers/resources; retain editable sources; packaging is optional. Clarification
+retains version 0.2.4. Restored the external AIF-Entity 0.2.0 version citation,
+which had incorrectly followed project version substitutions. Skill sync completed
+and check found no stale files. No packages created, tests run or commits made.
+
+## 2026-10-12 — Explicit leaf/resource maintenance roles
+
+Expanded skill 0.2.4 with leaf, shared material, shared texture, private resource,
+preview and delivery ownership roles. Roles do not mandate empty folders or layers.
+New leaf authoring should reuse compatible governed resources within authorized
+scope; maintenance uses explicit dependency planning and bounded USD-aware scripts.
+Distinguished skill decisions from deterministic execution and documented proposed
+helper inputs, dry-run reports, revision checks, rollback and stopping conditions.
+A general cleanup CLI remains unimplemented; no background automation implied.
+Updated skill UI description. Install sync completed and check found zero stale
+files. No asset changes, tests, archives, commit or push in this turn.
+
+## 2026-10-12 — Track cleanup implementation explicitly
+
+Added roadmap CW-04a, Clean leaf assets and shared resources, linked from the
+skill. Existing CW-04 covered general migration; CW-04a explicitly tracks clean
+leaf grouping, shared/private resources, dependency-safe moves, recovery and a
+read-only first delivery. Natural-language requests/future UI require no terminal
+use by the user. Optional USDZ delivery is a later step. Status remains planned.
+Skill 0.2.4 sync completed; check found zero stale files. No implementation,
+scene changes, tests or commit/push performed.
+
+## 2026-10-12 — Remove redundant Cube/Cone wrapper nesting
+
+Moved LayeredScene Cube/Cone files one level up into USD_Wrappers. Updated incoming
+scene/assembly references and generator paths. CubeLofted/ConeLofted now payload
+the leaf entrypoints directly; removed their forwarding ContentsLyr files and empty
+BASE folders. DisplayPairLofted retains its meaningful assembly ContentsLyr.
+Environment remains a root sublayer, defining a sibling outside the default prim.
+Updated descriptions and saved dependency lock maps. Initial path rewrite missed
+arcs beside metadata containing @; corrected the paths and rebuilt maps in a fresh
+USD process. That pass emitted no USD warnings. This was authoring/dependency
+inspection, not tests or Kit visual acceptance. Backups are in
+C:/Users/jan/AppData/Local/Temp/simplify-wrapper-paths-20261012-120125.
+Skill 0.2.4 guidance unchanged; synchronization check found no stale files.
+No commit/push or TutorialBuilder copy update performed.
+
+## 2026-10-12 — OPINION folder convention (0.2.5)
+
+Renamed 050_REVIEW_LYR to 050_OPINION_LYR throughout examples, updating authored
+arcs, metadata, guides and profiles; updated generators and current convention
+owners. Removed CubeLofted's inspected-empty Opinion layer and its authoring/lock
+metadata; shared environment remains its only root sublayer. Opinion is optional
+for simple wrappers. Other example Opinion workflows remain in place under the
+new name. Dependency maps rebuilt with no USD warnings. Updated scalable-example
+author to use current standalone shape paths/direct payloads and omit Cube Opinion.
+Backup: C:/Users/jan/AppData/Local/Temp/opinion-folder-rename-20261012-120715.
+Contract/skill 0.2.5 synchronized; check reported zero stale files. No tests,
+generator execution, Kit visual acceptance, commit/push or downstream copy update.
+
+## 2026-10-12 — Essentials leaves fully independent
+
+At Jan's explicit correction, removed MatLib and Envs from Essentials. All four
+leaf files contain their own texture-free preview Environment outside Asset;
+variant materials remain inline. Fixed-scene MatLyr now owns its palette inline.
+Scene preview replaced by the same dome/key lights and plain ground, removing
+HDR/grid resource dependencies while retaining other scene startup specs.
+Updated saved lock maps, profile, guide notices and generator environment-source
+path. Clarified containment priority in CC-00c and the skill (0.2.5 clarification).
+Backup: C:/Users/jan/AppData/Local/Temp/essentials-contained-20261012-121108.
+Skill sync/check completed with no stale files. No tests, Kit lighting review,
+commit/push or downstream copy update performed. LayeredScene's resource workflow
+was not migrated by this Essentials-scoped change.
+
+## 2026-10-12 — Adopt user's geoANDenvEXAMPLE preview
+
+Copied Environment, Render, viewport camera specs and stage viewing metadata from
+the supplied reference into all four Essentials AssetROOT leaves. Retained their
+Asset default prim, original geometry and Color variants; reference untouched.
+Preview sibling prims are excluded when referencing Asset. HDR and grid resource
+paths match the supplied file and resolve on this host; OmniPBR remains a Kit
+runtime dependency. This supersedes the texture-free preview and its standalone
+portability claim. Profile/README record the distinction. Backup:
+C:/Users/jan/AppData/Local/Temp/leaves-reference-preview-20261012-121728.
+Skill guidance unchanged; synchronization check found no stale files. No tests,
+Kit visual comparison, scene-root edits, commit or push performed.
+
+## 2026-10-12 — Minimal preview baseline in contract
+
+Recorded geoANDenvEXAMPLE.usda as the selected Essentials minimal Omniverse
+preview reference in the contract. Preserve its inline Environment/Render/camera
+setup outside Asset, four adjacent leaf files and declared Kit dependencies;
+no generic preview substitution without a corresponding request. Distinguished
+this runtime profile from dependency-free delivery. Skill now follows that
+profile-specific baseline. Version 0.2.5 retained as profile clarification;
+sync completed and check found zero stale files. No scenes changed or tests run.
+
+## 2026-10-12 — Explicit Omniverse repository focus
+
+Added prominent scope statements to README and contract: NVIDIA Omniverse/Kit is
+the primary platform; definitions, rules, snippets and USD content intentionally
+include RTX settings, viewport/environment data and Kit metadata/APIs. Updated
+agent/skill guidance to preserve selected host behavior, declare dependencies and
+distinguish USD mechanics from project and application rules. Other platforms
+require separate scope/acceptance; no endorsement implied. Editorial clarification
+retains 0.2.5. Skill sync/check completed with no stale files. No scenes changed,
+tests run or commit/push performed.
+
+## 2026-10-12 — Repair Essentials scene environment mismatch
+
+Both SceneROOTs still had the earlier simplified preview and an untyped Looks
+prim. Replaced only their Environment subtree with the supplied Omniverse preview
+as preserved in AssetROOT_Cube.usda (geoANDenvEXAMPLE.usda is no longer present).
+Re-anchored HDR/grid paths for the scene-root directory. USD diagnostic readback
+shows Looks is Scope, ground resolves to /Environment/Looks/Grid, and both HDR
+and grid texture paths resolve for each scene. Scene sublayers, asset variants,
+render settings and cameras retained. This is binding/path evidence, not Kit
+shader/viewport acceptance. Backups: C:/Users/jan/AppData/Local/Temp/scene-env-repair-20261012-125743.
+Skill guidance unchanged; sync check found zero stale files. No commit/push.
+
+## 2026-10-12 — Opinion selections and optional ConfigLyr (0.2.6)
+
+Updated CC-01/08/11, role table, diagrams, structure definitions, README and skill:
+saved scene selections live in Opinion by default and need not be promoted.
+Session is transient. Optional ConfigLyr.usda/ConfigLyr_<Purpose>.usda under
+020_BASE_LYR supports independently managed configurations; VariLyr defines
+variants/scenarios and conditional contents. Preserve masking/strength rules.
+Existing direct-selection VariLyr examples are legacy, not new naming mandates.
+Rules-only change: no scene migration or files renamed. Contract/skill 0.2.6
+sync completed; check found zero stale files. No tests or commit/push.
+
+## 2026-10-12 — Essentials selection storage implementation
+
+Moved the saved Cube Red / Cone Blue selections from VariLyr_ColorVariants into
+existing OpinLYR_ColorVariants without overriding any existing Opinion selection.
+Removed the standalone selection file, its root sublayer entry and saved lock entry.
+Updated profile and guides to the Opinion/TransLyr/GeoLyr composition; no ConfigLyr
+needed. Disk Opinion was empty before migration; unsaved UI/session edits were not
+accessible. Geometry, variants, environments and other scene content retained.
+Backup: C:/Users/jan/AppData/Local/Temp/essentials-opinion-selections-20261012-135027.
+Skill guidance
+unchanged; synchronization check found no stale files. No tests or commit/push.
+
+
+## 2026-10-12 — Opinion filename scope (0.2.7)
+
+Recorded Jan's naming rule: OpinLYR_Scene<SceneName>.usda for scene ownership,
+including SceneDefault and SceneColorVariants; OpinLYR_<Purpose>.usda without
+Scene for intentional sharing, with consumers documented. Updated contract,
+structure definitions, README and skill; synchronization check found zero stale
+files at 0.2.7. Rules-only update; no files renamed, scene changes or tests run.
+
+## 2026-10-12 — Essentials links follow user-renamed Opinion files
+
+Confirmed SceneDefault and SceneColorVariants Opinion files exist. Replaced old
+Opinion filenames throughout Essentials text assets, including scene sublayers,
+cc:opinionLayer, omni authoring/lock metadata, profile and guides. Preserved the
+renamed Opinion files' content. Backups recorded in tool output under TEMP.
+No tests, commit or push; naming rule and skill unchanged.
+
+## 2026-10-12 — Opinion contributor suffix (0.2.8)
+
+Added agreed author/team identifier after scene specification or shared purpose:
+OpinLYR_SceneDefault_jph2.usda, OpinLYR_SceneColorVariants_jph2.usda, and shared
+OpinLYR_<Purpose>_<Identifier>.usda. Underscore separator, lowercase extension;
+identifier expresses contributor/working stream, not permissions or asset identity.
+Updated contract, structure definitions, README and skill. Install sync/check
+completed with zero stale files. Rules only: existing scene files and links were
+not renamed. No tests, commit or push.
+
+
+## 2026-10-12 — Essentials Opinion contributor suffix applied
+
+Renamed both SceneDefault/SceneColorVariants Opinion files with _jph2 suffix; updated sublayer arcs, authoring targets, saved lock keys, profile and guides throughout Essentials. Existing Opinion contents preserved. Backup: C:/Users/jan/AppData/Local/Temp/essentials-jph2-20261012-141417. No scene geometry changes, tests, commit or push. Skill naming guidance unchanged.
+
+
+## 2026-10-12 — Optional dot-separated Opinion identifier (0.2.9)
+
+Identifiers are optional and omitted by default; when used the form is <base>.name.usda. Removed _jph2 from both Essentials Opinion filenames and updated references, metadata, profiles and guides, preserving contents. Updated contract, structure, README and skill. Backup: C:/Users/jan/AppData/Local/Temp/optional-opinion-id-20261012-141558. No tests, commit or push.
+
+
+## 2026-10-12 — LayeredScene cleanup to 0.2.9
+
+Implemented the agreed simple-leaf, optional-layer, Opinion/ConfigLyr and filename
+rules in 01_LayeredScene. Four shape/interface files now sit in 010_ASS_USD;
+shape preview content is inline and preserves the selected Omniverse baseline,
+with declared Kit dependencies. Assemblies retain meaningful role/payload layers.
+Ordinary selections moved to separate named Opinion files for each of 12 scenes;
+generated Instanced/MotionGraphics configurations renamed ConfigLyr. Scenario
+variant definitions and intentional masking overlays retained. Removed empty
+Starter layers, empty asset Opinion files, redundant wrapper directories,
+unused palette and note-only nested assembly scaffolds. Scene folder catalogue
+and historical pipeline reports retained. Existing motion controls/Opinion edits
+preserved. Updated bundled workflows, metadata and profiles. Replaced obsolete
+README diagrams with a concise current guide; retained detailed operation
+instructions in OPERATIONS.md. Root-level historical generators are not claimed
+to reproduce this edited package; README makes that limit explicit.
+
+Full pre-change backup: C:\Users\jan\AppData\Local\Temp\layered-cleanup-20261012-143533. Migration receipt:
+examples/01_LayeredScene/_contracts/cleanup_0_2_9.json. USD stages opened to
+reconstruct dependency/lock maps without USD warnings. No tests, generator run,
+Kit visual review or benchmarks were performed. Skill 0.2.9 guidance unchanged;
+install/check completed with zero stale files. No commit/push or TutorialBuilder
+copy update.
+
+### 2026-10-12 — Motion Graphics quickstart
+
+Added examples/01_LayeredScene/MotionGraphics_QUICKSTART.md beside the scene,
+with the existing-window Script Editor bootstrap, exact panel labels,
+preset/apply/play sequence, steering controls, persistence explanation and
+known viewport-refresh workaround. Linked from the package README and operation
+guide. Inspected launcher/controller/panel source; no runtime test or scene
+changes. Skill impact reviewed: this is a discoverability guide for an existing
+workflow, with no new contract or skill requirements (version stays 0.2.9).
+Commit/push remains paused at the user's request.
+
+
+### 2026-10-12 — Combine Motion Graphics guides
+
+Merged OPERATIONS.md into MotionGraphics_QUICKSTART.md at user request.
+Startup steps remain first; detailed controls, diagrams, lifecycle, baking and
+instancing instructions follow with navigation links. Removed the redundant
+OPERATIONS.md and updated active README links. Updated inherited diagram labels
+to the existing ConfigLyr/inline-material layout. Original guides backed up at
+C:\Users\jan\AppData\Local\Temp\motion-guide-merge-20261012-144918.
+Documentation only; no scene/runtime changes or tests. Skill guidance unchanged
+(version 0.2.9); no new workflow capability or contract rule. Commit/push paused.

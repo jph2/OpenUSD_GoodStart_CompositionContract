@@ -1,4 +1,4 @@
 interface:
   display_name: "OpenUSD Composition Contract"
-  short_description: "Apply composition ownership and digital twin rules"
+  short_description: "Author and clean USD assets, layers and shared resources"
   default_prompt: "Use $openusd-composition-contract to apply the contract to this USD task, citing relevant CC rules and separating observed results from planned acceptance."

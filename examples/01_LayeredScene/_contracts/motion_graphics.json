@@ -3,12 +3,12 @@
   "status": "authored; Kit acceptance pending",
   "root": "SceneROOT_MotionGraphics.usda",
   "direct_sublayers_strongest_first": [
-    "050_REVIEW_LYR/MotionGraphics/OpinLYR_default.usda",
+    "050_OPINION_LYR/OpinLYR_SceneMotionGraphics.usda",
     "040_DATA_LYR/DataLyr_MotionGraphics.usda",
     "020_BASE_LYR/AnimLyr_MotionGraphics.usdc",
     "020_BASE_LYR/CamLyr_MotionGraphics.usda",
     "020_BASE_LYR/TransLyr_MotionGraphics.usda",
-    "020_BASE_LYR/VariLyr_MotionGraphics.usda",
+    "020_BASE_LYR/ConfigLyr_MotionGraphics.usda",
     "020_BASE_LYR/GeoLyr_MotionGraphics.usda"
   ],
   "controls": "040_DATA_LYR/Controls/motion_graphics.json",
@@ -90,5 +90,6 @@
     "runtime undo uses overlay removal; no per-frame undo commands",
     "prototype/source edits invalidate the conservative extent assumption",
     "Kit playback, point-instancer rendering and throughput not verified"
-  ]
+  ],
+  "layout_revision": "0.2.9"
 }

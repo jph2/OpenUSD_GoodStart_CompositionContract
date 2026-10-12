@@ -1,20 +1,7 @@
 # DisplayPairLofted
 
-Published entry: `AssetROOT_DisplayPairLofted.usda`, default prim `/DisplayPair`.
-Z-up, centimetres, 60 fps. Public controls: **Palette: Warm / Cool**.
-
-The root advertises empty variant branches and payloads `020_BASE_LYR/ContentsLyr.usda`.
-ContentsLyr composes the original DisplayPair role files, preserving one implementation.
-DisplayPair's lofted form substitutes its own GeoLyr to link lofted child shapes.
-Defaults and variant names were derived from the source VariLyr by the authoring tool;
-source interface changes require republishing these declarations.
-
-`050_REVIEW_LYR/OpinLYR_default.usda` is the package's own experimental authoring layer.
-It is above the payload. Original demo asset Opinions are excluded from ContentsLyr.
-Changes to shared source role files affect every consumer. Scene placement belongs
-on an occurrence parent; instancing policy is declared by the consuming scene.
-The source package is a required relative dependency: copy the complete example,
-not this folder alone. No bounds cache, physics readiness or performance claim.
-
-See the example package's `_contracts/scalability.json` and scene README for
-load behavior, ownership, driver scenes and pending acceptance.
+This is a composed asset, so it keeps the assembly work layers it needs.
+Edit the relevant role/variant context directly; there is no empty asset Opinion
+layer. Scene-specific edits belong in that scene's named Opinion file.
+The preview environment is outside the default asset prim. DisplayPairLofted
+retains a payload contents layer to combine assembly contributions.

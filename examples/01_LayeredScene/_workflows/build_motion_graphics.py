@@ -19,11 +19,11 @@ PACKAGE = Path(__file__).resolve().parents[1]
 CONTROL = '040_DATA_LYR/Controls/motion_graphics.json'
 ANIMATION = '020_BASE_LYR/AnimLyr_MotionGraphics.usdc'
 ROOT = 'SceneROOT_MotionGraphics.usda'
-OPINION = '050_REVIEW_LYR/MotionGraphics/OpinLYR_default.usda'
+OPINION = '050_OPINION_LYR/OpinLYR_SceneMotionGraphics.usda'
 ROLES = [OPINION, '040_DATA_LYR/DataLyr_MotionGraphics.usda', ANIMATION,
          '020_BASE_LYR/CamLyr_MotionGraphics.usda',
          '020_BASE_LYR/TransLyr_MotionGraphics.usda',
-         '020_BASE_LYR/VariLyr_MotionGraphics.usda',
+         '020_BASE_LYR/ConfigLyr_MotionGraphics.usda',
          '020_BASE_LYR/GeoLyr_MotionGraphics.usda']
 
 
@@ -125,16 +125,16 @@ def main():
             path = f'{CLONER}/Prototypes/{shape}{finish}'
             site = Sdf.CreatePrimInLayer(geo, path)
             site.specifier, site.typeName = Sdf.SpecifierDef, 'Xform'
-            site.referenceList.prependedItems = [Sdf.Reference(f'../010_ASS_USD/USD_Wrappers/{shape}Lofted/AssetROOT_{shape}Lofted.usda')]
+            site.referenceList.prependedItems = [Sdf.Reference(f'../010_ASS_USD/AssetROOT_{shape}Lofted.usda')]
             prototype_paths.append(Sdf.Path(path))
     Sdf.RelationshipSpec(instancer, 'prototypes', False).targetPathList.explicitItems = prototype_paths
     pending['020_BASE_LYR/GeoLyr_MotionGraphics.usda'] = geo
-    vari = new_layer('VariLyr')
+    vari = new_layer('ConfigLyr')
     for path in prototype_paths:
         spec = Sdf.CreatePrimInLayer(vari, path)
         spec.variantSelections['Size'] = 'Normal'
         spec.variantSelections['Finish'] = next(c for c in ('Red', 'Blue', 'Yellow') if str(path).endswith(c))
-    pending['020_BASE_LYR/VariLyr_MotionGraphics.usda'] = vari
+    pending['020_BASE_LYR/ConfigLyr_MotionGraphics.usda'] = vari
 
     trans = new_layer('TransLyr')
     tstage = Usd.Stage.Open(trans)
