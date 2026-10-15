@@ -2,6 +2,8 @@
 
 > **Principle: use only the structure you need.** Keep leaf assets self-contained. Add composition boundaries where ownership, reuse, editing or loading requires them. Start composed scenes and assets with the full scaffold, then keep only what serves the purpose.
 
+For the one-minute employee handout, start with the [ROOTS quick-start manifest](ROOTS_QuickStart_Manifest.md).
+
 **Primary platform: NVIDIA Omniverse.** This proposal targets Omniverse and Kit, including their RTX, viewport, environment and authoring features. It distinguishes OpenUSD mechanics, project conventions and Kit behavior; other targets need separate assessment. This is an independent proposal, not an NVIDIA or AOUSD standard.
 
 **Version 0.2.11 — independent work-in-progress proposal and local example · 2026-10-12**

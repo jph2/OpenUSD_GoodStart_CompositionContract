@@ -1561,3 +1561,14 @@ folder/resource grouping, preview and USDZ guidance to a compact Practical
 authoring conventions section after the paradigm. No contract rule changed; the
 composition skill was reviewed and needs no guidance change. The README's version
 remains aligned with contract and skill 0.2.11.
+
+
+## 2026-10-15 — ROOTS quick-start handout drafted
+
+Added a standalone employee-facing quick-start manifest with the ROOTS mnemonic
+and links to the legacy GoodStart scaffold generator, bounded Contract example
+builder, minimal USD Essentials leaves, and layered-scene examples. Explicitly
+distinguished the legacy scaffold from the current Contract profile and noted
+the builder's reproduction limits. Linked the handout immediately after the
+README's opening principle. No generator was run. Reviewed the composition
+skill: no normative contract guidance changed, so no skill update is needed.
