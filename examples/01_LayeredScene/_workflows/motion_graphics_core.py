@@ -204,16 +204,16 @@ def evaluate(controls, seconds):
             effect = controls['strength'] * falloff
             wave = math.sin(phase)
             noise = math.sin(index * 12.9898 + TOPOLOGY['seed'] + math.tau * seconds * controls['noise_speed_hz'])
-            z = effect * (controls['amplitude_cm'] * wave + controls['noise_cm'] * noise)
+            vertical = effect * (controls['amplitude_cm'] * wave + controls['noise_cm'] * noise)
             # Default elevation; extreme user amplitudes may cross the ground.
-            positions.append((x, y, 700 + z))
+            positions.append((x, 700 + vertical, -y))
             scale = controls['base_scale'] * (1 + effect * controls['scale_wave'] * wave)
-            scales.append((scale, scale, scale * (1 + 0.2 * effect * math.cos(phase))))
+            scales.append((scale, scale * (1 + 0.2 * effect * math.cos(phase)), scale))
             tilt = math.radians(effect * controls['rotation_degrees'] * wave) / 2
             spin = math.radians(controls['strength'] * controls['spin_degrees_per_second'] * seconds) / 2
-            # qZ(spin) * qX(tilt), normalized analytically.
+            # qY(spin) * qX(tilt), normalized analytically for the Y-up profile.
             orientations.append((math.cos(spin) * math.cos(tilt), math.cos(spin) * math.sin(tilt),
-                                 math.sin(spin) * math.sin(tilt), math.sin(spin) * math.cos(tilt)))
+                                 math.sin(spin) * math.cos(tilt), -math.sin(spin) * math.sin(tilt)))
             color = (row + column + math.floor(seconds * controls['color_cycle_hz'])) % 3
             indices.append(((row + column) % 2) * 3 + color)
     return positions, orientations, scales, indices

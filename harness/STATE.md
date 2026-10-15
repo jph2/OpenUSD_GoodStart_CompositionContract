@@ -1572,3 +1572,85 @@ distinguished the legacy scaffold from the current Contract profile and noted
 the builder's reproduction limits. Linked the handout immediately after the
 README's opening principle. No generator was run. Reviewed the composition
 skill: no normative contract guidance changed, so no skill update is needed.
+
+
+## 2026-10-15 — Scope-only reference organization and variant-safe placement (0.2.12)
+
+Jan requested a contract rule that keeps unnecessary transform opinions out of
+GeoLyr reference sites. CC-02 now prefers `Scope` for grouping-only nodes, but
+requires preserving the referenced prim's type/interface. It distinguishes a
+transformable Xform type from actually authored `xformOp:*`, `xformOpOrder` and
+reset-stack properties. CC-06 places needed occurrence transforms on a distinct
+parent path in TransLyr; the reference site stays free of local transform opinions
+when the referenced asset variant controls the same transform properties. A move
+to TransLyr alone does not resolve a same-prim-path strength conflict. Optional
+TransLyr/VariLyr layers and grouping scopes are added only when the package needs
+them.
+
+Updated the main README/diagram version labels, PROJECT_STRUCTURE, the active
+LayeredScene guide, skill workflow, and Sources evidence. Bumped Composition
+Contract and skill to 0.2.12. Evidence: Pixar UsdGeomScope and UsdGeomXformable API
+references and Authoring Variants tutorial (see SOURCES.md). No scene migration or
+Kit UI verification was performed; the user's report that its Xform-creation
+workflow authors transform opinions remains profile-specific. Ran
+`python tools/sync_composition_skill.py --install` and
+`python tools/sync_composition_skill.py --check --install`; both repository
+artifacts and the personal installation are synchronized at 0.2.12. No USD
+stage/readback was run because this was a documentation-only change with no scene
+edits.
+
+
+## 2026-10-15 — Correct reference-site rule (0.2.13)
+
+Jan rejected the prior 0.2.12 recommendation to avoid an Xform reference site and
+use Scope as a workaround. That recommendation confused the Xform prim type with
+authored transform opinions and could break the asset interface's transformable
+semantics. CC-02/06 now preserve the required reference-site type, including
+Xform, and use Scope only for grouping. The cleanup rule targets accidental local
+opinions Kit may add when authoring the reference: identity transform ops/order,
+reset-stack values and invisible visibility, unless GeoLyr intentionally owns
+them. Same-path TransLyr placement is allowed when no variant owns those same
+properties; a distinct adjustment path is conditional on an actual ownership
+conflict. CC-21 and both ownership tables were aligned with this rule.
+
+Bumped the contract, README, LayeredScene guide and skill to 0.2.13. Updated
+PROJECT_STRUCTURE, source provenance and this state record. The user-provided
+screenshots are evidence of the described Kit workflow, not proof of behavior
+across all Kit versions/profiles. No USD scene was changed and no Kit UI test was
+run. Ran `python tools/sync_composition_skill.py --install` and
+`python tools/sync_composition_skill.py --check --install`; repository artifacts
+and the personal installation are synchronized at 0.2.13. `git diff --check`
+passed. No USD stage/readback was needed because no scene files changed.
+
+## 2026-10-15 — Y-up Omniverse teaching examples (0.2.14)
+
+Jan requested Y-up across all current examples. Updated the Omniverse template,
+LayeredScene and USD Essentials profiles together: stage metadata, leaf coordinate
+corrections, environment orientation, scene/assembly placements, cameras, instance
+layout, Motion Graphics generation and its baked clip now use Y-up while preserving
+the intended scene layout. Updated active coordinate documentation and the
+Composition Contract to state that changing `upAxis` metadata alone does not rotate
+content, and that conversions belong at an owned package boundary.
+
+The target is explicitly the repository's Omniverse teaching profile, not a
+universal NVIDIA or SimReady axis rule. NVIDIA's Omniverse stage guide says Y is
+the fallback and warns existing objects do not rotate with the metadata. SimReady
+asset-creation guidance and some named requirements/profiles specify Z-up. Added
+these links and the profile distinction to `harness/SOURCES.md`, the contract,
+README and skill. Bumped the contract and maintained skill to 0.2.14.
+
+Actual inspection: OpenUSD 26.08 `LoadAll` opened all 25 scene, leaf, composed
+asset and Omniverse-template entrypoints; every stage resolved to Y-up and no open
+failed. All 27 authored `upAxis` metadata layers under the examples/template are
+Y. World bounds show the ground planes at Y=0 and Essentials cube/cone geometry
+from Y=0 to Y=100 cm. The LayeredScene sample occurrences remain on the ground;
+Motion Graphics readback reports 1,024 instances with vertical position varying
+on Y. The rebake completed. `git -c core.whitespace=cr-at-eol diff --check` passed.
+
+No Kit visual review, SimReady validator run, target-runtime test, general test
+suite or performance benchmark was performed. Existing log evidence at
+`harness/evidence/direct_root_kit.log` was present before this task and left
+untouched. `python tools/sync_composition_skill.py --install` updated the generated
+contract reference/provenance and installed the maintained skill;
+`--check --install` reported zero stale files in the repository package and
+personal installation at version 0.2.14.

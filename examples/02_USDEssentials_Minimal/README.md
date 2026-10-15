@@ -43,15 +43,20 @@ acceptance is claimed by this naming update.
 
 **Folder convention:** layer classes use singular `_LYR`, including `040_DATA_LYR` and `050_OPINION_LYR`, at scene and asset scope. Role filenames retain their existing casing (`DataLyr.usda`, `OpinLYR_SceneDefault.usda`). Folder numbering does not set composition strength.
 
-Two small scenes use the same folder, ownership and naming rules as the composition contracts. **Z-up · centimetres · 60 fps.** Keep this entire folder together when copying it.
+Two small scenes use the same folder, ownership and naming rules as the composition contracts. **Y-up · centimetres · 60 fps.** Keep this entire folder together when copying it.
 
 ## Coordinates and environment ownership
 
 Both `SceneROOT_` entrypoints and all four direct-named Cube/Cone leaf files declare
-Z-up and nominal centimetre units (`metersPerUnit = 0.01`). The composed Cone
-also declares its geometric axis as Z. The two scene roots contain the supplied
+Y-up and nominal centimetre units (`metersPerUnit = 0.01`). The leaf roots include
+an explicit Z-to-Y coordinate correction for their retained geometry; the composed
+Cone's local geometric axis remains Z inside that converted asset frame. The two scene roots contain the supplied
 Omniverse `Environment` (ground, lighting, render settings and viewport cameras)
 under the CC-01 template exception.
+
+This is the selected Omniverse teaching profile, not a SimReady profile claim.
+SimReady asset guidance and some named simulation requirements specify Z-up;
+adapt and validate against the intended target profile before delivery.
 
 Each leaf file is named for its asset and contains its preview environment inline beside `/Asset`; there is no generic AssetROOT wrapper or environment dependency.
 

@@ -1,5 +1,26 @@
 # Sources, provenance and integration routes
 
+## Coordinate profile selection — 2026-10-15
+
+The supplied examples use Y-up as the selected Omniverse teaching profile.
+NVIDIA's [Omniverse stage guide](https://docs.omniverse.nvidia.com/dev-guide/latest/programmer_ref/usd/stage/set-stage-up-axis.html)
+states that Y is the fallback `upAxis` and explicitly warns that changing the
+metadata does not rotate existing objects. This supports the distinction between
+the stage convention and authored content; it does not imply that all NVIDIA
+targets require Y-up.
+
+SimReady is profile-specific. NVIDIA's [SimReady modeling guidance](https://docs.omniverse.nvidia.com/simready/latest/simready-asset-creation/modeling-best-practices.html)
+calls for Z-up asset exports, while the [SimReady FAQ](https://docs.omniverse.nvidia.com/simready/latest/simready-faq.html)
+lists `upAxis shall be Z` as an example testable requirement and explains that
+assets are validated against named profiles. The [Asset Validator UpAxisZChecker](https://docs.omniverse.nvidia.com/kit/docs/asset-validator/1.9.2/source/extensions/omni.asset_validator.core/docs/simready/rules.html)
+likewise describes Z-up as required by certain simulation environments. Therefore
+the example conversion is not a SimReady conformance claim; downstream adaptation
+must follow the named target profile and validate the converted package.
+
+## Scope, Xform and variant opinions — 2026-10-15
+
+The 0.2.12 interpretation overextended the `Scope` recommendation and was corrected in 0.2.13. Pixar's [`UsdGeomScope` API](https://openusd.org/release/api/class_usd_geom_scope.html) describes Scope as a grouping primitive without transformability; it is not an interchangeable replacement for a transformable asset reference interface. The [`UsdGeomXformable` API](https://openusd.org/release/api/class_usd_geom_xformable.html) describes authored operations and `xformOpOrder`; an empty operation list is distinct from merely having an Xformable prim. Pixar's [Authoring Variants tutorial](https://openusd.org/release/tut_authoring_variants.html) demonstrates that a stronger local opinion overrides a variant opinion. Jan's supplied Kit screenshots report that reference creation added identity transform ops/order and `visibility = "invisible"` opinions in GeoLyr. Treat that as observed behavior in his authoring workflow, not a universal Kit guarantee; the contract therefore requires inspecting and removing accidental opinions unless GeoLyr intentionally owns them.
+
 ## Mermaid preview compatibility — 2026-10-11
 
 The user's screenshot identifies Mermaid 11.12.2 and a newline exception. Its pinned [createText implementation](https://github.com/mermaid-js/mermaid/blob/mermaid%4011.12.2/packages/mermaid/src/rendering-util/createText.ts) routes SVG labels through formatted-text wrapping; [splitText](https://github.com/mermaid-js/mermaid/blob/mermaid%4011.12.2/packages/mermaid/src/rendering-util/splitText.ts) contains the reported exception. The [HTML-label configuration documentation](https://mermaid.js.org/config/schema-docs/config-properties-htmllabels.html) supports selecting the HTML rendering path at root scope. All 15 repaired inline README diagrams were rendered with the matching 11.12.2 browser bundle; this is document-rendering evidence, not USD or Kit acceptance.

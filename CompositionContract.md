@@ -7,9 +7,9 @@
 
 **Primary platform: NVIDIA Omniverse.** This repository develops practical OpenUSD composition conventions for NVIDIA Omniverse and Omniverse Kit. Its definitions, rules, example files and code snippets intentionally include Omniverse-specific behavior: RTX render settings, viewport cameras, environment setup, Kit layer/authoring metadata, materials and extension APIs. These application details are part of the intended workflow; keep their required runtime dependencies explicit. Distinguish general OpenUSD composition mechanics, this project's conventions and Omniverse implementation details; portability to another application requires a separate assessment, and this independent proposal does not imply NVIDIA or AOUSD endorsement.
 
-**Status:** version 0.2.11, independent work-in-progress proposal, 2026-10-12. This is the author's working baseline for collaborative review, not an AOUSD standard or group-approved specification. A local [reference example](examples/01_LayeredScene/README.md) and [project layout](PROJECT_STRUCTURE.md) now exist; full conformance and application acceptance remain pending. Automated enforcement is not implemented. Moved from TutorialBuilder on 2026-10-10; this project now owns the contract. It supersedes conflicting conventions in the earlier VariantSetups exploration; those A–H folders remain experimental evidence in TutorialBuilder. See [provenance and source routes](harness/SOURCES.md).
+**Status:** version 0.2.14, independent work-in-progress proposal, 2026-10-15. This is the author's working baseline for collaborative review, not an AOUSD standard or group-approved specification. A local [reference example](examples/01_LayeredScene/README.md) and [project layout](PROJECT_STRUCTURE.md) now exist; full conformance and application acceptance remain pending. Automated enforcement is not implemented. Moved from TutorialBuilder on 2026-10-10; this project now owns the contract. It supersedes conflicting conventions in the earlier VariantSetups exploration; those A–H folders remain experimental evidence in TutorialBuilder. See [provenance and source routes](harness/SOURCES.md).
 
-**Revision scope:** 0.2.11 retains CC-01–28, clarifies CC-26 entrypoint naming, and keeps the 0.2.10 CC-00 simplifications: self-contained leaves are a normal supported form; compositions use only justified role boundaries. Composed-package starters provide the full scaffold, which owners then tailor. Leaf transforms are inline only when needed. The Essentials summary is scoped to scenes and composed assets; Opinion names follow scene or purpose scope. Locally authored direct-open assets default to inline preview environments, while deliberate shared reuse may use a declared external environment. Earlier example acceptance remains historical and is not upgraded by this revision.
+**Revision scope:** 0.2.14 adopts Y-up for the supplied Omniverse teaching profile and clarifies CC-04/25: stage `upAxis` declares a coordinate convention but does not rotate existing content, so conversion must update geometry or author an explicit boundary transform. The examples now convert scene placements, environments, assets and generated motion to Y-up. This is not a SimReady conformance claim: NVIDIA's Omniverse stage-setting guide uses Y as the fallback, while SimReady asset-creation guidance and some named requirements/profiles call for Z-up. Select and validate the axis required by the target profile; convert at a declared package boundary when adapting between profiles. It retains the 0.2.13 CC-02/06 correction: preserve a transformable `Xform` reference site and remove accidental host opinions. It retains CC-01–28, the 0.2.12 minimal-authorship intent, 0.2.11 entrypoint naming and the 0.2.10 CC-00 simplifications: self-contained leaves are normal; compositions use only justified role boundaries. Earlier example acceptance remains historical and is not upgraded by this revision.
 
 ## 1. Purpose and scope
 
@@ -26,14 +26,14 @@ Read **left to right: root → scene layer stack → reusable source packages**.
 ```mermaid
 %%{init: {"flowchart": {"wrappingWidth": 380, "nodeSpacing": 22, "rankSpacing": 28}}}%%
 flowchart LR
-    accTitle: OpenUSD GoodStart Composition Contract 0.2.11 - Root, scene stack and reusable sources
+    accTitle: OpenUSD GoodStart Composition Contract 0.2.14 - Root, scene stack and reusable sources
     accDescr: Left to right, the root assembles a vertical scene layer stack with GeoLyr at the bottom. Reusable assets, assemblies and materials retain their own implementation and variant context.
     %% Connect the column subgraphs, keeping their internal TB layout intact.
-    subgraph ENTRY["ROOT + AUTHORING · 0.2.11"]
+    subgraph ENTRY["ROOT + AUTHORING · 0.2.14"]
         direction TB
         Session["Opinion Layer<br/>Default editable target<br/>Work/source layers start locked"]
         R["SceneROOT_Example.usda<br/>Stage metadata and sublayer assembly<br/>SceneROOT_Manual is an independent manual root"]
-        Startup["Supplied Omniverse baseline in the root<br/>Environment · Render · viewport cameras<br/>Z-up · centimetres · identity World · 60 fps"]
+        Startup["Supplied Omniverse teaching profile in the root<br/>Environment · Render · viewport cameras<br/>Y-up · centimetres · identity World · 60 fps"]
         Session ~~~ R
         R ~~~ Startup
         Review["Optional OPINION · 050_OPINION_LYR<br/>ReviewLyr · explicit experiments above the base stack<br/>Declare owner, purpose and removal route"]
@@ -98,7 +98,7 @@ These are project authoring conventions built on OpenUSD, not additional USD com
 
 ### Essentials teaching profile
 
-The [Essentials package](examples/02_USDEssentials_Minimal/README.md) applies the numbered role folders, SceneROOT naming, direct sibling scene-layer stacks and Opinion-authoring policy to its scene roots. Its locally authored Cube/Cone leaves use direct asset filenames and inline content without a work-layer stack or Opinion layer. Both scene roots use Z-up, centimetres and 60 fps. Unused SIM, RUNTIME and DATA categories may remain as scaffold folders, not mandatory empty USD layers.
+The [Essentials package](examples/02_USDEssentials_Minimal/README.md) applies the numbered role folders, SceneROOT naming, direct sibling scene-layer stacks and Opinion-authoring policy to its scene roots. Its locally authored Cube/Cone leaves use direct asset filenames and inline content without a work-layer stack or Opinion layer. Both scene roots use Y-up, centimetres and 60 fps. Unused SIM, RUNTIME and DATA categories may remain as scaffold folders, not mandatory empty USD layers.
 
 The fixed-material lesson assigns bindings in scene MatLyr. The [Color lesson](examples/02_USDEssentials_Minimal/README_ColorVariants.md) instead defines binding alternatives in asset VariLyr and selects them in scene VariLyr; it excludes the fixed scene MatLyr to avoid masking those branches. Geometry, intrinsic transforms and palette definitions remain shared. The machine-readable profile declares ownership and exact stack order. Minimal refers to the visible content and learning scope, not an exception to ownership conventions.
 
@@ -194,7 +194,7 @@ This default is an application behavior. Roots declare `cc:defaultAuthoring = "o
 
 | Owner | Allowed responsibility | Excluded from normal authoring |
 |---|---|---|
-| `GeoLyr.usda` | Define instance hierarchy and reference published asset entrypoints; asset-internal geometry layers may own native geometry | All authored transform operations/order; variant definitions/selections; copied asset geometry in scene layers |
+| `GeoLyr.usda` | Define needed instance hierarchy, reference published asset entrypoints with their required prim type (including transformable `Xform` sites), and own only explicitly assigned properties | Transform values owned by TransLyr or variants; accidental host-generated identity transform/visibility opinions; variant definitions/selections; copied asset geometry in scene layers |
 | `TransLyr.usda` at the owning scope | Ordinary transforms: scene placement, assembly placement or asset-internal transforms according to ownership | Transforms owned by another package; variant definitions; conditional transform values extracted from variants |
 | `OpinLYR_Scene<SceneName>.usda` | Default saved scene selections and working overrides | Accidental masking of scenario-controlled choices |
 | `ConfigLyr.usda` / `ConfigLyr_<Purpose>.usda` | Optional independently managed selections of existing variants | Mandatory storage for every selection; duplicated asset variant implementations |
@@ -202,13 +202,13 @@ This default is an application behavior. Roots declare `cc:defaultAuthoring = "o
 | `MatLyr.usda`, when needed | Scene material resources and explicitly assigned scene material responsibilities | Unconditional binding or shader overrides that silently defeat asset finish variants |
 | Asset package | Geometry, intrinsic transforms, materials, reusable variants and their public interface, generally loaded as Payload/Reference                | Placement of a particular instance in a particular scene |
 
-**CC-02 — Transform separation in composed packages.** GeoLyr contains no variant definitions, selections, or authored transform operations. Ordinary transforms belong in the rightful owner's TransLyr. If a transform needs authoring and that owner has no TransLyr, create it and include it in that owner's layer stack. Missing TransLyr is never permission to put transforms in GeoLyr. This includes operation values, time samples, pivots, `xformOpOrder` and reset-stack tokens. Defining an Xform prim or storing mesh points is not itself authoring transform operations. Variant-dependent transform contributions remain inside the rightful owner's variant context in VariLyr, as defined by CC-07/09; never extract them into unconditional TransLyr opinions. File names are conventions; future checks must inspect authored content.
+**CC-02 — Minimal hierarchy and transform ownership in composed packages.** GeoLyr defines only needed hierarchy and composition arcs, using the prim type required by the published interface. A transformable `Xform` reference site is valid and often needed; `Scope` is for grouping-only organization, not a substitute for an asset's transformable reference site. GeoLyr must not author transform values owned by TransLyr or by variant branches, nor variant definitions/selections. After creating a reference through Kit, inspect the authored properties. Remove automatically generated identity `xformOp:*` values, `xformOpOrder`, reset-stack tokens and `visibility = "invisible"` opinions unless GeoLyr intentionally owns them. Identity values are real local opinions and can mask stronger-intent variant values when they target the same property on the same prim path. An `Xform` type with no authored operations is not itself a transform opinion. Ordinary placement belongs in the rightful TransLyr; it may target the reference-site path when no variant owns the same properties. If a variant controls that same transform on that path, keep its conditional values in the variant branch and use a distinct adjustment/placement parent or child path as needed to preserve both contributions. Do not add `Scope`, `Xform`, layers or properties without a purpose. Variant-dependent transforms remain in their rightful variant context under CC-07/09. File names are conventions; inspect authored content. See Pixar's [`UsdGeomXformable`](https://openusd.org/release/api/class_usd_geom_xformable.html) and [variant strength example](https://openusd.org/release/tut_authoring_variants.html).
 
 ## 4. Asset interface and lofting contract
 
 **CC-03 — Asset-owned alternatives.** A choice meaningful independently of a particular scene belongs in the asset: finish, detail, configuration or intrinsic articulation. Define it once in the asset package's variant layer at the hierarchy level that owns the choice. Assemblies are assets too: a robot-wide finish can belong to the robot assembly, while its hand or screw has separate intrinsic defaults. The scene selects a published choice rather than copying its implementation. Apply role separation within composed asset and assembly packages where needed (CC-00); leaves keep their alternatives inline.
 
-**CC-04 — Public interface.** Publish stable entrypoint paths, variant-set names, available choices, defaults, supported parameters, units, up-axis and origin/pivot conventions. Identify private implementation paths. An asset's default values must not accidentally mask its own variants. Interface changes require an explicit compatibility decision.
+**CC-04 — Public interface.** Publish stable entrypoint paths, variant-set names, available choices, defaults, supported parameters, units, up-axis and origin/pivot conventions. `upAxis` declares the stage coordinate convention; changing it does not rotate existing geometry or authored transforms. When source and target axes differ, author and validate an explicit coordinate conversion at the owned package boundary. Identify private implementation paths. An asset's default values must not accidentally mask its own variants. Interface changes require an explicit compatibility decision.
 
 **CC-05 — Lofting location.** Keep lofted information in the asset interface, above a payload when a payload is used. This can advertise lightweight variant information while heavy implementation remains behind the payload. A separate asset-owned interface/loft layer is optional. No scene LoftLyr is required merely to discover referenced variants.
 
@@ -230,16 +230,16 @@ The local Lofted and Instanced examples combine the Kitchen Set's interface/payl
 
 ## 5. Transform contract
 
-**CC-06 — Separate base placement, scene adjustment and asset internals.** Use this baseline hierarchy for each independently placed instance:
+**CC-06 — Separate base placement, scene adjustment and asset internals.** Preserve the asset entrypoint's required reference-site type. A reference may be hosted directly on its `Xform` site; do not add a second transform parent unless independent placement or variant ownership requires it. Use the following paths only when the responsibilities need distinct owners:
 
 ```text
-/World/Cube01                 TransLyr: base placement values
-    /Adjustment              VariLyr: relative scene adjustments
-        /Asset               GeoLyr: reference to the asset interface
-            ...              Asset-owned implementation
+/World/Cube01                    Xform reference site; GeoLyr owns arc and required type
+    /Adjustment                  optional transform parent/child for an independent contribution
+        /Asset                   optional child reference site when same-path opinions would conflict
+            ...                  referenced asset retains its interface and variant context
 ```
 
-GeoLyr defines the placement/adjustment structure; the indicated layers supply its values. Intrinsic asset transforms remain in the asset. This is a proposed baseline for new samples, not a description of every existing A–H scene.
+GeoLyr may define the reference-site `Xform` and arc without transform values. TransLyr may author placement at that same path when no variant controls those same properties. When the referenced variant owns the same transform fields, keep that variant contribution in its branch and add a distinct adjustment path only if both contributions are needed. Omit unused grouping, transform parents and layers. Intrinsic asset transforms remain asset-owned. This is a proposed baseline for new samples, not a description of every existing A–H scene.
 
 **CC-07 — Relative adjustment semantics.** Scene adjustments combine with placement. Translation is an offset in the placement parent's coordinate frame, rotation is relative, and scale is multiplicative. Define the adjustment pivot at the agreed instance origin, rotation order XYZ, and the operation list `[translate, rotateXYZ, scale]`. Neutral values are translation zero, rotation zero and scale one. Do not use a reset transform stack in this baseline profile.
 
@@ -435,7 +435,7 @@ This table defines responsibilities, **not strongest-to-weakest order**. Propose
 | Role / proposed filename | Owns | Boundary |
 |---|---|---|
 | Root / package interface | Stage/package metadata, composition entrypoints and sublayer assembly; published asset interface | Routine authoring stays in the relevant contribution; lightweight lofted declarations are allowed at the asset interface. |
-| Geometry — `GeoLyr.usda` | Scene hierarchy and references to public asset interfaces; native geometry inside its owning asset | No transform operations, variant definitions or selections. |
+| Geometry — `GeoLyr.usda` | Scene hierarchy, typed reference sites and arcs to public asset interfaces; native geometry inside its owning asset | Transform values owned by TransLyr or variant branches; accidental Kit-generated transform/visibility opinions; variant definitions or selections. |
 | Transforms — `TransLyr.usda` | Ordinary base placement, alignment, pivots and transform operation order at the rightful scope | Conditional, animated and simulation-controlled contributions follow CC-21. |
 | Materials — `MatLyr.usda` | Shading networks/resources and bindings owned at this scope | Shared definitions come from material libraries; variant-dependent bindings stay in their variant context. Physical friction/restitution belong to physics, even when represented through a material prim. |
 | Variants — `VariLyr.usda` | Owned alternatives, scene scenarios and selections of published asset choices | Asset-specific definitions remain asset-owned; scene selections do not copy their contents. |
@@ -460,7 +460,7 @@ The additional roles most relevant beyond the user's initial list are **physics,
 
 ## 18. Rig, animation and transform ownership
 
-**CC-21 — Route by meaning and context, not property spelling alone.** The expanded catalogue refines CC-02: GeoLyr still contains no authored transform operations, but not every matrix or time sample belongs in TransLyr.
+**CC-21 — Route by meaning and context, not property spelling alone.** CC-02 prohibits GeoLyr from taking transform values owned elsewhere, rather than banning every authored transform property there. Route each contribution by its declared owner; not every matrix or time sample belongs in TransLyr.
 
 | Contribution | Destination |
 |---|---|
@@ -641,7 +641,7 @@ Flattening or other consolidation needs an explicit preservation policy; removin
 
 ### Imported sources and owned publication
 
-**CC-25 — Preserve imported evidence and publish an owned interface.** Retain external CAD/DCC originals and imported USD as source evidence with provenance and revision. Publish an asset entrypoint or, when adaptation is needed, an owned wrapper that declares the intended public interface, units, up-axis, origin, dependencies and supported controls. New contributions follow ownership rules at every scope; role layers are introduced only for composed packages that need them (CC-00). An imported package may retain its documented internal organization behind the declared boundary; importing it does not require an extra wrapper or certify its internals against our role conventions.
+**CC-25 — Preserve imported evidence and publish an owned interface.** Retain external CAD/DCC originals and imported USD as source evidence with provenance and revision. Publish an asset entrypoint or, when adaptation is needed, an owned wrapper that declares the intended public interface, units, up-axis, origin, dependencies and supported controls. A metadata-only `upAxis` change does not convert content; use an explicit, owned transform or a USD-aware geometry conversion and check composed world orientation. New contributions follow ownership rules at every scope; role layers are introduced only for composed packages that need them (CC-00). An imported package may retain its documented internal organization behind the declared boundary; importing it does not require an extra wrapper or certify its internals against our role conventions.
 
 Maintained adaptation layers follow the authoring layout. A derived target package follows its declared CC-24 publication profile, preserves source provenance and carries the source-to-output mappings and acceptance results. Publication does not authorize rewriting retained originals or silently changing the supported interface.
 

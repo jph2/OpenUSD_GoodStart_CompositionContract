@@ -58,6 +58,6 @@ Within each asset, `/Asset/Looks` defines the materials inline. Its Color varian
 
 **Paradigm:** define alternatives with the asset that owns them; select them at the scene reference site. Variant-dependent values stay in their branch. Opinion persists the scene choices. Add ConfigLyr only for independently managed configurations.
 
-See [folder plan and USD views](README.md#folder-and-layer-plan) and [_contracts/profile.json](_contracts/profile.json) for the exact ownership and stack declarations. Z-up, centimetres, 60 fps; no animation or instancing.
+See [folder plan and USD views](README.md#folder-and-layer-plan) and [_contracts/profile.json](_contracts/profile.json) for the exact ownership and stack declarations. Y-up, centimetres, 60 fps; no animation or instancing. This is the Omniverse teaching profile, not a SimReady asset-profile claim; select and validate the target profile's required axis when exporting or adapting assets.
 
 Both roots contain the supplied `defaultscene.usda` baseline directly, including its separate ground Grid material and Omniverse cameras/render settings. The two teaching colors remain Red and Blue.

@@ -29,7 +29,7 @@ INSTANCES = {
     "Cube01": ("USD_Wrappers/AssetROOT_Cube.usda", (-220, 0, 0)),
     "Cube02": ("USD_Wrappers/AssetROOT_Cube.usda", (0, 0, 0)),
     "Cone01": ("USD_Wrappers/AssetROOT_Cone.usda", (220, 0, 0)),
-    "Pair01": ("Assemblies/DisplayPair/AssetROOT_DisplayPair.usda", (0, 260, 0)),
+    "Pair01": ("Assemblies/DisplayPair/AssetROOT_DisplayPair.usda", (0, 0, -260)),
 }
 
 
@@ -66,7 +66,7 @@ class Author:
         layer.defaultPrim = default_prim
         layer.subLayerPaths = sublayers
         UsdGeom.SetStageMetersPerUnit(stage, template.pseudoRoot.GetInfo("metersPerUnit"))
-        UsdGeom.SetStageUpAxis(stage, UsdGeom.Tokens.z)
+        UsdGeom.SetStageUpAxis(stage, UsdGeom.Tokens.y)
         stage.SetTimeCodesPerSecond(60)
         if Path(relative).name.startswith("AssetROOT_"):
             preview_environment(self, stage)
@@ -153,11 +153,11 @@ def shape_asset(a, name):
         geom = UsdGeom.Cone.Define(stage, base + "/Geometry")
         geom.CreateHeightAttr(100)
         geom.CreateRadiusAttr(50)
-        geom.CreateAxisAttr("Z")
+        geom.CreateAxisAttr("Y")
     geom.CreateExtentAttr([Gf.Vec3f(-50, -50, -50), Gf.Vec3f(50, 50, 50)])
     save(stage)
 
-    trs(stage, base + "/Geometry", translate=(0, 0, 50))
+    trs(stage, base + "/Geometry", translate=(0, 50, 0))
     save(stage)
 
     stage.OverridePrim(base)
@@ -196,7 +196,7 @@ def shape_asset(a, name):
     stage.SetDefaultPrim(root)
     preview_environment(a, stage)
     UsdGeom.SetStageMetersPerUnit(stage, 0.01)
-    UsdGeom.SetStageUpAxis(stage, UsdGeom.Tokens.z)
+    UsdGeom.SetStageUpAxis(stage, UsdGeom.Tokens.y)
     stage.SetTimeCodesPerSecond(60)
     save(stage)
 
@@ -419,7 +419,7 @@ def contracts(a, stacks):
         "schema": "cc-example-profile/0.1", "profile": PROFILE,
         "contract": "CompositionContract.md 0.1.1; CC-01 through CC-26",
         "status": "authored example; acceptance pending", "usd_authoring_version": "26.08",
-        "units": {"metersPerUnit": template.pseudoRoot.GetInfo("metersPerUnit"), "upAxis": "Z"},
+        "units": {"metersPerUnit": template.pseudoRoot.GetInfo("metersPerUnit"), "upAxis": "Y"},
         "timeline": {"startTimeCode": 0, "endTimeCode": 100, "timeCodesPerSecond": 60},
         "standard_scene": "SceneROOT_Example.usda; user-supplied Omniverse starting scene",
         "manual_entrypoint": "SceneROOT_Manual.usda; independent root with direct scene sublayers",
@@ -462,7 +462,7 @@ def contracts(a, stacks):
             *[{"id": f"asset:{name}@1", "package": f"010_ASS_USD/USD_Wrappers/AssetROOT_{name}.usda",
                "public": f"/{name}", "variants": {"Size": ["Normal", "Large", "Tall"], "Finish": ["Red", "Blue", "Yellow"]},
                "defaults": {"Size": "Normal", "Finish": "Red" if name == "Cube" else "Yellow"},
-               "pivot": "base center; Z-up; 100 cm height in Normal",
+               "pivot": "base center; Y-up; 100 cm height in Normal",
                "private": [f"/{name}/Geometry", f"/{name}/Looks"],
                "fields": "geometry; intrinsic placement; branch scale/order; branch material binding",
                "edit_targets": "Standalone leaf entrypoint; keep conditional values inside variants",
@@ -499,13 +499,13 @@ def contracts(a, stacks):
             "Cube01": {"Finish": "Red", "Size": "Normal", "height_cm": 100, "base_cm": [-220, 0, 0]},
             "Cube02": {"Finish": "Blue", "Size": "Tall", "height_cm": 200, "base_cm": [0, 0, 0]},
             "Cone01": {"Finish": "Yellow", "Size": "Normal", "height_cm": 100, "base_cm": [220, 0, 0]},
-            "Pair01": {"Palette": "Cool", "child_finishes": ["Blue", "Blue"], "base_cm": [0, 260, 0]},
+            "Pair01": {"Palette": "Cool", "child_finishes": ["Blue", "Blue"], "base_cm": [0, 0, -260]},
         },
         "SceneROOT_Manual.usda": "independent manual root; same baseline and direct stack as SceneROOT_Example.usda",
         "SceneROOT_STARTER.usda": "Omniverse baseline and Manual demo configuration; independent work layers plus optional empty role slots; Opinion authoring through launcher; persistent work/source layers locked",
         "SceneROOT_Scenarios.usda": {
             "Normal": "same visible configuration as Manual; explicit neutral Adjustment operations",
-            "Exploded": "Cube02 base z=80 cm, height=200 cm, Red; Cube01 Yellow; Pair01 Warm (Red/Yellow); other placements unchanged",
+            "Exploded": "Cube02 base y=80 cm, height=200 cm, Red; Cube01 Yellow; Pair01 Warm (Red/Yellow); other placements unchanged",
         },
         "SceneROOT_MaskedSize.usda": "Cube02 Size reads Tall, resolved asset scale=(1,1,1), height=100 cm",
         "SceneROOT_MaskedSelection.usda": "Cube01 Finish remains Blue under either Layout branch",

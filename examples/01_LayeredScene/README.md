@@ -1,6 +1,6 @@
 # LayeredScene — composition without unnecessary nesting
 
-**Layout convention 0.2.11 · Omniverse/Kit · Z-up · centimetres.**
+**Layout convention 0.2.14 · Omniverse/Kit · Y-up · centimetres.**
 Simple leaves keep their asset content inline. Assemblies keep meaningful work
 layers. Each scene owns a named Opinion file; an identifier is optional and uses
 `OpinLYR_SceneExample.name.usda` when needed.
@@ -55,6 +55,13 @@ corresponding leaf; there is no forwarding ContentsLyr or empty asset Opinion.
 DisplayPairLofted retains ContentsLyr because it combines assembly contributions.
 
 ## Where edits belong
+
+GeoLyr keeps the published asset's required reference-site type, including an
+`Xform` when the interface is transformable. After creating references in Kit,
+remove generated identity transform ops or `visibility = "invisible"` opinions
+unless GeoLyr intentionally owns them. TransLyr may place the reference site;
+use a separate adjustment path only when a variant controls the same transform
+properties.
 
 | Contribution | File |
 |---|---|

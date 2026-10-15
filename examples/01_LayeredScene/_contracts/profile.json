@@ -421,7 +421,7 @@
   },
   "units": {
     "metersPerUnit": 0.009999999776482582,
-    "upAxis": "Z"
+    "upAxis": "Y"
   },
   "usd_authoring_version": "26.08",
   "writer_mode": "static authored scene; no solver or live writer",

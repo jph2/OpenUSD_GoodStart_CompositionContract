@@ -2,7 +2,7 @@
 name: openusd-composition-contract
 description: Apply the OpenUSD GoodStart Composition Contract when designing, reviewing, authoring or repairing layered USD assets, nested assemblies, digital twins and robotics scenes. Use for layer ownership, variants, transforms, asset-structure cleanup, shared resources, delivery packaging, reusable interfaces, stable identity, composable bindings and target readiness. Generic Kit UI work does not require this skill.
 metadata:
-  version: "0.2.11"
+  version: "0.2.14"
   source: "https://github.com/jph2/OpenUSD_GoodStart_CompositionContract"
 ---
 
@@ -24,6 +24,13 @@ Distinguish OpenUSD mechanics, project conventions and Omniverse implementation
 behavior. Do not strip host-specific settings for presumed portability or claim
 cross-application acceptance. When applying the skill elsewhere, honor that user's
 declared platform rather than imposing the repository's Omniverse profile.
+
+Treat `upAxis` as a profile requirement, not a universal Omniverse/SimReady value.
+The supplied teaching profile is Y-up; NVIDIA's Omniverse stage fallback is Y,
+while SimReady asset guidance and some named target requirements specify Z-up.
+Changing stage metadata alone does not rotate geometry or placements. Convert
+content at an owned package boundary and inspect composed world orientation; do
+not claim SimReady readiness without naming and validating the target profile.
 
 ## Locate the applicable rules
 
@@ -65,10 +72,10 @@ Prim depth, filename, colour and property spelling alone do not determine owners
 - **Preview environment (CC-00a):** locally authored or owned-published entrypoints that claim direct-open readiness include basic environment lighting outside the asset's default prim. Default to an inline `/Environment` in the same USD file for simplicity; use a shared external environment only when deliberate reuse across assets justifies the dependency. Do not rewrite opaque imported originals solely to add a preview: use an owned adapter or record the limitation if direct-open readiness is required. Reference/payload only the asset prim in consumers. Preview content must not change asset geometry, intrinsic transforms, material bindings or variants. Verify visual lighting and reference isolation only when evaluation is requested; do not infer acceptance from authored files.
 - **Asset grouping (CC-00b):** independent named assets may share a directory. Do not add one-folder-per-asset nesting without a purpose; use team ownership, dependencies, versioning/publication and navigation to choose boundaries. Update relative paths and saved lock/authoring metadata when relocating files.
 - **Root and Opinion (CC-01):** use `050_OPINION_LYR` when an Opinion workflow is needed. Simple payload/interface wrappers may omit Opinion; do not recreate a redundant layer during cleanup or regeneration. composed-package roots assemble work layers and stage metadata. Use the declared Opinion layer for experiments; retain saved scene selections there; deliberately promote only contributions whose ownership or independent management requires a move, and retire superseded fields. Preserve the declared Kit root-writability and supplied-template exceptions only in profiles where they apply. Layer/UI locks do not provide field-level protection.
-- **Geometry and transforms (CC-02/21), within composed packages:** scene GeoLyr defines hierarchy and references published packages. It contains no authored transform operations/order or variant definitions/selections. Ordinary transforms belong in the rightful owner's TransLyr; create/register it when needed. Native geometry may live in an owned asset GeoLyr.
+- **Geometry and transforms (CC-02/21), within composed packages:** GeoLyr authors needed hierarchy, typed reference sites and arcs, but no transform values owned by TransLyr or variants and no variant definitions/selections. Keep a transformable `Xform` reference site when the asset interface requires it; `Scope` is only for grouping, not a substitute. After creating references in Kit, inspect authored properties and remove generated identity `xformOp:*`, `xformOpOrder`, reset-stack and `visibility = "invisible"` opinions unless GeoLyr intentionally owns them. Identity opinions can mask variant values at the same property/path. TransLyr may place the reference site when no variant owns those fields; use a distinct adjustment path only when both contributions are needed. Add layers and hierarchy only when needed.
 - **Semantic exceptions (CC-21):** variant-dependent transforms stay in their variant branch; authored motion belongs to AnimLyr, skeleton rest/bind data to RigLyr, joint/mass frames to PhysicsLyr, published solver results to SimLyr, and live measurements to the declared runtime mechanism. Keep coherent transform operations and their order together.
 - **Reusable controls (CC-03–05/09/14):** define intrinsic choices in the owning asset/assembly and select its public interface from the parent. Preserve imported internal structure. Loft required discovery information above payloads where used; keep it synchronized with implementation.
-- **Placement and scenarios (CC-06–08a):** preserve the declared placement/adjustment/asset hierarchy and coordinate semantics. Keep manual selections and scenarios mutually exclusive for the same control. Scenario promotion preserves provenance while excluding only the superseded unconditional opinions. Clearing an authored selection differs from authoring an empty selection that blocks weaker values.
+- **Placement and scenarios (CC-06–08a):** preserve the reference site's interface type; place its `Xform` in TransLyr when that layer owns placement and no same-path variant conflict exists. Add a separate adjustment path only when independent transform ownership requires it. Keep conditional values in VariLyr. Keep manual selections and scenarios mutually exclusive for the same control. Scenario promotion preserves provenance while excluding only the superseded unconditional opinions. Clearing an authored selection differs from authoring an empty selection that blocks weaker values.
 - **Materials (CC-10/15):** preserve asset finish controls, shared-library dependencies and variant-owned bindings. Resolve the actual material binding; a shader colour alone does not identify an engineering material or prove a binding result. Record library revision/adoption policy.
 - **Instancing (CC-05a–d):** declare load states, instanceable sites and required editable descendants. References alone do not establish native instancing; configuration differences can create more prototypes. Respect instance-proxy editing limits. PointInstancer IDs and prototype indices have their declared topology/scope; they are not automatically physical IDs or variant selections.
 - **Strength and writers (CC-22/23):** GeoLyr is the weakest work sublayer in the adopted authoring profile; explicitly declare the rest of the stack and any overlapping fields. Role names do not change USD strength. Define active writers and handoff between authored playback, simulation and live modes, including external runtime writers.

@@ -15,6 +15,6 @@
         @../../Envs/OmniverseStandard/Environment.usda@
     ]
     timeCodesPerSecond = 60
-    upAxis = "Z"
+    upAxis = "Y"
 )
 

@@ -24,20 +24,20 @@ FINISHES = ('Red', 'Blue', 'Yellow')
 def layout(index, value, shape):
     row, column = divmod(index, 32)
     if shape in ('grid', 'wave'):
-        x, y = (column - 15.5) * 240, 500 + row * 240
-        z = value * 600 if shape == 'wave' else 0
+        x, z = (column - 15.5) * 240, -(500 + row * 240)
+        y = value * 600 if shape == 'wave' else 0
         yaw = value * 360
     elif shape == 'spiral':
         angle = index * 0.24
         radius = 130 * math.sqrt(index + 1)
-        x, y, z = radius * math.cos(angle), 4700 + radius * math.sin(angle), value * 600
+        x, z, y = radius * math.cos(angle), -(4700 + radius * math.sin(angle)), value * 600
         yaw = math.degrees(angle)
     else:
         angle = column * 2 * math.pi / 32
         radius = 1500 + row * 250
-        x, y, z = radius * math.cos(angle), 10300 + radius * math.sin(angle), value * 600
+        x, z, y = radius * math.cos(angle), -(10300 + radius * math.sin(angle)), value * 600
         yaw = math.degrees(angle)
-    return (x, y, z), (0, 0, yaw)
+    return (x, y, z), (0, yaw, 0)
 
 
 def main():

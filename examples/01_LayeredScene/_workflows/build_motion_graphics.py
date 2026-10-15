@@ -147,7 +147,7 @@ def main():
     cam = UsdGeom.Camera.Define(cstage, '/World/MotionOverview')
     cam.CreateClippingRangeAttr(Gf.Vec2f(10, 100000))
     cam.CreateFocalLengthAttr(35)
-    matrix = Gf.Matrix4d().SetLookAt(Gf.Vec3d(7000, -8500, 8500), Gf.Vec3d(0, 0, 700), Gf.Vec3d(0, 0, 1)).GetInverse()
+    matrix = Gf.Matrix4d().SetLookAt(Gf.Vec3d(7000, 8500, 8500), Gf.Vec3d(0, 700, 0), Gf.Vec3d(0, 1, 0)).GetInverse()
     cam.AddTransformOp().Set(matrix)
     pending['020_BASE_LYR/CamLyr_MotionGraphics.usda'] = camera
 
@@ -177,7 +177,7 @@ def main():
                      'cc:opinionLayer': './' + OPINION,
                      'omni_layer': {'authoring_layer': './' + OPINION, 'locked': locks}})
     camera_settings = dict(metadata['cameraSettings'])
-    camera_settings['Perspective'] = {'position': Gf.Vec3d(7000, -8500, 8500), 'target': Gf.Vec3d(0, 0, 700)}
+    camera_settings['Perspective'] = {'position': Gf.Vec3d(7000, 8500, 8500), 'target': Gf.Vec3d(0, 700, 0)}
     camera_settings['boundCamera'] = '/World/MotionOverview'
     metadata['cameraSettings'] = camera_settings
     root.customLayerData = metadata
@@ -197,7 +197,7 @@ def main():
         'count': 1024, 'ids': '0..1023, fixed row-major 32 x 32',
         'prototypes': [str(p) for p in prototype_paths],
         'writer_properties': ['positions', 'orientations', 'scales', 'protoIndices', 'extent'],
-        'units': {'distance': 'cm', 'time': 'seconds', 'angle': 'degrees'},
+        'units': {'distance': 'cm', 'time': 'seconds', 'angle': 'degrees', 'upAxis': 'Y'},
         'baked': {'file': ANIMATION, 'time_codes_per_second': 60, 'range': [0, 480], 'sample_step': 2, 'input_sha256': digest},
         'runtime': {'storage': 'owned anonymous sublayer of session', 'save': 'never',
             'precedence': 'runtime arrays override baked arrays; direct Session opinions can still mask them',

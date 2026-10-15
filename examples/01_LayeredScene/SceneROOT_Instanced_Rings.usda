@@ -3,19 +3,19 @@
     customLayerData = {
         dictionary cameraSettings = {
             dictionary Front = {
-                double3 position = (50000.00111758712, 0, 0)
+                double3 position = (50000.00111758712, 0, -0)
                 double radius = 500
             }
             dictionary Perspective = {
-                double3 position = (500, 500, 500)
-                double3 target = (-0.000003978038705554354, -0.000003978038478180679, 0.000007956076956361358)
+                double3 position = (500, 500, -500)
+                double3 target = (-0.000003978038705554354, 0.000007956076956361358, 0.000003978038478180679)
             }
             dictionary Right = {
-                double3 position = (0, -50000.00111758712, 0)
+                double3 position = (0, 0, 50000.00111758712)
                 double radius = 500
             }
             dictionary Top = {
-                double3 position = (0, 0, 50000.00111758712)
+                double3 position = (0, 50000.00111758712, -0)
                 double radius = 500
             }
             string boundCamera = "/OmniverseKit_Persp"
@@ -69,7 +69,7 @@
         @./020_BASE_LYR/GeoLyr_Instanced.usda@
     ]
     timeCodesPerSecond = 60
-    upAxis = "Z"
+    upAxis = "Y"
 )
 
 def Xform "World"
@@ -80,7 +80,7 @@ def Xform "Environment"
 {
     int ground:size = 1400
     string ground:type = "On"
-    double3 xformOp:rotateXYZ = (0, 0, 0)
+    double3 xformOp:rotateXYZ = (-90, 0, 0)
     double3 xformOp:scale = (1, 1, 1)
     double3 xformOp:translate = (0, 0, 0)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
@@ -307,11 +307,9 @@ over "OmniverseKit_Persp" (
     float exposure:time = 0.02
     float focalLength = 18.147562
     float focusDistance = 400
-    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -866.0254037844387)
-    float3 xformOp:rotateXYZ = (54.73561, -6.3611094e-15, 135)
-    float3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (500, 500, 500)
-    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    custom uniform vector3d omni:kit:centerOfInterest = (0, -866.0254037844387, -0)
+    matrix4d xformOp:transform:ccYUpCamera = ( (-0.7071067811865475, -4.5986942109920206e-17, -0.7071067811865478, 0), (-0.40824828396775337, 0.816496587423836, 0.4082482839677533, 0), (0.5773502737830691, 0.5773502600027394, -0.5773502737830691, 0), (500, 500, -500.0000000000002, 1) )
+    uniform token[] xformOpOrder = ["xformOp:transform:ccYUpCamera"]
 }
 
 over "OmniverseKit_Front" (
@@ -330,13 +328,11 @@ over "OmniverseKit_Front" (
 {
     float2 clippingRange = (1, 10000000)
     float horizontalAperture = 5000
-    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -50000.00111758712)
+    custom uniform vector3d omni:kit:centerOfInterest = (0, -50000.00111758712, -0)
     token projection = "orthographic"
     float verticalAperture = 5000
-    float3 xformOp:rotateXYZ = (90, -1.2722219e-14, 90)
-    float3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (50000.00111758712, 0, 0)
-    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    matrix4d xformOp:transform:ccYUpCamera = ( (-2.220446049250313e-16, 2.591883313042613e-24, -1.0000000000000004, 0), (2.220446049250314e-16, 1.0000000000000004, 2.5918833623464194e-24, 0), (1.0000000000000004, -2.220446049250314e-16, -2.220446049250314e-16, 0), (50000.00111758712, 0, 0, 1) )
+    uniform token[] xformOpOrder = ["xformOp:transform:ccYUpCamera"]
 }
 
 over "OmniverseKit_Right" (
@@ -355,13 +351,11 @@ over "OmniverseKit_Right" (
 {
     float2 clippingRange = (1, 10000000)
     float horizontalAperture = 5000
-    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -50000.00111758712)
+    custom uniform vector3d omni:kit:centerOfInterest = (0, -50000.00111758712, -0)
     token projection = "orthographic"
     float verticalAperture = 5000
-    float3 xformOp:rotateXYZ = (90, 7.06225e-31, -1.2722219e-14)
-    float3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (0, -50000.00111758712, 0)
-    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    matrix4d xformOp:transform:ccYUpCamera = ( (1, 3.6977855363870205e-32, 2.2204460751691467e-16, 0), (-3.6977855363870205e-32, 1.0000000000000004, 0, 0), (-2.2204460751691467e-16, 0, 1.0000000000000004, 0), (0, 1.1102230494405756e-11, 50000.00111758713, 1) )
+    uniform token[] xformOpOrder = ["xformOp:transform:ccYUpCamera"]
 }
 
 over "OmniverseKit_Top" (
@@ -380,12 +374,10 @@ over "OmniverseKit_Top" (
 {
     float2 clippingRange = (1, 10000000)
     float horizontalAperture = 5000
-    custom uniform vector3d omni:kit:centerOfInterest = (0, 0, -50000.00111758712)
+    custom uniform vector3d omni:kit:centerOfInterest = (0, -50000.00111758712, -0)
     token projection = "orthographic"
     float verticalAperture = 5000
-    float3 xformOp:rotateXYZ = (1.2722219e-14, -7.016709e-15, -90)
-    float3 xformOp:scale = (1, 1, 1)
-    double3 xformOp:translate = (0, 0, 50000.00111758712)
-    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:rotateXYZ", "xformOp:scale"]
+    matrix4d xformOp:transform:ccYUpCamera = ( (-2.220446049250313e-16, 3.4450928184077984e-16, 1.0000000000000004, 0), (1.0000000000000002, 2.220446075169147e-16, 2.2204460492503126e-16, 0), (-2.220446075169146e-16, 1.0000000000000002, -3.445092818407799e-16, 0), (0, 50000.00111758713, -1.1102230494405756e-11, 1) )
+    uniform token[] xformOpOrder = ["xformOp:transform:ccYUpCamera"]
 }
 

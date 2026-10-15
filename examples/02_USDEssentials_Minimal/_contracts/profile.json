@@ -1,7 +1,7 @@
 {
   "id": "CC-ESSENTIALS-02",
   "metrics": {
-    "upAxis": "Z",
+    "upAxis": "Y",
     "metersPerUnit": 0.01,
     "framesPerSecond": 60
   },

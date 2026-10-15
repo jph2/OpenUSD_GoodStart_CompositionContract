@@ -14,5 +14,5 @@
         @./GeoLyr.usda@
     ]
     timeCodesPerSecond = 60
-    upAxis = "Z"
+    upAxis = "Y"
 )

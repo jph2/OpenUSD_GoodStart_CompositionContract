@@ -34,8 +34,8 @@
       "Palette": "Cool",
       "base_cm": [
         0,
-        260,
-        0
+        0,
+        -260
       ],
       "child_finishes": [
         "Blue",
@@ -48,7 +48,7 @@
   "SceneROOT_MaskedSize.usda": "Cube02 Size reads Tall, resolved asset scale=(1,1,1), height=100 cm",
   "SceneROOT_STARTER.usda": "Omniverse baseline and Manual demo configuration; independent work layers plus optional empty role slots; Opinion authoring through launcher; persistent work/source layers locked",
   "SceneROOT_Scenarios.usda": {
-    "Exploded": "Cube02 base z=80 cm, height=200 cm, Red; Cube01 Yellow; Pair01 Warm (Red/Yellow); other placements unchanged",
+    "Exploded": "Cube02 base y=80 cm, height=200 cm, Red; Cube01 Yellow; Pair01 Warm (Red/Yellow); other placements unchanged",
     "Normal": "same visible configuration as Manual; explicit neutral Adjustment operations"
   },
   "manual_acceptance": [

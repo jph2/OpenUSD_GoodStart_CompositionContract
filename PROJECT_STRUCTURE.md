@@ -21,7 +21,7 @@ or migrate those files automatically.
 
 **Preview requirement (CC-00a):** locally authored or owned-published asset entrypoints that claim direct-open readiness load basic environment lighting, including leaves. The simple default is to author `/Environment` inline in the same USD file, beside and outside the default asset prim. A shared preview layer is optional when deliberate reuse across assets justifies the dependency. Scene references target only the asset prim. Do not rewrite imported originals just to add a preview; use an owned adapter or record the limitation when direct-open readiness is required.
 
-## Scaffold and stopping rule (contract 0.2.11)
+## Scaffold and stopping rule (contract 0.2.14)
 
 Self-contained leaves need only their asset file, including materials and variants; author an intrinsic transform inline only when the asset needs one, such as correcting an off-origin pivot. Do not add a TransLyr to an ordinary leaf by default. Every composed-asset or scene starter begins with the full conventional folder and role-layer scaffold; a script or skill may generate it. The owner then decides what is needed and can remove unused categories and contributions, clearing incoming arcs and stale authoring/lock metadata safely. The full scaffold is a starter, not a required final layout. Teaching examples may keep the full folder catalogue at scene scope. Nested compositions are tailored at each scope. Cube and Cone now end recursion in standalone files; DisplayPair keeps its assembly layers, and lofted wrappers retain their purposeful payload boundary. Older role diagrams below describe the available catalogue, not required leaf internals.
 
@@ -45,7 +45,7 @@ The `_LYR` suffix is singular for every layer class. DATA uses `040_DATA_LYR`; O
 
 ## The authoring model
 
-Open `SceneROOT_Example.usda`, the supplied Omniverse starting scene, with Opinion selected and editable and persistent work/source layers locked. The supplied environment, viewport camera and render specs remain its declared application baseline. When persisting a project change, deliberately unlock and edit the contribution that owns it. GeoLyr links published assets; TransLyr places occurrences; VariLyr selects configurations and owns scene scenarios. Material roles remain available when the scene has additional material responsibilities. Each referenced assembly or asset repeats this separation for its own decisions.
+Open `SceneROOT_Example.usda`, the supplied Omniverse starting scene, with Opinion selected and editable and persistent work/source layers locked. The supplied environment, viewport camera and render specs remain its declared application baseline. When persisting a project change, deliberately unlock and edit the contribution that owns it. GeoLyr defines needed hierarchy, typed reference sites and arcs. Keep an `Xform` reference site when required by the asset interface; after Kit creates a reference, remove generated identity transform or invisible-visibility opinions unless GeoLyr intentionally owns them. TransLyr owns ordinary placement; use a distinct adjustment path only when another owner (such as a variant) controls the same transform fields. VariLyr selects configurations and owns conditional scenario adjustments. Material roles remain available when the scene has additional material responsibilities. Each referenced assembly or asset repeats this separation for its own decisions.
 
 ```mermaid
 %%{init: {"flowchart": {"wrappingWidth": 380, "nodeSpacing": 22, "rankSpacing": 28}}}%%
@@ -57,7 +57,7 @@ flowchart LR
         direction TB
         Session["Opinion Layer<br/>Default editable target<br/>Work/source layers start locked"]
         R["SceneROOT_Example.usda<br/>Stage metadata and sublayer assembly<br/>SceneROOT_Manual is an independent manual root"]
-        Startup["Supplied Omniverse baseline in the root<br/>Environment · Render · viewport cameras<br/>Z-up · centimetres · identity World · 60 fps"]
+        Startup["Supplied Omniverse teaching profile in the root<br/>Environment · Render · viewport cameras<br/>Y-up · centimetres · identity World · 60 fps"]
         Session ~~~ R
         R ~~~ Startup
         Review["Optional OPINION · 050_OPINION_LYR<br/>ReviewLyr · explicit experiments above the base stack<br/>Declare owner, purpose and removal route"]
@@ -123,7 +123,7 @@ The root's sublayers are siblings. GeoLyr references Cube, Cone and DisplayPair;
 | Generated `ASS_LYR` currently contains native mesh and transforms | Scene GeoLyr references authored packages | Native geometry belongs to the asset; transforms to its TransLyr |
 | Generated numbered storage lanes | Keep 000, 010, 020, 030, 035, 040; add 050 review | Preserve familiar storage while making lifecycle explicit, CC-24 |
 | Generated `USD_Startpoint` and `USD_Wrappers` slots | Keep import evidence separate from owned package layers | Explicit source boundary, CC-25 |
-| Generated root is Y-up, `/world`, centimetres | Preserve the supplied ROOT_example: Z-up, `/World`, centimetres, 60 fps, 0–100 | The user-selected Omniverse scene now establishes startup conventions |
+| Generated root is Y-up, `/world`, centimetres | Preserve the supplied ROOT_example: Y-up, `/World`, centimetres, 60 fps, 0–100 | The user-selected Omniverse scene establishes startup conventions; package paths retain `/World` |
 | Earlier example had a custom Overview camera, ground and lights | Keep the supplied top-level Environment/Render and OmniverseKit viewport cameras | Remove alternate starting conditions; preserve identity world coordinates |
 | Generated root carries Kit locks and a root edit target | Work/source layers locked; scoped helper selects Opinion | Opinion is the default working target; reviewed destinations follow ownership |
 | `_comfyui_workflows` | `_workflows`, with optional application subfolders | Keep the base package usable without a selected pipeline runtime |

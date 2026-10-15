@@ -6,7 +6,7 @@ For the one-minute employee handout, start with the [ROOTS quick-start manifest]
 
 **Primary platform: NVIDIA Omniverse.** This proposal targets Omniverse and Kit, including their RTX, viewport, environment and authoring features. It distinguishes OpenUSD mechanics, project conventions and Kit behavior; other targets need separate assessment. This is an independent proposal, not an NVIDIA or AOUSD standard.
 
-**Version 0.2.11 — independent work-in-progress proposal and local example · 2026-10-12**
+**Version 0.2.14 — independent work-in-progress proposal and local example · 2026-10-15**
 
 This project grew out of my journey into OpenUSD. I have spent a lot of time thinking about asset structures, how they compose, and what makes them useful. That led me to a more precise starting point: **a structure needs a purpose, requirements and an evaluation standard before we can judge how well it works.**
 
@@ -28,7 +28,9 @@ A robot packaged using NVIDIA's [Asset Structure 3.0](https://docs.isaacsim.omni
 
 [SimReady Foundation](https://github.com/NVIDIA/simready-foundation) supplies use-case requirements for incoming simulation assets. Our [asset-interface checklist](CompositionContract.md#asset-interface-checklist) now requires purpose, entrypoint, coordinates, dependencies, public controls and evidence, including selected simulation profiles where applicable. [Asset and assembly acceptance](CompositionContract.md#asset-and-assembly-acceptance) evaluates both incoming packages and their composed use. Asset readiness alone does not establish readiness for larger structures such as a workcell; automated integration remains planned.
 
-We define broad applicability through **common ownership and interface rules across explicitly supported domain profiles**. The contract's [NVIDIA alignment and readiness requirements](CompositionContract.md#21-nvidia-alignment-and-readiness-requirements) explain the remaining work: target publication formats, units and geometry preparation, robotics and sensor acceptance, identity continuity, executable validation and measured deployment. The contract draft is now 0.2.11; existing example profiles and their evidence retain their declared 0.1.1 baseline until re-evaluated.
+The supplied teaching profile is Y-up. SimReady asset guidance and some named simulation requirements specify Z-up, so this example setting is not a SimReady conformance claim; use the declared target profile's axis and validate any conversion.
+
+We define broad applicability through **common ownership and interface rules across explicitly supported domain profiles**. The contract's [NVIDIA alignment and readiness requirements](CompositionContract.md#21-nvidia-alignment-and-readiness-requirements) explain the remaining work: target publication formats, units and geometry preparation, robotics and sensor acceptance, identity continuity, executable validation and measured deployment. The contract draft is now 0.2.14; example profiles retain their own acceptance status until re-evaluated.
 
 We also track [OpenUSD proposals](https://github.com/PixarAnimationStudios/OpenUSD-proposals/tree/main/proposals), especially validation, profiles/capabilities, namespace editing, LOD and spline animation. Their practical implications and adoption gates are in the [roadmap](ROADMAP.md#upstream-integration-priorities).
 
@@ -55,7 +57,7 @@ When the purpose or requirements change, revise the contract explicitly and eval
 ```mermaid
 %%{init: {"flowchart": {"wrappingWidth": 280, "nodeSpacing": 20, "rankSpacing": 24}}}%%
 flowchart LR
-    accTitle: OpenUSD GoodStart Composition Contract 0.2.11 - The paradigm
+    accTitle: OpenUSD GoodStart Composition Contract 0.2.14 - The paradigm
     accDescr: Root on the left, vertical scene layers in the middle with GeoLyr at the bottom, and reusable assemblies, assets and materials on the right.
     R["SceneROOT_Example.usda<br/>Combines the scene layers"]
 
@@ -131,7 +133,7 @@ Each evaluation case needs named inputs, the applicable contract/profile revisio
 
 ## Working with agents
 
-Use **`$openusd-composition-contract`** to apply this proposal when designing, reviewing or changing USD assets, assemblies and digital twins. The maintained [skill](skills/openusd-composition-contract/SKILL.md) includes operational guidance and a generated contract reference with the paper's version and source hash. Its version matches contract **0.2.11**; the skill supplies guidance, while general enforcement and runtime acceptance remain planned.
+Use **`$openusd-composition-contract`** to apply this proposal when designing, reviewing or changing USD assets, assemblies and digital twins. The maintained [skill](skills/openusd-composition-contract/SKILL.md) includes operational guidance and a generated contract reference with the paper's version and source hash. Its version matches contract **0.2.14**; the skill supplies guidance, while general enforcement and runtime acceptance remain planned.
 
 After reviewing the skill for affected rule/workflow changes, refresh it from the repository root with `python tools/sync_composition_skill.py --install`. Use `python tools/sync_composition_skill.py --check --install` to compare the generated files and personal installation without writing. The default personal location follows this host's `$CODEX_HOME/skills` (or `~/.codex/skills`); `--skills-root` supports another configured location. [AGENTS.md](AGENTS.md#keep-the-contract-skill-synchronized) requires this maintenance whenever the repository changes, with the main paper remaining the rule owner.
 
