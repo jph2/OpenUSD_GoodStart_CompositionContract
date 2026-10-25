@@ -1,10 +1,10 @@
 {
   "skill": "openusd-composition-contract",
-  "version": "0.2.14",
-  "contract_version": "0.2.14",
+  "version": "0.2.15",
+  "contract_version": "0.2.15",
   "source_repository": "https://github.com/jph2/OpenUSD_GoodStart_CompositionContract",
   "source_file": "CompositionContract.md",
-  "source_sha256": "51960112444e1c10e55254192961aebf0145b36447b70b785e08296ff3cb7652",
+  "source_sha256": "e90292f15d33a21841fcb15f0df16ab0735910ca24e12b741fe188a22c824a2f",
   "hash_normalization": "UTF-8 without BOM, LF line endings",
   "reference_transform": "Generated notice; relative prose links rebased to repository main; contract prose and fenced examples retained",
   "rule_ids": [
@@ -45,11 +45,12 @@
     "CC-24",
     "CC-25",
     "CC-27",
-    "CC-28"
+    "CC-28",
+    "CC-29"
   ],
   "files_sha256": {
-    "SKILL.md": "1de6ba2112ecfa68ad1bb48b027975c3e265025fbaacc169a4b060255a447c7f",
+    "SKILL.md": "759147d02cfcec287386f2b74103621070a3ce12b10c240c4832e06180bfcd96",
     "agents/openai.yaml": "c57e4f3392fe5a9a0b09b950ab464436f9c812d2f912d70a771408de7041ddf7",
-    "references/CompositionContract.md": "1cc4402d847bfd25de741dd926cc6e41af9b7931967b4f46292e157e93e48100"
+    "references/CompositionContract.md": "faf00f8ad932cd24b384e3420d1e3bcdfe3f2c766b3c3e746c3a863440e3ca80"
   }
 }

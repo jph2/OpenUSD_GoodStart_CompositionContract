@@ -47,6 +47,6 @@ Apply CC-00 first: leaves keep intrinsic content inline. In composed packages, o
 
 No scene migration is implied by a documentation task. Keep TutorialBuilder's VariantSetups scenes in their existing project unless explicitly requested otherwise. Do not edit other repositories, publish, commit, push or send messages without a corresponding request. A local inspection request authorizes no repair.
 
-Treat OpenUSD_GoodStart_Pipeline_nodes as a private candidate integration. Do not copy or publish its code, internal URLs or contents into this collaboration project without explicit authorization. Its absence must not block reading or reviewing this proposal.
+Treat OpenUSD_GoodStart_Pipeline_nodes as an optional source-pipeline implementation candidate. CC-29 defines the producer/contract/consumer boundary; the bounded architecture review is recorded in harness/SOURCES.md. Do not copy its code, credentials or private implementation content into this collaboration project without explicit authorization. Its absence must not block understanding or applying the Composition Contract.
 
 Keep changes bounded. Before any commit, enumerate the exact intended files and sizes; never bulk-stage unrelated artifacts. Preserve authored evidence and record limitations. At task completion update harness/STATE.md with actual changes, remaining work and meaningful decisions so another agent can resume without conversation history.

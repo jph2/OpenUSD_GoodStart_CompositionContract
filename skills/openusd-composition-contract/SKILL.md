@@ -2,7 +2,7 @@
 name: openusd-composition-contract
 description: Apply the OpenUSD GoodStart Composition Contract when designing, reviewing, authoring or repairing layered USD assets, nested assemblies, digital twins and robotics scenes. Use for layer ownership, variants, transforms, asset-structure cleanup, shared resources, delivery packaging, reusable interfaces, stable identity, composable bindings and target readiness. Generic Kit UI work does not require this skill.
 metadata:
-  version: "0.2.14"
+  version: "0.2.15"
   source: "https://github.com/jph2/OpenUSD_GoodStart_CompositionContract"
 ---
 
@@ -11,6 +11,10 @@ metadata:
 Apply this independent draft proposal to the user's declared project/profile. Its rules describe an ownership and authoring convention built on OpenUSD. NVIDIA alignment supplies supporting evidence; it does not establish upstream endorsement or universal conformance.
 
 The skill version equals the main contract version. [Source metadata](references/source.json) records the source content hash and packaged file hashes. [CompositionContract.md](references/CompositionContract.md) is a generated reference containing the full contract and its evidence links. Read only the relevant sections using the map below. Existing teaching profiles and observations retain their own versions and coverage.
+
+For future publish-workbench tasks, distinguish a composition-preserving asset from a flattened snapshot, and distinguish both from the `.usda`/`.usdc`/`.usd` encoding and optional `.usdz` package. Do not equate generic ZIP with USDZ. Recompose a selected prim using a prim-scoped Reference or Payload operation; sublayers compose whole LayerStacks and require a separate full-layer workflow. Resolve the exact source arc or sublayer before opening it in another application, and report the app/build, plugins, resolver context and feature limits. Treat paradigm names as versioned target profiles with explicit recipes and acceptance evidence, not universal schemas or conformance claims. See the planned [CW-02/CW-06 requirements](../../../ROADMAP.md#8-source-editing-and-composition-workbench).
+
+When presenting the CW-06 target registry, use the exact comparison-paper names recorded in the roadmap, including its historical `project/sample set 0.2.0` label; identify the maintained contract's current version separately. Keep `USD WG intent-vfx` marked supplementary and any future gaming paradigm outside the comparison until sourced and defined.
 
 When the source repository is available, its main `CompositionContract.md` owns the rules. Compare its version and UTF-8/LF-normalized content hash with the source metadata before applying it; the source repository's sync helper provides a read-only `--check` operation. Honor an explicitly pinned project revision; disclose a mismatch instead of silently combining revisions. Update this skill in its source repository, following that repository's AGENTS.md. The generated reference and installed copy are derived artifacts.
 
@@ -48,6 +52,7 @@ Search the bundled contract for the CC IDs or section headings in this map; read
 | NVIDIA/SimReady comparison and industrial acceptance | §21; CC-12/24/25 |
 | Naming, portable packages, imported sources, deployment | §22, CC-24–26 and asset-interface checklist |
 | Governing-system IDs and composable bindings | §23, CC-27/28 |
+| Pipeline-produced USD startpoints and downstream target layers | §24, CC-29 |
 
 ## Establish scope and ownership
 
@@ -87,6 +92,8 @@ Apply CC-27 when an entity first enters the pipeline or is first authored, befor
 Distinguish shared part/type identity, assembly/scene occurrence identity and the identity of an actual physical object. Allocate occurrence identity at creation; assign a physical identity when the real object is known. Repeating an assembly requires scoped child IDs qualified by stable parent identity or an installation mapping. Renaming or reparenting the same entity preserves its identity; duplication and replacement follow separate policies.
 
 If authoritative identity is absent, a designated owner may allocate a durable local key with explicit status and a reconciliation policy. Preserve its mapping when an external identifier arrives. Never replace an available governing ID with an untracked importer UUID or infer equivalence from similar strings.
+
+For source-pipeline integration, follow CC-29: keep original source evidence immutable, identify the pipeline-owned generated startpoint and its revisions/dependencies, and compose it through the declared layer or public asset interface. Preserve downstream Omniverse/consumer-authored layers during regeneration; compare outputs and report conflicts before any mapping, namespace, identity or binding change. The node graph is a replaceable producer, not the composition contract or proof of consumer correctness. Do not force every asset into sublayers: use sublayers for declared peer contributions and references/payloads for reusable asset entrypoints. Treat NVIDIA USD BRep/NURBS as an optional plugin/profile-dependent representation; keep its schema/runtime and derived mesh delivery distinct, and do not claim universal OpenUSD consumer support.
 
 Under CC-28, bindings resolve these identities to the current stage/profile revision and the rightful property/layer/variant context. Record units, conversions, time, permitted writers and lifecycle. Reject ambiguous targets or unintended collisions; declare fan-out when one type maps to several occurrences. Invalidate/re-resolve mappings after relevant changes. BindingSpec, BindingPlan, BindingChangeSet and provenance receipts are project design requirements; USD composition alone does not execute an integration engine.
 
@@ -132,7 +139,9 @@ For maintenance, use the following workflow to simplify existing layouts. It app
 
 Use the skill to choose scope, owners, grouping and the intended dependency graph; use bounded USD-aware scripts for repeatable inventory, path rewriting, resource comparisons and migration. Separate discovery/planning from mutation. A reusable helper should accept explicit entrypoints and an allowed root, produce a dry-run old-to-new path map and dependency report, and apply only the planned changes with revision checks and recoverable originals. Its stopping condition is the requested layout with accounted-for dependencies and no unexplained changes, not the smallest possible file count. Report unresolved edges; never compensate by deleting more content or flattening away authored choices.
 
-The current skill supplies this procedure; a general-purpose cleanup tool is not implemented. Its implementation is tracked in the source repository’s `ROADMAP.md`, item **CW-04a — Clean leaf assets and shared resources**. The intended user interaction is a natural-language request or future workbench action; terminal use is not required. Do not imply automatic background maintenance, a scheduled service or runtime verification. When building a helper is requested, implement only the bounded operation needed and document its actual supported scope.
+The current skill supplies this procedure; general-purpose cleanup and opinion-routing tools are not implemented. Asset cleanup is tracked in **CW-04a**; the integrated opinion inspector, routing and migration workflow is **CW-03**. The intended user interaction is a natural-language request or future Omniverse workbench action; CLI/IDE access should call the same deterministic core. Do not imply automatic background maintenance, a scheduled service or runtime verification. When building a helper is requested, implement only the bounded operation needed and document its actual supported scope.
+
+For opinion routing, distinguish authored property category from rightful ownership and destination; a transform label alone does not determine whether it belongs in TransLyr or a variant branch. Opinion remains a valid home for deliberate scene selections and experiments; do not clear it automatically. In Kit, show and verify the active edit target. Layer locks are UI guardrails, not file-system access control. GeoLyr cleanup must be opt-in and previewed: remove only confirmed accidental neutral transform opinions on reference sites, preserve the required Xform type and intentional values, and route non-neutral placement through an ownership plan instead of deleting it.
 
 ## Evaluate the declared use
 

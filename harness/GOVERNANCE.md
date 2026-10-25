@@ -10,7 +10,7 @@ Keep three evidence classes distinct: OpenUSD mechanics supported by precise ups
 
 CompositionContract.md is the single prose owner of the CC rules. Tooling requirements define planned execution obligations. Future machine-readable profiles must identify their contract revision and rule IDs; neither implementation nor a successful example silently redefines the contract.
 
-Sibling projects provide routed references, not inherited governance or permission to edit. The private pipeline-nodes project is optional and unassessed. No private implementation content is included here.
+Sibling projects provide routed references, not inherited governance or permission to edit. CC-29 defines an optional producer boundary for `OpenUSD_GoodStart_Pipeline_nodes`; a bounded vision/research review informed that boundary, while implementation compatibility, licensing, runtime and acceptance remain unassessed. The contract repository does not inherit the sibling's governance, require its private runtime or include its implementation content.
 
 ## Change and publication boundaries
 

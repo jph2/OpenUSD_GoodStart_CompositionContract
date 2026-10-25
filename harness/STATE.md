@@ -1654,3 +1654,105 @@ untouched. `python tools/sync_composition_skill.py --install` updated the genera
 contract reference/provenance and installed the maintained skill;
 `--check --install` reported zero stale files in the repository package and
 personal installation at version 0.2.14.
+
+## 2026-10-16 — Integrated opinion inspection and migration requirements
+
+Jan asked whether the separately planned CW-03 Opinion Inspector/Routing and CW-04
+Contract-Guided Bulk Migration should be one feature. Folded them into one staged
+CW-03 capability: read-only inspection, destination/move preview, then explicitly
+authorized application backed by the shared deterministic USD-aware core. The
+roadmap now defines the authored-opinion table and category labels, ownership-aware
+suggestions, coherent transform/material/variant handling, source/destination
+comparison, revision checks, rollback and audit; the four workflow points are
+called out as requirements, not implementation.
+
+Added a narrowly scoped, opt-in GeoLyr cleanup action for confirmed accidental
+neutral transforms and related host opinions. It preserves transformable Xform
+reference-site types and intentional/non-neutral values; ordinary placement is
+routed or left unresolved rather than deleted. Opinion remains a deliberate home
+for selections/experiments and is not automatically cleared. The workflow shows
+and verifies the active edit target. Recorded that Kit layer locks are UX
+protection rather than filesystem ACLs, so external revisions must be detected.
+
+Updated `harness/TOOLING_REQUIREMENTS.md`, `harness/SOURCES.md` with NVIDIA Kit
+layer-state/EditTarget sources, and the skill's planned-tooling guidance. Contract
+rules did not change; Composition Contract/skill remain 0.2.14.
+`python tools/sync_composition_skill.py --install` updated the generated source
+manifest and installed skill metadata; `--check --install` then reported zero
+stale files in both the repository package and personal installation. No
+extension, routing engine, repair script or tests were implemented or run.
+
+## 2026-10-16 — Publish-prim and source-aware application requirements
+
+Jan requested two Omniverse context-menu capabilities: open the exact composed asset
+source in a configured external application, and publish a selected prim as its own
+composition/flattened output/package with optional recomposition. Expanded CW-02 to
+resolve the selected reference/payload arc or sublayer source and identify whether
+the action opens a source layer, asset entrypoint, selected prim or composed preview.
+The application registry must track app/build, USD capability, plugins, resolver
+context and reload behavior; no Max/Maya/Houdini/Blender/Loki integration is assumed
+to exist or support full USD round-trip.
+
+Added planned CW-06 requirements in ROADMAP and TOOLING_REQUIREMENTS. The wizard
+separates composition-preserving assets, flattened snapshots, file encoding and
+USDZ packaging. It inventories authored/composed coverage, dependencies, variants,
+load state, identity and bindings, supports a versioned target-paradigm registry,
+and defaults to publish-only with reviewable/recoverable recomposition. Prim-level
+insertion presents reference/payload; a sublayer contributes an entire LayerStack
+and is a separate whole-layer workflow. Generic ZIP is transport, not USDZ.
+
+Jan clarified that registry labels must match the comparison paper. Updated them to
+the exact Section 21 names: Kitchen Set — film/animation scene and reusable asset
+packages; NVIDIA DSX — AI-factory digital twin and SimReady delivery pipeline;
+NVIDIA Isaac Sim Asset Structure 3.0 — configurable robot asset; and OpenUSD
+GoodStart Composition Contract project/sample set 0.2.0 — nested scene and assembly
+authoring. Kept USD WG `intent-vfx` — supplementary VFX workflow guide as the paper
+labels it. The 0.2.0 label describes the comparison snapshot, while the current
+contract is 0.2.14. Intent Gaming remains a separate future candidate, outside the
+paper's comparison. Added the research and official OpenUSD mechanics/package links
+to SOURCES.md.
+
+These are tooling/workbench requirements only; normative CC rules did not change,
+so contract and skill remain 0.2.14. Added the publish/source-launch workflow to
+the skill and synchronized its generated provenance and personal installation
+with `python tools/sync_composition_skill.py --install`; it updated the repository
+manifest and personal skill metadata at version 0.2.14. The subsequent
+`python tools/sync_composition_skill.py --check --install` reported zero stale
+files in both locations. No extension, publisher, app adapter, tests, or
+target-profile validator was implemented or executed. No commit or push was
+requested.
+
+## 2026-10-16 — Pipeline/startpoint and target-application boundary (0.2.15)
+
+Jan asked to integrate `OpenUSD_GoodStart_Pipeline_nodes` into the Composition
+Contract and described pipeline-produced USD starting layers followed by
+Omniverse-authored contributions. Bounded read-only review covered only the
+sibling Horizon Map, Composition Pipeline Vision, WP-E108 and USD BRep research.
+Its working tree contained many pre-existing changes; it was left untouched.
+No node/code was copied, and compatibility, licensing, runtime execution and
+cross-repository persistence acceptance remain unassessed.
+
+Added CC-29 and bumped the contract/skill to 0.2.15. CC-29 separates the optional
+pipeline producer, the contract's composition/identity/evaluation rules, and
+target-application authorship. It requires immutable source evidence, explicit
+versioned startpoint manifests, stable governing identity, generated-output
+ownership and regeneration diffs, and preserved downstream layers. The profile
+declares when peer contributions use sublayers and when reusable packages enter
+through Reference/Payload; it does not add a universal import layer or force all
+pipeline outputs to be stronger/weaker than all application opinions.
+
+Recorded the sibling USD BRep proposal as a pipeline capability: BRep Tessellate
+first, then Primitive/Boolean only after gated evidence. NVIDIA's `omniSolid`
+BrepArray schema is plugin/runtime dependent, not universally available core
+OpenUSD geometry. NURBS/BRep solids, plugin/schema requirements and tessellated
+mesh deliveries are distinct outputs. No node IDs or implementation requirements
+were added to the sibling repository.
+
+Updated README, roadmap, tooling requirements, source provenance, governance,
+handover and skill. Refreshed active version labels to 0.2.15. The maintained
+skill was reviewed and synchronized with `python tools/sync_composition_skill.py
+--install`; the follow-up `--check --install` reported zero stale files in the
+repository package and personal installation. `git diff --check` passed. No USD
+tests, pipeline tests, Omniverse runtime, renderer delegate, or BRep package was
+executed. Composition Contract is 0.2.15; implementation adoption and target
+acceptance remain open.

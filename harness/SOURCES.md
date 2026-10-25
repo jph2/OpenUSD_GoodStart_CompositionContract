@@ -1,5 +1,28 @@
 # Sources, provenance and integration routes
 
+## Pipeline-generated startpoints and BRep evidence — 2026-10-16
+
+At Jan's request, performed a bounded read-only architecture review of the sibling `OpenUSD_GoodStart_Pipeline_nodes` repository. Read its [Horizon Map](../../OpenUSD_GoodStart_Pipeline_nodes/Horizon%20Map%20OpenUSD%20GoodStart%20Pipeline%20Nodes.md) and [Composition Pipeline Vision](../../OpenUSD_GoodStart_Pipeline_nodes/docs/lifecycle/OpenUSDGoodStart_PipelineNodes_COMPOSITION_PIPELINE_01_V1_VISION.md), plus only WP-E108 and [USD BRep research](../../OpenUSD_GoodStart_Pipeline_nodes/docs/lifecycle/OpenUSDGoodStart_USDBRepIntegration_03_V1_RESEARCH.md). These paths are navigational references to a local sibling checkout and may not resolve in distributed copies. Pipeline implementation details, license compatibility, API compatibility and runtime behavior were not assessed; no code/files were copied or changed in the sibling repository. The pipeline's uncommitted working tree was observed and left untouched.
+
+The sibling Vision frames ComfyUI as a visible deterministic pipeline surface, Omniverse as a USD consumer/authoring runtime, and a persisted USD root/layer stack as their bridge. It specifies immutable source evidence, explicit startpoints, external identity, and downstream layer deltas. The sibling's WP-E108/research records USD BRep as an optional geometry capability: one focused BRep Tessellate node first, with Primitive/Boolean gated by later evidence; all node/runtime/acceptance work remains deferred there. These are project design inputs, not proof of implementation or conformance.
+
+NVIDIA's public [USD BRep project](https://github.com/NVIDIA-Omniverse/usd-brep) describes a NURBS-based BRep solid-modeling library with USD interchange. Its [overview](https://nvidia-omniverse.github.io/usd-brep/latest/) identifies the `omniSolid` BrepArray schema/plugin boundary; its [Python API guide](https://nvidia-omniverse.github.io/usd-brep/latest/docs/python.html) requires plugin registration before USD schema discovery. This is not the built-in OpenUSD geometry schema set and does not imply support in arbitrary USD consumers. Mesh tessellation is a derived representation with separate fidelity/consumer acceptance.
+
+CC-29 records the interoperable producer/contract/consumer boundary without adopting the sibling repository as a dependency. No cross-repository adapter, USD BRep package, application integration or validation was implemented or executed.
+
+## Composition workbench publishing and paradigm profiles — 2026-10-16
+
+The linked [Section 21 paradigm comparison](https://github.com/jph2/USD_GoodStart/blob/main/WIP_Docs/LAYER_ORDER_REFERENCES_RESEARCH.md#21-quick-comparison-kitchen-set-dsx-asset-structure-30-and-composition-contracts-020) is WIP research, not a normative standard. Use its names verbatim: **Kitchen Set — film/animation scene and reusable asset packages**; **NVIDIA DSX — AI-factory digital twin and SimReady delivery pipeline**; **NVIDIA Isaac Sim Asset Structure 3.0 — configurable robot asset**; and **OpenUSD GoodStart Composition Contract project/sample set 0.2.0 — nested scene and assembly authoring**. The paper separately labels **USD WG `intent-vfx` — supplementary VFX workflow guide**. Its comparison snapshot says 0.2.0; the maintained contract is now 0.2.15. Intent Gaming was mentioned as a possible future paradigm but is not in that comparison, and is not represented there as an established profile.
+
+The planned CW-06 publish workflow follows OpenUSD's distinct composition and packaging mechanisms:
+
+- The official [OpenUSD introduction](https://openusd.org/release/intro.html) describes sublayers as ordered/nestable LayerStacks, references as composing a target prim tree into a referencing prim, and payloads as selectively loadable deferred references. This is why per-prim insertion presents Reference/Payload while whole-layer contribution is a separate Sublayer operation.
+- The [OpenUSD reference API](https://openusd.org/release/api/class_usd_references.html) allows sub-root references but cautions about opinions/arcs on ancestor prims; publisher preflight must surface these cases.
+- The [OpenUSD referencing tutorial](https://openusd.org/release/tut_referencing_layers.html) defines flattening as a single layer containing composed data that generally retains no composition operators. Flattened output is therefore a snapshot intent, not interchangeable with a modular asset.
+- The [USDZ specification](https://openusd.org/release/spec_usdz.html) defines a constrained uncompressed package, supported content/layout and package tooling. Generic ZIP transport is not equivalent to a loadable USDZ delivery package.
+
+These sources establish USD mechanics and file-format constraints, not a universal publish recipe or conformance result for any listed target paradigm. CW-06 remains a planned requirement; no publisher or paradigm-specific validator was run.
+
 ## Coordinate profile selection — 2026-10-15
 
 The supplied examples use Y-up as the selected Omniverse teaching profile.
@@ -16,6 +39,21 @@ assets are validated against named profiles. The [Asset Validator UpAxisZChecker
 likewise describes Z-up as required by certain simulation environments. Therefore
 the example conversion is not a SimReady conformance claim; downstream adaptation
 must follow the named target profile and validate the converted package.
+
+## Kit layer workflow and lock scope — 2026-10-16
+
+The integrated opinion-inspection/routing requirement uses Kit as an interactive
+front end but keeps USD-aware inventory and migration in the shared core.
+NVIDIA's [Kit layer-state overview](https://docs.omniverse.nvidia.com/kit/docs/omni.kit.usd.layers/2.7.2/Overview.html)
+describes layer locks as UI state/UX guidance rather than filesystem ACLs; the
+workflow must display edit target and lock status without promising that external
+tools cannot write. NVIDIA's [Kit USD layer/edit-target command reference](https://docs.omniverse.nvidia.com/kit/docs/omni.kit.usd_docs/latest/index.html)
+lists commands for setting the edit target and moving/stitching prim specs between
+layers. Pixar's [`UsdEditTarget` API](https://openusd.org/23.05/api/class_usd_edit_target.html)
+defines mapping from composed scene paths to authored Sdf spec paths, including
+composition mappings. These APIs support implementation options; they do not
+make semantic ownership inferable from a property's type or guarantee that an
+arbitrary move preserves composition behavior.
 
 ## Scope, Xform and variant opinions — 2026-10-15
 
@@ -114,7 +152,7 @@ The old location now holds a forwarding note. The neighboring VariantSetups.md a
 
 - **OpenUSD-GoodStart:** local knowledge/reference project; use its SOURCE_INDEX.md for bounded source routing when available. It is distinct from the GitHub repository named `jph2/USD_GoodStart` above; do not assume they are identical checkouts.
 - **TutorialBuilder:** origin of the discussion and current owner of the experimental variant scenes; future teaching consumer.
-- **OpenUSD_GoodStart_Pipeline_nodes:** private candidate composition-pipeline backbone, named by Jan. A sibling folder exists locally; implementation was not inspected or copied. Remote identity/access and integration suitability remain unverified. Do not expose private contents in collaboration material without authorization.
+- **OpenUSD_GoodStart_Pipeline_nodes:** optional source-pipeline producer candidate. A bounded read-only architecture review of its Horizon Map, Composition Pipeline Vision, and USD BRep research informed CC-29. No implementation was copied or changed. Compatibility, licensing, runtime and persisted consumer acceptance remain unverified; see [pipeline/BRep evidence](#pipeline-generated-startpoints-and-brep-evidence).
 - **AOUSD IEDT / workcell efforts:** intended discussion and possible future integration context, not a dependency, adoption decision or endorsement.
 
 When implementation begins, record exact source revisions for reproducible evidence. Mutable documentation links alone do not pin a technical baseline.

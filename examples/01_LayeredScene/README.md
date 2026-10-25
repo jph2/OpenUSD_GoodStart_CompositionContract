@@ -1,6 +1,6 @@
 # LayeredScene — composition without unnecessary nesting
 
-**Layout convention 0.2.14 · Omniverse/Kit · Y-up · centimetres.**
+**Layout convention 0.2.15 · Omniverse/Kit · Y-up · centimetres.**
 Simple leaves keep their asset content inline. Assemblies keep meaningful work
 layers. Each scene owns a named Opinion file; an identifier is optional and uses
 `OpinLYR_SceneExample.name.usda` when needed.

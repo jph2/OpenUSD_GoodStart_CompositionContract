@@ -35,7 +35,7 @@ No inspector, repair engine, conforming example in this project, automated test 
 ## Related projects and evidence
 
 - **OpenUSD-GoodStart:** sibling knowledge project and source-navigation reference. Distinguish it from the supplied GitHub research repository `jph2/USD_GoodStart`; do not assume identical contents.
-- **OpenUSD_GoodStart_Pipeline_nodes:** Jan's private candidate backbone for a composition pipeline. Its existence was observed; its implementation and suitability were not assessed. Do not copy private content into this collaboration project or require access for basic use.
+- **OpenUSD_GoodStart_Pipeline_nodes:** optional source-pipeline producer candidate. A bounded read-only review of its Horizon Map, Composition Pipeline Vision and USD BRep research informed CC-29's handoff boundary. Implementation compatibility, licensing, runtime and cross-repository acceptance remain unassessed. Do not copy its code or make this contract require access to its private runtime.
 - **AI Harness Quickstart:** the supplied guide informed the small harness structure and the separation of model judgment, fixed procedures and evidence. Precise links and inspection scope are in SOURCES.md.
 
 ## Next-agent starting point

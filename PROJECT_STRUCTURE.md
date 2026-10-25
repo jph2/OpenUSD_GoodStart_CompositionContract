@@ -21,7 +21,7 @@ or migrate those files automatically.
 
 **Preview requirement (CC-00a):** locally authored or owned-published asset entrypoints that claim direct-open readiness load basic environment lighting, including leaves. The simple default is to author `/Environment` inline in the same USD file, beside and outside the default asset prim. A shared preview layer is optional when deliberate reuse across assets justifies the dependency. Scene references target only the asset prim. Do not rewrite imported originals just to add a preview; use an owned adapter or record the limitation when direct-open readiness is required.
 
-## Scaffold and stopping rule (contract 0.2.14)
+## Scaffold and stopping rule (contract 0.2.15)
 
 Self-contained leaves need only their asset file, including materials and variants; author an intrinsic transform inline only when the asset needs one, such as correcting an off-origin pivot. Do not add a TransLyr to an ordinary leaf by default. Every composed-asset or scene starter begins with the full conventional folder and role-layer scaffold; a script or skill may generate it. The owner then decides what is needed and can remove unused categories and contributions, clearing incoming arcs and stale authoring/lock metadata safely. The full scaffold is a starter, not a required final layout. Teaching examples may keep the full folder catalogue at scene scope. Nested compositions are tailored at each scope. Cube and Cone now end recursion in standalone files; DisplayPair keeps its assembly layers, and lofted wrappers retain their purposeful payload boundary. Older role diagrams below describe the available catalogue, not required leaf internals.
 
