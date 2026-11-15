@@ -1,6 +1,9 @@
 # Agent entry — OpenUSD GoodStart Composition Contract
 
-Read README.md, harness/GOVERNANCE.md, harness/WORKFLOW.md and harness/STATE.md first. Then load the relevant CC rules from CompositionContract.md and task-specific evidence from harness/SOURCES.md. For tooling work also read harness/TOOLING_REQUIREMENTS.md. Do not recursively load sibling repositories.
+Read README.md, harness/GOVERNANCE.md, harness/WORKFLOW.md and harness/STATE.md first.
+Multi-agent work: orchestrator follows Personal Governance
+`000_Governance/orchestration_and_context_packets.md`; sub-agents receive a packet
+only (this repo paths and CC sections in `owner_artifacts`, not full GoodStart). Then load the relevant CC rules from CompositionContract.md and task-specific evidence from harness/SOURCES.md. For tooling work also read harness/TOOLING_REQUIREMENTS.md. Do not recursively load sibling repositories.
 
 ## Primary application focus
 
