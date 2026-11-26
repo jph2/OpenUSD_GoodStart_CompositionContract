@@ -160,7 +160,7 @@ Seed the registry with these evidenced labels:
 | **USD WG `intent-vfx` — supplementary VFX workflow guide** | Supplementary VFX workflow example in the linked research, not one of its four primary approaches or a normative specification. |
 | **NVIDIA DSX — AI-factory digital twin and SimReady delivery pipeline** | Pin the applicable product/document revision and validator before claiming readiness. |
 | **NVIDIA Isaac Sim Asset Structure 3.0 — configurable robot asset** | Versioned robotics asset target; pin Isaac Sim build and acceptance requirements. |
-| **OpenUSD GoodStart Composition Contract project/sample set 0.2.0 — nested scene and assembly authoring** | Exact comparison-paper label. It describes that paper's comparison snapshot; the current maintained contract profile is version 0.2.15. |
+| **OpenUSD GoodStart Composition Contract project/sample set 0.2.0 — nested scene and assembly authoring** | Exact comparison-paper label. It describes that paper's comparison snapshot; the current maintained contract profile is version 0.2.16. |
 
 Use the comparison-paper labels verbatim in menus, reports and registry entries; do not invent shortened or rebranded names. The linked Section 21 paper identifies these four primary approaches and separately labels USD WG `intent-vfx` as supplementary. It is WIP research, not an external standard. Intent Gaming was mentioned as a possible future paradigm but is outside the paper's comparison; keep it in a separate future-candidates list until a source, version, requirements and acceptance evidence are defined.
 

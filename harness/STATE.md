@@ -1,5 +1,16 @@
 # Resume state
 
+## 2026-11-26 — Contract v0.3.0 (Stages of Readiness, Pos/Neg Fitness, Publish Gate, CC-30 Behaviour Seam)
+
+Updated `CompositionContract.md`, `README.md`, and `skills/openusd-composition-contract/SKILL.md` from `0.2.16` to `0.3.0`:
+
+- **§1 Purpose and scope:** Added **Horizontal composition governance vs. vertical domain blueprints** (positioning the contract as horizontal ownership/lifecycle governance alongside vertical blueprints such as Isaac 3.0, DSX, Kitchen Set, and ASWF `intent-vfx`) and the **Stages of Readiness** model (Stages 1–2 core/look, Stage 3 goal branches, Stage 4 package/prove, Stages 5–6 reserved seams).
+- **CC-04 & CC-12:** Added explicit **positive and negative fitness** declarations (`PosModelPurpose` / `NegModelPurpose` or equivalent profile claims) and validation-honesty rules (attribute-presence checks do not establish type, unit, semantic, or runtime validity).
+- **CC-27:** Added the **internal-vs-outward key publish gate** (internal PDM/CAD keys stay in the source system; only declared outward keys ship) and external **EU DPP** boundary (ESPR / `IDTA 02099-1` linked via outward IDs, never embedded as a USD layer).
+- **§25 CC-30 (new):** Added the ownership seam for executable behaviour and control-loop bindings (`IDTA 02005` FMU/SSP, firmware, and Stage 5 I/O): type-level behaviour ≠ instance-level `.ssv`/I/O map ≠ system-level `.ssd`/fieldbus wiring, mapping ports to `PortsLyr` and outputs to `SimLyr`/`RuntimeLyr` under `CC-23`, while keeping concrete schemas (`UsdFMU`, `sim:*`, `GenICam`) in pinned domain profiles.
+- **Skill sync:** Updated `SKILL.md` (`0.3.0`) with the new rules and `§25 CC-30` map entry. Ran `python tools/sync_composition_skill.py --install` (updated `references/CompositionContract.md` and `references/source.json` in-repo plus `SKILL.md`, `references/CompositionContract.md`, and `references/source.json` in `C:\Users\jhalu\.codex\skills\openusd-composition-contract`) and `python tools/sync_composition_skill.py --check --install` (`stale 0 file(s)` in both, `0.3.0`).
+- **Remaining limitations:** Documentation/contract update only; no USD scenes, validators, FMU bindings, or Kit runtime tests were executed.
+
 ## 2026-10-12 — LayeredScene lock maps and coordinates
 
 Jan requested repairing the stale authoring lock maps and checking environments
@@ -1756,3 +1767,27 @@ repository package and personal installation. `git diff --check` passed. No USD
 tests, pipeline tests, Omniverse runtime, renderer delegate, or BRep package was
 executed. Composition Contract is 0.2.15; implementation adoption and target
 acceptance remain open.
+
+## 2026-11-20 — Immutable-leaf-only USDZ policy & zero-compression rationale (0.2.16)
+
+Jan requested updating the Composition Contract after reviewing the AOUSD Core
+§16.4.1 / Apple Safari USDZ packaging mechanics: USDZ uses zero ZIP compression
+(`STORE`) and 64-byte alignment so readers can memory-map (`mmap`) and slice
+byte ranges directly (with internal `.usdc` layers and textures providing data
+compression), whereas compressed `.zip` defeats direct access. Per Jan's policy
+decision, USDZ delivery is an accepted optional workflow **only for leaf assets**
+where the team is quite certain those assets will not be modified inside
+themselves during production; scenes, composed assemblies, active multi-team
+editing, heavy Omniverse RTX (`OVRTX`) streaming, and `OmniPBR`/MDL workflows
+remain unzipped folder packages.
+
+Updated `CompositionContract.md` (`CC-00d`, status/revision/diagram labels to
+`0.2.16`), `README.md`, `ROADMAP.md`, `PROJECT_STRUCTURE.md`,
+`harness/SOURCES.md`, and `skills/openusd-composition-contract/SKILL.md`. Kept
+historical `examples/01_LayeredScene/README.md` (`0.2.15`) and the Section 21
+comparison label (`0.2.0`) unchanged. Synchronized the skill package and
+personal installation (`C:\Users\jhalu\.codex\skills\openusd-composition-contract`)
+with `python tools/sync_composition_skill.py --install`, and verified zero stale
+files in both locations via `python tools/sync_composition_skill.py --check
+--install` (version `0.2.16`). No USD runtime or Kit tests were run; no commit
+or push was requested in this repository.
