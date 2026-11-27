@@ -6,7 +6,7 @@ For the one-minute employee handout, start with the [ROOTS quick-start manifest]
 
 **Primary platform: NVIDIA Omniverse.** This proposal targets Omniverse and Kit, including their RTX, viewport, environment and authoring features. It distinguishes OpenUSD mechanics, project conventions and Kit behavior; other targets need separate assessment. This is an independent proposal, not an NVIDIA or AOUSD standard.
 
-**Version 0.3.0 — independent work-in-progress proposal and local example · 2026-11-26**
+**Version 0.3.1 — independent work-in-progress proposal and local example · 2026-11-27**
 
 This project grew out of my journey into OpenUSD. I have spent a lot of time thinking about asset structures, how they compose, and what makes them useful. That led me to a more precise starting point: **a structure needs a purpose, requirements and an evaluation standard before we can judge how well it works.**
 
@@ -30,7 +30,7 @@ A robot packaged using NVIDIA's [Asset Structure 3.0](https://docs.isaacsim.omni
 
 The supplied teaching profile is Y-up. SimReady asset guidance and some named simulation requirements specify Z-up, so this example setting is not a SimReady conformance claim; use the declared target profile's axis and validate any conversion.
 
-We define broad applicability through **common ownership and interface rules across explicitly supported domain profiles** (horizontal composition governance complementary to vertical domain blueprints such as Isaac 3.0, DSX, and ASWF Intent). The contract's [NVIDIA alignment and readiness requirements](CompositionContract.md#21-nvidia-alignment-and-readiness-requirements) explain the remaining work: target publication formats, units and geometry preparation, robotics and sensor acceptance, identity continuity, behaviour-model bindings (`CC-30`), executable validation and measured deployment. The contract draft is now 0.3.0; example profiles retain their own acceptance status until re-evaluated.
+We define broad applicability through **common ownership and interface rules across explicitly supported domain profiles** (horizontal composition governance complementary to vertical domain blueprints such as Isaac 3.0, DSX, and ASWF Intent). The contract's [NVIDIA alignment and readiness requirements](CompositionContract.md#21-nvidia-alignment-and-readiness-requirements) explain the remaining work: target publication formats, units and geometry preparation, robotics and sensor acceptance, identity continuity, behaviour-model bindings (`CC-30`), executable validation and measured deployment. Example profiles retain their own acceptance status until re-evaluated.
 
 ### Pipeline-to-composition toolset
 
@@ -61,7 +61,7 @@ When the purpose or requirements change, revise the contract explicitly and eval
 ```mermaid
 %%{init: {"flowchart": {"wrappingWidth": 280, "nodeSpacing": 20, "rankSpacing": 24}}}%%
 flowchart LR
-    accTitle: OpenUSD GoodStart Composition Contract 0.2.16 - The paradigm
+    accTitle: OpenUSD GoodStart Composition Contract 0.3.1 - The paradigm
     accDescr: Root on the left, vertical scene layers in the middle with GeoLyr at the bottom, and reusable assemblies, assets and materials on the right.
     R["SceneROOT_Example.usda<br/>Combines the scene layers"]
 
@@ -137,11 +137,11 @@ Each evaluation case needs named inputs, the applicable contract/profile revisio
 
 ## Working with agents
 
-Use **`$openusd-composition-contract`** to apply this proposal when designing, reviewing or changing USD assets, assemblies and digital twins. The maintained [skill](skills/openusd-composition-contract/SKILL.md) includes operational guidance and a generated contract reference with the paper's version and source hash. Its version matches contract **0.2.16**; the skill supplies guidance, while general enforcement and runtime acceptance remain planned.
+Use **`$openusd-composition-contract`** to apply this proposal when designing, reviewing or changing USD assets, assemblies and digital twins. The maintained [skill](skills/openusd-composition-contract/SKILL.md) includes operational guidance and a generated reference for contract **0.3.1** with the paper's source hash. General enforcement and runtime acceptance remain planned.
 
 After reviewing the skill for affected rule/workflow changes, refresh it from the repository root with `python tools/sync_composition_skill.py --install`. Use `python tools/sync_composition_skill.py --check --install` to compare the generated files and personal installation without writing. The default personal location follows this host's `$CODEX_HOME/skills` (or `~/.codex/skills`); `--skills-root` supports another configured location. [AGENTS.md](AGENTS.md#keep-the-contract-skill-synchronized) requires this maintenance whenever the repository changes, with the main paper remaining the rule owner.
 
-**Identity and integration:** IdentityLyr records who an occurrence represents, usually on its placement prim rather than every mesh. Asset source IDs, assembly/scene occurrence IDs and physical-instance IDs have different owners and scopes. Composable bindings use those identities to map external data to explicit USD properties and authoring contexts. See [CC-27/28](CompositionContract.md#23-identity-and-composable-bindings) for placement guidance, examples and planned evaluation; no binding engine or standardized identifier schema is implemented here.
+**Identity and integration.** IdentityLyr records who an occurrence represents, usually on its placement prim. Composable bindings use those identities to map external data to explicit USD properties and authoring contexts. Declarations live beside the USD package. Outputs use existing layer roles, with transient live data, explicit snapshots and reviewed promotion of durable generated opinions. The P-101 example shows how to verify that the right measurement reaches the right representation. [CC-27/28](CompositionContract.md#23-identity-and-composable-bindings) · [P-101 acceptance example](CompositionContract.md#p-101-acceptance-example)
 
 The same contract gives different agents and human contributors a common basis for work across tasks, projects and repositories. Each task can identify its purpose, applicable profile, permitted scope, required outputs and evaluation criteria. The result carries evidence that another agent or person can review, and work continues until the applicable criteria are satisfied.
 

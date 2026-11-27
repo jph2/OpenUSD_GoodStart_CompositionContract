@@ -1,5 +1,26 @@
 # Resume state
 
+## 2026-11-27 — CC-28 binding outputs and promotion (0.3.1)
+
+Jan approved adding the v17 research's write patterns to CC-28. Binding
+declarations and execution records live beside the USD package. Binding outputs
+use existing roles at the owning scope. P0 requires a transient writer and a
+separate explicit snapshot operation. P1 requires validated sparse durable
+overlays with layer provenance. P2 requires review isolation, promotion of the
+exact approved revision and recovery of the previous output and its composition.
+P3 routes load-profile requirements to CC-05a. P-101 is the acceptance example
+for source identity, representation roles and the wrong-selector replay.
+
+Updated the README, active version labels, source evidence, maintained skill
+guidance and skill UI metadata. Ran `python tools/sync_composition_skill.py
+--install` to refresh the generated package and personal installation at
+`C:/Users/jan/.codex/skills/openusd-composition-contract`. The subsequent
+`--check --install` reported zero stale files in both locations at version 0.3.1.
+`git diff --check` passed. The recorded P-101 candidate passed verification in
+the research repository and remains pending approval. No replay, USD or Kit
+tests ran for this documentation revision. Implementation and profile acceptance
+remain open.
+
 ## 2026-11-26 — Contract v0.3.0 (Stages of Readiness, Pos/Neg Fitness, Publish Gate, CC-30 Behaviour Seam)
 
 Updated `CompositionContract.md`, `README.md`, and `skills/openusd-composition-contract/SKILL.md` from `0.2.16` to `0.3.0`:

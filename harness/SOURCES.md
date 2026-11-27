@@ -130,6 +130,14 @@ Also inspected Aaron Luk's [proposal #105](https://github.com/PixarAnimationStud
 
 Project adaptations: layer provenance belongs in customLayerData; quarantine requires actual composition exclusion; rollback/persisted muting and reverse-system writes need explicit mechanisms. Identity continuity needs authoring-tool behavior and evaluation, not merely a tag. Current example IdentityLyr has only illustrative cc:occurrenceId fields on scene occurrence parents.
 
+### Composable binding write patterns and P-101 evidence
+
+Reviewed 2026-11-27. The Microsoft/NVIDIA whitepaper describes the telemetry, enrichment and visualization path and identifies declarative configuration as future work. NVIDIA's pinned reference sample implements the live path with source-scoped identity and replaceable consumers. Its source-ID dictionary is a sample convention. Historical lookup belongs to the issuing source system. [Whitepaper, PDF pp. 8–11](https://cdn-dynmedia-1.microsoft.com/is/content/microsoftcorp/microsoft/bade/documents/products-and-services/en-us/industry/Composable-Bindings-Simplified-System-Integration-Whitepaper.pdf) · [Pinned NVIDIA sample architecture](https://github.com/NVIDIA-Omniverse/omniverse-labs/blob/4d41d90fe308c127242b2549731a800396cd80f1/samples/composable-bindings-reference-sample/docs/reference/ARCHITECTURE.md)
+
+The sibling `AAS_OPC_OpenUSD_INTEGRATION/docs/AAS_OPC_OpenUSD_RESEARCH_v17_LONG.md` owns the reviewed P0–P3 proposals (§§6.3.6–6.3.7) and the P-101 case (§7.14). CC-28 adopts these as local requirements with existing layer roles and cross-references CC-05a for load rules. OpenUSD supplies sparse `over` specs, session layers and load rules. The profile and binding tooling enforce target validation, transient writes, promotion and rollback. [OpenUSD `over` semantics](https://openusd.org/release/glossary.html#over) · [OpenUSD stage API](https://openusd.org/release/api/class_usd_stage.html)
+
+The pinned two-pump client resolves a source/device pair, writes live values to physical placements and applies display colour to matching representations through anonymous session layers. The sibling research receipt `examples/p101_flow_repair/verification.json` records 126 matching events across 42 scans for the candidate, rejects the wrong numeric selector and reports approval pending and `promoted: false`. The recorded proof consumes simulated BMS data from a recording and uses a headless USD client. It supplies no live control, Kit runtime or production-promotion evidence. The separate `examples/roundtrip_02026/` demonstrator covers bounded durable AAS/USD field exchange. These are source observations. This contract revision did not rerun either demonstration. [Pinned two-pump USD client](https://github.com/perfectproducts/two-pump-bindings/blob/a701d9317cf40a503757d74263d9a1e8eb2946c8/source/clients/usd_client/bindings.py)
+
 ## Imported owner
 
 On 2026-10-10 CompositionContract.md moved from TutorialBuilder:

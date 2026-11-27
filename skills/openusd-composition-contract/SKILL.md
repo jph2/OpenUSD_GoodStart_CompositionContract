@@ -2,7 +2,7 @@
 name: openusd-composition-contract
 description: Apply the OpenUSD GoodStart Composition Contract when designing, reviewing, authoring or repairing layered USD assets, nested assemblies, digital twins and robotics scenes. Use for layer ownership, variants, transforms, asset-structure cleanup, shared resources, delivery packaging, reusable interfaces, stable identity, composable bindings and target readiness. Generic Kit UI work does not require this skill.
 metadata:
-  version: "0.3.0"
+  version: "0.3.1"
   source: "https://github.com/jph2/OpenUSD_GoodStart_CompositionContract"
 ---
 
@@ -99,6 +99,10 @@ If authoritative identity is absent, a designated owner may allocate a durable l
 For source-pipeline integration, follow CC-29: keep original source evidence immutable, identify the pipeline-owned generated startpoint and its revisions/dependencies, and compose it through the declared layer or public asset interface. Preserve downstream Omniverse/consumer-authored layers during regeneration; compare outputs and report conflicts before any mapping, namespace, identity or binding change. The node graph is a replaceable producer, not the composition contract or proof of consumer correctness. Do not force every asset into sublayers: use sublayers for declared peer contributions and references/payloads for reusable asset entrypoints. Treat NVIDIA USD BRep/NURBS as an optional plugin/profile-dependent representation; keep its schema/runtime and derived mesh delivery distinct, and do not claim universal OpenUSD consumer support.
 
 Under CC-28, bindings resolve these identities to the current stage/profile revision and the rightful property/layer/variant context. Record units, conversions, time, permitted writers and lifecycle. Reject ambiguous targets or unintended collisions; declare fan-out when one type maps to several occurrences. Invalidate/re-resolve mappings after relevant changes. BindingSpec, BindingPlan, BindingChangeSet and provenance receipts are project design requirements; USD composition alone does not execute an integration engine.
+
+Keep binding declarations and execution records beside the USD package. Route results to existing roles at the owning scope. P0 writes live data transiently and requires a separate snapshot operation for persistence. P1 writes approved sparse overlays in the declared role, checks the target independently of the overlay, and records owner, binding ID and plan hash in `customLayerData`. P2 isolates proposed opinions in review composition, promotes the exact approved output and restores both the prior output and its composition on rollback. Keep conditional opinions in their variant branch. For P3, apply CC-05a and declare which identity and targets are available under each load state.
+
+Use P-101 as the CC-28 acceptance example. Resolve the source device, check the distinction between physical placement and schematic symbol, and compare the value, unit and observation time. The recorded wrong-selector case reproduced the alarms but failed the flow check. Treat the replay as evidence of candidate verification. Its production approval remains pending in the recorded receipt.
 
 ## Inspect and change through evidence
 
